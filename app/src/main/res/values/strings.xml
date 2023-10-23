@@ -1,3 +1,20 @@
 <resources>
     <string name="app_name">ProyectoGrupo1MusicStore</string>
+    <string name="name">Kevin Daniel Elwin</string>
+    <string name="username">kdelwin</string>
+    <string name="email">kdelwin@uth.com</string>
+    <string name="followers">0</string>
+    <string name="seguidores">Seguidores</string>
+    <string name="following">0</string>
+    <string name="siguiendo">Siguiendo</string>
+    <string name="gruposfavs">Grupos Favoritos</string>
+    <string name="playlist">Playlists</string>
+    <string name="playlist1">Nombre de Playlist</string>
+    <string name="playlist2">Nombre de Playlist</string>
+    <string name="playlist3">Nombre de Playlist</string>
+    <string name="grupo1">Grupo 1</string>
+    <string name="grupo2">Grupo 2</string>
+    <string name="grupo3">Grupo 3</string>
+    <string name="atras">Atrás</string>
+    <string name="menudespegable">MenuDespegable</string>
 </resources>
