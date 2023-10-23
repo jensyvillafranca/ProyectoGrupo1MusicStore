@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">ProyectoGrupo1MusicStore</string>
-    <string name="name">Kevin Daniel Elwin</string>
-    <string name="username">kdelwin</string>
-    <string name="email">kdelwin@uth.com</string>
+    <string name="name">Nombre Completo</string>
+    <string name="username">username</string>
+    <string name="email">user@user.com</string>
     <string name="followers">0</string>
     <string name="seguidores">Seguidores</string>
     <string name="following">0</string>
@@ -16,5 +16,9 @@
     <string name="grupo2">Grupo 2</string>
     <string name="grupo3">Grupo 3</string>
     <string name="atras">Atrás</string>
-    <string name="menudespegable">MenuDespegable</string>
+    <string name="cambiarContrasena">Cambiar Contraseña</string>
+    <string name="ingreseContrasenaActual">Ingrese su contraseña actual</string>
+    <string name="ingreseNuevaContrasena">Ingrese una nueva contraseña</string>
+    <string name="confirmaContrasena">Confirma su contraseña</string>
+    <string name="enviarCodigo">Enviar código</string>
 </resources>
