@@ -387,7 +387,7 @@ android:layout_height="wrap_content">
                                                 <TextView
                                                     android:layout_width="80dp"
                                                     android:layout_height="wrap_content"
-                                                    android:text="@string/playlist2"
+                                                    android:text="@string/playlist"
                                                     android:textSize="13sp"
                                                     android:textColor="#D3D3D3"
                                                     android:textAlignment="center"
@@ -415,7 +415,7 @@ android:layout_height="wrap_content">
                                                 <TextView
                                                     android:layout_width="80dp"
                                                     android:layout_height="wrap_content"
-                                                    android:text="@string/playlist3"
+                                                    android:text="@string/playlist"
                                                     android:textSize="13sp"
                                                     android:textColor="#D3D3D3"
                                                     android:textAlignment="center"
@@ -443,7 +443,7 @@ android:layout_height="wrap_content">
                                                 <TextView
                                                     android:layout_width="80dp"
                                                     android:layout_height="wrap_content"
-                                                    android:text="@string/playlist3"
+                                                    android:text="@string/playlist"
                                                     android:textSize="13sp"
                                                     android:textColor="#D3D3D3"
                                                     android:textAlignment="center"
@@ -470,7 +470,7 @@ android:layout_height="wrap_content">
                                                 <TextView
                                                     android:layout_width="80dp"
                                                     android:layout_height="wrap_content"
-                                                    android:text="@string/playlist3"
+                                                    android:text="@string/playlist"
                                                     android:textSize="13sp"
                                                     android:textColor="#D3D3D3"
                                                     android:textAlignment="center"
@@ -497,7 +497,7 @@ android:layout_height="wrap_content">
                                                 <TextView
                                                     android:layout_width="80dp"
                                                     android:layout_height="wrap_content"
-                                                    android:text="@string/playlist3"
+                                                    android:text="@string/playlist"
                                                     android:textSize="13sp"
                                                     android:textColor="#D3D3D3"
                                                     android:textAlignment="center"
@@ -524,7 +524,7 @@ android:layout_height="wrap_content">
                                                 <TextView
                                                     android:layout_width="80dp"
                                                     android:layout_height="wrap_content"
-                                                    android:text="@string/playlist3"
+                                                    android:text="@string/playlist"
                                                     android:textSize="13sp"
                                                     android:textColor="#D3D3D3"
                                                     android:textAlignment="center"

@@ -24,4 +24,5 @@
     <string name="perfilPrivado">Perfil Privado</string>
     <string name="eliminarCuenta">Eliminar Cuenta</string>
     <string name="notificaciones">Notificaciones</string>
+    <string name="archivosPersonales">Archivos Personales</string>
 </resources>
