@@ -1,4 +1,6 @@
 <resources>
+
+    <!--Kevin-->
     <string name="app_name">ProyectoGrupo1MusicStore</string>
     <string name="name">Nombre Completo</string>
     <string name="username">username</string>
@@ -25,4 +27,13 @@
     <string name="eliminarCuenta">Eliminar Cuenta</string>
     <string name="notificaciones">Notificaciones</string>
     <string name="archivosPersonales">Archivos Personales</string>
+
+
+    <!--Jensy-->
+    <string name="textviewLoginUsuario">Usuario</string>
+    <string name="textviewLoginPassword">Contraseña</string>
+    <string name="checkLoginRecordar">Recordarme</string>
+    <string name="txtviewOlvidaPassword">¿Olvida su contraseña?</string>
+
+
 </resources>
