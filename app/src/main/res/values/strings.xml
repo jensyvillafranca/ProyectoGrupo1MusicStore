@@ -29,13 +29,16 @@
     <string name="archivosPersonales">Archivos Personales</string>
 
 
-    <!--Jensy-->
+    <!--Jensy Login-->
     <string name="textviewLoginUsuario">Usuario</string>
     <string name="textviewLoginPassword">Contraseña</string>
     <string name="checkLoginRecordar">Recordarme</string>
     <string name="txtviewOlvidaPassword">¿Olvida su contraseña?</string>
     <string name="btnLoginEntrar">Entrar</string>
     <string name="btnLoginRegistrarse">Registrarse</string>
+
+    <!--Jensy Login-->
+    <string name="txtviewRegistrarsePrimerNombre">Primer Nombre</string>
 
 
 </resources>
