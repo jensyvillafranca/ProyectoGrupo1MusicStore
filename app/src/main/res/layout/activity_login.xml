@@ -12,6 +12,7 @@
 
 
         <FrameLayout
+            android:id="@+id/btnLoginEntrar"
             android:layout_width="417dp"
             android:layout_height="742dp"
             android:background="@drawable/FondoLogin">
@@ -19,9 +20,8 @@
             <View
                 android:layout_width="340dp"
                 android:layout_height="590dp"
-                android:background="@drawable/SubFondoInicioSesion"
-                android:layout_gravity="center">
-            </View>
+                android:layout_gravity="center"
+                android:background="@drawable/SubFondoInicioSesion"></View>
 
 
             <LinearLayout
@@ -38,7 +38,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/textviewLoginUsuario"
                     android:textColor="#FFFFFF"
-                    android:textSize="16sp"/>
+                    android:textSize="16sp" />
 
                 <EditText
                     android:id="@+id/txtLoginUsuario"
@@ -54,18 +54,18 @@
                     android:id="@+id/txtviewLoginPassword"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="22dp"
                     android:text="@string/textviewLoginPassword"
                     android:textColor="#FFFFFF"
-                    android:textSize="16sp"
-                    android:layout_marginTop="22dp"/>
+                    android:textSize="16sp" />
 
                 <EditText
+                    android:id="@+id/txtLoginPassword"
                     android:layout_width="match_parent"
                     android:layout_height="39dp"
                     android:layout_marginTop="7dp"
                     android:background="@color/white"
-                    android:inputType="text|textPassword">
-                </EditText>
+                    android:inputType="text|textPassword"></EditText>
 
 
             </LinearLayout>
@@ -81,6 +81,7 @@
 
                 <!---Checkbox-->
                 <CheckBox
+                    android:id="@+id/checkLoginRecordar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checked="true"
@@ -88,17 +89,17 @@
                     android:textColorHighlight="#FFFFFF"
                     android:textColorLink="#FFFCFC"
                     android:textSize="15sp"
-                    tools:text="@string/checkLoginRecordar">
-                </CheckBox>
+                    tools:text="@string/checkLoginRecordar"></CheckBox>
 
                 <!---¿Olvido su contraseña?-->
                 <TextView
+                    android:id="@+id/txtviewOlvidaPassword"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    tools:text="@string/txtviewOlvidaPassword"
-                    android:textSize="15sp"
+                    android:paddingLeft="20dp"
                     android:textColor="#FFFDFD"
-                    android:paddingLeft="20dp">
+                    android:textSize="15sp"
+                    tools:text="@string/txtviewOlvidaPassword">
 
                 </TextView>
 
@@ -110,20 +111,84 @@
                 android:layout_height="47dp"
                 android:layout_marginStart="70dp"
                 android:layout_marginTop="500dp"
-                android:orientation="vertical"
-                android:background="@color/black">
+                android:orientation="horizontal">
+
+                <!--Huella Digital-->
+                <ImageButton
+                    android:id="@+id/btnLoginHuella"
+                    android:layout_width="39dp"
+                    android:layout_height="42dp"
+                    android:layout_marginStart="30dp"
+                    android:background="@drawable/huella" />
+
+                <!--Texto del botón de huella digital-->
+                <TextView
+                    android:id="@+id/txtviewLoginHuella"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="13dp"
+                    android:text="Huella"
+                    android:textColor="#FFFFFF"
+                    android:textSize="15dp"></TextView>
+
+                <!--Reconocimiento Facial-->
+                <ImageButton
+                    android:id="@+id/btnLoginFacial"
+                    android:layout_width="37dp"
+                    android:layout_height="42dp"
+                    android:layout_marginStart="35dp"
+                    android:background="@drawable/reconocimiento"></ImageButton>
+
+                <!--Texto del botón de Reconocimiento Facial-->
+                <TextView
+                    android:id="@+id/txtviewLoginFacial"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="13dp"
+                    android:text="Rec.Facial"
+                    android:textColor="#FFFFFF"
+                    android:textSize="15dp"></TextView>
             </LinearLayout>
 
             <!---Área de botones-->
             <LinearLayout
                 android:layout_width="278dp"
                 android:layout_height="47dp"
-                android:layout_marginStart="70dp"
-                android:layout_marginTop="580dp"
-                android:orientation="vertical"
-                android:background="@color/black">
-            </LinearLayout>
+                android:layout_marginStart="75dp"
+                android:layout_marginTop="600dp"
+                android:orientation="horizontal">
 
+                <Button
+                    android:id="@+id/btnLoginEntrar"
+                    android:layout_width="115dp"
+                    android:layout_height="33dp"
+                    android:background="@color/button"
+                    android:text="@string/btnLoginEntrar"
+                    android:textColor="@color/white"
+                    tools:ignore="TextContrastCheck,VisualLintButtonSize" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="o"
+                    android:textColor="#FFFFFF">
+
+                </TextView>
+
+                <Button
+                    android:id="@+id/btnLoginRegistrarse"
+                    android:layout_width="115dp"
+                    android:layout_height="33dp"
+                    android:layout_marginStart="10dp"
+                    android:background="@color/white"
+                    android:text="@string/btnLoginRegistrarse"
+                    android:textColor="@color/black"
+                    tools:ignore="TextContrastCheck,VisualLintButtonSize" />
+
+            </LinearLayout>
 
 
         </FrameLayout>

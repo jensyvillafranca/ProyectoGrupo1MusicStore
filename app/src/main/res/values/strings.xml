@@ -34,6 +34,8 @@
     <string name="textviewLoginPassword">Contraseña</string>
     <string name="checkLoginRecordar">Recordarme</string>
     <string name="txtviewOlvidaPassword">¿Olvida su contraseña?</string>
+    <string name="btnLoginEntrar">Entrar</string>
+    <string name="btnLoginRegistrarse">Registrarse</string>
 
 
 </resources>
