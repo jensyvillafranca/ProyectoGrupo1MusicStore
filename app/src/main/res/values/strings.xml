@@ -10,8 +10,6 @@
     <string name="gruposfavs">Grupos Favoritos</string>
     <string name="playlist">Playlists</string>
     <string name="playlist1">Nombre de Playlist</string>
-    <string name="playlist2">Nombre de Playlist</string>
-    <string name="playlist3">Nombre de Playlist</string>
     <string name="grupo1">Grupo 1</string>
     <string name="grupo2">Grupo 2</string>
     <string name="grupo3">Grupo 3</string>
@@ -21,4 +19,9 @@
     <string name="ingreseNuevaContrasena">Ingrese una nueva contraseña</string>
     <string name="confirmaContrasena">Confirma su contraseña</string>
     <string name="enviarCodigo">Enviar código</string>
+    <string name="biografia">Biografia</string>
+    <string name="habilitarDatosBiometricos">Habilitar Dato Biometrícos</string>
+    <string name="perfilPrivado">Perfil Privado</string>
+    <string name="eliminarCuenta">Eliminar Cuenta</string>
+    <string name="notificaciones">Notificaciones</string>
 </resources>
