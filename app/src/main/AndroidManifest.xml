@@ -22,6 +22,12 @@
             android:name=".perfilPersonal"
             android:exported="false" />
         <activity
+            android:name=".ActivityPantallaPrincipal"
+            android:exported="false" />
+        <activity
+            android:name=".ActivityGrupoPrincipal"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
