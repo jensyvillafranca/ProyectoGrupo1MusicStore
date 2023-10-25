@@ -13,10 +13,10 @@
         android:theme="@style/Theme.ProyectoGrupo1MusicStore"
         tools:targetApi="31">
         <activity
-            android:name=".activity_registrarse"
+            android:name=".ActivityGrupoPrincipal"
             android:exported="false" />
         <activity
-            android:name=".activity_login"
+            android:name=".activityPantallaPrincipal"
             android:exported="false" />
         <activity
             android:name=".perfilPersonal"
