@@ -16,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        prueba = (Button) findViewById(R.id.prueba);
+        /*prueba = (Button) findViewById(R.id.prueba);
         btnPantallaPrincipal = (Button) findViewById(R.id.btnPruebaPantallaPrincipal);
 
         prueba.setOnClickListener(new View.OnClickListener() {
@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
                 Intent prueba = new Intent(getApplicationContext(),activity_registrarse.class);
                 startActivity(prueba);
             }
-        });
+        });*/
 
         btnPantallaPrincipal.setOnClickListener(new View.OnClickListener() {
             @Override
