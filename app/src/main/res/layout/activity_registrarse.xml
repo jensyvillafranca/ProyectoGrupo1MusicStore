@@ -16,38 +16,231 @@
             android:background="@drawable/fondologin">
 
             <View
-                android:layout_width="340dp"
-                android:layout_height="590dp"
+                android:layout_width="348dp"
+                android:layout_height="650dp"
                 android:layout_gravity="center"
+                android:layout_marginStart="-27dp"
                 android:background="@drawable/subfondoregistrate"></View>
 
             <LinearLayout
-                android:layout_width="284dp"
-                android:layout_height="340dp"
-                android:layout_marginStart="50dp"
-                android:layout_marginTop="235dp"
-                android:orientation="vertical">
+                android:layout_width="324dp"
+                android:layout_height="49dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="225dp"
+                android:orientation="horizontal">
 
-                <!---Primer Nombre-->
+                <!---Nombres Labels-->
                 <TextView
-                    android:id="@+id/txtviewRegistrarsePrimerNombre"
+                    android:id="@+id/txtviewRegistrarNombres"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/txtviewRegistrarsePrimerNombre"
+                    android:text="@string/txtviewRegistrarNombres"
                     android:textColor="#FFFFFF"
-                    android:textSize="16sp" />
+                    android:textSize="14sp" />
 
+                <!---Apellidos Labels-->
+                <TextView
+                    android:id="@+id/txtviewRegistrarApellidos"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="110dp"
+                    android:text="@string/txtviewRegistrarApellidos"
+                    android:textColor="#FFFFFF"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="325dp"
+                android:layout_height="49dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="245dp"
+                android:orientation="horizontal">
+
+                <!---Nombres txt-->
                 <EditText
-                    android:id="@+id/txtRegistrarsePrimerNombre"
-                    android:layout_width="match_parent"
-                    android:layout_height="39dp"
+                    android:id="@+id/txtRegistrarNombres"
+                    android:layout_width="155dp"
+                    android:layout_height="28dp"
                     android:layout_marginTop="7dp"
-                    android:background="@color/white">
+                    android:layout_marginRight="14dp"
+                    android:background="@color/white"
+                    android:padding="6dp"
+                    android:textSize="14sp"></EditText>
 
-                </EditText>
+                <!---Apellidos txt-->
+                <EditText
+                    android:id="@+id/txtRegistrarApellidos"
+                    android:layout_width="155dp"
+                    android:layout_height="28dp"
+                    android:layout_marginTop="7dp"
+                    android:background="@color/white"
+                    android:padding="6dp"
+                    android:textSize="14sp"></EditText>
 
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="325dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="295dp"
+                android:orientation="vertical">
+
+                <!---Correo Electrónico-->
+                <TextView
+                    android:id="@+id/txtviewRegistrarCorreo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/txtviewRegistrarCorreo"
+                    android:textColor="#FFFFFF"
+                    android:textSize="14sp" />
+
+                <EditText
+                    android:id="@+id/txtRegistrarCorreo"
+                    android:layout_width="match_parent"
+                    android:layout_height="28dp"
+                    android:layout_marginTop="7dp"
+                    android:background="@color/white"
+                    android:padding="6dp"
+                    android:textSize="14sp"></EditText>
+
+                <!---Usuario-->
+                <TextView
+                    android:id="@+id/txtviewRegistrarUsuario"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/txtviewRegistrarUsuario"
+                    android:textColor="#FFFFFF"
+                    android:textSize="14sp" />
+
+                <EditText
+                    android:id="@+id/txtRegistrarUsuario"
+                    android:layout_width="match_parent"
+                    android:layout_height="28dp"
+                    android:layout_marginTop="7dp"
+                    android:background="@color/white"
+                    android:padding="6dp"
+                    android:textSize="14sp"></EditText>
+
+                <!---Contraseña-->
+                <TextView
+                    android:id="@+id/txtviewRegistrarPassword"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/txtviewRegistrarPassword"
+                    android:textColor="#FFFFFF"
+                    android:textSize="14sp" />
+
+                <EditText
+                    android:id="@+id/txtRegistrarPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="28dp"
+                    android:layout_marginTop="7dp"
+                    android:background="@color/white"
+                    android:padding="6dp"
+                    android:textSize="14sp"></EditText>
+
+                <!---Confirmar Contraseña-->
+                <TextView
+                    android:id="@+id/txtviewRegistrarConfirmarPassword"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/txtviewRegistrarConfirmarPassword"
+                    android:textColor="#FFFFFF"
+                    android:textSize="14sp" />
+
+                <EditText
+                    android:id="@+id/txtRegistrarConfirmarPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="28dp"
+                    android:layout_marginTop="7dp"
+                    android:background="@color/white"
+                    android:padding="6dp"
+                    android:textSize="14sp"></EditText>
+
+            </LinearLayout>
+
+            <!---Área de datos bimetricos-->
+            <LinearLayout
+                android:layout_width="326dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="570dp"
+                android:orientation="horizontal">
+
+                <!--Huella Digital-->
+                <ImageButton
+                    android:id="@+id/btnRegistrarHuella"
+                    android:layout_width="35dp"
+                    android:layout_height="40dp"
+
+                    android:background="@drawable/huella" />
+
+                <!--Texto del botón de huella digital-->
+                <TextView
+                    android:id="@+id/txtviewRegistrarHuella"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="13dp"
+                    android:text="@string/txtviewRegistrarHuella"
+                    android:textColor="#FFFFFF"
+                    android:textSize="10dp"></TextView>
+
+
+                <!--Reconocimiento Facial-->
+                <ImageButton
+                    android:id="@+id/btnRegistrarFacial"
+                    android:layout_width="35dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="60dp"
+                    android:background="@drawable/reconocimiento" />
+
+                <!--Texto del botón Reconocimiento Facial-->
+                <TextView
+                    android:id="@+id/txtviewRegistrarFacial"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="13dp"
+                    android:text="@string/txtviewRegistrarFacial"
+                    android:textColor="#FFFFFF"
+                    android:textSize="10dp"></TextView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="326dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="630dp"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/btnRegistrarCrear"
+                    android:layout_width="145dp"
+                    android:layout_height="33dp"
+                    android:layout_marginStart="80dp"
+                    android:layout_marginTop="0dp"
+                    android:background="@color/button"
+                    android:text="@string/btnRegistrarCrear"
+                    android:textColor="@color/white"
+                    tools:ignore="TextContrastCheck,VisualLintButtonSize">
+                </Button>
+
+                <TextView
+                    android:id="@+id/txtviewRegistrarCuentaCreada"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="95dp"
+                    android:text="@string/txtviewCuentaCreada"
+                    android:textColor="#FFFDFD"
+                    android:textColorHint="#FFFFFF"
+                    android:textSize="13sp"></TextView>
+            </LinearLayout>
         </FrameLayout>
     </LinearLayout>
 </ScrollView>

@@ -35,7 +35,7 @@
 
                 <!---Nombre de Usuario-->
                 <TextView
-                    android:id="@+id/txtviewRegistrarsePrimerNombre"
+                    android:id="@+id/txtviewRegistrarNombres"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/textviewLoginUsuario"
@@ -43,7 +43,7 @@
                     android:textSize="16sp" />
 
                 <EditText
-                    android:id="@+id/txtRegistrarsePrimerNombre"
+                    android:id="@+id/txtRegistrarNombres"
                     android:layout_width="match_parent"
                     android:layout_height="39dp"
                     android:layout_marginTop="7dp"
@@ -119,7 +119,7 @@
 
                 <!--Huella Digital-->
                 <ImageButton
-                    android:id="@+id/btnLoginHuella"
+                    android:id="@+id/btnRegistrarHuella"
                     android:layout_width="39dp"
                     android:layout_height="42dp"
                     android:layout_marginStart="30dp"
@@ -127,7 +127,7 @@
 
                 <!--Texto del botón de huella digital-->
                 <TextView
-                    android:id="@+id/txtviewLoginHuella"
+                    android:id="@+id/txtviewRegistrarFacial"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingLeft="10dp"
@@ -138,7 +138,7 @@
 
                 <!--Reconocimiento Facial-->
                 <ImageButton
-                    android:id="@+id/btnLoginFacial"
+                    android:id="@+id/btnRegistrarFacial"
                     android:layout_width="37dp"
                     android:layout_height="42dp"
                     android:layout_marginStart="35dp"
@@ -183,7 +183,7 @@
                 </TextView>
 
                 <Button
-                    android:id="@+id/btnLoginRegistrarse"
+                    android:id="@+id/btnRegistrarCrear"
                     android:layout_width="115dp"
                     android:layout_height="33dp"
                     android:layout_marginStart="10dp"
@@ -193,11 +193,6 @@
                     tools:ignore="TextContrastCheck,VisualLintButtonSize" />
 
             </LinearLayout>
-
-
         </FrameLayout>
-
-
     </LinearLayout>
-
 </ScrollView>

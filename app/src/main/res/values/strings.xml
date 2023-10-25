@@ -38,7 +38,17 @@
     <string name="btnLoginRegistrarse">Registrarse</string>
 
     <!--Jensy Login-->
-    <string name="txtviewRegistrarsePrimerNombre">Primer Nombre</string>
+    <string name="txtviewRegistrarNombres">Nombres</string>
+    <string name="txtviewRegistrarApellidos">Apellidos</string>
+    <string name="txtviewRegistrarCorreo">Correo Electrónico</string>
+    <string name="txtviewRegistrarUsuario">Usuario</string>
+    <string name="txtviewRegistrarPassword">Contraseña</string>
+    <string name="txtviewRegistrarConfirmarPassword">Confirmar contraseña</string>
+
+    <string name="txtviewRegistrarHuella">Establecer Huella</string>
+    <string name="txtviewRegistrarFacial">Establecer Rec.Facial</string>
+    <string name="btnRegistrarCrear">Crear cuenta</string>
+    <string name="txtviewCuentaCreada">Ya tengo una cuenta</string>
 
 
 </resources>
