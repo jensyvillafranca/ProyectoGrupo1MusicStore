@@ -85,5 +85,21 @@
     <string name="No">nada</string>
     <string name="Regístrarse">Regístrarse</string>
 
+    <!--Gustavo Brocato -->
+    <string name="appName">Music Store HN</string>
+    <string name="NuevoGrupo">Nuevo Grupo</string>
+    <string name="BuscarGrupo">Buscar Grupo</string>
+    <string name="actualizar">Actualizar</string>
+    <string name="nombreGrupo">Nombre del Grupo</string>
+    <string name="creador">Creado por</string>
+    <string name="integrantes">Integrantes</string>
+    <string name="grupos">Grupos</string>
+    <string name="inicio">Inicio</string>
+    <string name="usuarios">Usuarios</string>
+    <string name="buscar">Buscar</string>
+    <string name="multimedia">Multimedia</string>
+    <string name="ajustes">Ajustes</string>
+    <string name="acercade">Acerca de</string>
+
 
 </resources>
