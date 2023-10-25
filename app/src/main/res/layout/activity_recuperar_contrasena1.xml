@@ -79,7 +79,7 @@
                 android:paddingHorizontal="40dp">
 
                 <TextView
-                    android:id="@+id/ingreseContrsenaActual"
+                    android:id="@+id/NombrePlayList"
                     android:layout_width="318dp"
                     android:layout_height="48dp"
                     android:text="@string/LabelTienesProblemasParaIniciarSesion"
@@ -93,7 +93,7 @@
                     android:background="@drawable/edittext"
                     android:importantForAutofill="no"
                     android:inputType="textPassword"
-                    android:labelFor="@+id/ingreseContrsenaActual"
+                    android:labelFor="@+id/NombrePlayList"
                     tools:ignore="LabelFor,SpeakableTextPresentCheck,TouchTargetSizeCheck,VisualLintTextFieldSize" />
 
                 <Space
