@@ -61,63 +61,63 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-             <Space
-                 android:layout_width="match_parent"
-                 android:layout_height="70dp"/>
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="70dp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:text="@string/cambiarContrasena"
-                android:textSize="20sp"
                 android:textColor="#D3D3D3"
-                android:layout_gravity="center"/>
+                android:textSize="20sp" />
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:src="@drawable/iconorecuperarcontrasena"
-                android:importantForAccessibility="no" />
+                android:importantForAccessibility="no"
+                android:src="@drawable/iconorecuperarcontrasena" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingHorizontal="40dp"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:paddingHorizontal="40dp">
 
                 <TextView
-                    android:id="@+id/ingreseContrsenaActual"
+                    android:id="@+id/NombrePlayList"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/ingreseContrasenaActual"
-                    android:textSize="15sp"
-                    android:textColor="#D3D3D3"/>
+                    android:textColor="#D3D3D3"
+                    android:textSize="15sp" />
 
                 <EditText
-                    android:id="@+id/inputContrasenaActual"
+                    android:id="@+id/txtNombrePlayList"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:background="@drawable/edittext"
+                    android:importantForAutofill="no"
                     android:inputType="textPassword"
-                    android:labelFor="@+id/ingreseContrsenaActual"
-                    tools:ignore="LabelFor,SpeakableTextPresentCheck,TouchTargetSizeCheck,VisualLintTextFieldSize"
-                    android:importantForAutofill="no" />
+                    android:labelFor="@+id/NombrePlayList"
+                    tools:ignore="LabelFor,SpeakableTextPresentCheck,TouchTargetSizeCheck,VisualLintTextFieldSize" />
 
                 <Space
                     android:layout_width="match_parent"
-                    android:layout_height="10dp"/>
+                    android:layout_height="10dp" />
 
                 <TextView
                     android:id="@+id/ingreseNuevaContrasena"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/ingreseNuevaContrasena"
-                    android:textSize="15sp"
-                    android:textColor="#D3D3D3"/>
+                    android:textColor="#D3D3D3"
+                    android:textSize="15sp" />
 
                 <EditText
-                    android:id="@+id/inputNuevaContrasena"
+                    android:id="@+id/txtBiografia"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:background="@drawable/edittext"
@@ -128,15 +128,15 @@
 
                 <Space
                     android:layout_width="match_parent"
-                    android:layout_height="10dp"/>
+                    android:layout_height="10dp" />
 
                 <TextView
                     android:id="@+id/confirmaContrasena"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/confirmaContrasena"
-                    android:textSize="15sp"
-                    android:textColor="#D3D3D3"/>
+                    android:textColor="#D3D3D3"
+                    android:textSize="15sp" />
 
                 <EditText
                     android:id="@+id/inputConfirmaContrasena"
@@ -150,7 +150,7 @@
 
                 <Space
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"/>
+                    android:layout_height="60dp" />
 
                 <Button
                     android:layout_width="match_parent"

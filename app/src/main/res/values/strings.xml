@@ -16,7 +16,20 @@
     <string name="grupo2">Grupo 2</string>
     <string name="grupo3">Grupo 3</string>
     <string name="atras">Atrás</string>
+    <string name="cancelar">Cancelar</string>
+    <string name="Crearplaylist">Crear Play List</string>
+    <string name="playListFav">PlayList Favoritas</string>
+    <string name="playList">Play List</string>
+    <string name="cancionesFav">Canciones Favoritas</string>
+    <string name="vermas">Ver Mas</string>
+    <string name="principal">Principal</string>
+    <string name="NuevaListas">Quiere nuevas listas de reproducción</string>
+    <string name="NombreUsuario">Kency Angely Rosa Paz</string>
     <string name="cambiarContrasena">Cambiar Contraseña</string>
+    <string name="CrearPlayList">Crear PlayList</string>
+    <string name="CambiarNombre">Cambiar Nombre</string>
+    <string name="EscribaNombrePlayList">Escriba un nombre que le guste</string>
+    <string name="EscribaBiografa">Escriba una Biografa</string>
     <string name="ingreseContrasenaActual">Ingrese su contraseña actual</string>
     <string name="ingreseNuevaContrasena">Ingrese una nueva contraseña</string>
     <string name="confirmaContrasena">Confirma su contraseña</string>
@@ -71,6 +84,22 @@
     <string name="ingresar">Ingresar</string>
     <string name="No">nada</string>
     <string name="Regístrarse">Regístrarse</string>
+
+    <!--Gustavo Brocato -->
+    <string name="appName">Music Store HN</string>
+    <string name="NuevoGrupo">Nuevo Grupo</string>
+    <string name="BuscarGrupo">Buscar Grupo</string>
+    <string name="actualizar">Actualizar</string>
+    <string name="nombreGrupo">Nombre del Grupo</string>
+    <string name="creador">Creado por</string>
+    <string name="integrantes">Integrantes</string>
+    <string name="grupos">Grupos</string>
+    <string name="inicio">Inicio</string>
+    <string name="usuarios">Usuarios</string>
+    <string name="buscar">Buscar</string>
+    <string name="multimedia">Multimedia</string>
+    <string name="ajustes">Ajustes</string>
+    <string name="acercade">Acerca de</string>
 
 
 </resources>

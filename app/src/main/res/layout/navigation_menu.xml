@@ -1,0 +1,222 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="240dp"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/black90">
+
+    <!-- Logo and App Name -->
+
+    <!-- Menu Items -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <ImageView
+            android:layout_width="220dp"
+            android:layout_height="73dp"
+            android:contentDescription="App Logo"
+            android:src="@drawable/logopantallaprincipal"/>
+
+        <TextView
+            android:layout_width="224dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/appName"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="16dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:onClick="onMenuItemClick">
+
+                <ImageView
+                    android:id="@+id/iconNavInicio"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:contentDescription="Menu Icon"
+                    android:src="@drawable/botoniniciomenudespegable" />
+
+                <TextView
+                    android:id="@+id/txtviewNavInicio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="8dp"
+                    android:text="@string/inicio"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="16dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:onClick="onMenuItemClick">
+
+                <ImageView
+                    android:id="@+id/iconNavGrupos"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:contentDescription="Grupos Icon"
+                    android:src="@drawable/botongruposmenudespegable" />
+
+                <TextView
+                    android:id="@+id/txtViewNavGrupos"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="8dp"
+                    android:text="@string/grupos"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="16dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:onClick="onMenuItemClick">
+
+                <ImageView
+                    android:id="@+id/iconNavUsuario"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:contentDescription="Usuarios Icon"
+                    android:src="@drawable/botonusuariosmenudespegable" />
+
+                <TextView
+                    android:id="@+id/txtviewNavUsuarios"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="8dp"
+                    android:text="@string/usuarios"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="16dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:onClick="onMenuItemClick">
+
+                <ImageView
+                    android:id="@+id/iconNavBuscar"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:contentDescription="Buscar Icon"
+                    android:src="@drawable/botonbuscarmenudespegable" />
+
+                <TextView
+                    android:id="@+id/txtviewNavBuscar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="8dp"
+                    android:text="@string/buscar"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="16dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:onClick="onMenuItemClick">
+
+                <ImageView
+                    android:id="@+id/iconNavMultimedia"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:contentDescription="Multimedia Icon"
+                    android:src="@drawable/botonmultimediamenudespegable" />
+
+                <TextView
+                    android:id="@+id/txtviewNavMultimedia"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="8dp"
+                    android:text="@string/multimedia"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="16dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:onClick="onMenuItemClick">
+
+                <ImageView
+                    android:id="@+id/iconNavAjustes"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:contentDescription="Ajustes Icon"
+                    android:src="@drawable/botonajustesmenudespegable" />
+
+                <TextView
+                    android:id="@+id/txtviewNavAjustes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="8dp"
+                    android:text="@string/ajustes"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="16dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:onClick="onMenuItemClick">
+
+                <ImageView
+                    android:id="@+id/iconNavAcerca"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:contentDescription="Acerca de Icon"
+                    android:src="@drawable/botonacercademenudespegable" />
+
+                <TextView
+                    android:id="@+id/txtviewNavAcerca"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="8dp"
+                    android:text="@string/acercade"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

@@ -9,7 +9,7 @@ import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button prueba;
+    Button prueba, btnPantallaPrincipal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,12 +17,21 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         prueba = (Button) findViewById(R.id.prueba);
+        btnPantallaPrincipal = (Button) findViewById(R.id.btnPruebaPantallaPrincipal);
 
         prueba.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent prueba = new Intent(getApplicationContext(),activity_registrarse.class);
                 startActivity(prueba);
+            }
+        });
+
+        btnPantallaPrincipal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent pantallaPrincipal = new Intent(getApplicationContext(),ActivityPantallaPrincipal.class);
+                startActivity(pantallaPrincipal);
             }
         });
     }

@@ -6,4 +6,7 @@
     <color name="button">#00aae2</color>
     <color name="white2">#dfd7dd</color>
     <color name="green">#4caf50</color>
+    <color name="elementBackground">#E7E6E6</color>
+    <color name="lightGray90">#E6CCCCCC</color>
+    <color name="black90">#E6000000</color>
 </resources>

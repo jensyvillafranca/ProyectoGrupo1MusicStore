@@ -1,0 +1,647 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ActivityPlayList"
+    android:background="@drawable/background"
+    android:paddingTop="15dp">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            tools:ignore="UselessParent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                tools:ignore="UselessParent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    tools:ignore="UselessParent">
+
+                    <ImageView
+                        android:id="@+id/btnAtras"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/pfp"
+                        android:importantForAccessibility="no"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/NombreUsuario"
+                        android:textColor="@color/white"
+                        android:layout_gravity="center"
+                        android:textStyle="bold"/>
+
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"/>
+
+                    <TextView
+                        android:id="@+id/txtPrincipal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginRight="15dp"
+                        android:text="@string/principal"
+                        android:textColor="@color/white"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_gravity="center"
+                        android:paddingHorizontal="70dp"
+                        android:paddingVertical="20dp">
+
+                        <Space
+                            android:layout_width="match_parent"
+                            android:layout_height="20dp"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/NuevaListas"
+                            android:textColor="@color/white"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:layout_gravity="center"/>
+
+                        <Space
+                            android:layout_width="match_parent"
+                            android:layout_height="15dp" />
+
+                        <Button
+                            android:id="@+id/btnCrear"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:background="@color/button"
+                            android:text="@string/Crearplaylist"
+                            android:textColor="@color/white"
+                            tools:ignore="TextContrastCheck,VisualLintButtonSize" />
+
+                    </LinearLayout>
+
+                </FrameLayout>
+
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:orientation="horizontal"
+                    tools:ignore="UselessParent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/playListFav"
+                        android:textColor="@color/underline"
+                        android:layout_gravity="center"
+                        android:textStyle="bold"/>
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="15dp"
+                        android:text="@string/playList"
+                        android:textColor="@color/underline"
+                        android:layout_gravity="center"
+                        android:textStyle="bold"/>
+
+                </LinearLayout>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center">
+
+                <View
+                    android:layout_width="530dp"
+                    android:layout_height="150dp"
+                    android:background="@drawable/fondoblancoparaeditardatosperfil"
+                    android:layout_gravity="center"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_gravity="center"
+                    android:paddingHorizontal="70dp"
+                    android:paddingVertical="20dp">
+
+                    <HorizontalScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                tools:ignore="UseCompoundDrawables">
+
+                                <ImageView
+                                    android:layout_width="80dp"
+                                    android:layout_height="80dp"
+                                    android:importantForAccessibility="no"
+                                    android:src="@drawable/playlist"
+                                    tools:ignore="ImageContrastCheck" />
+
+                                <TextView
+                                    android:layout_width="80dp"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/playlist1"
+                                    android:textSize="13sp"
+                                    android:textColor="#D3D3D3"
+                                    android:textAlignment="center"
+                                    android:gravity="center_horizontal" />
+
+                            </LinearLayout>
+
+                            <Space
+                                android:layout_width="8dp"
+                                android:layout_height="wrap_content"/>
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                tools:ignore="UseCompoundDrawables">
+
+                                <ImageView
+                                    android:layout_width="80dp"
+                                    android:layout_height="80dp"
+                                    android:importantForAccessibility="no"
+                                    android:src="@drawable/playlist"
+                                    tools:ignore="ImageContrastCheck" />
+
+                                <TextView
+                                    android:layout_width="80dp"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/playlist"
+                                    android:textSize="13sp"
+                                    android:textColor="#D3D3D3"
+                                    android:textAlignment="center"
+                                    android:gravity="center_horizontal" />
+
+                            </LinearLayout>
+
+                            <Space
+                                android:layout_width="8dp"
+                                android:layout_height="wrap_content"/>
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                tools:ignore="UseCompoundDrawables">
+
+                                <ImageView
+                                    android:layout_width="80dp"
+                                    android:layout_height="80dp"
+                                    android:importantForAccessibility="no"
+                                    android:src="@drawable/playlist"
+                                    tools:ignore="ImageContrastCheck" />
+
+                                <TextView
+                                    android:layout_width="80dp"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/playlist"
+                                    android:textSize="13sp"
+                                    android:textColor="#D3D3D3"
+                                    android:textAlignment="center"
+                                    android:gravity="center_horizontal" />
+
+                            </LinearLayout>
+
+                            <Space
+                                android:layout_width="8dp"
+                                android:layout_height="wrap_content"/>
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                tools:ignore="UseCompoundDrawables">
+
+                                <ImageView
+                                    android:layout_width="80dp"
+                                    android:layout_height="80dp"
+                                    android:importantForAccessibility="no"
+                                    android:src="@drawable/playlist"
+                                    tools:ignore="ImageContrastCheck" />
+
+                                <TextView
+                                    android:layout_width="80dp"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/playlist"
+                                    android:textSize="13sp"
+                                    android:textColor="#D3D3D3"
+                                    android:textAlignment="center"
+                                    android:gravity="center_horizontal" />
+
+                            </LinearLayout>
+
+                            <Space
+                                android:layout_width="8dp"
+                                android:layout_height="wrap_content"/>
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                tools:ignore="UseCompoundDrawables">
+
+                                <ImageView
+                                    android:layout_width="80dp"
+                                    android:layout_height="80dp"
+                                    android:src="@drawable/playlist"
+                                    android:importantForAccessibility="no" />
+
+                                <TextView
+                                    android:layout_width="80dp"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/playlist"
+                                    android:textSize="13sp"
+                                    android:textColor="#D3D3D3"
+                                    android:textAlignment="center"
+                                    android:gravity="center_horizontal" />
+
+                            </LinearLayout>
+
+                            <Space
+                                android:layout_width="8dp"
+                                android:layout_height="wrap_content"/>
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                tools:ignore="UseCompoundDrawables">
+
+                                <ImageView
+                                    android:layout_width="80dp"
+                                    android:layout_height="80dp"
+                                    android:src="@drawable/playlist"
+                                    android:importantForAccessibility="no" />
+
+                                <TextView
+                                    android:layout_width="80dp"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/playlist"
+                                    android:textSize="13sp"
+                                    android:textColor="#D3D3D3"
+                                    android:textAlignment="center"
+                                    android:gravity="center_horizontal" />
+
+                            </LinearLayout>
+
+                            <Space
+                                android:layout_width="8dp"
+                                android:layout_height="wrap_content"/>
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                tools:ignore="UseCompoundDrawables">
+
+                                <ImageView
+                                    android:layout_width="80dp"
+                                    android:layout_height="80dp"
+                                    android:src="@drawable/playlist"
+                                    android:importantForAccessibility="no" />
+
+                                <TextView
+                                    android:layout_width="80dp"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/playlist"
+                                    android:textSize="13sp"
+                                    android:textColor="#D3D3D3"
+                                    android:textAlignment="center"
+                                    tools:ignore="TooManyViews"
+                                    android:gravity="center_horizontal" />
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                    </HorizontalScrollView>
+
+                </LinearLayout>
+
+                </FrameLayout>
+
+
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:orientation="horizontal"
+                    tools:ignore="UselessParent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/cancionesFav"
+                        android:textColor="@color/underline"
+                        android:layout_gravity="center"
+                        android:textStyle="bold"/>
+
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="15dp"
+                        android:text="@string/vermas"
+                        android:textColor="@color/underline"
+                        android:layout_gravity="center"
+                        android:textStyle="bold"/>
+
+                </LinearLayout>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center">
+
+                <View
+                    android:layout_width="530dp"
+                    android:layout_height="150dp"
+                    android:background="@drawable/fondoblancoparaeditardatosperfil"
+                    android:layout_gravity="center"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_gravity="center"
+                    android:paddingHorizontal="70dp"
+                    android:paddingVertical="20dp">
+
+                    <HorizontalScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                tools:ignore="UseCompoundDrawables">
+
+                                <ImageView
+                                    android:layout_width="80dp"
+                                    android:layout_height="80dp"
+                                    android:importantForAccessibility="no"
+                                    android:src="@drawable/playlist"
+                                    tools:ignore="ImageContrastCheck" />
+
+                                <TextView
+                                    android:layout_width="80dp"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/playlist1"
+                                    android:textSize="13sp"
+                                    android:textColor="#D3D3D3"
+                                    android:textAlignment="center"
+                                    android:gravity="center_horizontal" />
+
+                            </LinearLayout>
+
+                            <Space
+                                android:layout_width="8dp"
+                                android:layout_height="wrap_content"/>
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                tools:ignore="UseCompoundDrawables">
+
+                                <ImageView
+                                    android:layout_width="80dp"
+                                    android:layout_height="80dp"
+                                    android:importantForAccessibility="no"
+                                    android:src="@drawable/playlist"
+                                    tools:ignore="ImageContrastCheck" />
+
+                                <TextView
+                                    android:layout_width="80dp"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/playlist"
+                                    android:textSize="13sp"
+                                    android:textColor="#D3D3D3"
+                                    android:textAlignment="center"
+                                    android:gravity="center_horizontal" />
+
+                            </LinearLayout>
+
+                            <Space
+                                android:layout_width="8dp"
+                                android:layout_height="wrap_content"/>
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                tools:ignore="UseCompoundDrawables">
+
+                                <ImageView
+                                    android:layout_width="80dp"
+                                    android:layout_height="80dp"
+                                    android:importantForAccessibility="no"
+                                    android:src="@drawable/playlist"
+                                    tools:ignore="ImageContrastCheck" />
+
+                                <TextView
+                                    android:layout_width="80dp"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/playlist"
+                                    android:textSize="13sp"
+                                    android:textColor="#D3D3D3"
+                                    android:textAlignment="center"
+                                    android:gravity="center_horizontal" />
+
+                            </LinearLayout>
+
+                            <Space
+                                android:layout_width="8dp"
+                                android:layout_height="wrap_content"/>
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                tools:ignore="UseCompoundDrawables">
+
+                                <ImageView
+                                    android:layout_width="80dp"
+                                    android:layout_height="80dp"
+                                    android:importantForAccessibility="no"
+                                    android:src="@drawable/playlist"
+                                    tools:ignore="ImageContrastCheck" />
+
+                                <TextView
+                                    android:layout_width="80dp"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/playlist"
+                                    android:textSize="13sp"
+                                    android:textColor="#D3D3D3"
+                                    android:textAlignment="center"
+                                    android:gravity="center_horizontal" />
+
+                            </LinearLayout>
+
+                            <Space
+                                android:layout_width="8dp"
+                                android:layout_height="wrap_content"/>
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                tools:ignore="UseCompoundDrawables">
+
+                                <ImageView
+                                    android:layout_width="80dp"
+                                    android:layout_height="80dp"
+                                    android:src="@drawable/playlist"
+                                    android:importantForAccessibility="no" />
+
+                                <TextView
+                                    android:layout_width="80dp"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/playlist"
+                                    android:textSize="13sp"
+                                    android:textColor="#D3D3D3"
+                                    android:textAlignment="center"
+                                    android:gravity="center_horizontal" />
+
+                            </LinearLayout>
+
+                            <Space
+                                android:layout_width="8dp"
+                                android:layout_height="wrap_content"/>
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                tools:ignore="UseCompoundDrawables">
+
+                                <ImageView
+                                    android:layout_width="80dp"
+                                    android:layout_height="80dp"
+                                    android:src="@drawable/playlist"
+                                    android:importantForAccessibility="no" />
+
+                                <TextView
+                                    android:layout_width="80dp"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/playlist"
+                                    android:textSize="13sp"
+                                    android:textColor="#D3D3D3"
+                                    android:textAlignment="center"
+                                    android:gravity="center_horizontal" />
+
+                            </LinearLayout>
+
+                            <Space
+                                android:layout_width="8dp"
+                                android:layout_height="wrap_content"/>
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                tools:ignore="UseCompoundDrawables">
+
+                                <ImageView
+                                    android:layout_width="80dp"
+                                    android:layout_height="80dp"
+                                    android:src="@drawable/playlist"
+                                    android:importantForAccessibility="no" />
+
+                                <TextView
+                                    android:layout_width="80dp"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/playlist"
+                                    android:textSize="13sp"
+                                    android:textColor="#D3D3D3"
+                                    android:textAlignment="center"
+                                    tools:ignore="TooManyViews"
+                                    android:gravity="center_horizontal" />
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                    </HorizontalScrollView>
+
+
+
+                </LinearLayout>
+
+                </FrameLayout>
+
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+    </FrameLayout>
+
+
+
+</ScrollView>
