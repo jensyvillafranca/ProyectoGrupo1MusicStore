@@ -13,8 +13,8 @@ import androidx.drawerlayout.widget.DrawerLayout;
 public class ActivityPantallaPrincipal extends AppCompatActivity {
     private DrawerLayout drawerLayout;
     private ImageButton openMenuButton;
-    TextView txtGrupos;
-    ImageView iconGrupos;
+    TextView Grupos, Inicio;
+    ImageView iconGrupos, iconInicio;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,8 +23,10 @@ public class ActivityPantallaPrincipal extends AppCompatActivity {
 
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         openMenuButton = (ImageButton) findViewById(R.id.btn_PrincipalDesplegable);
-        txtGrupos = (TextView) findViewById(R.id.txtViewNavGrupos);
+        Grupos = (TextView) findViewById(R.id.txtViewNavGrupos);
+        Inicio = (TextView) findViewById(R.id.txtviewNavInicio);
         iconGrupos = (ImageView) findViewById(R.id.iconNavGrupos);
+        iconInicio = (ImageView) findViewById(R.id.iconNavInicio);
 
         View.OnClickListener buttonClick = new View.OnClickListener() {
             @Override
@@ -33,8 +35,14 @@ public class ActivityPantallaPrincipal extends AppCompatActivity {
                 if (view.getId() == R.id.txtViewNavGrupos) {
                     actividad = ActivityGrupoPrincipal.class;
                 }
+                if (view.getId() == R.id.txtviewNavInicio) {
+                    actividad = ActivityPantallaPrincipal.class;
+                }
                 if (view.getId() == R.id.iconNavGrupos){
                     actividad = ActivityGrupoPrincipal.class;
+                }
+                if (view.getId() == R.id.iconNavInicio){
+                    actividad = ActivityPantallaPrincipal.class;
                 }
                 if (actividad != null) {
                     moveActivity(actividad);
@@ -42,8 +50,10 @@ public class ActivityPantallaPrincipal extends AppCompatActivity {
             }
         };
 
-        txtGrupos.setOnClickListener(buttonClick);
+        Grupos.setOnClickListener(buttonClick);
+        Inicio.setOnClickListener(buttonClick);
         iconGrupos.setOnClickListener(buttonClick);
+        iconInicio.setOnClickListener(buttonClick);
 
         openMenuButton.setOnClickListener(v -> {
             drawerLayout.openDrawer(findViewById(R.id.side_menu));

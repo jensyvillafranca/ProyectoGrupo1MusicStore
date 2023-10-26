@@ -28,6 +28,10 @@
             android:name=".perfilPersonal"
             android:exported="false" />
         <activity
+            android:name=".ActivityGruposBuscar"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize"/>
+        <activity
             android:name=".ActivityPantallaPrincipal"
             android:exported="false" />
         <activity
