@@ -1,49 +1,54 @@
 package com.example.proyectogrupo1musicstore;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.proyectogrupo1musicstore.Adapters.CustomAdapter;
+
+import com.example.proyectogrupo1musicstore.Adapters.CustomAdapterBuscarGrupos;
 import com.example.proyectogrupo1musicstore.Models.vistaDeGrupo;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ActivityGrupoPrincipal extends AppCompatActivity {
+public class ActivityGruposBuscar extends AppCompatActivity {
 
     // Declaración de variables
     RecyclerView lista;
     DrawerLayout drawerLayout;
     ImageButton openMenuButton, botonAtras;
-    TextView textviewAtras, txtGruposBuscar, Grupos, Inicio;
-    ImageView imageviewGruposBuscar, iconGrupos, iconInicio;
-    CardView buscar;
-
+    TextView textviewAtras, textviewGruposBuscar, Grupos, Inicio;
+    EditText txtGruposBuscar;
+    ImageView imgBuscar, imgBuscar2, iconGrupos, iconInicio;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_grupo_principal);
+        setContentView(R.layout.activity_grupos_buscar);
 
         // Inicialización de vistas y elementos del diseño
-        lista = (RecyclerView) findViewById(R.id.recyclerview_GruposPrincipal);
-        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        openMenuButton = (ImageButton) findViewById(R.id.btn_GruposPrincipalMenu);
-        botonAtras = (ImageButton) findViewById(R.id.btn_GruposPrincipalAtras);
-        textviewAtras = (TextView) findViewById(R.id.textview_GrupoPrincipalbotAtras);
-        txtGruposBuscar = (TextView) findViewById(R.id.txtGruposPrincipalBuscarGrupo);
-        imageviewGruposBuscar = (ImageView) findViewById(R.id.imageviewGruposPrincipalBuscar);
-        buscar = (CardView) findViewById(R.id.cardViewGruposPrincipalBuscar);
+        lista = (RecyclerView) findViewById(R.id.recyclerview_GruposBuscar);
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layoutGruposBuscar);
+        openMenuButton = (ImageButton) findViewById(R.id.btn_GruposBuscarMenu);
+        botonAtras = (ImageButton) findViewById(R.id.btn_GruposBuscarAtras);
+        textviewAtras = (TextView) findViewById(R.id.textview_GrupoBuscarbotAtras);
+        textviewGruposBuscar = (TextView) findViewById(R.id.txtGruposBuscarBuscarGrupo);
+        txtGruposBuscar = (EditText) findViewById(R.id.editTextGruposBuscar);
+        imgBuscar = (ImageView) findViewById(R.id.imageViewGruposBuscar);
+        imgBuscar2 = (ImageView) findViewById(R.id.imageViewGruposBuscar2);
         Grupos = (TextView) findViewById(R.id.txtViewNavGrupos);
         Inicio = (TextView) findViewById(R.id.txtviewNavInicio);
         iconGrupos = (ImageView) findViewById(R.id.iconNavGrupos);
@@ -61,9 +66,9 @@ public class ActivityGrupoPrincipal extends AppCompatActivity {
         dataList.add(new vistaDeGrupo("Grupo 8", "Creado por mi", "Integrantes: 5", R.drawable.logopantallaprincipal));
 
         // Configuración del administrador de diseño y adaptador para el RecyclerView
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this); // Use an appropriate layout manager
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         lista.setLayoutManager(layoutManager);
-        CustomAdapter adapter = new CustomAdapter(this, dataList);
+        CustomAdapterBuscarGrupos adapter = new CustomAdapterBuscarGrupos(this, dataList);
         lista.setAdapter(adapter);
 
         // Listener para abrir el menú lateral
@@ -76,20 +81,11 @@ public class ActivityGrupoPrincipal extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Class<?> actividad = null;
-                if (view.getId()==R.id.btn_GruposPrincipalAtras) {
-                    actividad = ActivityPantallaPrincipal.class;
+                if (view.getId() == R.id.btn_GruposBuscarAtras) {
+                    actividad = ActivityGrupoPrincipal.class;
                 }
-                if (view.getId()==R.id.textview_GrupoPrincipalbotAtras){
-                    actividad = ActivityPantallaPrincipal.class;
-                }
-                if (view.getId() == R.id.txtGruposPrincipalBuscarGrupo){
-                    actividad = ActivityGruposBuscar.class;
-                }
-                if (view.getId() == R.id.imageviewGruposPrincipalBuscar){
-                    actividad = ActivityGruposBuscar.class;
-                }
-                if (view.getId() == R.id.cardViewGruposPrincipalBuscar){
-                    actividad = ActivityGruposBuscar.class;
+                if (view.getId() == R.id.textview_GrupoBuscarbotAtras) {
+                    actividad = ActivityGrupoPrincipal.class;
                 }
                 if (view.getId() == R.id.txtViewNavGrupos) {
                     actividad = ActivityGrupoPrincipal.class;
@@ -109,19 +105,62 @@ public class ActivityGrupoPrincipal extends AppCompatActivity {
             }
         };
 
+        //Listener para manerjar la visibilidad del boton de busqueda
+        textviewGruposBuscar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Esconde el textview y muestra el edittext
+                textviewGruposBuscar.setVisibility(View.GONE);
+                txtGruposBuscar.setVisibility(View.VISIBLE);
+                imgBuscar.setVisibility(View.GONE);
+                imgBuscar2.setVisibility(View.VISIBLE);
+                txtGruposBuscar.requestFocus();
+
+                // Mostrar el Teclado
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.showSoftInput(txtGruposBuscar, InputMethodManager.SHOW_IMPLICIT);
+
+            }
+        });
+
+        //Listener para manerjar la visibilidad del boton de busqueda
+        txtGruposBuscar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Esconde el edittext y muestra el textview
+                textviewGruposBuscar.setVisibility(View.VISIBLE);
+                txtGruposBuscar.setVisibility(View.GONE);
+                imgBuscar.setVisibility(View.VISIBLE);
+                imgBuscar2.setVisibility(View.GONE);
+                // Cierra el teclado
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+            }
+        });
+
+        //Listener para manejar el cierre del teclado con el boton de enter
+        txtGruposBuscar.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    // Cierra el teclado
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                    return true;
+                }
+                return false;
+            }
+        });
+
         // Asigna los listeners a los botones de "Atrás"
         botonAtras.setOnClickListener(buttonClick);
         textviewAtras.setOnClickListener(buttonClick);
-        txtGruposBuscar.setOnClickListener(buttonClick);
-        imageviewGruposBuscar.setOnClickListener(buttonClick);
-        buscar.setOnClickListener(buttonClick);
         Grupos.setOnClickListener(buttonClick);
         Inicio.setOnClickListener(buttonClick);
         iconGrupos.setOnClickListener(buttonClick);
         iconInicio.setOnClickListener(buttonClick);
     }
 
-    // Método para cambiar a otra actividad
     private void moveActivity(Class<?> actividad) {
         Intent intent = new Intent(getApplicationContext(), actividad);
         startActivity(intent);
