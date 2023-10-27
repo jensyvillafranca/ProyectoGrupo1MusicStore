@@ -1,6 +1,7 @@
 package com.example.proyectogrupo1musicstore.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.proyectogrupo1musicstore.ActivityUnirseGrupo;
 import com.example.proyectogrupo1musicstore.Models.vistaDeGrupo;
 import com.example.proyectogrupo1musicstore.R;
 
@@ -38,7 +40,21 @@ public class CustomAdapterBuscarGrupos extends RecyclerView.Adapter<CustomAdapte
         holder.creadoPor.setText(data.getText2());
         holder.integrantes.setText(data.getText3());
         holder.image.setImageResource(data.getImageResource());
+
+        // Obtiene el ImageView del diseño
+        ImageView imgUnirse = holder.itemView.findViewById(R.id.imageviewGruposBuscarUnirse);
+
+        // Listener para ir a la pantalla de un grupo especifico y unirse
+        imgUnirse.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent pantallaUnirse = new Intent(v.getContext(), ActivityUnirseGrupo.class);
+                v.getContext().startActivity(pantallaUnirse);
+            }
+        });
     }
+
+
 
     //Devuelve el número total de elementos en la lista de datos.
     @Override

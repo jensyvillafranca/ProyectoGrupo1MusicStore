@@ -9,15 +9,15 @@ import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button prueba, btnPantallaPrincipal;
+    Button btnPantallaPrincipal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        /*prueba = (Button) findViewById(R.id.prueba);
         btnPantallaPrincipal = (Button) findViewById(R.id.btnPruebaPantallaPrincipal);
+        /*prueba = (Button) findViewById(R.id.prueba);
+
 
         prueba.setOnClickListener(new View.OnClickListener() {
             @Override

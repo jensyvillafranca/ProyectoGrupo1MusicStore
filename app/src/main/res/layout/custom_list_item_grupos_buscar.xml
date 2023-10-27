@@ -19,51 +19,40 @@
         android:layout_marginBottom="16dp"
         android:contentDescription="Image"
         android:src="@drawable/botongruposmenudespegable"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/linearLayout"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
+    <TextView
+        android:id="@+id/txtListItemNombreGrupoGruposBuscar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="25dp"
-        android:background="@android:color/transparent"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/iconLayout"
+        android:text="@string/nombreGrupo"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imageviewListItemImageGruposBuscar"
-        app:layout_constraintTop_toTopOf="@+id/layout_mainItemGruposBuscar">
+        app:layout_constraintEnd_toStartOf="@+id/iconLayoutGruposBuscar" />
 
-        <TextView
-            android:id="@+id/txtListItemNombreGrupoGruposBuscar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:background="@android:color/transparent"
-            android:text="@string/nombreGrupo"
-            android:textColor="@color/black"
-            android:textStyle="bold" />
+    <TextView
+        android:id="@+id/txtListItemCreadoGruposBuscar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/creador"
+        android:textColor="@color/black"
+        app:layout_constraintTop_toBottomOf="@+id/txtListItemNombreGrupoGruposBuscar"
+        app:layout_constraintStart_toEndOf="@+id/imageviewListItemImageGruposBuscar"
+        app:layout_constraintEnd_toStartOf="@+id/iconLayoutGruposBuscar" />
 
-        <TextView
-            android:id="@+id/txtListItemCreadoGruposBuscar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:text="@string/creador"
-            android:textColor="@color/black" />
-
-        <TextView
-            android:id="@+id/txtListItemIntegranteGruposBuscar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:text="@string/integrantes"
-            android:textColor="@color/black" />
-
-    </LinearLayout>
+    <TextView
+        android:id="@+id/txtListItemIntegranteGruposBuscar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/integrantes"
+        android:textColor="@color/black"
+        app:layout_constraintTop_toBottomOf="@+id/txtListItemCreadoGruposBuscar"
+        app:layout_constraintStart_toEndOf="@+id/imageviewListItemImageGruposBuscar"
+        app:layout_constraintEnd_toStartOf="@+id/iconLayoutGruposBuscar" />
 
     <LinearLayout
         android:id="@+id/iconLayoutGruposBuscar"
@@ -73,10 +62,9 @@
         android:layout_marginEnd="30dp"
         android:background="@android:color/transparent"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/linearLayout"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <ImageView
             android:id="@+id/imageviewGruposBuscarUnirse"
@@ -86,6 +74,5 @@
             android:background="@android:color/transparent"
             android:contentDescription="Icon 3"
             android:src="@drawable/iconoanadirseagrupo" />
-
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

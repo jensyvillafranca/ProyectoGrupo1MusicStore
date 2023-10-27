@@ -32,6 +32,9 @@
             android:exported="false"
             android:windowSoftInputMode="adjustResize"/>
         <activity
+            android:name=".ActivityUnirseGrupo"
+            android:exported="false" />
+        <activity
             android:name=".ActivityPantallaPrincipal"
             android:exported="false" />
         <activity
