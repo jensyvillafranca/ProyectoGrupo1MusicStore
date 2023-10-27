@@ -100,28 +100,4 @@
     <string name="multimedia">Multimedia</string>
     <string name="ajustes">Ajustes</string>
     <string name="acercade">Acerca de</string>
-
-    <!--Kency Angely -->
-    <string name="TienesProblemasParaIniciarSesion">¿Tienes problemas para iniciar sesion?</string>
-    <string name="ENVIARCODIGO">Enviar codigo</string>
-    <string name="LabelTienesProblemasParaIniciarSesion">Para obtener un código de verificación, primero debes confirmar el correo electrónico que añadiste a tu cuenta:</string>
-
-
-    <string name="CrearCuenta">Crear cuenta</string>
-    <string name="IngresarCodigo">Ingrese el código de verificacíon</string>
-    <string name="LinkEnviarDeNuevo">Enviar de nuevo</string>
-    <string name="Regístrate">Regístrate</string>
-
-    <string name="RecuperarContra">Recuperar contraseña</string>
-    <string name="RestaurarContra">Restaurar contraseña</string>
-
-    <string name="LabelRecuperarContra">hemos enviado un código de verificación a tu dirección de correo, por favor digita esta secuencia de números en la siguiente casilla de verificación:</string>
-    <string name="LinkEnviarDeNuevo2">Enviar de nuevo</string>
-    <string name="VerificarCodigo">Verificar</string>
-
-    <string name="ingresar">Ingresar</string>
-    <string name="No">nada</string>
-    <string name="Regístrarse">Regístrarse</string>
-
-
 </resources>
