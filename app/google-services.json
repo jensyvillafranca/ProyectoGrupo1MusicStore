@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "469751795731",
+    "project_id": "proyectogrupo1musicstore",
+    "storage_bucket": "proyectogrupo1musicstore.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:469751795731:android:9cd4f459a6626df3f3efe6",
+        "android_client_info": {
+          "package_name": "com.example.proyectogrupo1musicstore"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDTKTt3AyVPrWESryVXKjcZ4I584zLSE2U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

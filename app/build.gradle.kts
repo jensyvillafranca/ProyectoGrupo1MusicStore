@@ -1,5 +1,6 @@
 plugins {
     id("com.android.application")
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -9,7 +10,7 @@ android {
     defaultConfig {
         applicationId = "com.example.proyectogrupo1musicstore"
         minSdk = 24
-        targetSdk = 34
+        targetSdk = 33
         versionCode = 1
         versionName = "1.0"
 
@@ -29,6 +30,10 @@ android {
 }
 
 dependencies {
+    //Dependencia de Firebas
+    //noinspection BomWithoutPlatform
+    implementation("com.google.firebase:firebase-bom:32.4.1")
+    implementation ("com.google.firebase:firebase-analytics:21.4.0")
 
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.10.0")
