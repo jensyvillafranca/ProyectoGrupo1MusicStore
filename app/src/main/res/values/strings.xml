@@ -82,11 +82,13 @@
     <string name="VerificarCodigo">Verificar</string>
 
     <string name="ingresar">Ingresar</string>
+    <string name="unirse">Uniser</string>
     <string name="No">nada</string>
     <string name="Regístrarse">Regístrarse</string>
 
     <!--Gustavo Brocato -->
     <string name="appName">Music Store HN</string>
+    <string name="resultBusqueda">Busqueda Grupo</string>
     <string name="NuevoGrupo">Nuevo Grupo</string>
     <string name="BuscarGrupo">Buscar Grupo</string>
     <string name="actualizar">Actualizar</string>
