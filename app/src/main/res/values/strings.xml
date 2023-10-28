@@ -102,4 +102,8 @@
     <string name="multimedia">Multimedia</string>
     <string name="ajustes">Ajustes</string>
     <string name="acercade">Acerca de</string>
+    <string name="siguiente">Siguiente</string>
+    <string name="agregar_integrantes">Agregar Integrantes</string>
+    <string name="buscar_nombreUsuario">Buscar por nombre de usuario</string>
+    <string name="nombreUsuario">Nombre del Usuario</string>
 </resources>
