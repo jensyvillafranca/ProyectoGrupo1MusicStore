@@ -103,6 +103,9 @@
     <string name="resultBusqueda">Resultado de la búsqueda</string>
     <string name="descripcion">Descripción:</string>
     <string name="unirse">Unirse</string>
-
+    <string name="siguiente">Siguiente</string>
+    <string name="agregar_integrantes">Agregar Integrantes</string>
+    <string name="buscar_nombreUsuario">Buscar por nombre de usuario</string>
+    <string name="nombreUsuario">Nombre del Usuario</string>
 
 </resources>

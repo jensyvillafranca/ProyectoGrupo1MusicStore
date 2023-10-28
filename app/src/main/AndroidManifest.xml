@@ -35,6 +35,9 @@
             android:name=".ActivityUnirseGrupo"
             android:exported="false" />
         <activity
+            android:name=".ActivityNuevoGrupoIntegrantes"
+            android:exported="false" />
+        <activity
             android:name=".ActivityPantallaPrincipal"
             android:exported="false" />
         <activity

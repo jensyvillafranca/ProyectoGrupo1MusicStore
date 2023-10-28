@@ -25,9 +25,9 @@ public class ActivityGrupoPrincipal extends AppCompatActivity {
     RecyclerView lista;
     DrawerLayout drawerLayout;
     ImageButton openMenuButton, botonAtras;
-    TextView textviewAtras, txtGruposBuscar, Grupos, Inicio;
-    ImageView imageviewGruposBuscar, iconGrupos, iconInicio;
-    CardView buscar;
+    TextView textviewAtras, txtGruposBuscar, txtNuevoGrupo, Grupos, Inicio;
+    ImageView imageviewGruposBuscar, imageviewNuevoGrupo, iconGrupos, iconInicio;
+    CardView buscar, nuevoGrupo;
 
 
     @Override
@@ -42,8 +42,11 @@ public class ActivityGrupoPrincipal extends AppCompatActivity {
         botonAtras = (ImageButton) findViewById(R.id.btn_GruposPrincipalAtras);
         textviewAtras = (TextView) findViewById(R.id.textview_GrupoPrincipalbotAtras);
         txtGruposBuscar = (TextView) findViewById(R.id.txtGruposPrincipalBuscarGrupo);
+        txtNuevoGrupo = (TextView) findViewById(R.id.txtGruposPrincipalNuevoGrupo);
         imageviewGruposBuscar = (ImageView) findViewById(R.id.imageviewGruposPrincipalBuscar);
+        imageviewNuevoGrupo = (ImageView) findViewById(R.id.imageviewGruposPrincipalNuevoGrupo);
         buscar = (CardView) findViewById(R.id.cardViewGruposPrincipalBuscar);
+        nuevoGrupo = (CardView) findViewById(R.id.cardViewGruposPrincipalNuevo);
         Grupos = (TextView) findViewById(R.id.txtViewNavGrupos);
         Inicio = (TextView) findViewById(R.id.txtviewNavInicio);
         iconGrupos = (ImageView) findViewById(R.id.iconNavGrupos);
@@ -91,6 +94,15 @@ public class ActivityGrupoPrincipal extends AppCompatActivity {
                 if (view.getId() == R.id.cardViewGruposPrincipalBuscar){
                     actividad = ActivityGruposBuscar.class;
                 }
+                if (view.getId() == R.id.txtGruposPrincipalNuevoGrupo){
+                    actividad = ActivityNuevoGrupoIntegrantes.class;
+                }
+                if (view.getId() == R.id.imageviewGruposPrincipalNuevoGrupo){
+                    actividad = ActivityNuevoGrupoIntegrantes.class;
+                }
+                if (view.getId() == R.id.cardViewGruposPrincipalNuevo){
+                    actividad = ActivityNuevoGrupoIntegrantes.class;
+                }
                 if (view.getId() == R.id.txtViewNavGrupos) {
                     actividad = ActivityGrupoPrincipal.class;
                 }
@@ -119,6 +131,9 @@ public class ActivityGrupoPrincipal extends AppCompatActivity {
         Inicio.setOnClickListener(buttonClick);
         iconGrupos.setOnClickListener(buttonClick);
         iconInicio.setOnClickListener(buttonClick);
+        txtGruposBuscar.setOnClickListener(buttonClick);
+        imageviewGruposBuscar.setOnClickListener(buttonClick);
+        nuevoGrupo.setOnClickListener(buttonClick);
     }
 
     // Método para cambiar a otra actividad
