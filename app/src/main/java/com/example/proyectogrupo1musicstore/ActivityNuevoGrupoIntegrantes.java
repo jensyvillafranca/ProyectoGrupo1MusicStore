@@ -63,10 +63,10 @@ public class ActivityNuevoGrupoIntegrantes extends AppCompatActivity {
                     actividad = ActivityGrupoPrincipal.class;
                 }
                 if (view.getId() == R.id.textview_NuevoGrupoIntegrantesBotSiguiente) {
-                    actividad = null;
+                    actividad = ActivityNuevoGrupoDetalles.class;
                 }
                 if (view.getId() == R.id.btn_NuevoGrupoIntegrantesSiguiente) {
-                    actividad = null;
+                    actividad = ActivityNuevoGrupoDetalles.class;
                 }
                 if (actividad != null) {
                     moveActivity(actividad);

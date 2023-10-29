@@ -106,4 +106,7 @@
     <string name="agregar_integrantes">Agregar Integrantes</string>
     <string name="buscar_nombreUsuario">Buscar por nombre de usuario</string>
     <string name="nombreUsuario">Nombre del Usuario</string>
+    <string name="crearGrupo">Crear Grupo</string>
+    <string name="ingrese_nombreGrupo">Nombre del grupo</string>
+    <string name="ingrese_descripcion">Descripción</string>
 </resources>
