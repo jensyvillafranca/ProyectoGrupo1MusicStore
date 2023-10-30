@@ -1,6 +1,7 @@
 package com.example.proyectogrupo1musicstore.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.proyectogrupo1musicstore.ActivityGrupoInfo;
 import com.example.proyectogrupo1musicstore.Models.vistaDeGrupo;
 import com.example.proyectogrupo1musicstore.R;
 
@@ -52,6 +54,18 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
             public void onClick(View v) {
                 isImage1 = !isImage1;
                 itemImageView.setImageResource(isImage1 ? R.drawable.favoritodesmarcado : R.drawable.favoritomarcado);
+            }
+        });
+
+        // Obtiene el ImageView del diseño
+        ImageView imgGrupoInfo = holder.itemView.findViewById(R.id.imageviewListItemImage);
+
+        //Listener para el la foto del grupo que lleva a la informacion del grupo
+        imgGrupoInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent pantallaInfo = new Intent(v.getContext(), ActivityGrupoInfo.class);
+                v.getContext().startActivity(pantallaInfo);
             }
         });
     }

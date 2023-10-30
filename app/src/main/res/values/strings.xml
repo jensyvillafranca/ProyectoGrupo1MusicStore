@@ -109,4 +109,8 @@
     <string name="crearGrupo">Crear Grupo</string>
     <string name="ingrese_nombreGrupo">Nombre del grupo</string>
     <string name="ingrese_descripcion">Descripción</string>
+    <string name="integrante">Integrante</string>
+    <string name="musica">Musica</string>
+    <string name="video">Video</string>
+    <string name="verTodo">Ver todo</string>
 </resources>

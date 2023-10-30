@@ -43,6 +43,9 @@
             android:name=".ActivityNuevoGrupoDetalles"
             android:exported="false" />
         <activity
+            android:name=".ActivityGrupoInfo"
+            android:exported="false" />
+        <activity
             android:name=".ActivityPantallaPrincipal"
             android:exported="false" />
         <activity
