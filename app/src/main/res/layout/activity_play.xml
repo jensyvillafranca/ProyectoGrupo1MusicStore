@@ -30,13 +30,16 @@
                     android:orientation="horizontal"
                     tools:ignore="UseCompoundDrawables">
 
-                    <ImageView
-                        android:id="@+id/btnAtras"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:src="@drawable/iconoatras"
-                        android:importantForAccessibility="no"/>
+                    <ImageButton
+                        android:id="@+id/btnAtrass"
+                        android:layout_width="54dp"
+                        android:layout_height="46dp"
+                        android:background="@android:color/transparent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/textview_BuscarbotAtrasVideos"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/iconoatras" />
 
                     <TextView
                         android:layout_width="wrap_content"

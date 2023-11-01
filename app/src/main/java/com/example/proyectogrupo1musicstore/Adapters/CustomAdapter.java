@@ -76,7 +76,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
         return dataList.size();
     }
 
-    public class CustomViewHolder extends RecyclerView.ViewHolder {
+    public static class CustomViewHolder extends RecyclerView.ViewHolder {
         TextView nombreGrupo; // TextView para mostrar el nombre del grupo
         TextView creadoPor; // TextView para mostrar el creador del grupo
         TextView integrantes; // TextView para mostrar la cantidad de integrantes
