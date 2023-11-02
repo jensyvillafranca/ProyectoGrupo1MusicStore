@@ -61,16 +61,16 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="70dp" />
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="@string/cambiarContrasena"
-                android:textColor="#D3D3D3"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/cambiarContrasena"
+                    android:textColor="#D3D3D3"
                 android:textSize="20sp" />
 
             <ImageView

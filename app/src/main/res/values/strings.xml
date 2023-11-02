@@ -15,6 +15,8 @@
     <string name="grupo1">Grupo 1</string>
     <string name="grupo2">Grupo 2</string>
     <string name="grupo3">Grupo 3</string>
+    <string name="ingreseCodigoVerificacion">Ingrese el codigo de Verficacion</string>
+    <string name="verificar">Verificar</string>
 
 
     <string name="atras">Atrás</string>
