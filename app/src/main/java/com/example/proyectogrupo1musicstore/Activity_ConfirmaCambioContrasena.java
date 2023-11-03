@@ -10,18 +10,21 @@ import android.widget.LinearLayout;
 
 public class Activity_ConfirmaCambioContrasena extends AppCompatActivity {
 
-    LinearLayout btnAtras = (LinearLayout) findViewById(R.id.btn_ConfirmarCambiarContrasenaAtras);
-    Button btnVerificar = (Button) findViewById(R.id.btn_Verificar);
+    LinearLayout btnAtras;
+    Button btnVerificar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_confirma_cambio_contrasena);
 
+        btnAtras = findViewById(R.id.btn_ConfirmarCambiarContrasenaAtras);
+        btnVerificar = findViewById(R.id.btn_Verificar);
+
         btnAtras.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent RegresarCambioContrasena = new Intent(getApplicationContext(), Activity_CambiarContrasena.class);
+                Intent RegresarCambioContrasena = new Intent(Activity_ConfirmaCambioContrasena.this, Activity_CambiarContrasena.class);
                 startActivity(RegresarCambioContrasena);
             }
         });
@@ -29,7 +32,7 @@ public class Activity_ConfirmaCambioContrasena extends AppCompatActivity {
         btnVerificar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent VerificarEditarPerfil = new Intent(getApplicationContext(), Activity_EditarPerfil.class);
+                Intent VerificarEditarPerfil = new Intent(Activity_ConfirmaCambioContrasena.this, Activity_EditarPerfil.class);
                 startActivity(VerificarEditarPerfil);
             }
         });

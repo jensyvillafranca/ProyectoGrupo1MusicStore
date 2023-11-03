@@ -9,13 +9,16 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 
 public class Activity_CambiarContrasena extends AppCompatActivity {
-    LinearLayout btnCambiarAtras = (LinearLayout) findViewById(R.id.btn_CambiarContrasenaAtras);
-    Button btnEnviarCodigo = (Button) findViewById(R.id.btnEnviar);
+    LinearLayout btnCambiarAtras;
+    Button btnEnviarCodigo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cambiar_contrasena);
+
+        btnCambiarAtras = findViewById(R.id.btn_CambiarContrasenaAtras);
+        btnEnviarCodigo = findViewById(R.id.btnEnviar);
 
         btnCambiarAtras.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -15,7 +15,16 @@
         android:theme="@style/Theme.ProyectoGrupo1MusicStore"
         tools:targetApi="31">
         <activity
-            android:name=".Activity_ArchivosPersonales"
+            android:name=".Activity_ConfirmaCambioContrasena"
+            android:exported="false" />
+        <activity
+            android:name=".Activity_CambiarContrasena"
+            android:exported="false" />
+        <activity
+            android:name=".Activity_EditarPerfil"
+            android:exported="false" />
+        <activity
+            android:name=".ActivityArchivosPersonales"
             android:exported="false" />
         <activity
             android:name=".Activity_BuscarVideos"
@@ -45,7 +54,7 @@
             android:name=".activity_login"
             android:exported="false" />
         <activity
-            android:name=".perfilPersonal"
+            android:name=".Activity_PerfilPersonal"
             android:exported="false" />
         <activity
             android:name=".ActivityGruposBuscar"

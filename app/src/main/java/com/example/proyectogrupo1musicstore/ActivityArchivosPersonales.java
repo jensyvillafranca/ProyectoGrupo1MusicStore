@@ -4,7 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class archivoPersonales extends AppCompatActivity {
+public class ActivityArchivosPersonales extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
