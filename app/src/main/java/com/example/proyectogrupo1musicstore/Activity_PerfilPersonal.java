@@ -4,11 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class cambiarContrasena extends AppCompatActivity {
+public class Activity_PerfilPersonal extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_cambiar_contrasena);
+        setContentView(R.layout.activity_perfil_personal);
     }
 }

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".confirmaCambioContrasena"
+    tools:context=".Activity_ConfirmaCambioContrasena"
     android:background="@drawable/background">
 
     <FrameLayout
@@ -18,13 +18,14 @@
             tools:ignore="UselessParent">
 
             <LinearLayout
+                android:id="@+id/btn_ConfirmarCambiarContrasenaAtras"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 tools:ignore="UselessParent">
 
                 <ImageView
-                    android:id="@+id/btnAtras"
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -90,16 +91,17 @@
                         android:textSize="15sp" />
 
                     <EditText
-                        android:id="@+id/inputcodeVerificacion"
+                        android:id="@+id/inputVerificacion"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:background="@drawable/edittext"
                         android:importantForAutofill="no"
-                        android:inputType="textPassword"
+                        android:inputType="number"
                         android:labelFor="@+id/txtcodeVerificacion"
                         tools:ignore="LabelFor,SpeakableTextPresentCheck,TouchTargetSizeCheck,VisualLintTextFieldSize" />
 
                     <TextView
+                        android:id="@+id/btnEnviarCodigo"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="right"
@@ -112,6 +114,7 @@
                         android:layout_height="150dp"/>
 
                     <Button
+                        android:id="@+id/btn_Verificar"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:background="@color/button"

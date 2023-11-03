@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".perfilPersonal"
+    tools:context=".Activity_PerfilPersonal"
     android:background="@drawable/background"
     android:paddingTop="15dp">
 
@@ -21,10 +21,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                tools:ignore="UselessParent">
+                tools:ignore="UselessParent"
+                android:id="@+id/btn_CambiarContrasenaAtras">
 
                 <ImageView
-                    android:id="@+id/btnAtras"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -87,7 +87,7 @@
                 android:paddingHorizontal="40dp">
 
                 <TextView
-                    android:id="@+id/NombrePlayList"
+                    android:id="@+id/txtContrasenaActual"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/ingreseContrasenaActual"
@@ -95,13 +95,13 @@
                     android:textSize="15sp" />
 
                 <EditText
-                    android:id="@+id/txtNombrePlayList"
+                    android:id="@+id/inputContrasenaActual"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:background="@drawable/edittext"
                     android:importantForAutofill="no"
                     android:inputType="textPassword"
-                    android:labelFor="@+id/NombrePlayList"
+                    android:labelFor="@+id/txtContrasenaActual"
                     tools:ignore="LabelFor,SpeakableTextPresentCheck,TouchTargetSizeCheck,VisualLintTextFieldSize" />
 
                 <Space
@@ -109,7 +109,7 @@
                     android:layout_height="10dp" />
 
                 <TextView
-                    android:id="@+id/ingreseNuevaContrasena"
+                    android:id="@+id/txtNuevaContrasena"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/ingreseNuevaContrasena"
@@ -117,13 +117,13 @@
                     android:textSize="15sp" />
 
                 <EditText
-                    android:id="@+id/txtBiografia"
+                    android:id="@+id/inputNuevaContasena"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:background="@drawable/edittext"
                     android:importantForAutofill="no"
                     android:inputType="textPassword"
-                    android:labelFor="@id/ingreseNuevaContrasena"
+                    android:labelFor="@id/txtNuevaContrasena"
                     tools:ignore="LabelFor,SpeakableTextPresentCheck,TouchTargetSizeCheck,VisualLintTextFieldSize" />
 
                 <Space
@@ -131,7 +131,7 @@
                     android:layout_height="10dp" />
 
                 <TextView
-                    android:id="@+id/confirmaContrasena"
+                    android:id="@+id/txtConfirmaContrasena"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/confirmaContrasena"
@@ -145,7 +145,7 @@
                     android:background="@drawable/edittext"
                     android:importantForAutofill="no"
                     android:inputType="textPassword"
-                    android:labelFor="@id/confirmaContrasena"
+                    android:labelFor="@id/txtConfirmaContrasena"
                     tools:ignore="LabelFor,SpeakableTextPresentCheck,TouchTargetSizeCheck,VisualLintTextFieldSize" />
 
                 <Space
@@ -153,6 +153,7 @@
                     android:layout_height="60dp" />
 
                 <Button
+                    android:id="@+id/btnEnviar"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:background="@color/button"
