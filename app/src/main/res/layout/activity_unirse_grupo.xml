@@ -25,7 +25,7 @@
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/relativeLayoutGruposUnirse2"
-                app:layout_constraintVertical_bias="1.0">
+                app:layout_constraintVertical_bias="0.0">
 
                 <ImageView
                     android:id="@+id/imageviewUnirseImagenGrupo"
@@ -53,6 +53,7 @@
                     android:layout_marginStart="100dp"
                     android:layout_marginTop="40dp"
                     android:layout_marginEnd="100dp"
+                    android:fontFamily="@font/fuente_jost_global"
                     android:text="@string/nombreGrupo"
                     android:textAlignment="center"
                     android:textColor="@color/white"
@@ -72,6 +73,7 @@
                     android:layout_marginStart="100dp"
                     android:layout_marginTop="20dp"
                     android:layout_marginEnd="100dp"
+                    android:fontFamily="@font/fuente_jost_global"
                     android:text="@string/integrantes"
                     android:textColor="@color/lightGray90"
                     android:textSize="16sp"
@@ -90,6 +92,7 @@
                     android:layout_marginStart="50dp"
                     android:layout_marginTop="20dp"
                     android:layout_marginEnd="50dp"
+                    android:fontFamily="@font/fuente_jost_global"
                     android:textColor="@color/white"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -105,13 +108,14 @@
                     android:layout_marginStart="75dp"
                     android:layout_marginTop="160dp"
                     android:layout_marginEnd="75dp"
+                    android:layout_marginBottom="103dp"
                     android:backgroundTint="@color/button"
+                    android:fontFamily="@font/fuente_jost_global"
+                    android:text="@string/unirse"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textviewUnirseDescripcion"
-                    tools:text="@string/unirse" />
-
+                    app:layout_constraintTop_toBottomOf="@+id/textviewUnirseDescripcion"/>
             </RelativeLayout>
 
             <RelativeLayout
@@ -144,6 +148,7 @@
                     android:layout_alignParentTop="true"
                     android:layout_marginStart="62dp"
                     android:layout_marginTop="12dp"
+                    android:fontFamily="@font/fuente_jost_global"
                     android:text="@string/atras"
                     android:textColor="#FFFFFF"
                     android:textStyle="bold"
@@ -167,6 +172,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
                     android:layout_marginStart="19dp"
+                    android:fontFamily="@font/fuente_jost_global"
                     android:text="@string/appName"
                     android:textColor="@color/white"
                     android:textSize="18sp"

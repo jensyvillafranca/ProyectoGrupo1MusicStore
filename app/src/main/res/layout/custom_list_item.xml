@@ -23,32 +23,35 @@
         android:id="@+id/txtListItemNombreGrupo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/fuente_jost_global"
         android:text="@string/nombreGrupo"
         android:textColor="@color/black"
         android:textStyle="bold"
-        app:layout_constraintTop_toTopOf="@+id/layout_mainItem"
+        app:layout_constraintEnd_toStartOf="@+id/iconLayout"
         app:layout_constraintStart_toEndOf="@+id/imageviewListItemImage"
-        app:layout_constraintEnd_toStartOf="@+id/iconLayout" />
+        app:layout_constraintTop_toTopOf="@+id/layout_mainItem" />
 
     <TextView
         android:id="@+id/txtListItemCreado"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/fuente_jost_global"
         android:text="@string/creador"
         android:textColor="@color/black"
-        app:layout_constraintTop_toBottomOf="@+id/txtListItemNombreGrupo"
+        app:layout_constraintEnd_toStartOf="@+id/iconLayout"
         app:layout_constraintStart_toEndOf="@+id/imageviewListItemImage"
-        app:layout_constraintEnd_toStartOf="@+id/iconLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/txtListItemNombreGrupo" />
 
     <TextView
         android:id="@+id/txtListItemIntegrante"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/fuente_jost_global"
         android:text="@string/integrantes"
         android:textColor="@color/black"
-        app:layout_constraintTop_toBottomOf="@+id/txtListItemCreado"
+        app:layout_constraintEnd_toStartOf="@+id/iconLayout"
         app:layout_constraintStart_toEndOf="@+id/imageviewListItemImage"
-        app:layout_constraintEnd_toStartOf="@+id/iconLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/txtListItemCreado" />
 
     <LinearLayout
         android:id="@+id/iconLayout"

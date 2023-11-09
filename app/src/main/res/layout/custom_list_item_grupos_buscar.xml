@@ -27,32 +27,35 @@
         android:id="@+id/txtListItemNombreGrupoGruposBuscar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/fuente_jost_global"
         android:text="@string/nombreGrupo"
         android:textColor="@color/black"
         android:textStyle="bold"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/iconLayoutGruposBuscar"
         app:layout_constraintStart_toEndOf="@+id/imageviewListItemImageGruposBuscar"
-        app:layout_constraintEnd_toStartOf="@+id/iconLayoutGruposBuscar" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/txtListItemCreadoGruposBuscar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/fuente_jost_global"
         android:text="@string/creador"
         android:textColor="@color/black"
-        app:layout_constraintTop_toBottomOf="@+id/txtListItemNombreGrupoGruposBuscar"
+        app:layout_constraintEnd_toStartOf="@+id/iconLayoutGruposBuscar"
         app:layout_constraintStart_toEndOf="@+id/imageviewListItemImageGruposBuscar"
-        app:layout_constraintEnd_toStartOf="@+id/iconLayoutGruposBuscar" />
+        app:layout_constraintTop_toBottomOf="@+id/txtListItemNombreGrupoGruposBuscar" />
 
     <TextView
         android:id="@+id/txtListItemIntegranteGruposBuscar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/fuente_jost_global"
         android:text="@string/integrantes"
         android:textColor="@color/black"
-        app:layout_constraintTop_toBottomOf="@+id/txtListItemCreadoGruposBuscar"
+        app:layout_constraintEnd_toStartOf="@+id/iconLayoutGruposBuscar"
         app:layout_constraintStart_toEndOf="@+id/imageviewListItemImageGruposBuscar"
-        app:layout_constraintEnd_toStartOf="@+id/iconLayoutGruposBuscar" />
+        app:layout_constraintTop_toBottomOf="@+id/txtListItemCreadoGruposBuscar" />
 
     <LinearLayout
         android:id="@+id/iconLayoutGruposBuscar"
