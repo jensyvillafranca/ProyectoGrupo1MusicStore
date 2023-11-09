@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout_mainItem"
+    android:layout_width="match_parent"
+    android:layout_height="95dp"
+    app:cardBackgroundColor="@color/negro"
+    android:layout_marginBottom="10dp"
+    android:background="@drawable/cuadrotransparentedemusica"
+    android:padding="16dp">
+    <ImageView
+        android:id="@+id/imageviewListItemImages"
+        android:layout_width="62dp"
+        android:layout_height="57dp"
+        android:contentDescription="Image"
+        android:src="@drawable/iconovideos"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <TextView
+        android:id="@+id/txtListItemNombreGrupos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/nombreVideos"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="@+id/layout_mainItem"
+        app:layout_constraintStart_toEndOf="@+id/imageviewListItemImages"
+        app:layout_constraintEnd_toStartOf="@+id/iconLayouts" />
+
+    <TextView
+        android:id="@+id/txtListItemCreados"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/editado"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@+id/txtListItemNombreGrupos"
+        app:layout_constraintStart_toEndOf="@+id/imageviewListItemImages"
+        app:layout_constraintEnd_toStartOf="@+id/iconLayouts" />
+
+    <LinearLayout
+        android:id="@+id/iconLayouts"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

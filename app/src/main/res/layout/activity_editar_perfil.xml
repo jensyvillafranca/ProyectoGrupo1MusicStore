@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".editarPerfil"
+    tools:context=".Activity_EditarPerfil"
     android:background="@drawable/background"
     android:paddingTop="15dp">
 
@@ -28,10 +28,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
+                    android:id="@+id/btn_EditarPerfilAtras"
                     tools:ignore="UseCompoundDrawables">
 
                     <ImageView
-                        android:id="@+id/btnAtras"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -84,6 +84,7 @@
                         android:layout_gravity="center"/>
 
                     <ImageView
+                        android:id="@+id/imgFoto"
                         android:layout_width="180dp"
                         android:layout_height="180dp"
                         android:layout_gravity="center"
@@ -96,6 +97,7 @@
                         android:layout_gravity="bottom|end">
 
                         <ImageView
+                            android:id="@+id/imgcambiarPerfil"
                             android:layout_width="45dp"
                             android:layout_height="45dp"
                             android:layout_gravity="center"
@@ -111,6 +113,7 @@
                     android:layout_height="20dp"/>
 
                 <TextView
+                    android:id="@+id/txtNombre"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/name"
@@ -161,6 +164,7 @@
                                 android:layout_weight="1" />
 
                             <ImageView
+                                android:id="@+id/imgBiografia"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginRight="6dp"
@@ -193,11 +197,12 @@
                                 android:layout_weight="1" />
 
                             <ImageView
+                                android:id="@+id/imgContrasena"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginRight="6dp"
-                                android:src="@drawable/botoneditardebiocambiarcontrasena"
                                 android:importantForAccessibility="no"
+                                android:src="@drawable/botoneditardebiocambiarcontrasena"
                                 tools:ignore="RtlHardcoded" />
 
                         </LinearLayout>
@@ -225,6 +230,7 @@
                                 android:layout_weight="1" />
 
                             <ImageView
+                                android:id="@+id/imgBiometricos"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginRight="6dp"
@@ -256,6 +262,7 @@
                                 android:orientation="vertical">
 
                                 <CheckBox
+                                    android:id="@+id/chePerfil"
                                     android:layout_width="wrap_content"
                                     android:layout_height="18dp"
                                     android:layout_gravity="right"
@@ -288,6 +295,7 @@
                                 android:orientation="vertical">
 
                                 <CheckBox
+                                    android:id="@+id/cheNotificacion"
                                     android:layout_width="wrap_content"
                                     android:layout_height="18dp"
                                     android:layout_gravity="right"
@@ -320,6 +328,7 @@
                                 android:layout_weight="1" />
 
                             <ImageView
+                                android:id="@+id/imgCuenta"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginRight="6dp"

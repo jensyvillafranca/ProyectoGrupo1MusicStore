@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
         prueba.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent prueba = new Intent(getApplicationContext(),activity_login.class);
+                Intent prueba = new Intent(getApplicationContext(), activity_login.class);
                 startActivity(prueba);
             }
         });

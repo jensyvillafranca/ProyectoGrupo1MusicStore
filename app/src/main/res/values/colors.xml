@@ -9,4 +9,5 @@
     <color name="elementBackground">#E7E6E6</color>
     <color name="lightGray90">#E6CCCCCC</color>
     <color name="black90">#E6000000</color>
+    <color name="negro">#00abe3</color>
 </resources>

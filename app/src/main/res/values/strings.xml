@@ -15,14 +15,14 @@
     <string name="grupo1">Grupo 1</string>
     <string name="grupo2">Grupo 2</string>
     <string name="grupo3">Grupo 3</string>
+    <string name="ingreseCodigoVerificacion">Ingrese el codigo de Verficacion</string>
+    <string name="verificar">Verificar</string>
+
+
     <string name="atras">Atrás</string>
-    <string name="cancelar">Cancelar</string>
-    <string name="Crearplaylist">Crear Play List</string>
     <string name="playListFav">PlayList Favoritas</string>
-    <string name="playList">Play List</string>
     <string name="cancionesFav">Canciones Favoritas</string>
     <string name="vermas">Ver Mas</string>
-    <string name="principal">Principal</string>
     <string name="NuevaListas">Quiere nuevas listas de reproducción</string>
     <string name="NombreUsuario">Kency Angely Rosa Paz</string>
     <string name="cambiarContrasena">Cambiar Contraseña</string>
@@ -30,6 +30,13 @@
     <string name="CambiarNombre">Cambiar Nombre</string>
     <string name="EscribaNombrePlayList">Escriba un nombre que le guste</string>
     <string name="EscribaBiografa">Escriba una Biografa</string>
+    <string name="Crearplaylist">Crear Play List</string>
+    <string name="playList">Play List</string>
+    <string name="cancelar">Cancelar</string>
+    <string name="principal">Siguiente</string>
+    <string name="archivosPersonales">Archivos Personales</string>
+
+
     <string name="ingreseContrasenaActual">Ingrese su contraseña actual</string>
     <string name="ingreseNuevaContrasena">Ingrese una nueva contraseña</string>
     <string name="confirmaContrasena">Confirma su contraseña</string>
@@ -39,7 +46,6 @@
     <string name="perfilPrivado">Perfil Privado</string>
     <string name="eliminarCuenta">Eliminar Cuenta</string>
     <string name="notificaciones">Notificaciones</string>
-    <string name="archivosPersonales">Archivos Personales</string>
 
 
     <!--Jensy Login-->
@@ -113,4 +119,25 @@
     <string name="musica">Musica</string>
     <string name="video">Video</string>
     <string name="verTodo">Ver todo</string>
+
+    <!--Jonathan-->
+    <string name="btnCrearPlayList">Crear PlayList</string>
+    <string name="titulo">Music Store HN</string>
+
+    <string name="nombresvideo">Nombre del video</string>
+    <string name="title_activity_subir_archivo">SubirArchivo</string>
+    <string name="nombresmusica">Nombre de la cancion</string>
+    <string name="buttomsubir">Subir Archivo</string>
+    <string name="buttombuscar">Buscar Archivo</string>
+    <string name="buttommusica">Musica</string>
+    <string name="buttomvideo">Video</string>
+    <string name="nombreCancion">Nombre de la cancion</string>
+    <string name="autor">Compuesta por</string>
+    <string name="nombreVideos">Nombre del video</string>
+    <string name="editado">Compuesta por</string>
+    <string name="buscarMusica">Buscar Musica</string>
+    <string name="buscarVideo">Buscar Video</string>
+    <string name="resultBusquedaMusica">Busqueda Musica</string>
+    <string name="resultBusquedaVideo">Busqueda Video</string>
+
 </resources>
