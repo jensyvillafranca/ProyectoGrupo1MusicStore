@@ -36,14 +36,6 @@ public class ActivityNuevoGrupoIntegrantes extends AppCompatActivity {
 
         // Creación de una lista de elementos de vistaDeNuevoGrupo
         List<vistaDeNuevoGrupo> dataList = new ArrayList<>();
-        dataList.add(new vistaDeNuevoGrupo("Usuario 1", R.drawable.iconodeusuariossinfoto));
-        dataList.add(new vistaDeNuevoGrupo("Usuario 2", R.drawable.iconodeusuariossinfoto));
-        dataList.add(new vistaDeNuevoGrupo("Usuario 3", R.drawable.iconodeusuariossinfoto));
-        dataList.add(new vistaDeNuevoGrupo("Usuario 4", R.drawable.iconodeusuariossinfoto));
-        dataList.add(new vistaDeNuevoGrupo("Usuario 5", R.drawable.iconodeusuariossinfoto));
-        dataList.add(new vistaDeNuevoGrupo("Usuario 6", R.drawable.iconodeusuariossinfoto));
-        dataList.add(new vistaDeNuevoGrupo("Usuario 7", R.drawable.iconodeusuariossinfoto));
-        dataList.add(new vistaDeNuevoGrupo("Usuario 8", R.drawable.iconodeusuariossinfoto));
 
         // Configuración del administrador de diseño y adaptador para el RecyclerView
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);

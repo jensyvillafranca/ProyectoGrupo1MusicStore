@@ -1,15 +1,17 @@
 package com.example.proyectogrupo1musicstore.Models;
 
+import android.graphics.Bitmap;
+
 public class integrantesItem {
-    private int imageResId;
+    private Bitmap imageResId;
     private String itemName;
 
-    public integrantesItem(int imageResId, String itemName) {
+    public integrantesItem(Bitmap imageResId, String itemName) {
         this.imageResId = imageResId;
         this.itemName = itemName;
     }
 
-    public int getImageResId() {
+    public Bitmap getImageResId() {
         return imageResId;
     }
 

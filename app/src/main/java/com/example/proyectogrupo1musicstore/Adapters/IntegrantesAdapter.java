@@ -34,7 +34,7 @@ public class IntegrantesAdapter extends RecyclerView.Adapter<IntegrantesAdapter.
     @Override
     public void onBindViewHolder(@NonNull IntegrantesViewHolder holder, int position) {
         integrantesItem item = itemList.get(position);
-        holder.integranteImage.setImageResource(item.getImageResId());
+        holder.integranteImage.setImageBitmap(item.getImageResId());
         holder.integranteName.setText(item.getItemName());
     }
 

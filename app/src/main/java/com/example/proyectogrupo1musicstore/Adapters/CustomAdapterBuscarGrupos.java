@@ -39,7 +39,7 @@ public class CustomAdapterBuscarGrupos extends RecyclerView.Adapter<CustomAdapte
         holder.nombreGrupo.setText(data.getText1());
         holder.creadoPor.setText(data.getText2());
         holder.integrantes.setText(data.getText3());
-        holder.image.setImageResource(data.getImageResource());
+        holder.image.setImageBitmap(data.getImageResource());
 
         // Obtiene el ImageView del diseño
         ImageView imgUnirse = holder.itemView.findViewById(R.id.imageviewGruposBuscarUnirse);

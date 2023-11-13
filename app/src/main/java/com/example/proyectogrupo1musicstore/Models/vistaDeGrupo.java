@@ -1,12 +1,14 @@
 package com.example.proyectogrupo1musicstore.Models;
 
+import android.graphics.Bitmap;
+
 public class vistaDeGrupo {
     private String text1;
     private String text2;
     private String text3;
-    private int imageResource;
+    private Bitmap imageResource;
 
-    public vistaDeGrupo(String text1, String text2, String text3, int imageResource) {
+    public vistaDeGrupo(String text1, String text2, String text3, Bitmap imageResource) {
         this.text1 = text1;
         this.text2 = text2;
         this.text3 = text3;
@@ -25,7 +27,7 @@ public class vistaDeGrupo {
         return text3;
     }
 
-    public int getImageResource() {
+    public Bitmap getImageResource() {
         return imageResource;
     }
 }

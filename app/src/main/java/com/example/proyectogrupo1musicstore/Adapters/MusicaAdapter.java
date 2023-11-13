@@ -34,7 +34,7 @@ public class MusicaAdapter extends RecyclerView.Adapter<MusicaAdapter.MusicaView
     @Override
     public void onBindViewHolder(@NonNull MusicaViewHolder holder, int position) {
         musicItem item = itemList.get(position);
-        holder.musicaImage.setImageResource(item.getImageResId());
+        holder.musicaImage.setImageBitmap(item.getImageResId());
         holder.musicaName.setText(item.getItemName());
     }
 

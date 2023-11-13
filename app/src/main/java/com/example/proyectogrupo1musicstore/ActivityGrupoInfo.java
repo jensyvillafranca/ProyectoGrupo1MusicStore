@@ -50,36 +50,12 @@ public class ActivityGrupoInfo extends AppCompatActivity {
 
         // Creación de una lista de elementos de integrantesItem
         List<integrantesItem> integrantesList = new ArrayList<>();
-        integrantesList.add(new integrantesItem(R.drawable.iconodeusuariossinfoto, "Usuario 1"));
-        integrantesList.add(new integrantesItem(R.drawable.iconodeusuariossinfoto, "Usuario 2"));
-        integrantesList.add(new integrantesItem(R.drawable.iconodeusuariossinfoto, "Usuario 3"));
-        integrantesList.add(new integrantesItem(R.drawable.iconodeusuariossinfoto, "Usuario 4"));
-        integrantesList.add(new integrantesItem(R.drawable.iconodeusuariossinfoto, "Usuario 5"));
-        integrantesList.add(new integrantesItem(R.drawable.iconodeusuariossinfoto, "Usuario 6"));
-        integrantesList.add(new integrantesItem(R.drawable.iconodeusuariossinfoto, "Usuario 7"));
-        integrantesList.add(new integrantesItem(R.drawable.iconodeusuariossinfoto, "Usuario 8"));
 
         // Creación de una lista de elementos de musicItem
         List<musicItem> musicList = new ArrayList<>();
-        musicList.add(new musicItem(R.drawable.iconodecadaarchivomusica, "Archivo 1"));
-        musicList.add(new musicItem(R.drawable.iconodecadaarchivomusica, "Archivo 2"));
-        musicList.add(new musicItem(R.drawable.iconodecadaarchivomusica, "Archivo 3"));
-        musicList.add(new musicItem(R.drawable.iconodecadaarchivomusica, "Archivo 4"));
-        musicList.add(new musicItem(R.drawable.iconodecadaarchivomusica, "Archivo 5"));
-        musicList.add(new musicItem(R.drawable.iconodecadaarchivomusica, "Archivo 6"));
-        musicList.add(new musicItem(R.drawable.iconodecadaarchivomusica, "Archivo 7"));
-        musicList.add(new musicItem(R.drawable.iconodecadaarchivomusica, "Archivo 8"));
 
         // Creación de una lista de elementos de videoItem
         List<videoItem> videoList = new ArrayList<>();
-        videoList.add(new videoItem(R.drawable.iconodecadaarchivovideo, "Archivo 1"));
-        videoList.add(new videoItem(R.drawable.iconodecadaarchivovideo, "Archivo 2"));
-        videoList.add(new videoItem(R.drawable.iconodecadaarchivovideo, "Archivo 3"));
-        videoList.add(new videoItem(R.drawable.iconodecadaarchivovideo, "Archivo 4"));
-        videoList.add(new videoItem(R.drawable.iconodecadaarchivovideo, "Archivo 5"));
-        videoList.add(new videoItem(R.drawable.iconodecadaarchivovideo, "Archivo 6"));
-        videoList.add(new videoItem(R.drawable.iconodecadaarchivovideo, "Archivo 7"));
-        videoList.add(new videoItem(R.drawable.iconodecadaarchivovideo, "Archivo 8"));
 
         // Crea y vincula el adaptador - integrantes
         IntegrantesAdapter integrantesAdapter = new IntegrantesAdapter(this, integrantesList);

@@ -56,14 +56,6 @@ public class ActivityGruposBuscar extends AppCompatActivity {
 
         // Creación de una lista de elementos de vistaDeGrupo
         List<vistaDeGrupo> dataList = new ArrayList<>();
-        dataList.add(new vistaDeGrupo("Grupo 1", "Creado por mi", "Integrantes: 10", R.drawable.logopantallaprincipal));
-        dataList.add(new vistaDeGrupo("Grupo 2", "Creado por mi", "Integrantes: 5", R.drawable.logopantallaprincipal));
-        dataList.add(new vistaDeGrupo("Grupo 3", "Creado por mi", "Integrantes: 5", R.drawable.logopantallaprincipal));
-        dataList.add(new vistaDeGrupo("Grupo 4", "Creado por mi", "Integrantes: 5", R.drawable.logopantallaprincipal));
-        dataList.add(new vistaDeGrupo("Grupo 5", "Creado por mi", "Integrantes: 5", R.drawable.logopantallaprincipal));
-        dataList.add(new vistaDeGrupo("Grupo 6", "Creado por mi", "Integrantes: 5", R.drawable.logopantallaprincipal));
-        dataList.add(new vistaDeGrupo("Grupo 7", "Creado por mi", "Integrantes: 5", R.drawable.logopantallaprincipal));
-        dataList.add(new vistaDeGrupo("Grupo 8", "Creado por mi", "Integrantes: 5", R.drawable.logopantallaprincipal));
 
         // Configuración del administrador de diseño y adaptador para el RecyclerView
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);

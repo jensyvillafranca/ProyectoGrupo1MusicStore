@@ -34,7 +34,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoViewHol
     @Override
     public void onBindViewHolder(@NonNull VideoViewHolder holder, int position) {
         videoItem item = itemList.get(position);
-        holder.videoImage.setImageResource(item.getImageResId());
+        holder.videoImage.setImageBitmap(item.getImageResId());
         holder.videoName.setText(item.getItemName());
     }
 
