@@ -87,7 +87,7 @@
 
 
                 <ImageView
-                    android:id="@+id/imageView"
+                    android:id="@+id/imageviewGrupoInfoFoto"
                     android:layout_width="160dp"
                     android:layout_height="116dp"
                     android:layout_marginStart="50dp"
@@ -112,7 +112,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/imageView" />
+                    app:layout_constraintTop_toBottomOf="@+id/imageviewGrupoInfoFoto" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

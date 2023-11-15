@@ -1,5 +1,6 @@
 package com.example.proyectogrupo1musicstore;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -15,11 +16,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.proyectogrupo1musicstore.Adapters.CustomAdapter;
 import com.example.proyectogrupo1musicstore.Models.vistaDeGrupo;
+import com.example.proyectogrupo1musicstore.NetworkTasks.FetchDataAsyncGruposPrincipal;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class ActivityGrupoPrincipal extends AppCompatActivity {
+public class ActivityGrupoPrincipal extends AppCompatActivity implements FetchDataAsyncGruposPrincipal.DataFetchListener {
 
     // Declaración de variables
     RecyclerView lista;
@@ -28,12 +29,17 @@ public class ActivityGrupoPrincipal extends AppCompatActivity {
     TextView textviewAtras, txtGruposBuscar, txtNuevoGrupo, Grupos, Inicio;
     ImageView imageviewGruposBuscar, imageviewNuevoGrupo, iconGrupos, iconInicio;
     CardView buscar, nuevoGrupo;
+    ProgressDialog progressDialog;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_grupo_principal);
+
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Cargando...");
+        progressDialog.setCancelable(false);
 
         // Inicialización de vistas y elementos del diseño
         lista = (RecyclerView) findViewById(R.id.recyclerview_GruposPrincipal);
@@ -52,14 +58,15 @@ public class ActivityGrupoPrincipal extends AppCompatActivity {
         iconGrupos = (ImageView) findViewById(R.id.iconNavGrupos);
         iconInicio = (ImageView) findViewById(R.id.iconNavInicio);
 
-        // Creación de una lista de elementos de vistaDeGrupo
-        List<vistaDeGrupo> dataList = new ArrayList<>();
+        // Fetch data from the server
+        String url = "https://phpclusters-152621-0.cloudclusters.net/principalGrupos.php";
+        String idUsuario = "1"; // Reemplazar por el idusuario - Motivos de prueba
+        progressDialog.show();
+        new FetchDataAsyncGruposPrincipal(this).execute(url, idUsuario);
 
         // Configuración del administrador de diseño y adaptador para el RecyclerView
         LinearLayoutManager layoutManager = new LinearLayoutManager(this); // Use an appropriate layout manager
         lista.setLayoutManager(layoutManager);
-        CustomAdapter adapter = new CustomAdapter(this, dataList);
-        lista.setAdapter(adapter);
 
         // Listener para abrir el menú lateral
         openMenuButton.setOnClickListener(v -> {
@@ -126,6 +133,14 @@ public class ActivityGrupoPrincipal extends AppCompatActivity {
         txtGruposBuscar.setOnClickListener(buttonClick);
         imageviewGruposBuscar.setOnClickListener(buttonClick);
         nuevoGrupo.setOnClickListener(buttonClick);
+    }
+
+    @Override
+    public void onDataFetched(List<vistaDeGrupo> dataList) {
+        // Muestra el Recycle view con la nueva informacion
+        progressDialog.dismiss(); // Esconde el spinner de carga
+        CustomAdapter adapter = new CustomAdapter(this, dataList);
+        lista.setAdapter(adapter);
     }
 
     // Método para cambiar a otra actividad

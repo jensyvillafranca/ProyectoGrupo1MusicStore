@@ -137,7 +137,7 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="0dp"
-                android:layout_height="563dp"
+                android:layout_height="560dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="10dp"
@@ -147,16 +147,17 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
+                app:layout_constraintVertical_bias="0.0">
 
                 <Button
                     android:id="@+id/btnNuevoGrupoDetallesUnirse"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="30dp"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="30dp"
                     android:layout_marginEnd="30dp"
-                    android:layout_marginBottom="10dp"
+                    android:layout_marginBottom="50dp"
                     android:backgroundTint="@color/button"
                     android:fontFamily="@font/fuente_jost_global"
                     android:text="@string/crearGrupo"
@@ -164,15 +165,25 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/recyclerview_NuevoGrupoDetalles" />
+                    app:layout_constraintTop_toBottomOf="@+id/checkboxNuevoGrupoDetalles" />
 
+                <CheckBox
+                    android:id="@+id/checkboxNuevoGrupoDetalles"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="68dp"
+                    android:layout_marginBottom="70dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/recyclerview_NuevoGrupoDetalles" />
 
                 <TextView
                     android:id="@+id/textview_NuevoGrupoDetallesIntegrantes"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginBottom="20dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="10dp"
                     android:fontFamily="@font/fuente_jost_global"
                     android:text="@string/integrantes"
                     android:textColor="@color/lightGray90"
@@ -186,16 +197,33 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerview_NuevoGrupoDetalles"
                     android:layout_width="0dp"
-                    android:layout_height="382dp"
+                    android:layout_height="0dp"
                     android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"
                     android:layout_marginEnd="10dp"
-                    android:layout_marginBottom="57dp"
+                    android:layout_marginBottom="80dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textview_NuevoGrupoDetallesIntegrantes" />
+
+                <TextView
+                    android:id="@+id/textview_NuevoGrupoDetallesPrivado"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="100dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="70dp"
+                    android:fontFamily="@font/fuente_jost_global"
+                    android:text="@string/grupoPrivado"
+                    android:textColor="@color/lightGray90"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/checkboxNuevoGrupoDetalles"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/recyclerview_NuevoGrupoDetalles" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>

@@ -12,14 +12,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.proyectogrupo1musicstore.ActivityGrupoInfo;
 import com.example.proyectogrupo1musicstore.Models.vistaDeGrupo;
+import com.example.proyectogrupo1musicstore.NetworkTasks.UpdateFavoritoAsyncTask;
 import com.example.proyectogrupo1musicstore.R;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.List;
 
 public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomViewHolder> {
     private List<vistaDeGrupo> dataList;
     private Context context;
-    boolean isImage1 = true;
+    boolean isImage1;
 
     public CustomAdapter(Context context, List<vistaDeGrupo> dataList) {
         this.context = context;
@@ -45,15 +49,25 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
         // Obtiene el ImageView del diseño
         ImageView itemImageView = holder.itemView.findViewById(R.id.imageviewGruposIconoFavorito);
 
-        // Inicializa y alterna la imagen según el estado actual
-        itemImageView.setImageResource(isImage1 ? R.drawable.favoritodesmarcado : R.drawable.favoritomarcado);
+        // Revisa si el estado favorito esta seleccionado
+        itemImageView.setImageResource(data.getEstadofavorito() == 0 ? R.drawable.favoritodesmarcado : R.drawable.favoritomarcado);
 
         // Establece el OnClickListener para alternar la imagen
         itemImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //Cambia el estado favorito
+                int newFavoritoState = isImage1 ? 1 : 0;
+                data.setEstadofavorito(newFavoritoState);
+
+                //Actualiza la base de datos
+                updateFavoritoState(data.getIdgrupo(), data.getEstadofavorito());
+
+                // Actualiza la imagen localmente
                 isImage1 = !isImage1;
                 itemImageView.setImageResource(isImage1 ? R.drawable.favoritodesmarcado : R.drawable.favoritomarcado);
+
+
             }
         });
 
@@ -65,6 +79,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
             @Override
             public void onClick(View v) {
                 Intent pantallaInfo = new Intent(v.getContext(), ActivityGrupoInfo.class);
+                pantallaInfo.putExtra("idgrupo", data.getIdgrupo());
                 v.getContext().startActivity(pantallaInfo);
             }
         });
@@ -74,6 +89,21 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
     @Override
     public int getItemCount() {
         return dataList.size();
+    }
+
+    private void updateFavoritoState(int idGrupo, int newFavoritoState) {
+
+        // Construye el JSON
+        JSONObject jsonData = new JSONObject();
+        try {
+            jsonData.put("estadofavorito", newFavoritoState);
+            jsonData.put("idgrupo", idGrupo);
+            jsonData.put("idusuario", "1");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        new UpdateFavoritoAsyncTask().execute(jsonData.toString());
     }
 
     public static class CustomViewHolder extends RecyclerView.ViewHolder {

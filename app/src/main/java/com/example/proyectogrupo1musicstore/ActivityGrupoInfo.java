@@ -1,7 +1,9 @@
 package com.example.proyectogrupo1musicstore;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -15,25 +17,35 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.proyectogrupo1musicstore.Adapters.IntegrantesAdapter;
 import com.example.proyectogrupo1musicstore.Adapters.MusicaAdapter;
 import com.example.proyectogrupo1musicstore.Adapters.VideoAdapter;
+import com.example.proyectogrupo1musicstore.Models.informacionGrupoGeneral;
 import com.example.proyectogrupo1musicstore.Models.integrantesItem;
 import com.example.proyectogrupo1musicstore.Models.musicItem;
 import com.example.proyectogrupo1musicstore.Models.videoItem;
+import com.example.proyectogrupo1musicstore.NetworkTasks.InfomacionGeneralGrupoAsyncTask;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ActivityGrupoInfo extends AppCompatActivity {
+public class ActivityGrupoInfo extends AppCompatActivity implements InfomacionGeneralGrupoAsyncTask.DataFetchListener {
 
     DrawerLayout drawerLayout;
     ImageButton openMenuButton, botonAtras;
-    TextView textviewAtras, Grupos, Inicio;
-    ImageView iconGrupos, iconInicio;
+    TextView textviewAtras, Grupos, Inicio, nombreGrupo, textviewNumeroIntegrantes, textviewNumeroAudio, textviewNumeroVideo;
+    ImageView iconGrupos, iconInicio, fotoGrupo;
     RecyclerView recyclerViewIntegrantes, recyclerViewMusica, recyclerViewVideos;
+    private int idgrupo;
+    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_grupo_info);
+
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Cargando...");
+        progressDialog.setCancelable(false);
+
+        idgrupo = getIntent().getIntExtra("idgrupo", 0);
 
         // Declaración de variables
         recyclerViewIntegrantes = (RecyclerView) findViewById(R.id.recyclerviewIntegrantes);
@@ -47,6 +59,16 @@ public class ActivityGrupoInfo extends AppCompatActivity {
         Inicio = (TextView) findViewById(R.id.txtviewNavInicio);
         iconGrupos = (ImageView) findViewById(R.id.iconNavGrupos);
         iconInicio = (ImageView) findViewById(R.id.iconNavInicio);
+        fotoGrupo = (ImageView) findViewById(R.id.imageviewGrupoInfoFoto);
+        nombreGrupo = (TextView) findViewById(R.id.textview_GrupoInfoTitulo);
+        textviewNumeroIntegrantes = (TextView) findViewById(R.id.textviewIntegrantesTitle);
+        textviewNumeroAudio = (TextView) findViewById(R.id.textviewMusicaTitle);
+        textviewNumeroVideo = (TextView) findViewById(R.id.textviewVideoTitle);
+
+        // Fetch data from the server
+        String url = "https://phpclusters-152621-0.cloudclusters.net/obtenerInformacionGeneralGrupo.php";
+        progressDialog.show();
+        new InfomacionGeneralGrupoAsyncTask(this).execute(url, String.valueOf(idgrupo));
 
         // Creación de una lista de elementos de integrantesItem
         List<integrantesItem> integrantesList = new ArrayList<>();
@@ -120,6 +142,22 @@ public class ActivityGrupoInfo extends AppCompatActivity {
         Inicio.setOnClickListener(buttonClick);
         iconGrupos.setOnClickListener(buttonClick);
         iconInicio.setOnClickListener(buttonClick);
+    }
+
+    @Override
+    public void onDataFetched(List<informacionGrupoGeneral> dataList) {
+        progressDialog.dismiss(); // Esconde el spinner de carga
+        if (dataList != null && !dataList.isEmpty()) {
+            informacionGrupoGeneral groupInfo = dataList.get(0);
+
+            nombreGrupo.setText(groupInfo.getNombre());
+            fotoGrupo.setImageBitmap(groupInfo.getFoto());
+            textviewNumeroIntegrantes.setText("Integrantes: "+groupInfo.getNumeroMiembros());
+            textviewNumeroAudio.setText("Audio: "+groupInfo.getNumeroMusica());
+            textviewNumeroVideo.setText("Videos: "+groupInfo.getNumeroVideos());
+        } else {
+            Log.e("Error", "No data fetched from the server");
+        }
     }
 
     private void moveActivity(Class<?> actividad) {

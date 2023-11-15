@@ -1,6 +1,7 @@
 package com.example.proyectogrupo1musicstore;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -9,10 +10,13 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.provider.Settings;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -24,8 +28,12 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.proyectogrupo1musicstore.Adapters.CustomAdapter;
 import com.example.proyectogrupo1musicstore.Adapters.CustomAdapterNuevoGrupoDetalles;
+import com.example.proyectogrupo1musicstore.Models.vistaDeGrupo;
 import com.example.proyectogrupo1musicstore.Models.vistaDeNuevoGrupo;
+import com.example.proyectogrupo1musicstore.NetworkTasks.CreateGroupAsyncTask;
+import com.example.proyectogrupo1musicstore.NetworkTasks.FetchMemberDetailsAsyncTask;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -33,13 +41,19 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ActivityNuevoGrupoDetalles extends AppCompatActivity {
+public class ActivityNuevoGrupoDetalles extends AppCompatActivity implements FetchMemberDetailsAsyncTask.DataFetchListener{
 
     RecyclerView lista;
     ImageButton botonAtras;
     TextView textviewAtras;
     EditText textNombreGrupo, textDescripcion;
     ImageView imgAgragarImagen;
+    List<Integer> selectedUserIds;
+    CheckBox checkPrivado;
+    Button btnUnirse;
+    byte[] imgPerfilByteArray;
+    private int estadoPrivado;
+    ProgressDialog progressDialog;
     private static final int PICK_IMAGE_REQUEST = 1;
     private static final int REQUEST_CODE = 123;
 
@@ -49,6 +63,13 @@ public class ActivityNuevoGrupoDetalles extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nuevo_grupo_detalles);
 
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Cargando...");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+
+        selectedUserIds = getIntent().getIntegerArrayListExtra("selectedUserIds");
+
         // Inicialización de vistas y elementos del diseño
         lista = (RecyclerView) findViewById(R.id.recyclerview_NuevoGrupoDetalles);
         botonAtras = (ImageButton) findViewById(R.id.btn_NuevoGrupoDetallesAtras);
@@ -56,15 +77,22 @@ public class ActivityNuevoGrupoDetalles extends AppCompatActivity {
         textNombreGrupo = (EditText) findViewById(R.id.text_NuevoGrupoDetallesNombreGrupo);
         textDescripcion = (EditText) findViewById(R.id.text_NuevoGrupoDetallesDescripcion);
         imgAgragarImagen = (ImageView) findViewById(R.id.imageview_NuevoGrupoDetallesSubir);
+        checkPrivado = (CheckBox) findViewById(R.id.checkboxNuevoGrupoDetalles);
+        btnUnirse = (Button) findViewById(R.id.btnNuevoGrupoDetallesUnirse);
 
         // Creación de una lista de elementos de vistaDeNuevoGrupo
         List<vistaDeNuevoGrupo> dataList = new ArrayList<>();
 
+        if(selectedUserIds.size()<1){
+            progressDialog.dismiss();
+        }else{
+            fetchMemberDetails(selectedUserIds, dataList);
+        }
+
         // Configuración del administrador de diseño y adaptador para el RecyclerView
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         lista.setLayoutManager(layoutManager);
-        CustomAdapterNuevoGrupoDetalles adapter = new CustomAdapterNuevoGrupoDetalles(this, dataList);
-        lista.setAdapter(adapter);
+
 
         // Listener para manejar los botones de "Atrás"
         View.OnClickListener buttonClick = new View.OnClickListener() {
@@ -125,6 +153,25 @@ public class ActivityNuevoGrupoDetalles extends AppCompatActivity {
             }
         });
 
+        //Listener para el boton unirse
+        btnUnirse.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new CreateGroupAsyncTask(ActivityNuevoGrupoDetalles.this, selectedUserIds, textNombreGrupo.getText().toString(), textDescripcion.getText().toString(), imgPerfilByteArray, estadoPrivado, textNombreGrupo).execute();
+                Log.e("Info", selectedUserIds.toString() + " " + textNombreGrupo.getText().toString() + " " + textDescripcion.getText().toString());
+            }
+        });
+
+        checkPrivado.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                // Si el checkbox esta seleccionado
+                estadoPrivado = 1;
+            } else {
+                // Si el checkbox no esta seleccionado
+                estadoPrivado = 0;
+            }
+        });
+
         // Asigna los listeners a los botones de "Atrás"
         botonAtras.setOnClickListener(buttonClick);
         textviewAtras.setOnClickListener(buttonClick);
@@ -149,8 +196,8 @@ public class ActivityNuevoGrupoDetalles extends AppCompatActivity {
 
             try {
                 InputStream inputStream = getContentResolver().openInputStream(selectedImageUri);
-                byte[] byteArray = getBytes(inputStream);
-                // La imagen ahora se encuentra en forma de byte array dentro de la variable byteArray para poder guardarse en la base de datos
+                imgPerfilByteArray = getBytes(inputStream);
+                // La imagen ahora se encuentra en forma de byte array dentro de la variable imgPerfilByteArray para poder guardarse en la base de datos
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -172,6 +219,16 @@ public class ActivityNuevoGrupoDetalles extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onDataFetched(List<vistaDeNuevoGrupo> dataList) {
+        // Muestra el Recycle view con la nueva informacion
+        if (dataList.size() == selectedUserIds.size()) {
+            progressDialog.dismiss(); // Esconde el spinner de carga
+            CustomAdapterNuevoGrupoDetalles adapter = new CustomAdapterNuevoGrupoDetalles(this, dataList);
+            lista.setAdapter(adapter);
+        }
+    }
+
     private byte[] getBytes(InputStream inputStream) throws IOException {
         ByteArrayOutputStream byteBuffer = new ByteArrayOutputStream();
         int bufferSize = 1024;
@@ -190,7 +247,7 @@ public class ActivityNuevoGrupoDetalles extends AppCompatActivity {
         builder.setPositiveButton("Go to Settings", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                // Open the app settings so the user can grant the permission
+                // Abre los ajustes de la app para que el usuario pueda otorgar permiso
                 Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.fromParts("package", getPackageName(), null));
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
@@ -199,11 +256,18 @@ public class ActivityNuevoGrupoDetalles extends AppCompatActivity {
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                // Handle the user's decision to cancel the action
-                // You can close the app or take other actions here
+                // Controlla decision negativa
             }
         });
         builder.show();
     }
 
+    private void fetchMemberDetails(List<Integer> userIds, List<vistaDeNuevoGrupo> dataList) {
+        for (Integer userId : userIds) {
+            // Fetch data from the server
+            String idUsuario = userId.toString();
+            String url = "https://phpclusters-152621-0.cloudclusters.net/buscarIntegrantePorID.php";
+            new FetchMemberDetailsAsyncTask(this, dataList).execute(url, idUsuario);
+        }
+    }
 }
