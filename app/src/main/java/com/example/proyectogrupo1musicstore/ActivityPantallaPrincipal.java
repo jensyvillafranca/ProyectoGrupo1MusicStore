@@ -3,7 +3,6 @@ package com.example.proyectogrupo1musicstore;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -15,15 +14,15 @@ public class ActivityPantallaPrincipal extends AppCompatActivity {
 
     private DrawerLayout drawerLayout;
     private ImageButton openMenuButton;
-    TextView Grupos, Inicio;
-    ImageView iconGrupos, iconInicio, multimedia;
+    TextView Grupos, Inicio, CerrarSesion;
+    ImageView iconGrupos, iconInicio, multimedia, iconCerrarSesion;
+    private token acceso;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pantalla_principal);
-
-
 
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         openMenuButton = (ImageButton) findViewById(R.id.btn_PrincipalDesplegable);
@@ -32,6 +31,11 @@ public class ActivityPantallaPrincipal extends AppCompatActivity {
         iconGrupos = (ImageView) findViewById(R.id.iconNavGrupos);
         iconInicio = (ImageView) findViewById(R.id.iconNavInicio);
         multimedia = (ImageView) findViewById(R.id.iconNavMultimedia);
+
+        /*Variables para cerrar sesión*/
+        iconCerrarSesion = (ImageView) findViewById(R.id.iconCerrarSesion);
+        CerrarSesion = (TextView) findViewById(R.id.txtviewCerrarSesion);
+        acceso = new token(this);
 
         View.OnClickListener buttonClick = new View.OnClickListener() {
             @Override
@@ -52,6 +56,14 @@ public class ActivityPantallaPrincipal extends AppCompatActivity {
                 if (view.getId() == R.id.iconNavMultimedia){
                     actividad = ActivityPlayList.class;
                 }
+                if (view.getId() == R.id.iconCerrarSesion){
+                    cerrarSesion();
+                    actividad = activity_principal_login.class;
+                }
+                if (view.getId() == R.id.txtviewCerrarSesion){
+                    cerrarSesion();
+                    actividad = activity_principal_login.class;
+                }
                 if (actividad != null) {
                     moveActivity(actividad);
                 }
@@ -63,6 +75,8 @@ public class ActivityPantallaPrincipal extends AppCompatActivity {
         iconGrupos.setOnClickListener(buttonClick);
         iconInicio.setOnClickListener(buttonClick);
         multimedia.setOnClickListener(buttonClick);
+        CerrarSesion.setOnClickListener(buttonClick);
+        iconCerrarSesion.setOnClickListener(buttonClick);
 
         openMenuButton.setOnClickListener(v -> {
             drawerLayout.openDrawer(findViewById(R.id.side_menu));
@@ -72,5 +86,13 @@ public class ActivityPantallaPrincipal extends AppCompatActivity {
     private void moveActivity(Class<?> actividad) {
         Intent intent = new Intent(getApplicationContext(), actividad);
         startActivity(intent);
+    }
+
+    private void cerrarSesion() {
+        acceso.borrarToken();
+        // Regresar al usuario a la pantalla de inicio de sesión
+        Intent intent = new Intent(this, activity_login.class);
+        startActivity(intent);
+        finish();
     }
 }
