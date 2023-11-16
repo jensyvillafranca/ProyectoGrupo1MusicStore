@@ -231,6 +231,33 @@
                     android:textSize="16sp"
                     android:textStyle="bold" />
             </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="16dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:onClick="onMenuItemClick">
+
+                <ImageView
+                    android:id="@+id/iconCerrarSesion"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:contentDescription="Cerrar sesión Icon"
+                    android:src="@drawable/iconoeliminargrupo" />
+
+                <TextView
+                    android:id="@+id/txtviewCerrarSesion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/fuente_jost_global"
+                    android:paddingStart="8dp"
+                    android:text="@string/cerrarSesion"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
 
         </LinearLayout>
     </ScrollView>

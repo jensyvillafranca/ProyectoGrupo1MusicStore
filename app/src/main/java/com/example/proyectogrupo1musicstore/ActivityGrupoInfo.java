@@ -22,6 +22,9 @@ import com.example.proyectogrupo1musicstore.Models.integrantesItem;
 import com.example.proyectogrupo1musicstore.Models.musicItem;
 import com.example.proyectogrupo1musicstore.Models.videoItem;
 import com.example.proyectogrupo1musicstore.NetworkTasks.InfomacionGeneralGrupoAsyncTask;
+import com.example.proyectogrupo1musicstore.NetworkTasks.obtenerAudiosGrupoAsyncTask;
+import com.example.proyectogrupo1musicstore.NetworkTasks.obtenerIntegrantesGrupoAsyncTask;
+import com.example.proyectogrupo1musicstore.NetworkTasks.obtenerVideosGrupoAsyncTask;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,10 +33,11 @@ public class ActivityGrupoInfo extends AppCompatActivity implements InfomacionGe
 
     DrawerLayout drawerLayout;
     ImageButton openMenuButton, botonAtras;
-    TextView textviewAtras, Grupos, Inicio, nombreGrupo, textviewNumeroIntegrantes, textviewNumeroAudio, textviewNumeroVideo;
+    TextView textviewAtras, Grupos, Inicio, nombreGrupo, textviewNumeroIntegrantes, textviewNumeroAudio, textviewNumeroVideo, verTodoIntegrantes, verTodoMusica, verTodoVideos;
     ImageView iconGrupos, iconInicio, fotoGrupo;
     RecyclerView recyclerViewIntegrantes, recyclerViewMusica, recyclerViewVideos;
     private int idgrupo;
+    private final String tipo = "0";
     ProgressDialog progressDialog;
 
     @Override
@@ -64,11 +68,9 @@ public class ActivityGrupoInfo extends AppCompatActivity implements InfomacionGe
         textviewNumeroIntegrantes = (TextView) findViewById(R.id.textviewIntegrantesTitle);
         textviewNumeroAudio = (TextView) findViewById(R.id.textviewMusicaTitle);
         textviewNumeroVideo = (TextView) findViewById(R.id.textviewVideoTitle);
-
-        // Fetch data from the server
-        String url = "https://phpclusters-152621-0.cloudclusters.net/obtenerInformacionGeneralGrupo.php";
-        progressDialog.show();
-        new InfomacionGeneralGrupoAsyncTask(this).execute(url, String.valueOf(idgrupo));
+        verTodoIntegrantes = (TextView) findViewById(R.id.textviewVerTodoIntegrantes);
+        verTodoMusica = (TextView) findViewById(R.id.textviewVerTodoMusica);
+        verTodoVideos = (TextView) findViewById(R.id.textviewVerTodoVideo);
 
         // Creación de una lista de elementos de integrantesItem
         List<integrantesItem> integrantesList = new ArrayList<>();
@@ -89,7 +91,7 @@ public class ActivityGrupoInfo extends AppCompatActivity implements InfomacionGe
         VideoAdapter videoAdapter = new VideoAdapter(this, videoList);
         recyclerViewVideos.setAdapter(videoAdapter);
 
-        // Configuracion del administrador de diseño - integrantes
+        //Configuracion del administrador de diseño - integrantes
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         recyclerViewIntegrantes.setLayoutManager(layoutManager);
@@ -101,6 +103,18 @@ public class ActivityGrupoInfo extends AppCompatActivity implements InfomacionGe
         LinearLayoutManager layoutManagerVideo = new LinearLayoutManager(this);
         layoutManagerVideo.setOrientation(LinearLayoutManager.HORIZONTAL);
         recyclerViewVideos.setLayoutManager(layoutManagerVideo);
+
+        // Fetch data from the server
+        String url = "https://phpclusters-152621-0.cloudclusters.net/obtenerInfoGrupo.php";
+        progressDialog.show();
+        new InfomacionGeneralGrupoAsyncTask(this).execute(url, String.valueOf(idgrupo));
+        new obtenerIntegrantesGrupoAsyncTask(ActivityGrupoInfo.this, integrantesAdapter, progressDialog)
+                .execute(String.valueOf(idgrupo), tipo);
+        new obtenerAudiosGrupoAsyncTask(ActivityGrupoInfo.this, musicaAdapter, progressDialog)
+                .execute(String.valueOf(idgrupo), tipo);
+        new obtenerVideosGrupoAsyncTask(ActivityGrupoInfo.this, videoAdapter, progressDialog)
+                .execute(String.valueOf(idgrupo), tipo);
+
 
         // Listener para abrir el menú lateral
         openMenuButton.setOnClickListener(v -> {
@@ -130,8 +144,17 @@ public class ActivityGrupoInfo extends AppCompatActivity implements InfomacionGe
                 if (view.getId() == R.id.iconNavInicio){
                     actividad = ActivityPantallaPrincipal.class;
                 }
+                if (view.getId() == R.id.textviewVerTodoIntegrantes){
+                    actividad = ActivityVerTodosIntegrantes.class;
+                }
+                if (view.getId() == R.id.textviewVerTodoMusica){
+                    //actividad = ActivityVerTodosIntegrantes.class;
+                }
+                if (view.getId() == R.id.textviewVerTodoVideo){
+                    //actividad = ActivityVerTodosIntegrantes.class;
+                }
                 if (actividad != null) {
-                    moveActivity(actividad);
+                    moveActivity(actividad, idgrupo);
                 }
             }
         };
@@ -142,11 +165,11 @@ public class ActivityGrupoInfo extends AppCompatActivity implements InfomacionGe
         Inicio.setOnClickListener(buttonClick);
         iconGrupos.setOnClickListener(buttonClick);
         iconInicio.setOnClickListener(buttonClick);
+        verTodoIntegrantes.setOnClickListener(buttonClick);
     }
 
     @Override
     public void onDataFetched(List<informacionGrupoGeneral> dataList) {
-        progressDialog.dismiss(); // Esconde el spinner de carga
         if (dataList != null && !dataList.isEmpty()) {
             informacionGrupoGeneral groupInfo = dataList.get(0);
 
@@ -160,8 +183,9 @@ public class ActivityGrupoInfo extends AppCompatActivity implements InfomacionGe
         }
     }
 
-    private void moveActivity(Class<?> actividad) {
+    private void moveActivity(Class<?> actividad, int idgrupo) {
         Intent intent = new Intent(getApplicationContext(), actividad);
+        intent.putExtra("idgrupo", idgrupo);
         startActivity(intent);
     }
 }
