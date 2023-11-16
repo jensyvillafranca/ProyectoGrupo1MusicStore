@@ -38,14 +38,13 @@
 
 
     <string name="ingreseContrasenaActual">Ingrese su contraseña actual</string>
-    <string name="ingreseNuevaContrasena">Ingrese una nueva contraseña</string>
-    <string name="confirmaContrasena">Confirma su contraseña</string>
     <string name="enviarCodigo">Enviar código</string>
     <string name="biografia">Biografia</string>
     <string name="habilitarDatosBiometricos">Habilitar Dato Biometrícos</string>
     <string name="perfilPrivado">Perfil Privado</string>
     <string name="eliminarCuenta">Eliminar Cuenta</string>
     <string name="notificaciones">Notificaciones</string>
+
 
 
     <!--Jensy Login-->
@@ -55,6 +54,8 @@
     <string name="txtviewOlvidaPassword">¿Olvida su contraseña?</string>
     <string name="btnLoginEntrar">Entrar</string>
     <string name="btnLoginRegistrarse">Registrarse</string>
+    <string name="login">¡INICIA SESIÓN!</string>
+    <string name="registrarse">¡REGÍSTRATE!</string>
 
     <!--Jensy Login-->
     <string name="txtviewRegistrarNombres">Nombres</string>
@@ -70,9 +71,9 @@
     <string name="txtviewCuentaCreada">Ya tengo una cuenta</string>
 
     <!--Kency Angely -->
-    <string name="TienesProblemasParaIniciarSesion">¿Tienes problemas para iniciar sesion?</string>
-    <string name="ENVIARCODIGO">Enviar codigo</string>
-    <string name="LabelTienesProblemasParaIniciarSesion">Para obtener un código de verificación, primero debes confirmar el correo electrónico que añadiste a tu cuenta:</string>
+    <string name="TienesProblemasParaIniciarSesion">¿Tienes problemas para iniciar sesión?</string>
+    <string name="ENVIARCODIGO">Enviar código</string>
+    <string name="LabelTienesProblemasParaIniciarSesion">Para obtener un código de verificación, primero debes confirmar el correo electrónico que has añadido a tu cuenta</string>
 
 
     <string name="CrearCuenta">Crear cuenta</string>
@@ -83,14 +84,22 @@
     <string name="RecuperarContra">Recuperar contraseña</string>
     <string name="RestaurarContra">Restaurar contraseña</string>
 
-    <string name="LabelRecuperarContra">hemos enviado un código de verificación a tu dirección de correo, por favor digita esta secuencia de números en la siguiente casilla de verificación:</string>
+    <string name="LabelRecuperarContra">Hemos enviado un código de verificación a tu dirección de correo. Por favor, introduce esta secuencia de números en la siguiente casilla de verificación.</string>
     <string name="LinkEnviarDeNuevo2">Enviar de nuevo</string>
     <string name="VerificarCodigo">Verificar</string>
 
     <string name="ingresar">Ingresar</string>
     <string name="unirse">Unirse</string>
-    <string name="No">nada</string>
+    <string name="No">Nada</string>
     <string name="Regístrarse">Regístrarse</string>
+    <string name="Atras">Atras</string>
+
+    <string name="ingreseNuevaContrasena">Ingrese una nueva contraseña</string>
+    <string name="confirmaContrasena">Confirme su contraseña</string>
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+    <string name="tituloConometro">Por favor, espera a que el tiempo finalice para poder solicitar un nuevo código.</string>
+
 
     <!--Gustavo Brocato -->
     <string name="appName">Music Store HN</string>
