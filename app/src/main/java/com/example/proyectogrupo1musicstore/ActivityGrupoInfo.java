@@ -22,6 +22,9 @@ import com.example.proyectogrupo1musicstore.Models.integrantesItem;
 import com.example.proyectogrupo1musicstore.Models.musicItem;
 import com.example.proyectogrupo1musicstore.Models.videoItem;
 import com.example.proyectogrupo1musicstore.NetworkTasks.InfomacionGeneralGrupoAsyncTask;
+import com.example.proyectogrupo1musicstore.NetworkTasks.obtenerAudiosGrupoAsyncTask;
+import com.example.proyectogrupo1musicstore.NetworkTasks.obtenerIntegrantesGrupoAsyncTask;
+import com.example.proyectogrupo1musicstore.NetworkTasks.obtenerVideosGrupoAsyncTask;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,11 +68,6 @@ public class ActivityGrupoInfo extends AppCompatActivity implements InfomacionGe
         textviewNumeroAudio = (TextView) findViewById(R.id.textviewMusicaTitle);
         textviewNumeroVideo = (TextView) findViewById(R.id.textviewVideoTitle);
 
-        // Fetch data from the server
-        String url = "https://phpclusters-152621-0.cloudclusters.net/obtenerInformacionGeneralGrupo.php";
-        progressDialog.show();
-        new InfomacionGeneralGrupoAsyncTask(this).execute(url, String.valueOf(idgrupo));
-
         // Creación de una lista de elementos de integrantesItem
         List<integrantesItem> integrantesList = new ArrayList<>();
 
@@ -89,7 +87,7 @@ public class ActivityGrupoInfo extends AppCompatActivity implements InfomacionGe
         VideoAdapter videoAdapter = new VideoAdapter(this, videoList);
         recyclerViewVideos.setAdapter(videoAdapter);
 
-        // Configuracion del administrador de diseño - integrantes
+        //Configuracion del administrador de diseño - integrantes
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         recyclerViewIntegrantes.setLayoutManager(layoutManager);
@@ -101,6 +99,18 @@ public class ActivityGrupoInfo extends AppCompatActivity implements InfomacionGe
         LinearLayoutManager layoutManagerVideo = new LinearLayoutManager(this);
         layoutManagerVideo.setOrientation(LinearLayoutManager.HORIZONTAL);
         recyclerViewVideos.setLayoutManager(layoutManagerVideo);
+
+        // Fetch data from the server
+        String url = "https://phpclusters-152621-0.cloudclusters.net/obtenerInfoGrupo.php";
+        progressDialog.show();
+        new InfomacionGeneralGrupoAsyncTask(this).execute(url, String.valueOf(idgrupo));
+        new obtenerIntegrantesGrupoAsyncTask(ActivityGrupoInfo.this, integrantesAdapter, progressDialog)
+                .execute(String.valueOf(idgrupo));
+        new obtenerAudiosGrupoAsyncTask(ActivityGrupoInfo.this, musicaAdapter, progressDialog)
+                .execute(String.valueOf(idgrupo));
+        new obtenerVideosGrupoAsyncTask(ActivityGrupoInfo.this, videoAdapter, progressDialog)
+                .execute(String.valueOf(idgrupo));
+
 
         // Listener para abrir el menú lateral
         openMenuButton.setOnClickListener(v -> {
@@ -146,7 +156,6 @@ public class ActivityGrupoInfo extends AppCompatActivity implements InfomacionGe
 
     @Override
     public void onDataFetched(List<informacionGrupoGeneral> dataList) {
-        progressDialog.dismiss(); // Esconde el spinner de carga
         if (dataList != null && !dataList.isEmpty()) {
             informacionGrupoGeneral groupInfo = dataList.get(0);
 

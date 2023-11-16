@@ -39,10 +39,11 @@ public class InfomacionGeneralGrupoAsyncTask extends AsyncTask<String, Void, Lis
         try {
             // construye el URL
             URL url = new URL(urlString);
+            Log.d(TAG, "URL: " + url.toString());
 
             // Crea la conexion y la abre
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-            urlConnection.setRequestMethod("POST");
+            urlConnection.setRequestMethod("GET");
             urlConnection.setRequestProperty("Content-Type", "application/json");
             urlConnection.setDoOutput(true);
 
@@ -57,6 +58,8 @@ public class InfomacionGeneralGrupoAsyncTask extends AsyncTask<String, Void, Lis
             out.close();
 
             int responseCode = urlConnection.getResponseCode();
+            String responseMessage = urlConnection.getResponseMessage();
+            Log.d(TAG, "Response Code: " + responseCode + ", Message: " + responseMessage);
 
             if (responseCode == HttpURLConnection.HTTP_OK) {
                 InputStream inputStream = urlConnection.getInputStream();

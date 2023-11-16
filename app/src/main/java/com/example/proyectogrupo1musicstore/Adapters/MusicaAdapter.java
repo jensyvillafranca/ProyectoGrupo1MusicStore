@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.proyectogrupo1musicstore.Models.integrantesItem;
 import com.example.proyectogrupo1musicstore.Models.musicItem;
 import com.example.proyectogrupo1musicstore.R;
 
@@ -52,5 +53,10 @@ public class MusicaAdapter extends RecyclerView.Adapter<MusicaAdapter.MusicaView
             musicaImage = itemView.findViewById(R.id.imageviewCarouselItemMusica);
             musicaName = itemView.findViewById(R.id.textviewCarouselItemMusica);
         }
+    }
+
+    public void setDataList(List<musicItem> newDataList) {
+        itemList = newDataList;
+        notifyDataSetChanged();
     }
 }
