@@ -34,6 +34,7 @@ public class obtenerAudiosGrupoAsyncTask extends AsyncTask<String, Void, List<mu
     private Context context;
     private MusicaAdapter adapter;
     ProgressDialog progressDialog;
+    private int tipoProgress;
 
     public obtenerAudiosGrupoAsyncTask(Context context, MusicaAdapter adapter, ProgressDialog progressDialog) {
         this.context = context;
@@ -44,6 +45,9 @@ public class obtenerAudiosGrupoAsyncTask extends AsyncTask<String, Void, List<mu
     @Override
     protected List<musicItem> doInBackground(String... params) {
         String idGrupo = params[0]; // idgrupo parametro
+        String tipo = params[1];
+
+        tipoProgress = Integer.valueOf(tipo);
 
         try {
             // construye el URL
@@ -87,6 +91,9 @@ public class obtenerAudiosGrupoAsyncTask extends AsyncTask<String, Void, List<mu
 
     @Override
     protected void onPostExecute(List<musicItem> dataList) {
+        if (tipoProgress == 1) {
+            progressDialog.dismiss();
+        }
         if (dataList != null) {
             adapter.setDataList(dataList);
         }

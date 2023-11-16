@@ -35,6 +35,8 @@ public class obtenerIntegrantesGrupoAsyncTask extends AsyncTask<String, Void, Li
     private IntegrantesAdapter adapter;
     ProgressDialog progressDialog;
 
+    private int tipoProgress;
+
     public obtenerIntegrantesGrupoAsyncTask(Context context, IntegrantesAdapter adapter, ProgressDialog progressDialog) {
         this.context = context;
         this.adapter = adapter;
@@ -44,6 +46,9 @@ public class obtenerIntegrantesGrupoAsyncTask extends AsyncTask<String, Void, Li
     @Override
     protected List<integrantesItem> doInBackground(String... params) {
         String idGrupo = params[0]; // idgrupo parametro
+        String tipo = params[1];
+
+        tipoProgress = Integer.valueOf(tipo);
 
         try {
             // construye el URL
@@ -87,6 +92,9 @@ public class obtenerIntegrantesGrupoAsyncTask extends AsyncTask<String, Void, Li
 
     @Override
     protected void onPostExecute(List<integrantesItem> dataList) {
+        if (tipoProgress == 1) {
+            progressDialog.dismiss();
+        }
         if (dataList != null) {
             adapter.setDataList(dataList);
         }

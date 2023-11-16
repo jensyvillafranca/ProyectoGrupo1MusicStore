@@ -120,6 +120,7 @@
     <string name="video">Video</string>
     <string name="verTodo">Ver todo</string>
     <string name="grupoPrivado">Grupo Privado</string>
+    <string name="cerrarSesion">Cerrar Sesión</string>
 
     <!--Jonathan-->
     <string name="btnCrearPlayList">Crear PlayList</string>

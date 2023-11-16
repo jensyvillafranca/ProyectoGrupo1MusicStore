@@ -33,10 +33,11 @@ public class ActivityGrupoInfo extends AppCompatActivity implements InfomacionGe
 
     DrawerLayout drawerLayout;
     ImageButton openMenuButton, botonAtras;
-    TextView textviewAtras, Grupos, Inicio, nombreGrupo, textviewNumeroIntegrantes, textviewNumeroAudio, textviewNumeroVideo;
+    TextView textviewAtras, Grupos, Inicio, nombreGrupo, textviewNumeroIntegrantes, textviewNumeroAudio, textviewNumeroVideo, verTodoIntegrantes, verTodoMusica, verTodoVideos;
     ImageView iconGrupos, iconInicio, fotoGrupo;
     RecyclerView recyclerViewIntegrantes, recyclerViewMusica, recyclerViewVideos;
     private int idgrupo;
+    private final String tipo = "0";
     ProgressDialog progressDialog;
 
     @Override
@@ -67,6 +68,9 @@ public class ActivityGrupoInfo extends AppCompatActivity implements InfomacionGe
         textviewNumeroIntegrantes = (TextView) findViewById(R.id.textviewIntegrantesTitle);
         textviewNumeroAudio = (TextView) findViewById(R.id.textviewMusicaTitle);
         textviewNumeroVideo = (TextView) findViewById(R.id.textviewVideoTitle);
+        verTodoIntegrantes = (TextView) findViewById(R.id.textviewVerTodoIntegrantes);
+        verTodoMusica = (TextView) findViewById(R.id.textviewVerTodoMusica);
+        verTodoVideos = (TextView) findViewById(R.id.textviewVerTodoVideo);
 
         // Creación de una lista de elementos de integrantesItem
         List<integrantesItem> integrantesList = new ArrayList<>();
@@ -105,11 +109,11 @@ public class ActivityGrupoInfo extends AppCompatActivity implements InfomacionGe
         progressDialog.show();
         new InfomacionGeneralGrupoAsyncTask(this).execute(url, String.valueOf(idgrupo));
         new obtenerIntegrantesGrupoAsyncTask(ActivityGrupoInfo.this, integrantesAdapter, progressDialog)
-                .execute(String.valueOf(idgrupo));
+                .execute(String.valueOf(idgrupo), tipo);
         new obtenerAudiosGrupoAsyncTask(ActivityGrupoInfo.this, musicaAdapter, progressDialog)
-                .execute(String.valueOf(idgrupo));
+                .execute(String.valueOf(idgrupo), tipo);
         new obtenerVideosGrupoAsyncTask(ActivityGrupoInfo.this, videoAdapter, progressDialog)
-                .execute(String.valueOf(idgrupo));
+                .execute(String.valueOf(idgrupo), tipo);
 
 
         // Listener para abrir el menú lateral
@@ -140,8 +144,17 @@ public class ActivityGrupoInfo extends AppCompatActivity implements InfomacionGe
                 if (view.getId() == R.id.iconNavInicio){
                     actividad = ActivityPantallaPrincipal.class;
                 }
+                if (view.getId() == R.id.textviewVerTodoIntegrantes){
+                    actividad = ActivityVerTodosIntegrantes.class;
+                }
+                if (view.getId() == R.id.textviewVerTodoMusica){
+                    //actividad = ActivityVerTodosIntegrantes.class;
+                }
+                if (view.getId() == R.id.textviewVerTodoVideo){
+                    //actividad = ActivityVerTodosIntegrantes.class;
+                }
                 if (actividad != null) {
-                    moveActivity(actividad);
+                    moveActivity(actividad, idgrupo);
                 }
             }
         };
@@ -152,6 +165,7 @@ public class ActivityGrupoInfo extends AppCompatActivity implements InfomacionGe
         Inicio.setOnClickListener(buttonClick);
         iconGrupos.setOnClickListener(buttonClick);
         iconInicio.setOnClickListener(buttonClick);
+        verTodoIntegrantes.setOnClickListener(buttonClick);
     }
 
     @Override
@@ -169,8 +183,9 @@ public class ActivityGrupoInfo extends AppCompatActivity implements InfomacionGe
         }
     }
 
-    private void moveActivity(Class<?> actividad) {
+    private void moveActivity(Class<?> actividad, int idgrupo) {
         Intent intent = new Intent(getApplicationContext(), actividad);
+        intent.putExtra("idgrupo", idgrupo);
         startActivity(intent);
     }
 }
