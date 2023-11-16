@@ -148,10 +148,10 @@ public class ActivityGrupoInfo extends AppCompatActivity implements InfomacionGe
                     actividad = ActivityVerTodosIntegrantes.class;
                 }
                 if (view.getId() == R.id.textviewVerTodoMusica){
-                    //actividad = ActivityVerTodosIntegrantes.class;
+                    actividad = ActivityVerTodosMusica.class;
                 }
                 if (view.getId() == R.id.textviewVerTodoVideo){
-                    //actividad = ActivityVerTodosIntegrantes.class;
+                    actividad = ActivityVerTodosVideo.class;
                 }
                 if (actividad != null) {
                     moveActivity(actividad, idgrupo);
@@ -166,6 +166,8 @@ public class ActivityGrupoInfo extends AppCompatActivity implements InfomacionGe
         iconGrupos.setOnClickListener(buttonClick);
         iconInicio.setOnClickListener(buttonClick);
         verTodoIntegrantes.setOnClickListener(buttonClick);
+        verTodoMusica.setOnClickListener(buttonClick);
+        verTodoVideos.setOnClickListener(buttonClick);
     }
 
     @Override
