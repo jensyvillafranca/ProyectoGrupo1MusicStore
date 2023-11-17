@@ -1,83 +1,137 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity_login">
+    tools:context=".activity_login"
+    android:background="@drawable/fondodetodaslaspantallas">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <!---->
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-        <FrameLayout
-            android:layout_width="417dp"
-            android:layout_height="742dp"
-            android:background="@drawable/fondologin">
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="60dp" />
 
-            <View
-                android:layout_width="340dp"
-                android:layout_height="590dp"
+            <ImageView
+                android:id="@+id/imgviewIconoLogin"
+                android:layout_width="112dp"
+                android:layout_height="100dp"
                 android:layout_gravity="center"
-                android:layout_marginStart="-25dp"
-                android:background="@drawable/subfondoiniciosesion">
+                android:background="@drawable/logoiniciosesion"></ImageView>
 
-            </View>
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="15dp" />
 
+            <TextView
+                android:id="@+id/txtviewLoginTitulo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/fuente_jost_global"
+                android:text="@string/login"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp"
+                android:textStyle="bold"></TextView>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
             <LinearLayout
-                android:layout_width="278dp"
-                android:layout_height="157dp"
-                android:layout_marginStart="50dp"
-                android:layout_marginTop="250dp"
+                android:id="@+id/linearLayout5"
+                android:layout_width="277dp"
+                android:layout_height="179dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="50dp"
                 android:orientation="vertical">
+
 
                 <!---Nombre de Usuario-->
                 <TextView
                     android:id="@+id/txtviewRegistrarNombres"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/fuente_jost_global"
                     android:text="@string/textviewLoginUsuario"
                     android:textColor="#FFFFFF"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp" />
 
                 <EditText
-                    android:id="@+id/txtRegistrarNombres"
+                    android:id="@+id/txtRegistrarUsuario"
                     android:layout_width="match_parent"
                     android:layout_height="39dp"
-                    android:layout_marginTop="7dp"
-                    android:background="@color/white">
+                    android:background="@drawable/edittext"
+                    android:inputType="text"
+                    android:textSize="15sp">
 
                 </EditText>
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="21dp" />
 
                 <!---Password-->
                 <TextView
                     android:id="@+id/txtviewLoginPassword"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="22dp"
+                    android:fontFamily="@font/fuente_jost_global"
                     android:text="@string/textviewLoginPassword"
                     android:textColor="#FFFFFF"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp" />
 
                 <EditText
                     android:id="@+id/txtLoginPassword"
                     android:layout_width="match_parent"
                     android:layout_height="39dp"
-                    android:layout_marginTop="7dp"
-                    android:background="@color/white"
-                    android:inputType="text|textPassword"></EditText>
+                    android:background="@drawable/edittext"
+
+                    android:inputType="text|textPassword"
+
+                    android:textSize="15sp"></EditText>
+
 
 
             </LinearLayout>
 
             <!---Área de checkbox y enlace-->
+
+            <!---Área de datos bimetricos-->
+
+            <!---Área de botones-->
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="17dp" />
             <LinearLayout
+                android:id="@+id/linearLayout6"
                 android:layout_width="278dp"
                 android:layout_height="47dp"
-                android:layout_marginStart="50dp"
-                android:layout_marginTop="430dp"
+                android:layout_gravity="center"
+
                 android:orientation="horizontal"
                 android:paddingLeft="-10dp">
 
@@ -86,35 +140,40 @@
                     android:id="@+id/checkLoginRecordar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
                     android:checked="true"
                     android:text="@string/checkLoginRecordar"
                     android:textColor="#FFFDFD"
-                    android:layout_marginStart="10dp"
                     android:textColorHighlight="#FFFFFF"
                     android:textColorLink="#FFFCFC"
-                    android:textSize="13sp"></CheckBox>
+                    android:textSize="13sp"
+                    android:fontFamily="@font/fuente_jost_global"
+                    android:textStyle="bold">
+
+                </CheckBox>
 
                 <!---¿Olvido su contraseña?-->
                 <TextView
                     android:id="@+id/txtviewOlvidaPassword"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="40dp"
+                    android:layout_width="150dp"
+                    android:layout_height="25dp"
+                    android:layout_marginStart="35dp"
+                    android:fontFamily="@font/fuente_jost_global"
                     android:text="@string/txtviewOlvidaPassword"
                     android:textColor="#FFFDFD"
-                    android:textColorHint="#FFFFFF"
-                    android:textSize="13sp">
-
-                </TextView>
+                    android:textSize="13sp"
+                    android:textStyle="bold"></TextView>
 
             </LinearLayout>
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="17dp" />
 
-            <!---Área de datos bimetricos-->
             <LinearLayout
+                android:id="@+id/linearLayout7"
                 android:layout_width="278dp"
                 android:layout_height="47dp"
-                android:layout_marginStart="40dp"
-                android:layout_marginTop="500dp"
+                android:layout_gravity="center"
                 android:orientation="horizontal">
 
                 <!--Huella Digital-->
@@ -133,8 +192,11 @@
                     android:paddingLeft="10dp"
                     android:paddingTop="13dp"
                     android:text="Huella"
+                    android:fontFamily="@font/fuente_jost_global"
+                    android:textStyle="bold"
                     android:textColor="#FFFFFF"
                     android:textSize="15dp"></TextView>
+
 
                 <!--Reconocimiento Facial-->
                 <ImageButton
@@ -152,25 +214,33 @@
                     android:paddingLeft="10dp"
                     android:paddingTop="13dp"
                     android:text="Rec.Facial"
+                    android:fontFamily="@font/fuente_jost_global"
+                    android:textStyle="bold"
                     android:textColor="#FFFFFF"
                     android:textSize="15dp"></TextView>
             </LinearLayout>
 
-            <!---Área de botones-->
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="33dp" />
+
             <LinearLayout
-                android:layout_width="278dp"
-                android:layout_height="47dp"
-                android:layout_marginStart="55dp"
-                android:layout_marginTop="600dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:orientation="horizontal">
 
+                <!---Boton de loguiarse-->
                 <Button
                     android:id="@+id/btnLoginEntrar"
                     android:layout_width="115dp"
-                    android:layout_height="33dp"
+                    android:layout_height="match_parent"
                     android:background="@color/button"
+                    android:fontFamily="@font/fuente_jost_global"
+                    android:paddingTop="-5dp"
                     android:text="@string/btnLoginEntrar"
                     android:textColor="@color/white"
+                    android:textStyle="bold"
                     tools:ignore="TextContrastCheck,VisualLintButtonSize" />
 
                 <TextView
@@ -178,21 +248,26 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:text="o"
-                    android:textColor="#FFFFFF">
+                    android:textColor="#FFFFFF"></TextView>
 
-                </TextView>
-
+                <!---Boton de crear una cuenta-->
                 <Button
                     android:id="@+id/btnRegistrarCrear"
                     android:layout_width="115dp"
-                    android:layout_height="33dp"
+                    android:layout_height="40dp"
                     android:layout_marginStart="10dp"
+                    android:layout_marginTop="-6dp"
                     android:background="@color/white"
+                    android:fontFamily="@font/fuente_jost_global"
                     android:text="@string/btnLoginRegistrarse"
                     android:textColor="@color/black"
+                    android:textStyle="bold"
                     tools:ignore="TextContrastCheck,VisualLintButtonSize" />
-
             </LinearLayout>
-        </FrameLayout>
-    </LinearLayout>
-</ScrollView>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="107dp" />
+        </LinearLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -47,9 +47,7 @@
                         android:text="@string/atras"
                         android:textColor="@color/white"
                         android:layout_gravity="center"
-                        android:fontFamily="@font/fuente_jost_global"
-                        android:textStyle="bold"
-                        android:textSize="18sp"/>
+                        android:textStyle="bold"/>
 
                 </LinearLayout>
 
@@ -58,7 +56,13 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"/>
 
-
+                <ImageView
+                    android:id="@+id/btnMenu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:src="@drawable/menudespegable"
+                    android:importantForAccessibility="no"/>
 
             </LinearLayout>
 
@@ -68,7 +72,6 @@
                 android:text="@string/CrearPlayList"
                 android:textSize="20sp"
                 android:textColor="@color/white"
-                android:fontFamily="@font/fuente_jost_global"
                 android:textStyle="bold"
                 android:layout_gravity="center"/>
 
@@ -79,7 +82,7 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="30dp"
                 android:importantForAccessibility="no"
-                android:src="@drawable/sinimagen"
+                android:src="@drawable/playlist"
                 tools:ignore="ImageContrastCheck" />
             <Space
                 android:layout_width="match_parent"
@@ -91,7 +94,6 @@
                 android:text="@string/CambiarNombre"
                 android:textColor="@color/underline"
                 android:layout_gravity="center_horizontal"
-                android:fontFamily="@font/fuente_jost_global"
                 android:textSize="15sp"
                 android:textStyle="bold"/>
 
@@ -125,8 +127,6 @@
                     android:layout_height="wrap_content"
                     android:text="@string/EscribaNombrePlayList"
                     android:textColor="#D3D3D3"
-                    android:textStyle="bold"
-                    android:fontFamily="@font/fuente_jost_global"
                     android:textSize="15sp" />
 
                 <EditText
@@ -135,7 +135,7 @@
                     android:layout_height="40dp"
                     android:background="@drawable/edittext"
                     android:importantForAutofill="no"
-                    android:inputType="text"
+                    android:inputType="textPassword"
                     android:labelFor="@+id/NombrePlayList"
                     tools:ignore="LabelFor,SpeakableTextPresentCheck,TouchTargetSizeCheck,VisualLintTextFieldSize" />
 
@@ -149,8 +149,6 @@
                     android:layout_height="wrap_content"
                     android:text="@string/EscribaBiografa"
                     android:textColor="#D3D3D3"
-                    android:textStyle="bold"
-                    android:fontFamily="@font/fuente_jost_global"
                     android:textSize="15sp" />
 
                 <EditText
@@ -159,7 +157,7 @@
                     android:layout_height="40dp"
                     android:background="@drawable/edittext"
                     android:importantForAutofill="no"
-                    android:inputType="text"
+                    android:inputType="textPassword"
                     android:labelFor="@id/ingreseNuevaContrasena"
                     tools:ignore="LabelFor,SpeakableTextPresentCheck,TouchTargetSizeCheck,VisualLintTextFieldSize" />
 
@@ -176,7 +174,6 @@
                         android:layout_height="150dp"
                         android:layout_gravity="center"
                         android:importantForAccessibility="no"
-                        android:onClick="clickInsertar"
                         android:src="@drawable/abrirarchivo" />
 
                 </FrameLayout>
@@ -206,11 +203,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:background="@color/button"
-                        android:fontFamily="@font/fuente_jost_global"
-                        android:onClick="insertarPlay"
                         android:text="@string/cancelar"
                         android:textColor="@color/white"
-                        android:textStyle="bold"
                         tools:ignore="TextContrastCheck,VisualLintButtonSize" />
 
                 </LinearLayout>

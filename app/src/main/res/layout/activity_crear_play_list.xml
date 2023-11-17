@@ -26,14 +26,26 @@
         android:text="No tienes una PlayList"
         android:textColor="#FFFFFF"
         android:textSize="20dp"
-        android:fontFamily="@font/fuente_jost_global"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-
+    <ImageButton
+        android:id="@+id/imageButton2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="350dp"
+        android:layout_marginBottom="690dp"
+        android:background="@drawable/iconomenudespegable"
+        android:scrollbarThumbHorizontal="@drawable/iconomenudespegable"
+        android:scrollbarThumbVertical="@drawable/iconomenudespegable"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/iconomenudespegable" />
 
     <TextView
         android:id="@+id/txtListaPlaylist"
@@ -43,7 +55,6 @@
         android:text="Lista de PlayList"
         android:textColor="#FFFFFF"
         android:textSize="14dp"
-        android:fontFamily="@font/fuente_jost_global"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -65,10 +76,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/iconoatras" />
 
-
-
-
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout2"
         android:layout_width="362dp"
@@ -88,8 +95,6 @@
             android:layout_marginEnd="50dp"
             android:backgroundTint="#00ABE3"
             android:text="@string/btnCrearPlayList"
-            android:fontFamily="@font/fuente_jost_global"
-            android:textStyle="bold"
             android:textColorLink="@color/material_dynamic_primary80"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

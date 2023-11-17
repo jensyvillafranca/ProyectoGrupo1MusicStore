@@ -51,6 +51,14 @@ public class Activity_BuscarVideos extends AppCompatActivity {
 
         //Creacion de una lista de elementos de vistaArchivos
         List<vistaMusicaVideo> dataList = new ArrayList<>();
+        dataList.add(new vistaMusicaVideo("La Lecon Particuliere (best part loop)", "Slowed Reverb", R.drawable.iconovideos));
+        dataList.add(new vistaMusicaVideo(" Be More ", "Stephen Sanchez", R.drawable.iconovideos));
+        dataList.add(new vistaMusicaVideo("I Wanna Be Yours", "Arctic Monkeys", R.drawable.iconovideos));
+        dataList.add(new vistaMusicaVideo("Yes To Heaven", "Lana Del Rey", R.drawable.iconovideos));
+        dataList.add(new vistaMusicaVideo("Dayligth", "David Kushner", R.drawable.iconovideos));
+        dataList.add(new vistaMusicaVideo("Mary On A Cross", "Ghosth", R.drawable.iconovideos));
+        dataList.add(new vistaMusicaVideo("Total Eclipse Of The Heart", "Bonnie Tyler", R.drawable.iconovideos));
+        dataList.add(new vistaMusicaVideo("Art Deco", "Lana Del Rey", R.drawable.iconovideos));
 
         //Configuracion del administrador de disenio y adaptador para el RecyclerView
         LinearLayoutManager layoutManager = new LinearLayoutManager(this); // Use an appropriate layout manager

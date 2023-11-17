@@ -34,6 +34,7 @@ public class obtenerVideosGrupoAsyncTask extends AsyncTask<String, Void, List<vi
     private Context context;
     private VideoAdapter adapter;
     ProgressDialog progressDialog;
+    private int tipoProgress;
 
     public obtenerVideosGrupoAsyncTask(Context context, VideoAdapter adapter, ProgressDialog progressDialog) {
         this.context = context;
@@ -44,6 +45,9 @@ public class obtenerVideosGrupoAsyncTask extends AsyncTask<String, Void, List<vi
     @Override
     protected List<videoItem> doInBackground(String... params) {
         String idGrupo = params[0]; // idgrupo parametro
+        String tipo = params[1];
+
+        tipoProgress = Integer.valueOf(tipo);
 
         try {
             // construye el URL

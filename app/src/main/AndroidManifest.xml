@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
-    <uses-permission android:name="android.permission.READ_MEDIA_AUDIO" />
 
     <application
         android:allowBackup="true"
@@ -15,7 +14,13 @@
         android:theme="@style/Theme.ProyectoGrupo1MusicStore"
         tools:targetApi="31">
         <activity
-            android:name=".ActivityReproductor"
+            android:name=".ActivityVerTodosVideo"
+            android:exported="false" />
+        <activity
+            android:name=".ActivityVerTodosMusica"
+            android:exported="false" />
+        <activity
+            android:name=".ActivityVerTodosIntegrantes"
             android:exported="false" />
         <activity
             android:name=".Activity_ConfirmaCambioContrasena"
@@ -81,6 +86,27 @@
         <activity
             android:name=".ActivityGrupoPrincipal"
             android:exported="false" />
+        <activity
+            android:name=".activity_personalizado_confirmacion_correcta"
+            android:exported="false" />
+        <activity
+            android:name=".activity_personalizado_advertencia"
+            android:exported="false" />
+        <activity
+            android:name=".activity_recuperar_contrasena1"
+            android:exported="false" />
+        <activity
+            android:name=".activity_recuperar_contrasena2"
+            android:exported="false" />
+        <activity
+            android:name=".activity_recuperar_contrasena3"
+            android:exported="false" />
+        <activity
+            android:name=".activity_codigoverificacion_crearcuenta"
+            android:exported="false" />
+        <activity android:name=".activity_principal_login">
+        </activity>
+
         <activity
             android:name=".MainActivity"
             android:exported="true">

@@ -32,15 +32,20 @@ android {
 dependencies {
     //Dependencia de Firebas
     //noinspection BomWithoutPlatform
-    implementation("com.google.firebase:firebase-bom:32.5.0")
-    implementation ("com.google.firebase:firebase-analytics:21.5.0")
+    implementation("com.google.firebase:firebase-bom:32.4.1")
+    implementation ("com.google.firebase:firebase-analytics:21.4.0")
 
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.10.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
-    implementation("com.google.firebase:firebase-storage:20.3.0")
-    implementation("com.android.volley:volley:1.2.1")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+    /*Abre una conexión entre el HTTP y el celular*/
+    implementation ("com.android.volley:volley:1.2.1")
+    /*conexion a glide*/
+    implementation ("com.github.bumptech.glide:glide:4.11.0")
+    annotationProcessor("com.github.bumptech.glide:compiler:4.11.0")
+    /*Para utilizar el algoritmo de encriptación bcrypt*/
+    implementation ("org.mindrot:jbcrypt:0.4")
 }

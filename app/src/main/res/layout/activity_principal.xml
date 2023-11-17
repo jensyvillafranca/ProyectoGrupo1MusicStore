@@ -1,72 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/fondoprincipal"
-    android:paddingTop="15dp"
-    tools:context=".perfilPersonal">
+    tools:context=".activity_principal">
 
-    <FrameLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                tools:ignore="UselessParent">
-
-                <Space
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
+            <!-- Espacio vacío en la parte superior -->
             <Space
                 android:layout_width="match_parent"
                 android:layout_height="70dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="642dp"
+                android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:paddingHorizontal="40dp">
 
+                <!-- Espacio vacío -->
                 <Space
                     android:layout_width="match_parent"
                     android:layout_height="10dp" />
 
+                <!-- Contenido de tu diseño (puedes agregar más elementos aquí) -->
+                <!-- Por ahora, solo se ha dejado el espacio en blanco -->
+
+                <!-- Espacio vacío -->
                 <Space
                     android:layout_width="match_parent"
                     android:layout_height="42dp" />
 
+                <!-- Espacio en blanco en la parte inferior -->
                 <Space
+                    android:id="@+id/imgviewLogo"
                     android:layout_width="match_parent"
                     android:layout_height="405dp" />
 
                 <Button
-                    android:id="@+id/BtnIngresar"
+                    android:id="@+id/btnIngresar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/button"
                     android:text="@string/ingresar"
-                    android:textColor="@color/white"
-                    tools:ignore="TextContrastCheck,VisualLintButtonSize" />
+                    android:textColor="@color/white" />
 
                 <Space
                     android:layout_width="match_parent"
@@ -78,14 +69,12 @@
                     android:layout_height="wrap_content"
                     android:background="@color/button"
                     android:text="@string/Regístrate"
-                    android:textColor="@color/white"
-                    tools:ignore="TextContrastCheck,VisualLintButtonSize" />
+                    android:textColor="@color/white" />
 
             </LinearLayout>
 
-
         </LinearLayout>
 
-    </FrameLayout>
+    </ScrollView>
 
-</ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

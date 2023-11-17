@@ -183,7 +183,6 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textviewMusicaTitle" />
 
-
                 <TextView
                     android:id="@+id/textviewMusicaTitle"
                     android:layout_width="wrap_content"
@@ -213,7 +212,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/textviewVerTodoIntegrantes"
+                    android:id="@+id/textviewVerTodoMusica"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
@@ -238,7 +237,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/textviewIntegrantesTitle" />
 
                 <TextView
-                    android:id="@+id/textviewVerTodoMusica"
+                    android:id="@+id/textviewVerTodoIntegrantes"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
