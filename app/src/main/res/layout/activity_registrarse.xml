@@ -1,88 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/fondodetodaslaspantallas"
-    android:textAlignment="textEnd"
     tools:context=".activity_registrarse">
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
-    <!--Jensy-->
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        <FrameLayout
+            android:layout_width="417dp"
+            android:layout_height="742dp"
+            android:background="@drawable/fondologin">
 
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:orientation="vertical">
-
-
-            <ImageView
-                android:id="@+id/imgviewIconoRegistrarse"
-                android:layout_width="112dp"
-                android:layout_height="100dp"
+            <View
+                android:layout_width="348dp"
+                android:layout_height="650dp"
                 android:layout_gravity="center"
-                android:background="@drawable/logoregistrate"></ImageView>
-
-            <TextView
-                android:id="@+id/txtviewRegistrarseTitulo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="10dp"
-                android:fontFamily="@font/fuente_jost_global"
-                android:text="@string/registrarse"
-                android:textColor="#FFFFFF"
-                android:textSize="18sp"
-                android:textStyle="bold"></TextView>
+                android:layout_marginStart="-27dp"
+                android:background="@drawable/subfondoregistrate"></View>
 
             <LinearLayout
-                android:id="@+id/linearLayout"
-                android:layout_width="322dp"
-                android:layout_height="18dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="50dp"
+                android:layout_width="324dp"
+                android:layout_height="49dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="225dp"
                 android:orientation="horizontal">
+
                 <!---Nombres Labels-->
-                <!---Apellidos Labels-->
                 <TextView
                     android:id="@+id/txtviewRegistrarNombres"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/fuente_jost_global"
                     android:text="@string/txtviewRegistrarNombres"
                     android:textColor="#FFFFFF"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
+                    android:textSize="14sp" />
 
+                <!---Apellidos Labels-->
                 <TextView
                     android:id="@+id/txtviewRegistrarApellidos"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="110dp"
-                    android:fontFamily="@font/fuente_jost_global"
                     android:text="@string/txtviewRegistrarApellidos"
                     android:textColor="#FFFFFF"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
+                    android:textSize="14sp" />
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/linearLayout2"
                 android:layout_width="325dp"
-                android:layout_height="46dp"
-                android:layout_gravity="center"
+                android:layout_height="49dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="245dp"
                 android:orientation="horizontal">
-                <!---Nombres txt-->
+
                 <!---Nombres txt-->
                 <EditText
                     android:id="@+id/txtRegistrarNombres"
@@ -90,10 +63,9 @@
                     android:layout_height="28dp"
                     android:layout_marginTop="7dp"
                     android:layout_marginRight="14dp"
-                    android:background="@drawable/edittext"
-                    android:inputType="text|textPersonName"
+                    android:background="@color/white"
                     android:padding="6dp"
-                    android:textSize="15sp"></EditText>
+                    android:textSize="14sp"></EditText>
 
                 <!---Apellidos txt-->
                 <EditText
@@ -101,19 +73,17 @@
                     android:layout_width="155dp"
                     android:layout_height="28dp"
                     android:layout_marginTop="7dp"
-                    android:background="@drawable/edittext"
-                    android:inputType="text|textPersonName"
+                    android:background="@color/white"
                     android:padding="6dp"
                     android:textSize="14sp"></EditText>
+
             </LinearLayout>
 
-            <!---Área de datos bimetricos-->
-
             <LinearLayout
-                android:id="@+id/linearLayout3"
                 android:layout_width="325dp"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="295dp"
                 android:orientation="vertical">
 
                 <!---Correo Electrónico-->
@@ -121,87 +91,57 @@
                     android:id="@+id/txtviewRegistrarCorreo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="-2dp"
-                    android:fontFamily="@font/fuente_jost_global"
+                    android:layout_marginTop="10dp"
                     android:text="@string/txtviewRegistrarCorreo"
                     android:textColor="#FFFFFF"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
+                    android:textSize="14sp" />
 
                 <EditText
                     android:id="@+id/txtRegistrarCorreo"
                     android:layout_width="match_parent"
                     android:layout_height="28dp"
                     android:layout_marginTop="7dp"
-                    android:background="@drawable/edittext"
-                    android:inputType="text|textEmailAddress"
+                    android:background="@color/white"
                     android:padding="6dp"
-                    android:textSize="15sp"></EditText>
+                    android:textSize="14sp"></EditText>
 
                 <!---Usuario-->
-                <TextView
-                    android:id="@+id/errorMensaje"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="-3dp"
-                    android:fontFamily="@font/fuente_jost_global"
-                    android:textAlignment="viewEnd"
-                    android:textColor="#2196F3"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
-
                 <TextView
                     android:id="@+id/txtviewRegistrarUsuario"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:fontFamily="@font/fuente_jost_global"
                     android:text="@string/txtviewRegistrarUsuario"
                     android:textColor="#FFFFFF"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
+                    android:textSize="14sp" />
 
                 <EditText
                     android:id="@+id/txtRegistrarUsuario"
                     android:layout_width="match_parent"
                     android:layout_height="28dp"
                     android:layout_marginTop="7dp"
-                    android:background="@drawable/edittext"
-                    android:inputType="text"
+                    android:background="@color/white"
                     android:padding="6dp"
-                    android:textSize="15sp"></EditText>
-                <!---Contraseña-->
-                <TextView
-                    android:id="@+id/errorMensaje2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="-3dp"
-                    android:fontFamily="@font/fuente_jost_global"
-                    android:textAlignment="viewEnd"
-                    android:textColor="#2196F3"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
+                    android:textSize="14sp"></EditText>
 
+                <!---Contraseña-->
                 <TextView
                     android:id="@+id/txtviewRegistrarPassword"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:fontFamily="@font/fuente_jost_global"
                     android:text="@string/txtviewRegistrarPassword"
                     android:textColor="#FFFFFF"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
+                    android:textSize="14sp" />
 
                 <EditText
                     android:id="@+id/txtRegistrarPassword"
                     android:layout_width="match_parent"
                     android:layout_height="28dp"
                     android:layout_marginTop="7dp"
-                    android:background="@drawable/edittext"
-                    android:inputType="text|textPassword"
+                    android:background="@color/white"
                     android:padding="6dp"
-                    android:textSize="15sp"></EditText>
+                    android:textSize="14sp"></EditText>
 
                 <!---Confirmar Contraseña-->
                 <TextView
@@ -209,64 +149,98 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:fontFamily="@font/fuente_jost_global"
                     android:text="@string/txtviewRegistrarConfirmarPassword"
                     android:textColor="#FFFFFF"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
+                    android:textSize="14sp" />
 
                 <EditText
                     android:id="@+id/txtRegistrarConfirmarPassword"
                     android:layout_width="match_parent"
                     android:layout_height="28dp"
                     android:layout_marginTop="7dp"
-                    android:background="@drawable/edittext"
-                    android:inputType="text|textPassword"
+                    android:background="@color/white"
                     android:padding="6dp"
-                    android:textSize="15sp"></EditText>
+                    android:textSize="14sp"></EditText>
+
+            </LinearLayout>
+
+            <!---Área de datos bimetricos-->
+            <LinearLayout
+                android:layout_width="326dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="570dp"
+                android:orientation="horizontal">
+
+                <!--Huella Digital-->
+                <ImageButton
+                    android:id="@+id/btnRegistrarHuella"
+                    android:layout_width="35dp"
+                    android:layout_height="40dp"
+
+                    android:background="@drawable/huella" />
+
+                <!--Texto del botón de huella digital-->
+                <TextView
+                    android:id="@+id/txtviewRegistrarHuella"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="13dp"
+                    android:text="@string/txtviewRegistrarHuella"
+                    android:textColor="#FFFFFF"
+                    android:textSize="10dp"></TextView>
+
+
+                <!--Reconocimiento Facial-->
+                <ImageButton
+                    android:id="@+id/btnRegistrarFacial"
+                    android:layout_width="35dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="60dp"
+                    android:background="@drawable/reconocimiento" />
+
+                <!--Texto del botón Reconocimiento Facial-->
+                <TextView
+                    android:id="@+id/txtviewRegistrarFacial"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="13dp"
+                    android:text="@string/txtviewRegistrarFacial"
+                    android:textColor="#FFFFFF"
+                    android:textSize="10dp"></TextView>
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/linearLayout4"
                 android:layout_width="326dp"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="12dp"
-                android:orientation="horizontal"/>
-
-            <LinearLayout
-                android:layout_width="343dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="630dp"
                 android:orientation="vertical">
 
                 <Button
-                    android:id="@+id/btnRegistrarEntrar"
+                    android:id="@+id/btnRegistrarCrear"
                     android:layout_width="145dp"
                     android:layout_height="33dp"
-                    android:layout_marginStart="100dp"
-                    android:layout_marginTop="50dp"
+                    android:layout_marginStart="80dp"
+                    android:layout_marginTop="0dp"
                     android:background="@color/button"
-                    android:fontFamily="@font/fuente_jost_global"
-                    android:paddingTop="-1dp"
                     android:text="@string/btnRegistrarCrear"
                     android:textColor="@color/white"
-                    android:textStyle="bold"
-                    tools:ignore="TextContrastCheck,VisualLintButtonSize"></Button>
+                    tools:ignore="TextContrastCheck,VisualLintButtonSize">
+                </Button>
 
                 <TextView
                     android:id="@+id/txtviewRegistrarCuentaCreada"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="120dp"
-                    android:fontFamily="@font/fuente_jost_global"
+                    android:layout_marginStart="95dp"
                     android:text="@string/txtviewCuentaCreada"
                     android:textColor="#FFFDFD"
                     android:textColorHint="#FFFFFF"
-                    android:textSize="13sp"
-                    android:textStyle="bold"></TextView>
+                    android:textSize="13sp"></TextView>
             </LinearLayout>
-        </LinearLayout>
-    </ScrollView>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+        </FrameLayout>
+    </LinearLayout>
+</ScrollView>

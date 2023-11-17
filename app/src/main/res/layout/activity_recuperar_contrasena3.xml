@@ -1,48 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity_recuperar_contrasena3"
-    android:background="@drawable/background">
+    tools:context=".perfilPersonal"
+    android:background="@drawable/background"
+    android:paddingTop="15dp">
 
-    <ScrollView
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <!-- Encabezado con botón "Atrás" -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:gravity="center">
+                tools:ignore="UselessParent">
 
                 <ImageView
                     android:id="@+id/btnAtras"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:src="@drawable/iconoatras"
                     android:importantForAccessibility="no"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/fuente_jost_global"
-                    android:gravity="center"
-                    android:text="@string/Atras"
+                    android:text="@string/atras"
                     android:textColor="@color/white"
-                    android:textStyle="bold" />
+                    android:layout_gravity="center"
+                    android:textStyle="bold"/>
 
                 <Space
                     android:layout_width="0dp"
@@ -51,42 +46,42 @@
 
             </LinearLayout>
 
-            <!-- Separador espacial -->
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="70dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+             <Space
+                 android:layout_width="match_parent"
+                 android:layout_height="70dp"/>
 
             <TextView
-                android:id="@+id/txtviewRecuperarRestaurarTitulo1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:fontFamily="@font/fuente_jost_global"
                 android:text="@string/RecuperarContra"
                 android:textColor="#D3D3D3"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                android:textSize="20sp" />
 
             <ImageView
-                android:id="@+id/imgviewRestaurarLogo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:importantForAccessibility="no"
-                android:src="@drawable/iconorecuperarcontrasena" />
+                android:src="@drawable/iconorecuperarcontrasena"
+                android:importantForAccessibility="no" />
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="360dp"
                 android:orientation="vertical"
                 android:paddingHorizontal="40dp">
 
                 <TextView
-                    android:id="@+id/txtviewRecuperarEnviarTitulo2"
+                    android:id="@+id/ingreseContrsenaActual"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/fuente_jost_global"
-                    android:textStyle="bold"
                     android:text="@string/ingreseNuevaContrasena"
                     android:textColor="#D3D3D3"
                     android:textSize="15sp" />
@@ -98,22 +93,20 @@
                     android:background="@drawable/edittext"
                     android:importantForAutofill="no"
                     android:inputType="textPassword"
-                    android:labelFor="@+id/txtviewRecuperarEnviarTitulo2"
-                    android:textSize="15sp" />
+                    android:labelFor="@+id/ingreseContrsenaActual"
+                    tools:ignore="LabelFor,SpeakableTextPresentCheck,TouchTargetSizeCheck,VisualLintTextFieldSize" />
 
                 <Space
                     android:layout_width="match_parent"
                     android:layout_height="10dp" />
 
                 <TextView
-                    android:id="@+id/txtviewRecuperarConfirmarPass"
+                    android:id="@+id/ingreseNuevaContrasena"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/fuente_jost_global"
                     android:text="@string/confirmaContrasena"
                     android:textColor="#D3D3D3"
-                    android:textSize="15sp"
-                    android:textStyle="bold"/>
+                    android:textSize="15sp" />
 
                 <EditText
                     android:id="@+id/txtRecuperarConfirmar"
@@ -122,8 +115,8 @@
                     android:background="@drawable/edittext"
                     android:importantForAutofill="no"
                     android:inputType="textPassword"
-                    android:labelFor="@id/txtviewRecuperarConfirmarPass"
-                    android:textSize="15sp" />
+                    android:labelFor="@id/ingreseNuevaContrasena"
+                    tools:ignore="LabelFor,SpeakableTextPresentCheck,TouchTargetSizeCheck,VisualLintTextFieldSize" />
 
                 <Space
                     android:layout_width="match_parent"
@@ -134,19 +127,19 @@
                     android:layout_height="126dp" />
 
                 <Button
-                    android:id="@+id/btnRecuperarRestaurar"
+                    android:id="@+id/BtnRecuperarRestaurar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/button"
-                    android:fontFamily="@font/fuente_jost_global"
                     android:text="@string/RestaurarContra"
                     android:textColor="@color/white"
-                    android:textStyle="bold"/>
+                    tools:ignore="TextContrastCheck,VisualLintButtonSize" />
 
             </LinearLayout>
 
+
         </LinearLayout>
 
-    </ScrollView>
+    </FrameLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

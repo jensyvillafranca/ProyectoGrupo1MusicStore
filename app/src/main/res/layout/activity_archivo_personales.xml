@@ -31,7 +31,7 @@
                 tools:ignore="UseCompoundDrawables">
 
                 <ImageView
-                    android:id="@+id/btnAtras"
+                    android:id="@+id/btnAtrasss"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -39,6 +39,7 @@
                     android:importantForAccessibility="no"/>
 
                 <TextView
+                    android:id="@+id/btnAtras"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/atras"
@@ -53,14 +54,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"/>
 
-            <ImageView
-                android:id="@+id/btnMenu"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:importantForAccessibility="no"
-                android:src="@drawable/menudespegable"
-                tools:ignore="ImageContrastCheck" />
+
 
         </LinearLayout>
 
@@ -76,7 +70,7 @@
 
                 <Space
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"/>
+                    android:layout_height="60dp" />
 
                 <FrameLayout
                     android:layout_width="match_parent"
@@ -436,11 +430,13 @@
                     android:layout_height="wrap_content">
 
                     <ImageView
+                        android:id="@+id/subirMultimedias"
                         android:layout_width="150dp"
                         android:layout_height="150dp"
-                        android:src="@drawable/abrirarchivo"
                         android:layout_gravity="center"
-                        android:importantForAccessibility="no" />
+                        android:importantForAccessibility="no"
+                        android:onClick="subirMultimedia"
+                        android:src="@drawable/abrirarchivo" />
 
 
                 </FrameLayout>

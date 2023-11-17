@@ -1,18 +1,16 @@
-package com.example.proyectogrupo1musicstore.NetworkTasks;
+package com.example.proyectogrupo1musicstore.NetworkTaksMulti;
 
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import androidx.recyclerview.widget.RecyclerView;
-
-
-import com.example.proyectogrupo1musicstore.Adapters.VideoAdapter;
-import com.example.proyectogrupo1musicstore.Models.videoItem;
-import com.example.proyectogrupo1musicstore.R;
+import com.example.proyectogrupo1musicstore.Adapters.IntegrantesAdapter;
+import com.example.proyectogrupo1musicstore.Adapters.PlayListAdapter;
+import com.example.proyectogrupo1musicstore.Models.PlayListItem;
+import com.example.proyectogrupo1musicstore.Models.integrantesItem;
+import com.example.proyectogrupo1musicstore.Utilidades.ImageDownloader;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -28,26 +26,27 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-public class obtenerVideosGrupoAsyncTask extends AsyncTask<String, Void, List<videoItem>> {
 
-    private static final String TAG = "obtenerVideosGrupoAsyncTask";
+public class ObtenerPlayListAsyncTask extends AsyncTask<String, Void, List<PlayListItem>> {
+
+    private static final String TAG = "ObtenerPlayListAsyncTask";
     private Context context;
-    private VideoAdapter adapter;
+    private PlayListAdapter adapter;
     ProgressDialog progressDialog;
 
-    public obtenerVideosGrupoAsyncTask(Context context, VideoAdapter adapter, ProgressDialog progressDialog) {
+    public ObtenerPlayListAsyncTask(Context context, PlayListAdapter adapter, ProgressDialog progressDialog) {
         this.context = context;
         this.adapter = adapter;
         this.progressDialog = progressDialog;
     }
 
     @Override
-    protected List<videoItem> doInBackground(String... params) {
-        String idGrupo = params[0]; // idgrupo parametro
+    protected List<PlayListItem> doInBackground(String... params) {
+        String idplaylist = params[0]; // idgrupo parametro
 
         try {
             // construye el URL
-            URL url = new URL("https://phpclusters-152621-0.cloudclusters.net/obtenerVideosGrupo.php");
+            URL url = new URL("https://phpclusters-152621-0.cloudclusters.net/obtenerPlayList.php");
 
             // Crea la conexion y la abre
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
@@ -57,7 +56,7 @@ public class obtenerVideosGrupoAsyncTask extends AsyncTask<String, Void, List<vi
 
             // Crea el objeto JSON con el parametro
             JSONObject jsonParams = new JSONObject();
-            jsonParams.put("idgrupo", Integer.valueOf(idGrupo));
+            jsonParams.put("idplaylist", Integer.valueOf(idplaylist));
 
             // Escribe el JSON al output stream
             OutputStream out = new BufferedOutputStream(urlConnection.getOutputStream());
@@ -85,17 +84,16 @@ public class obtenerVideosGrupoAsyncTask extends AsyncTask<String, Void, List<vi
         return null;
     }
 
+
     @Override
-    protected void onPostExecute(List<videoItem> dataList) {
-        progressDialog.dismiss(); // Esconde el spinner de carga
+    protected void onPostExecute(List<PlayListItem> dataList) {
         if (dataList != null) {
             adapter.setDataList(dataList);
         }
     }
 
-    private List<videoItem> parseJsonResponse(String json) {
-        List<videoItem> dataList = new ArrayList<>();
-        int drawableResourceId = R.drawable.iconovideos;
+    private List<PlayListItem> parseJsonResponse(String json) {
+        List<PlayListItem> dataList = new ArrayList<>();
 
         try {
             JSONArray jsonArray = new JSONArray(json);
@@ -104,13 +102,11 @@ public class obtenerVideosGrupoAsyncTask extends AsyncTask<String, Void, List<vi
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
 
                 // Extrae la informacion y crea objetos
-                Integer idmedia = jsonObject.getInt("idmedia");
-                String mediaName = jsonObject.getString("medianame");
-                String url = jsonObject.getString("download_url");
-                Bitmap imageResource = BitmapFactory.decodeResource(context.getResources(), drawableResourceId);
+                Integer idplaylist = jsonObject.getInt("idplaylist");
+                String nombrePlay = jsonObject.getString("nombreplaylist");
+                Bitmap imageResource = ImageDownloader.downloadImage(jsonObject.getString("enlacefoto"));
 
-
-                dataList.add(new videoItem(imageResource, mediaName, idmedia, url));
+                dataList.add(new PlayListItem(imageResource, nombrePlay, idplaylist));
             }
 
         } catch (JSONException e) {
@@ -119,4 +115,5 @@ public class obtenerVideosGrupoAsyncTask extends AsyncTask<String, Void, List<vi
 
         return dataList;
     }
+
 }
