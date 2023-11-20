@@ -1,8 +1,10 @@
 package com.example.proyectogrupo1musicstore.NetworkTasks;
 
+import android.app.ProgressDialog;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.ProgressBar;
 
 import com.example.proyectogrupo1musicstore.Models.vistaDeGrupo;
 import com.example.proyectogrupo1musicstore.Utilidades.ImageDownloader;
@@ -25,9 +27,11 @@ public class FetchDataAsyncGruposPrincipal extends AsyncTask<String, Void, List<
 
     private static final String TAG = "FetchDataAsyncGruposPrincipal";
     private DataFetchListener dataFetchListener;
+    ProgressDialog progressDialog;
 
-    public FetchDataAsyncGruposPrincipal(DataFetchListener listener) {
+    public FetchDataAsyncGruposPrincipal(DataFetchListener listener, ProgressDialog progressDialog) {
         this.dataFetchListener = listener;
+        this.progressDialog = progressDialog;
     }
 
     @Override
@@ -70,6 +74,7 @@ public class FetchDataAsyncGruposPrincipal extends AsyncTask<String, Void, List<
 
         } catch (Exception e) {
             Log.e(TAG, "Error obteniendo la Información del servidor: " + e.getMessage());
+            progressDialog.dismiss();
         }
 
         return null;

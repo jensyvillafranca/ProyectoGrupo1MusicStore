@@ -1,4 +1,4 @@
-package com.example.proyectogrupo1musicstore;
+package com.example.proyectogrupo1musicstore.Activities.Grupos;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -14,6 +14,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.proyectogrupo1musicstore.Activities.PantallaPrincipal.ActivityPantallaPrincipal;
 import com.example.proyectogrupo1musicstore.Adapters.IntegrantesAdapter;
 import com.example.proyectogrupo1musicstore.Adapters.MusicaAdapter;
 import com.example.proyectogrupo1musicstore.Adapters.VideoAdapter;
@@ -25,6 +26,7 @@ import com.example.proyectogrupo1musicstore.NetworkTasks.InfomacionGeneralGrupoA
 import com.example.proyectogrupo1musicstore.NetworkTasks.obtenerAudiosGrupoAsyncTask;
 import com.example.proyectogrupo1musicstore.NetworkTasks.obtenerIntegrantesGrupoAsyncTask;
 import com.example.proyectogrupo1musicstore.NetworkTasks.obtenerVideosGrupoAsyncTask;
+import com.example.proyectogrupo1musicstore.R;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -3,19 +3,20 @@ package com.example.proyectogrupo1musicstore;
 
 
 
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-
 import androidx.appcompat.app.AppCompatActivity;
 import com.bumptech.glide.Glide;
-
+import com.example.proyectogrupo1musicstore.Activities.PantallaPrincipal.ActivityPantallaPrincipal;
+import com.example.proyectogrupo1musicstore.Utilidades.token;
+import com.google.firebase.FirebaseApp;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -26,10 +27,15 @@ public class MainActivity extends AppCompatActivity {
     private token acceso;
 
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //iniciando firebase
+        FirebaseApp.initializeApp(this);
 
         acceso = new token(this);
 

@@ -46,7 +46,6 @@
     <string name="notificaciones">Notificaciones</string>
 
 
-
     <!--Jensy Login-->
     <string name="textviewLoginUsuario">Usuario</string>
     <string name="textviewLoginPassword">Contraseña</string>
@@ -130,6 +129,8 @@
     <string name="verTodo">Ver todo</string>
     <string name="grupoPrivado">Grupo Privado</string>
     <string name="cerrarSesion">Cerrar Sesión</string>
+    <string name="tipoGrupo">Tipo de Grupo</string>
+    <string name="guardarCambios">Guardar Cambios</string>
 
     <!--Jonathan-->
     <string name="btnCrearPlayList">Crear PlayList</string>

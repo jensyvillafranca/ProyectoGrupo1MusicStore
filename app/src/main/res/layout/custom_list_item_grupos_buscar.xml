@@ -76,6 +76,7 @@
             android:layout_marginLeft="5dp"
             android:background="@android:color/transparent"
             android:contentDescription="Icon 3"
+            android:visibility="visible"
             android:src="@drawable/iconoanadirseagrupo" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -10,7 +10,8 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.proyectogrupo1musicstore.ActivityGrupoInfo;
+import com.example.proyectogrupo1musicstore.Activities.Grupos.ActivityChat;
+import com.example.proyectogrupo1musicstore.Activities.Grupos.ActivityGrupoInfo;
 import com.example.proyectogrupo1musicstore.Models.vistaDeGrupo;
 import com.example.proyectogrupo1musicstore.NetworkTasks.UpdateFavoritoAsyncTask;
 import com.example.proyectogrupo1musicstore.R;
@@ -83,6 +84,15 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
                 v.getContext().startActivity(pantallaInfo);
             }
         });
+        holder.nombreGrupo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), ActivityChat.class);
+                intent.putExtra("idgrupo",data.getIdgrupo());
+                v.getContext().startActivity(intent);
+            }
+        });
+
     }
 
     //Devuelve el número total de elementos en la lista de datos.

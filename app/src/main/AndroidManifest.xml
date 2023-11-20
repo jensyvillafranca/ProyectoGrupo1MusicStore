@@ -3,6 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <application
         android:allowBackup="true"
@@ -14,13 +20,19 @@
         android:theme="@style/Theme.ProyectoGrupo1MusicStore"
         tools:targetApi="31">
         <activity
-            android:name=".ActivityVerTodosVideo"
+            android:name=".Activities.Grupos.ActivityChat"
             android:exported="false" />
         <activity
-            android:name=".ActivityVerTodosMusica"
+            android:name=".Activities.Grupos.ActivityEditarGrupo"
             android:exported="false" />
         <activity
-            android:name=".ActivityVerTodosIntegrantes"
+            android:name=".Activities.Grupos.ActivityVerTodosVideo"
+            android:exported="false" />
+        <activity
+            android:name=".Activities.Grupos.ActivityVerTodosMusica"
+            android:exported="false" />
+        <activity
+            android:name=".Activities.Grupos.ActivityVerTodosIntegrantes"
             android:exported="false" />
         <activity
             android:name=".Activity_ConfirmaCambioContrasena"
@@ -65,26 +77,26 @@
             android:name=".Activity_PerfilPersonal"
             android:exported="false" />
         <activity
-            android:name=".ActivityGruposBuscar"
+            android:name=".Activities.Grupos.ActivityGruposBuscar"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".ActivityUnirseGrupo"
+            android:name=".Activities.Grupos.ActivityUnirseGrupo"
             android:exported="false" />
         <activity
-            android:name=".ActivityNuevoGrupoIntegrantes"
+            android:name=".Activities.Grupos.ActivityNuevoGrupoIntegrantes"
             android:exported="false" />
         <activity
-            android:name=".ActivityNuevoGrupoDetalles"
+            android:name=".Activities.Grupos.ActivityNuevoGrupoDetalles"
             android:exported="false" />
         <activity
-            android:name=".ActivityGrupoInfo"
+            android:name=".Activities.Grupos.ActivityGrupoInfo"
             android:exported="false" />
         <activity
-            android:name=".ActivityPantallaPrincipal"
+            android:name=".Activities.PantallaPrincipal.ActivityPantallaPrincipal"
             android:exported="false" />
         <activity
-            android:name=".ActivityGrupoPrincipal"
+            android:name=".Activities.Grupos.ActivityGrupoPrincipal"
             android:exported="false" />
         <activity
             android:name=".activity_personalizado_confirmacion_correcta"
@@ -104,9 +116,7 @@
         <activity
             android:name=".activity_codigoverificacion_crearcuenta"
             android:exported="false" />
-        <activity android:name=".activity_principal_login">
-        </activity>
-
+        <activity android:name=".activity_principal_login" />
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -116,6 +126,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <service
+            android:name=".Utilidades.GrupoPrivadoFirebaseMessagingService"
+            android:exported="false"
+            android:directBootAware="true">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

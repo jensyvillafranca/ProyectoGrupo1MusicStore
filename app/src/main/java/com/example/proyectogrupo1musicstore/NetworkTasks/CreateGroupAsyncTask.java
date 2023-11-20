@@ -8,7 +8,7 @@ import android.util.Base64;
 import android.util.Log;
 import android.widget.EditText;
 
-import com.example.proyectogrupo1musicstore.ActivityGrupoPrincipal;
+import com.example.proyectogrupo1musicstore.Activities.Grupos.ActivityGrupoPrincipal;
 
 import org.json.JSONArray;
 import org.json.JSONException;

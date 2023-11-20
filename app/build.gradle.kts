@@ -32,8 +32,10 @@ android {
 dependencies {
     //Dependencia de Firebas
     //noinspection BomWithoutPlatform
-    implementation("com.google.firebase:firebase-bom:32.4.1")
-    implementation ("com.google.firebase:firebase-analytics:21.4.0")
+    implementation(platform("com.google.firebase:firebase-bom:32.6.0"))
+    implementation("com.google.firebase:firebase-messaging")
+    implementation("com.google.firebase:firebase-analytics")
+    implementation ("com.google.firebase:firebase-messaging-directboot:20.2.0")
 
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.10.0")
@@ -44,8 +46,14 @@ dependencies {
     /*Abre una conexión entre el HTTP y el celular*/
     implementation ("com.android.volley:volley:1.2.1")
     /*conexion a glide*/
-    implementation ("com.github.bumptech.glide:glide:4.11.0")
-    annotationProcessor("com.github.bumptech.glide:compiler:4.11.0")
+    implementation ("com.github.bumptech.glide:glide:4.12.0")
+    annotationProcessor("com.github.bumptech.glide:compiler:4.12.0")
     /*Para utilizar el algoritmo de encriptación bcrypt*/
     implementation ("org.mindrot:jbcrypt:0.4")
+    //Implementacion de Gson
+    implementation("com.google.code.gson:gson:2.8.8")
+    //Implementacion para decodificar jwt
+    implementation ("io.jsonwebtoken:jjwt-api:0.12.3")
+    implementation ("io.jsonwebtoken:jjwt-impl:0.12.3")
+    implementation ("io.jsonwebtoken:jjwt-jackson:0.12.3")
 }

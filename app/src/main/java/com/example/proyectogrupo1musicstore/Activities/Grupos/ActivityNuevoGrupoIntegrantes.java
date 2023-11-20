@@ -1,4 +1,4 @@
-package com.example.proyectogrupo1musicstore;
+package com.example.proyectogrupo1musicstore.Activities.Grupos;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -16,6 +16,7 @@ import com.example.proyectogrupo1musicstore.Adapters.CustomAdapterNuevoGrupoInte
 import com.example.proyectogrupo1musicstore.Models.vistaDeNuevoGrupo;
 import com.example.proyectogrupo1musicstore.NetworkTasks.BuscarIntegranteAsyncTask;
 import com.example.proyectogrupo1musicstore.NetworkTasks.NuevoGrupoIntegrantesAsyncTask;
+import com.example.proyectogrupo1musicstore.R;
 
 import java.util.ArrayList;
 import java.util.List;

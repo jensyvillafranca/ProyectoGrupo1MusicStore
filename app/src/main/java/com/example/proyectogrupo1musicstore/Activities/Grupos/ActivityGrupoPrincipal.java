@@ -1,4 +1,4 @@
-package com.example.proyectogrupo1musicstore;
+package com.example.proyectogrupo1musicstore.Activities.Grupos;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -14,9 +14,11 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.proyectogrupo1musicstore.Activities.PantallaPrincipal.ActivityPantallaPrincipal;
 import com.example.proyectogrupo1musicstore.Adapters.CustomAdapter;
 import com.example.proyectogrupo1musicstore.Models.vistaDeGrupo;
 import com.example.proyectogrupo1musicstore.NetworkTasks.FetchDataAsyncGruposPrincipal;
+import com.example.proyectogrupo1musicstore.R;
 
 import java.util.List;
 
@@ -60,9 +62,9 @@ public class ActivityGrupoPrincipal extends AppCompatActivity implements FetchDa
 
         // Fetch data from the server
         String url = "https://phpclusters-152621-0.cloudclusters.net/principalGrupos.php";
-        String idUsuario = "1"; // Reemplazar por el idusuario - Motivos de prueba
+        String idUsuario = "56"; // Reemplazar por el idusuario - Motivos de prueba
         progressDialog.show();
-        new FetchDataAsyncGruposPrincipal(this).execute(url, idUsuario);
+        new FetchDataAsyncGruposPrincipal(this, progressDialog).execute(url, idUsuario);
 
         // Configuración del administrador de diseño y adaptador para el RecyclerView
         LinearLayoutManager layoutManager = new LinearLayoutManager(this); // Use an appropriate layout manager

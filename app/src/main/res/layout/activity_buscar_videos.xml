@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/fondodetodaslaspantallas"
-            tools:context=".ActivityGrupoPrincipal">
+            tools:context=".Activities.Grupos.ActivityGrupoPrincipal">
 
             <RelativeLayout
                 android:id="@+id/layout_BuscarBtnAtrasVideos"

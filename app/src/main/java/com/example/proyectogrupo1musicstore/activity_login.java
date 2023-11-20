@@ -23,8 +23,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.proyectogrupo1musicstore.R;
-import com.example.proyectogrupo1musicstore.activity_recuperar_contrasena1;
+import com.example.proyectogrupo1musicstore.Activities.PantallaPrincipal.ActivityPantallaPrincipal;
+import com.example.proyectogrupo1musicstore.Utilidades.token;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -145,7 +145,7 @@ public class activity_login extends AppCompatActivity {
                                     String token = jsonObject.getString("token");
                                     /*Metodo para guardar ese token en el keystore*/
                                     //guardarToken();
-                                    token acceso = new token(getApplicationContext());
+                                    com.example.proyectogrupo1musicstore.Utilidades.token acceso = new token(getApplicationContext());
                                     acceso.guardarTokenToKeystore(token);
                                     //acceso.mostrarToken();
                                     //acceso.recuperarTokenFromKeystore();

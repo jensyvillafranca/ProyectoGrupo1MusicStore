@@ -1,4 +1,4 @@
-package com.example.proyectogrupo1musicstore;
+package com.example.proyectogrupo1musicstore.Activities.Grupos;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -28,12 +28,11 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.proyectogrupo1musicstore.Adapters.CustomAdapter;
 import com.example.proyectogrupo1musicstore.Adapters.CustomAdapterNuevoGrupoDetalles;
-import com.example.proyectogrupo1musicstore.Models.vistaDeGrupo;
 import com.example.proyectogrupo1musicstore.Models.vistaDeNuevoGrupo;
 import com.example.proyectogrupo1musicstore.NetworkTasks.CreateGroupAsyncTask;
 import com.example.proyectogrupo1musicstore.NetworkTasks.FetchMemberDetailsAsyncTask;
+import com.example.proyectogrupo1musicstore.R;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
