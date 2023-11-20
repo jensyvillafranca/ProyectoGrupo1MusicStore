@@ -33,11 +33,10 @@ public class ActivityGrupoInfo extends AppCompatActivity implements InfomacionGe
 
     DrawerLayout drawerLayout;
     ImageButton openMenuButton, botonAtras;
-    TextView textviewAtras, Grupos, Inicio, nombreGrupo, textviewNumeroIntegrantes, textviewNumeroAudio, textviewNumeroVideo, verTodoIntegrantes, verTodoMusica, verTodoVideos;
+    TextView textviewAtras, Grupos, Inicio, nombreGrupo, textviewNumeroIntegrantes, textviewNumeroAudio, textviewNumeroVideo;
     ImageView iconGrupos, iconInicio, fotoGrupo;
     RecyclerView recyclerViewIntegrantes, recyclerViewMusica, recyclerViewVideos;
     private int idgrupo;
-    private final String tipo = "0";
     ProgressDialog progressDialog;
 
     @Override
@@ -49,7 +48,7 @@ public class ActivityGrupoInfo extends AppCompatActivity implements InfomacionGe
         progressDialog.setMessage("Cargando...");
         progressDialog.setCancelable(false);
 
-        idgrupo = getIntent().getIntExtra("idgrupo", 0);
+       idgrupo = getIntent().getIntExtra("idgrupo", 0);
 
         // Declaración de variables
         recyclerViewIntegrantes = (RecyclerView) findViewById(R.id.recyclerviewIntegrantes);
@@ -68,9 +67,6 @@ public class ActivityGrupoInfo extends AppCompatActivity implements InfomacionGe
         textviewNumeroIntegrantes = (TextView) findViewById(R.id.textviewIntegrantesTitle);
         textviewNumeroAudio = (TextView) findViewById(R.id.textviewMusicaTitle);
         textviewNumeroVideo = (TextView) findViewById(R.id.textviewVideoTitle);
-        verTodoIntegrantes = (TextView) findViewById(R.id.textviewVerTodoIntegrantes);
-        verTodoMusica = (TextView) findViewById(R.id.textviewVerTodoMusica);
-        verTodoVideos = (TextView) findViewById(R.id.textviewVerTodoVideo);
 
         // Creación de una lista de elementos de integrantesItem
         List<integrantesItem> integrantesList = new ArrayList<>();
@@ -109,11 +105,11 @@ public class ActivityGrupoInfo extends AppCompatActivity implements InfomacionGe
         progressDialog.show();
         new InfomacionGeneralGrupoAsyncTask(this).execute(url, String.valueOf(idgrupo));
         new obtenerIntegrantesGrupoAsyncTask(ActivityGrupoInfo.this, integrantesAdapter, progressDialog)
-                .execute(String.valueOf(idgrupo), tipo);
+                .execute(String.valueOf(idgrupo));
         new obtenerAudiosGrupoAsyncTask(ActivityGrupoInfo.this, musicaAdapter, progressDialog)
-                .execute(String.valueOf(idgrupo), tipo);
+                .execute(String.valueOf(idgrupo));
         new obtenerVideosGrupoAsyncTask(ActivityGrupoInfo.this, videoAdapter, progressDialog)
-                .execute(String.valueOf(idgrupo), tipo);
+                .execute(String.valueOf(idgrupo));
 
 
         // Listener para abrir el menú lateral
@@ -144,17 +140,8 @@ public class ActivityGrupoInfo extends AppCompatActivity implements InfomacionGe
                 if (view.getId() == R.id.iconNavInicio){
                     actividad = ActivityPantallaPrincipal.class;
                 }
-                if (view.getId() == R.id.textviewVerTodoIntegrantes){
-                    actividad = ActivityVerTodosIntegrantes.class;
-                }
-                if (view.getId() == R.id.textviewVerTodoMusica){
-                    actividad = ActivityVerTodosMusica.class;
-                }
-                if (view.getId() == R.id.textviewVerTodoVideo){
-                    actividad = ActivityVerTodosVideo.class;
-                }
                 if (actividad != null) {
-                    moveActivity(actividad, idgrupo);
+                    moveActivity(actividad);
                 }
             }
         };
@@ -165,9 +152,6 @@ public class ActivityGrupoInfo extends AppCompatActivity implements InfomacionGe
         Inicio.setOnClickListener(buttonClick);
         iconGrupos.setOnClickListener(buttonClick);
         iconInicio.setOnClickListener(buttonClick);
-        verTodoIntegrantes.setOnClickListener(buttonClick);
-        verTodoMusica.setOnClickListener(buttonClick);
-        verTodoVideos.setOnClickListener(buttonClick);
     }
 
     @Override
@@ -185,9 +169,8 @@ public class ActivityGrupoInfo extends AppCompatActivity implements InfomacionGe
         }
     }
 
-    private void moveActivity(Class<?> actividad, int idgrupo) {
+    private void moveActivity(Class<?> actividad) {
         Intent intent = new Intent(getApplicationContext(), actividad);
-        intent.putExtra("idgrupo", idgrupo);
         startActivity(intent);
     }
 }

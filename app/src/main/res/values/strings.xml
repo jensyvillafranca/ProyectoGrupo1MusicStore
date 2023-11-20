@@ -27,7 +27,7 @@
     <string name="NombreUsuario">Kency Angely Rosa Paz</string>
     <string name="cambiarContrasena">Cambiar Contraseña</string>
     <string name="CrearPlayList">Crear PlayList</string>
-    <string name="CambiarNombre">Cambiar Nombre</string>
+    <string name="CambiarNombre">Seleccionar una imagen</string>
     <string name="EscribaNombrePlayList">Escriba un nombre que le guste</string>
     <string name="EscribaBiografa">Escriba una Biografa</string>
     <string name="Crearplaylist">Crear Play List</string>
@@ -44,7 +44,6 @@
     <string name="perfilPrivado">Perfil Privado</string>
     <string name="eliminarCuenta">Eliminar Cuenta</string>
     <string name="notificaciones">Notificaciones</string>
-
 
 
     <!--Jensy Login-->
@@ -150,5 +149,9 @@
     <string name="buscarVideo">Buscar Video</string>
     <string name="resultBusquedaMusica">Busqueda Musica</string>
     <string name="resultBusquedaVideo">Busqueda Video</string>
+    <string name="verPlayList">PlayList</string>
+    <string name="cancionesFavoritas">Canciones Favoritas</string>
+    <string name="nombreplaylist">Nombre PlayList</string>
+
 
 </resources>
