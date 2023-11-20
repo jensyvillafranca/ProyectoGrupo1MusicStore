@@ -127,6 +127,7 @@ public class Activity_SubirMusica extends AppCompatActivity {
         buscars.setOnClickListener(buttonClick);
         videos.setOnClickListener(buttonClick);
         botonAtrass.setOnClickListener(buttonClick);
+        //comentario
     }
     // Método para cambiar a otra actividad
     private void moveActivity(Class<?> actividad) {
