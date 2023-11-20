@@ -29,10 +29,10 @@ public class Activity_BuscarMusica extends AppCompatActivity {
 
     RecyclerView listas;
     DrawerLayout drawerLayouts;
-    ImageButton openMenuButton, botonAtrasss;
-    TextView textviewAtrass, textviewGruposBuscarss, Grupos, Inicio;
+    ImageButton botonAtrasss;
+    TextView textviewAtrass, textviewGruposBuscarss;
     EditText txtGruposBuscarss;
-    ImageView imgBuscarss, imgBuscar2ss, iconGrupos, iconInicio;
+    ImageView imgBuscarss, imgBuscar2ss ;
     CardView buscarss;
 
 
@@ -55,14 +55,6 @@ public class Activity_BuscarMusica extends AppCompatActivity {
 
         //Creacion de una lista de elementos de vistaArchivos
         List<vistaMusicaVideo> dataList = new ArrayList<>();
-        dataList.add(new vistaMusicaVideo("La Lecon Particuliere (best part loop)", "Slowed Reverb", R.drawable.iconomusicas));
-        dataList.add(new vistaMusicaVideo(" Be More ", "Stephen Sanchez", R.drawable.iconomusicas));
-        dataList.add(new vistaMusicaVideo("I Wanna Be Yours", "Arctic Monkeys", R.drawable.iconomusicas));
-        dataList.add(new vistaMusicaVideo("Yes To Heaven", "Lana Del Rey", R.drawable.iconomusicas));
-        dataList.add(new vistaMusicaVideo("Dayligth", "David Kushner", R.drawable.iconomusicas));
-        dataList.add(new vistaMusicaVideo("Mary On A Cross", "Ghosth", R.drawable.iconomusicas));
-        dataList.add(new vistaMusicaVideo("Total Eclipse Of The Heart", "Bonnie Tyler", R.drawable.iconomusicas));
-        dataList.add(new vistaMusicaVideo("Art Deco", "Lana Del Rey", R.drawable.iconomusicas));
 
         //Configuracion del administrador de disenio y adaptador para el RecyclerView
         LinearLayoutManager layoutManager = new LinearLayoutManager(this); // Use an appropriate layout manager
