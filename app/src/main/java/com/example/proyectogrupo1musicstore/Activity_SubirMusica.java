@@ -80,7 +80,7 @@ public class Activity_SubirMusica extends AppCompatActivity {
         CustomAdapterMusicaVideos adapter = new CustomAdapterMusicaVideos(this, dataList);
         listas.setAdapter(adapter);
 
-//Modificado
+//Modificados
         seleccionarAudio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
