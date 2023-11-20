@@ -183,6 +183,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textviewMusicaTitle" />
 
+
                 <TextView
                     android:id="@+id/textviewMusicaTitle"
                     android:layout_width="wrap_content"

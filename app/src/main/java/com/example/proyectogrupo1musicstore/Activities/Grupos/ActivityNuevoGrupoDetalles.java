@@ -1,5 +1,6 @@
 package com.example.proyectogrupo1musicstore.Activities.Grupos;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -141,7 +142,7 @@ public class ActivityNuevoGrupoDetalles extends AppCompatActivity implements Fet
         imgAgragarImagen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (ContextCompat.checkSelfPermission(ActivityNuevoGrupoDetalles.this, android.Manifest.permission.READ_MEDIA_IMAGES) != PackageManager.PERMISSION_GRANTED) {
+                if (ContextCompat.checkSelfPermission(ActivityNuevoGrupoDetalles.this, Manifest.permission.READ_MEDIA_IMAGES) != PackageManager.PERMISSION_GRANTED) {
                     // Permission is not granted, request it
                     ActivityCompat.requestPermissions(ActivityNuevoGrupoDetalles.this, new String[]{android.Manifest.permission.READ_MEDIA_IMAGES}, REQUEST_CODE);
                 } else {
