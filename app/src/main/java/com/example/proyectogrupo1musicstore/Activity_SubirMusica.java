@@ -31,9 +31,7 @@ import com.example.proyectogrupo1musicstore.Adapters.CustomAdapterMusicaVideos;
 import com.example.proyectogrupo1musicstore.Models.vistaMusicaVideo;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
+
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -51,10 +49,7 @@ public class Activity_SubirMusica extends AppCompatActivity {
     private static final int PICK_AUDIOS_REQUEST = 1;// Código de solicitud para seleccionar un archivo de audio
     private static final int REQUEST_CODE = 123;
 
-    FirebaseStorage storage = FirebaseStorage.getInstance();
 
-    // Inicialización de Firebase Storage
-    private StorageReference mStorageRef;
 
 
     @Override
@@ -64,7 +59,7 @@ public class Activity_SubirMusica extends AppCompatActivity {
 
 
         // Obtén la referencia al Firebase Storage
-        mStorageRef = FirebaseStorage.getInstance().getReference();
+
         listas = (RecyclerView) findViewById(R.id.recyclerview_SubirMusica);
         drawerLayouts = (DrawerLayout) findViewById(R.id.drawer_layout);
         botonAtrass = (ImageButton) findViewById(R.id.btn_PrincipalAtras);
@@ -89,9 +84,9 @@ public class Activity_SubirMusica extends AppCompatActivity {
         seleccionarAudio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (ContextCompat.checkSelfPermission(Activity_SubirMusica.this, Manifest.permission.READ_MEDIA_AUDIO) != PackageManager.PERMISSION_GRANTED) {
+                if (ContextCompat.checkSelfPermission(Activity_SubirMusica.this, Manifest.permission.READ_MEDIA_IMAGES) != PackageManager.PERMISSION_GRANTED) {
                     // Permission is not granted, request it
-                    ActivityCompat.requestPermissions(Activity_SubirMusica.this, new String[]{android.Manifest.permission.READ_MEDIA_AUDIO}, REQUEST_CODE);
+                    ActivityCompat.requestPermissions(Activity_SubirMusica.this, new String[]{android.Manifest.permission.READ_MEDIA_IMAGES}, REQUEST_CODE);
                 } else {
                     // Create an intent to pick an image from the gallery
                     Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Audio.Media.EXTERNAL_CONTENT_URI);
