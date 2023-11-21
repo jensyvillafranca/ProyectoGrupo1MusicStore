@@ -51,7 +51,7 @@ public class CreatePlayListTask extends AsyncTask<String, Void, Void> {
     protected void onPreExecute() {
         super.onPreExecute();
         progressDialog = new ProgressDialog(context);
-        progressDialog.setMessage("Creating play...");
+        progressDialog.setMessage("Creating playList...");
         progressDialog.setCancelable(false);
         progressDialog.show();
     }
