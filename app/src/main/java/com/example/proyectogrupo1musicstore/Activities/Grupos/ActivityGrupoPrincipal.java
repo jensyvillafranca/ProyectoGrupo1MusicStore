@@ -32,6 +32,7 @@ public class ActivityGrupoPrincipal extends AppCompatActivity implements FetchDa
     ImageView imageviewGruposBuscar, imageviewNuevoGrupo, iconGrupos, iconInicio;
     CardView buscar, nuevoGrupo;
     ProgressDialog progressDialog;
+    private int idUsuario = 1;
 
 
     @Override
@@ -62,9 +63,10 @@ public class ActivityGrupoPrincipal extends AppCompatActivity implements FetchDa
 
         // Fetch data from the server
         String url = "https://phpclusters-152621-0.cloudclusters.net/principalGrupos.php";
-        String idUsuario = "56"; // Reemplazar por el idusuario - Motivos de prueba
+        // Reemplazar por el idusuario - Motivos de prueba
         progressDialog.show();
-        new FetchDataAsyncGruposPrincipal(this, progressDialog).execute(url, idUsuario);
+        new FetchDataAsyncGruposPrincipal(this, progressDialog).execute(url, String.valueOf(idUsuario));
+
 
         // Configuración del administrador de diseño y adaptador para el RecyclerView
         LinearLayoutManager layoutManager = new LinearLayoutManager(this); // Use an appropriate layout manager

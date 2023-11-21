@@ -74,7 +74,8 @@
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:contentDescription="Icon 2"
-            android:src="@drawable/iconoeditargrupo" />
+            android:src="@drawable/iconoeditargrupo"
+            android:visibility="visible"/>
 
         <ImageView
             android:id="@+id/imageviewGruposIconoFavorito"

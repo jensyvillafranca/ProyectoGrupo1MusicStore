@@ -6,15 +6,17 @@ public class PlayListItem {
     private Bitmap imageResId;
     private String itemName;
     private int id;
+    private int numero;
 
 
 
 
 
-    public PlayListItem(Bitmap imageResId, String itemName, int id) {
+    public PlayListItem(Bitmap imageResId, String itemName, int id, int numero) {
         this.imageResId = imageResId;
         this.itemName = itemName;
         this.id = id;
+        this.numero = numero;
     }
 
     public Bitmap getImageResId() {
@@ -26,4 +28,6 @@ public class PlayListItem {
     }
 
     public int getId() {return id;}
+
+    public int getNumero() {return numero;}
 }

@@ -112,7 +112,7 @@ public class ObtenerPlayListAsyncTask extends AsyncTask<String, Void, List<PlayL
                 String nombrePlay = jsonObject.getString("nombreplaylist");
                 Bitmap imageResource = ImageDownloader.downloadImage(jsonObject.getString("enlacefoto"));
 
-                dataList.add(new PlayListItem(imageResource, nombrePlay, idplaylist));
+                dataList.add(new PlayListItem(imageResource, nombrePlay, idplaylist, 8));
             }
 
         } catch (JSONException e) {

@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.proyectogrupo1musicstore.Adapters.CustomAdapter;
 import com.example.proyectogrupo1musicstore.Adapters.IntegrantesAdapter;
 import com.example.proyectogrupo1musicstore.Adapters.PlayListAdapter;
 import com.example.proyectogrupo1musicstore.Models.PlayListItem;
@@ -38,6 +39,8 @@ public class ActivityPlayList extends AppCompatActivity implements informacionGe
     ImageView fotoPlay;
 
     private int idplaylist;
+
+    private int idUsuario = 2;
     ProgressDialog progressDialog;
 
     @Override
@@ -73,9 +76,8 @@ public class ActivityPlayList extends AppCompatActivity implements informacionGe
         // Fetch data from the server
         String url = "https://phpclusters-152621-0.cloudclusters.net/obtenerPlayList.php";
 
-        new informacionGeneralPlayListAstAsyncTask(this).execute(url, String.valueOf(idplaylist));
-        new ObtenerPlayListAsyncTask(ActivityPlayList.this, playAdapter, progressDialog)
-              .execute(String.valueOf(idplaylist));
+        new informacionGeneralPlayListAstAsyncTask(this).execute(url, String.valueOf(idUsuario));
+        new ObtenerPlayListAsyncTask(ActivityPlayList.this, playAdapter, progressDialog).execute(String.valueOf(idplaylist));
 
         //new ObtenerPlayListAsyncTask(ActivityPlayList.this, playAdapter, progressDialog)
           //      .execute(String.valueOf(idplaylist));
@@ -143,13 +145,10 @@ public class ActivityPlayList extends AppCompatActivity implements informacionGe
 
 
     @Override
-    public void onDataFetched(List<informacionGeneralPlayList> dataList) {
+    public void onDataFetched(List<PlayListItem> dataList) {
         if (dataList != null && !dataList.isEmpty()) {
-            informacionGeneralPlayList playInfon = dataList.get(0);
-
-            nombreplay.setText(playInfon.getNombre());
-            fotoPlay.setImageBitmap(playInfon.getFoto());
-            textviewNumeroPlay.setText("PlayList: "+playInfon.getNumeroMusica());
+            PlayListAdapter adapter = new PlayListAdapter(this, dataList);
+            recyclerviewPlayLists.setAdapter(adapter);
 
         } else {
             Log.e("Error", "No data fetched from the server");
