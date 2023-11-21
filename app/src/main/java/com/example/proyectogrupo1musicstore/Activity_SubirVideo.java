@@ -91,7 +91,7 @@ public class Activity_SubirVideo extends AppCompatActivity {
                 }
             }
         });
-
+        //subida
         View.OnClickListener buttonClick = new View.OnClickListener() {
             @Override
             public void onClick(View view) {

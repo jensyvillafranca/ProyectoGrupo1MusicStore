@@ -69,6 +69,7 @@ public class Activity_SubirMusica extends AppCompatActivity {
         buscars = (CardView) findViewById(R.id.cardViewBuscarArchivo);
         seleccionarAudio = (CardView) findViewById(R.id.cardViewSubirMusica);
         videos = (CardView) findViewById(R.id.cardViewNavegacionVideo);
+        //subida
 
         //Creacion de una lista de elementos de vistaArchivos
         List<vistaMusicaVideo> dataList = new ArrayList<>();
