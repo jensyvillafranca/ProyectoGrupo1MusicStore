@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.provider.Settings;
@@ -143,14 +144,22 @@ public class ActivityNuevoGrupoDetalles extends AppCompatActivity implements Fet
         imgAgragarImagen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (ContextCompat.checkSelfPermission(ActivityNuevoGrupoDetalles.this, Manifest.permission.READ_MEDIA_IMAGES) != PackageManager.PERMISSION_GRANTED) {
-                    // Permission is not granted, request it
-                    ActivityCompat.requestPermissions(ActivityNuevoGrupoDetalles.this, new String[]{android.Manifest.permission.READ_MEDIA_IMAGES}, REQUEST_CODE);
-                    ActivityCompat.requestPermissions(ActivityNuevoGrupoDetalles.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_CODE_EXTERNAL);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                    // Android 10 and above, request READ_MEDIA_IMAGES
+                    if (ContextCompat.checkSelfPermission(ActivityNuevoGrupoDetalles.this, Manifest.permission.READ_MEDIA_IMAGES) != PackageManager.PERMISSION_GRANTED) {
+                        ActivityCompat.requestPermissions(ActivityNuevoGrupoDetalles.this, new String[]{Manifest.permission.READ_MEDIA_IMAGES}, REQUEST_CODE);
+                    } else {
+                        // Permission is granted, proceed to pick an image
+                        pickImage();
+                    }
                 } else {
-                    // Create an intent to pick an image from the gallery
-                    Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                    startActivityForResult(intent, PICK_IMAGE_REQUEST);
+                    // Android 9 and below, request WRITE_EXTERNAL_STORAGE
+                    if (ContextCompat.checkSelfPermission(ActivityNuevoGrupoDetalles.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                        ActivityCompat.requestPermissions(ActivityNuevoGrupoDetalles.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_CODE_EXTERNAL);
+                    } else {
+                        // Permission is granted, proceed to pick an image
+                        pickImage();
+                    }
                 }
             }
         });
@@ -271,5 +280,10 @@ public class ActivityNuevoGrupoDetalles extends AppCompatActivity implements Fet
             String url = "https://phpclusters-152621-0.cloudclusters.net/buscarIntegrantePorID.php";
             new FetchMemberDetailsAsyncTask(this, dataList).execute(url, idUsuario);
         }
+    }
+
+    private void pickImage() {
+        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(intent, PICK_IMAGE_REQUEST);
     }
 }
