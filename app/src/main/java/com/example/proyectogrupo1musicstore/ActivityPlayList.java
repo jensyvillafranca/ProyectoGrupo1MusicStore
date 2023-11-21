@@ -17,13 +17,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.proyectogrupo1musicstore.Adapters.IntegrantesAdapter;
 import com.example.proyectogrupo1musicstore.Adapters.PlayListAdapter;
 import com.example.proyectogrupo1musicstore.Models.PlayListItem;
-import com.example.proyectogrupo1musicstore.Models.informacionGeneralPlayList;
-import com.example.proyectogrupo1musicstore.Models.informacionGrupoGeneral;
-import com.example.proyectogrupo1musicstore.Models.integrantesItem;
-import com.example.proyectogrupo1musicstore.Models.musicItem;
 import com.example.proyectogrupo1musicstore.NetworkTaksMulti.ObtenerPlayListAsyncTask;
 import com.example.proyectogrupo1musicstore.NetworkTaksMulti.informacionGeneralPlayListAstAsyncTask;
 
@@ -47,14 +42,14 @@ public class ActivityPlayList extends AppCompatActivity implements informacionGe
 
 
 
-        idplaylist = getIntent().getIntExtra("idplaylist",0);
+        idplaylist = 2;
 
         // Declaración de variables
         recyclerviewPlayLists = (RecyclerView) findViewById(R.id.recyclerviewPlayList);
         recyclerviewMusicasFavoritass = (RecyclerView) findViewById(R.id.recyclerviewMusicasFavoritas);
         textviewNumeroPlay = (TextView) findViewById(R.id.textviewPlayList);
         txtSiguiente = (TextView) findViewById(R.id.txtPrincipal);
-        txtSiguienteVerTodo  = (TextView) findViewById(R.id.textviewVerTodoMusica);
+        txtSiguienteVerTodo  = (TextView) findViewById(R.id.textviewVerTodoMusicas);
 
         // Creación de una lista de elementos de integrantesItem
         List<PlayListItem> playlistitemList = new ArrayList<>();
@@ -68,12 +63,13 @@ public class ActivityPlayList extends AppCompatActivity implements informacionGe
         layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         recyclerviewPlayLists.setLayoutManager(layoutManager);
 
+
         //Fetch data from the server
         String url = "https://phpclusters-152621-0.cloudclusters.net/obtenerPlayList.php";
 
         new informacionGeneralPlayListAstAsyncTask(this).execute(url, String.valueOf(idplaylist));
-        new ObtenerPlayListAsyncTask(ActivityPlayList.this, playAdapter, progressDialog)
-              .execute(String.valueOf(idplaylist));
+        //new ObtenerPlayListAsyncTask(ActivityPlayList.this, playAdapter, progressDialog)
+             //.execute(String.valueOf(idplaylist));
 
 //        new ObtenerPlayListAsyncTask(ActivityPlayList.this, playAdapter, progressDialog)
   //              .execute(String.valueOf(idplaylist));
@@ -141,13 +137,10 @@ public class ActivityPlayList extends AppCompatActivity implements informacionGe
 
 
     @Override
-    public void onDataFetched(List<informacionGeneralPlayList> dataList) {
+    public void onDataFetched(List<PlayListItem> dataList) {
         if (dataList != null && !dataList.isEmpty()) {
-            informacionGeneralPlayList playInfon = dataList.get(0);
-
-            nombreplay.setText(playInfon.getNombre());
-            fotoPlay.setImageBitmap(playInfon.getFoto());
-            textviewNumeroPlay.setText("PlayList: "+playInfon.getNumeroMusica());
+            PlayListAdapter adapter = new PlayListAdapter(this, dataList);
+            recyclerviewPlayLists.setAdapter(adapter);
 
         } else {
             Log.e("Error", "No data fetched from the server");
