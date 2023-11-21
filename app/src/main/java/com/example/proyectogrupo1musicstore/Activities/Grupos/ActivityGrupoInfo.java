@@ -161,6 +161,7 @@ public class ActivityGrupoInfo extends AppCompatActivity implements InfomacionGe
             }
         };
 
+        //Listener De Boton
         View.OnClickListener buttonClick2 = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
