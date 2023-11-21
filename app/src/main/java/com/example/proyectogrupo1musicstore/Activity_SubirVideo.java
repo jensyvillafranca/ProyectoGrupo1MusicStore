@@ -81,9 +81,9 @@ public class Activity_SubirVideo extends AppCompatActivity {
         seleccionarVideos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (ContextCompat.checkSelfPermission(Activity_SubirVideo.this, Manifest.permission.READ_MEDIA_IMAGES) != PackageManager.PERMISSION_GRANTED) {
+                if (ContextCompat.checkSelfPermission(Activity_SubirVideo.this, Manifest.permission.READ_MEDIA_VIDEO) != PackageManager.PERMISSION_GRANTED) {
                     // Permission is not granted, request it
-                    ActivityCompat.requestPermissions(Activity_SubirVideo.this, new String[]{Manifest.permission.READ_MEDIA_IMAGES}, REQUEST_CODE);
+                    ActivityCompat.requestPermissions(Activity_SubirVideo.this, new String[]{Manifest.permission.READ_MEDIA_VIDEO}, REQUEST_CODE);
                 } else {
                     // Create an intent to pick an image from the gallery
                     Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Video.Media.EXTERNAL_CONTENT_URI);

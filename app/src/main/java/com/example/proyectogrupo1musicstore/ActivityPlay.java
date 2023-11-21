@@ -127,7 +127,7 @@ public class ActivityPlay extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 new CreatePlayListTask(ActivityPlay.this, selectedUserIds, textNombrePlayList.getText().toString(), txtBiografia.getText().toString(), imgPerfilByteArray, textNombrePlayList).execute();
-                Log.e("Info", selectedUserIds.toString() + " " + textNombrePlayList.getText().toString() + " " + txtBiografia.getText().toString());
+                setTitle("El nombre de la PlayList se agrego correctamente");
             }
 
         });

@@ -84,9 +84,9 @@ public class Activity_SubirMusica extends AppCompatActivity {
         seleccionarAudio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (ContextCompat.checkSelfPermission(Activity_SubirMusica.this, Manifest.permission.READ_MEDIA_IMAGES) != PackageManager.PERMISSION_GRANTED) {
+                if (ContextCompat.checkSelfPermission(Activity_SubirMusica.this, Manifest.permission.READ_MEDIA_AUDIO) != PackageManager.PERMISSION_GRANTED) {
                     // Permission is not granted, request it
-                    ActivityCompat.requestPermissions(Activity_SubirMusica.this, new String[]{android.Manifest.permission.READ_MEDIA_IMAGES}, REQUEST_CODE);
+                    ActivityCompat.requestPermissions(Activity_SubirMusica.this, new String[]{android.Manifest.permission.READ_MEDIA_AUDIO}, REQUEST_CODE);
                 } else {
                     // Create an intent to pick an image from the gallery
                     Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Audio.Media.EXTERNAL_CONTENT_URI);

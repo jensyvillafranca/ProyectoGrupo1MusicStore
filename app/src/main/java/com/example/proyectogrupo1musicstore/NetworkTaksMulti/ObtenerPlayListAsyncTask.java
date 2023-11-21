@@ -48,6 +48,9 @@ public class ObtenerPlayListAsyncTask extends AsyncTask<String, Void, List<PlayL
 
 
 
+
+
+
         try {
             // construye el URL
             URL url = new URL("https://phpclusters-152621-0.cloudclusters.net/obtenerPlayList.php");
@@ -91,6 +94,10 @@ public class ObtenerPlayListAsyncTask extends AsyncTask<String, Void, List<PlayL
 
     @Override
     protected void onPostExecute(List<PlayListItem> dataList) {
+
+        if (tipoProgress == 1) {
+            progressDialog.dismiss();
+        }
         if (dataList != null) {
             adapter.setDataList(dataList);
         }

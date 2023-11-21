@@ -8,7 +8,7 @@ import android.util.Base64;
 import android.util.Log;
 import android.widget.EditText;
 
-import com.example.proyectogrupo1musicstore.ActivityGrupoPrincipal;
+//import com.example.proyectogrupo1musicstore.ActivityGrupoPrincipal;
 import com.example.proyectogrupo1musicstore.ActivityPlayList;
 
 import org.json.JSONArray;
@@ -51,7 +51,7 @@ public class CreatePlayListTask extends AsyncTask<String, Void, Void> {
     protected void onPreExecute() {
         super.onPreExecute();
         progressDialog = new ProgressDialog(context);
-        progressDialog.setMessage("Creating play...");
+        progressDialog.setMessage("Creating playList...");
         progressDialog.setCancelable(false);
         progressDialog.show();
     }
