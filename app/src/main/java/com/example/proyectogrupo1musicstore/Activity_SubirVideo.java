@@ -24,15 +24,11 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.proyectogrupo1musicstore.Adapters.CustomAdapter;
+
+
 import com.example.proyectogrupo1musicstore.Adapters.CustomAdapterMusicaVideos;
 import com.example.proyectogrupo1musicstore.Models.vistaMusicaVideo;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -51,7 +47,7 @@ public class Activity_SubirVideo extends AppCompatActivity {
     private static final int PICK_VIDEOS_REQUEST = 1;// Código de solicitud para seleccionar un archivo de audio
     private static final int REQUEST_CODE = 123;
     // Inicialización de Firebase Storage
-    private StorageReference mStorageRef;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -154,7 +150,7 @@ public class Activity_SubirVideo extends AppCompatActivity {
     private void showPermissionExplanation() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Permiso Requerido");
-        builder.setMessage("Para acceder a tu archivos y seleccionar un video en especifico, necesitamos el permiso de almacenamiento. Por favor, otorga el permiso en la configuración de la aplicación..");
+        builder.setMessage("Para acceder a tu archivos y seleccionar un video en especifico, necesitamos el permiso de almacenamiento. Por favor, otorga el permiso en la configuración de la aplicación...");
         builder.setPositiveButton("Go to Settings", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
