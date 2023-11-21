@@ -100,11 +100,12 @@ public class FetchDataAsyncGruposPrincipal extends AsyncTask<String, Void, List<
                 Integer idgrupo = jsonObject.getInt("idgrupo");
                 String nombreGrupo = jsonObject.getString("nombre");
                 String creador = jsonObject.getString("usuario");
+                Integer idOwner = jsonObject.getInt("idusuario");
                 Integer miembros = jsonObject.getInt("numeromiembros");
                 Bitmap imageResource = ImageDownloader.downloadImage(jsonObject.getString("enlacefoto"));
                 Integer estadoFavorito = jsonObject.getInt("estadofavorito");
 
-                dataList.add(new vistaDeGrupo(nombreGrupo, creador, "Integrantes: "+miembros, imageResource, idgrupo, estadoFavorito));
+                dataList.add(new vistaDeGrupo(nombreGrupo, creador, "Integrantes: "+miembros, imageResource, idgrupo, estadoFavorito, idOwner));
             }
 
         } catch (JSONException e) {

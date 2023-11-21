@@ -17,8 +17,14 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.proyectogrupo1musicstore.Adapters.CustomAdapter;
+import com.example.proyectogrupo1musicstore.Adapters.IntegrantesAdapter;
 import com.example.proyectogrupo1musicstore.Adapters.PlayListAdapter;
 import com.example.proyectogrupo1musicstore.Models.PlayListItem;
+import com.example.proyectogrupo1musicstore.Models.informacionGeneralPlayList;
+import com.example.proyectogrupo1musicstore.Models.informacionGrupoGeneral;
+import com.example.proyectogrupo1musicstore.Models.integrantesItem;
+import com.example.proyectogrupo1musicstore.Models.musicItem;
 import com.example.proyectogrupo1musicstore.NetworkTaksMulti.ObtenerPlayListAsyncTask;
 import com.example.proyectogrupo1musicstore.NetworkTaksMulti.informacionGeneralPlayListAstAsyncTask;
 
@@ -33,6 +39,8 @@ public class ActivityPlayList extends AppCompatActivity implements informacionGe
     ImageView fotoPlay;
 
     private int idplaylist;
+
+    private int idUsuario = 2;
     ProgressDialog progressDialog;
 
     @Override
@@ -42,14 +50,14 @@ public class ActivityPlayList extends AppCompatActivity implements informacionGe
 
 
 
-        idplaylist = 2;
+        idplaylist = getIntent().getIntExtra("idplaylist",0);
 
         // Declaración de variables
         recyclerviewPlayLists = (RecyclerView) findViewById(R.id.recyclerviewPlayList);
         recyclerviewMusicasFavoritass = (RecyclerView) findViewById(R.id.recyclerviewMusicasFavoritas);
         textviewNumeroPlay = (TextView) findViewById(R.id.textviewPlayList);
         txtSiguiente = (TextView) findViewById(R.id.txtPrincipal);
-        txtSiguienteVerTodo  = (TextView) findViewById(R.id.textviewVerTodoMusicas);
+        txtSiguienteVerTodo  = (TextView) findViewById(R.id.textviewVerTodoMusica);
 
         // Creación de una lista de elementos de integrantesItem
         List<PlayListItem> playlistitemList = new ArrayList<>();
@@ -63,13 +71,11 @@ public class ActivityPlayList extends AppCompatActivity implements informacionGe
         layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         recyclerviewPlayLists.setLayoutManager(layoutManager);
 
-
         //Fetch data from the server
         String url = "https://phpclusters-152621-0.cloudclusters.net/obtenerPlayList.php";
 
-        new informacionGeneralPlayListAstAsyncTask(this).execute(url, String.valueOf(idplaylist));
-        //new ObtenerPlayListAsyncTask(ActivityPlayList.this, playAdapter, progressDialog)
-             //.execute(String.valueOf(idplaylist));
+        new informacionGeneralPlayListAstAsyncTask(this).execute(url, String.valueOf(idUsuario));
+        new ObtenerPlayListAsyncTask(ActivityPlayList.this, playAdapter, progressDialog).execute(String.valueOf(idplaylist));
 
 //        new ObtenerPlayListAsyncTask(ActivityPlayList.this, playAdapter, progressDialog)
   //              .execute(String.valueOf(idplaylist));

@@ -11,6 +11,7 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.proyectogrupo1musicstore.Activities.Grupos.ActivityChat;
+import com.example.proyectogrupo1musicstore.Activities.Grupos.ActivityEditarGrupo;
 import com.example.proyectogrupo1musicstore.Activities.Grupos.ActivityGrupoInfo;
 import com.example.proyectogrupo1musicstore.Models.vistaDeGrupo;
 import com.example.proyectogrupo1musicstore.NetworkTasks.UpdateFavoritoAsyncTask;
@@ -25,6 +26,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
     private List<vistaDeGrupo> dataList;
     private Context context;
     boolean isImage1;
+    private int idUsuario = 1;
 
     public CustomAdapter(Context context, List<vistaDeGrupo> dataList) {
         this.context = context;
@@ -49,6 +51,14 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
 
         // Obtiene el ImageView del diseño
         ImageView itemImageView = holder.itemView.findViewById(R.id.imageviewGruposIconoFavorito);
+        ImageView itemEditar = holder.itemView.findViewById(R.id.imageviewGrupoIconoEditar);
+
+        //muestra o esconde boton editar
+        if(data.getIdOwner()==idUsuario){
+            itemEditar.setVisibility(View.VISIBLE);
+        }else{
+            itemEditar.setVisibility(View.GONE);
+        }
 
         // Revisa si el estado favorito esta seleccionado
         itemImageView.setImageResource(data.getEstadofavorito() == 0 ? R.drawable.favoritodesmarcado : R.drawable.favoritomarcado);
@@ -84,11 +94,22 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
                 v.getContext().startActivity(pantallaInfo);
             }
         });
+
+        //Listener para boton editar
+        itemEditar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), ActivityEditarGrupo.class);
+                intent.putExtra("idgrupo", data.getIdgrupo());
+                v.getContext().startActivity(intent);
+            }
+        });
+
         holder.nombreGrupo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), ActivityChat.class);
-                intent.putExtra("idgrupo",data.getIdgrupo());
+                intent.putExtra("idgrupo", data.getIdgrupo());
                 v.getContext().startActivity(intent);
             }
         });
@@ -108,7 +129,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
         try {
             jsonData.put("estadofavorito", newFavoritoState);
             jsonData.put("idgrupo", idGrupo);
-            jsonData.put("idusuario", "1");
+            jsonData.put("idusuario", idUsuario);
         } catch (JSONException e) {
             e.printStackTrace();
         }

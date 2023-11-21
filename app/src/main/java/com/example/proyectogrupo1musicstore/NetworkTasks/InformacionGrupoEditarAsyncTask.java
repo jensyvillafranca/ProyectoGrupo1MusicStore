@@ -1,16 +1,11 @@
-package com.example.proyectogrupo1musicstore.NetworkTaksMulti;
-
-import android.os.AsyncTask;
-
-import com.example.proyectogrupo1musicstore.Models.PlayListItem;
-import com.example.proyectogrupo1musicstore.Models.informacionGeneralPlayList;
-import com.example.proyectogrupo1musicstore.Models.informacionGrupoGeneral;
-import com.example.proyectogrupo1musicstore.NetworkTasks.InfomacionGeneralGrupoAsyncTask;
-import com.example.proyectogrupo1musicstore.Utilidades.ImageDownloader;
+package com.example.proyectogrupo1musicstore.NetworkTasks;
 
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.util.Log;
+
+import com.example.proyectogrupo1musicstore.Models.informacionGrupoEditar;
+import com.example.proyectogrupo1musicstore.Utilidades.ImageDownloader;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -26,19 +21,19 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-public class informacionGeneralPlayListAstAsyncTask extends AsyncTask<String, Void, List<PlayListItem>> {
+public class InformacionGrupoEditarAsyncTask extends AsyncTask<String, Void, List<informacionGrupoEditar>> {
 
-    private static final String TAG = "informacionGeneralPlayListAstAsyncTask";
+    private static final String TAG = "InfomacionGrupoEditarAsyncTask";
     private DataFetchListener dataFetchListener;
 
-    public informacionGeneralPlayListAstAsyncTask(DataFetchListener listener) {
+    public InformacionGrupoEditarAsyncTask(DataFetchListener listener) {
         this.dataFetchListener = listener;
     }
 
     @Override
-    protected List<PlayListItem> doInBackground(String... params) {
+    protected List<informacionGrupoEditar> doInBackground(String... params) {
         String urlString = params[0]; // URL para el microservicio
-        String idUsuario = params[1]; // idplaylist parametro
+        String idgrupo = params[1]; // idgrupo parametro
 
         try {
             // construye el URL
@@ -53,7 +48,7 @@ public class informacionGeneralPlayListAstAsyncTask extends AsyncTask<String, Vo
 
             // Crea el objeto JSON con el parametro
             JSONObject jsonParams = new JSONObject();
-            jsonParams.put("idusuario", Integer.valueOf(idUsuario));
+            jsonParams.put("idgrupo", Integer.valueOf(idgrupo));
 
             // Escribe el JSON al output stream
             OutputStream out = new BufferedOutputStream(urlConnection.getOutputStream());
@@ -78,7 +73,7 @@ public class informacionGeneralPlayListAstAsyncTask extends AsyncTask<String, Vo
 
                 return parseJsonResponse(response.toString());
             } else {
-                Log.e("informacionGeneralPlayListAstAsyncTask", "Error response code: " + responseCode);
+                Log.e("InformacionGeneralGrupoAsyncTask", "Error response code: " + responseCode);
             }
 
         } catch (Exception e) {
@@ -89,14 +84,14 @@ public class informacionGeneralPlayListAstAsyncTask extends AsyncTask<String, Vo
     }
 
     @Override
-    protected void onPostExecute(List<PlayListItem> dataList) {
+    protected void onPostExecute(List<informacionGrupoEditar> dataList) {
         if (dataList != null) {
             dataFetchListener.onDataFetched(dataList);
         }
     }
 
-    private List<PlayListItem> parseJsonResponse(String json) {
-        List<PlayListItem> dataList = new ArrayList<>();
+    private List<informacionGrupoEditar> parseJsonResponse(String json) {
+        List<informacionGrupoEditar> dataList = new ArrayList<>();
 
         try {
             JSONArray jsonArray = new JSONArray(json);
@@ -105,18 +100,18 @@ public class informacionGeneralPlayListAstAsyncTask extends AsyncTask<String, Vo
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
 
                 // Extrae la informacion y crea objetos
-                Integer idplaylist = jsonObject.getInt("idplaylist");
-                String nombre = jsonObject.getString("nombreplaylist");
+                Integer idgrupo = jsonObject.getInt("idgrupo");
+                String nombre = jsonObject.getString("nombre");
+                String descripcion = jsonObject.getString("descripcion");
+                Integer idowner = jsonObject.getInt("idusuario");
+                Integer visualizacion = jsonObject.getInt("idvisualizacion");
                 Bitmap imageResource = ImageDownloader.downloadImage(jsonObject.getString("enlacefoto"));
-                //Integer numeroMusica = jsonObject.getInt("numeromusica");
 
-
-                dataList.add(new PlayListItem(imageResource, nombre, idplaylist, 8));
+                dataList.add(new informacionGrupoEditar(idgrupo, nombre, descripcion, idowner, visualizacion, imageResource));
             }
 
         } catch (JSONException e) {
             Log.e(TAG, "Error parsing JSON response: " + e.getMessage());
-            Log.e(TAG, "JSON response: " + json);
         }
 
         return dataList;
@@ -124,6 +119,6 @@ public class informacionGeneralPlayListAstAsyncTask extends AsyncTask<String, Vo
 
     // Interface to notify when data is fetched
     public interface DataFetchListener {
-        void onDataFetched(List<PlayListItem> dataList);
+        void onDataFetched(List<informacionGrupoEditar> dataList);
     }
 }

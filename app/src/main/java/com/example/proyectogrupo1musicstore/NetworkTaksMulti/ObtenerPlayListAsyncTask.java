@@ -47,6 +47,10 @@ public class ObtenerPlayListAsyncTask extends AsyncTask<String, Void, List<PlayL
 
 
 
+
+
+
+
         try {
             // construye el URL
             URL url = new URL("https://phpclusters-152621-0.cloudclusters.net/obtenerPlayList.php");
@@ -114,8 +118,8 @@ public class ObtenerPlayListAsyncTask extends AsyncTask<String, Void, List<PlayL
                 Integer idplaylist = jsonObject.getInt("idplaylist");
                 String nombrePlay = jsonObject.getString("nombreplaylist");
                 Bitmap imageResource = ImageDownloader.downloadImage(jsonObject.getString("enlacefoto"));
-                //Integer numeroMusica = jsonObject.getInt("numeroMusica");
-                dataList.add(new PlayListItem(imageResource, nombrePlay, idplaylist,19));
+
+                dataList.add(new PlayListItem(imageResource, nombrePlay, idplaylist, 8));
             }
 
         } catch (JSONException e) {

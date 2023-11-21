@@ -38,6 +38,7 @@ public class ActivityGruposBuscar extends AppCompatActivity {
     EditText txtGruposBuscar;
     ImageView imgBuscar, imgBuscar2, iconGrupos, iconInicio;
     ProgressDialog progressDialog;
+    private int idGrupo = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,7 +116,7 @@ public class ActivityGruposBuscar extends AppCompatActivity {
 
                     //llama el asynctask
                     new BuscarGruposAsyncTask(ActivityGruposBuscar.this, lista, adapter)
-                            .execute("62", query); // Reemplazar "1" con el idusuario
+                            .execute(String.valueOf(idGrupo), query); // Reemplazar "1" con el idusuario
 
                     // Cierra el teclado
                     InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -134,7 +135,7 @@ public class ActivityGruposBuscar extends AppCompatActivity {
 
                 //llama el asynctask
                 new BuscarGruposAsyncTask(ActivityGruposBuscar.this, lista, adapter)
-                        .execute("56", query); // Reemplazar "1" con el idusuario
+                        .execute(String.valueOf(idGrupo), query); // Reemplazar "1" con el idusuario
             }
         });
 

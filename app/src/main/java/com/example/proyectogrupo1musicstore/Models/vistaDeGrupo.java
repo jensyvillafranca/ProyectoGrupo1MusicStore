@@ -9,14 +9,16 @@ public class vistaDeGrupo {
     private int idgrupo;
     private int estadofavorito;
     private Bitmap imageResource;
+    private int idOwner;
 
-    public vistaDeGrupo(String text1, String text2, String text3, Bitmap imageResource, int idgrupo, int estadofavorito) {
+    public vistaDeGrupo(String text1, String text2, String text3, Bitmap imageResource, int idgrupo, int estadofavorito, int idOwner) {
         this.text1 = text1;
         this.text2 = text2;
         this.text3 = text3;
         this.imageResource = imageResource;
         this.idgrupo = idgrupo;
         this.estadofavorito = estadofavorito;
+        this.idOwner = idOwner;
     }
 
     public String getText1() {
@@ -42,4 +44,6 @@ public class vistaDeGrupo {
     public int getIdgrupo() {return idgrupo;}
 
     public void setIdgrupo(int idgrupo) {this.idgrupo = idgrupo;}
+
+    public int getIdOwner() {return idOwner;}
 }
