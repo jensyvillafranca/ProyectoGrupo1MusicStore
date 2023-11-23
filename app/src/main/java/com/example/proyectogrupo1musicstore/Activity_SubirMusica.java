@@ -172,6 +172,7 @@ public class Activity_SubirMusica extends AppCompatActivity {
         builder.setTitle("Permiso Requerido");
         builder.setMessage("Para acceder a tu archivos y seleccionar un audio en especifico, necesitamos el permiso de almacenamiento. Por favor, otorga el permiso en la configuración de la aplicación..");
         builder.setPositiveButton("Go to Settings", new DialogInterface.OnClickListener() {
+
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 // Open the app settings so the user can grant the permission
@@ -179,6 +180,7 @@ public class Activity_SubirMusica extends AppCompatActivity {
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
             }
+
         });
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
@@ -189,7 +191,6 @@ public class Activity_SubirMusica extends AppCompatActivity {
         });
         builder.show();
     }
-
 
 
 

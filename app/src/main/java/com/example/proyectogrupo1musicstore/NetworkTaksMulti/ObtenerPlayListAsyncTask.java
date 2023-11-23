@@ -63,7 +63,7 @@ public class ObtenerPlayListAsyncTask extends AsyncTask<String, Void, List<PlayL
 
             // Crea el objeto JSON con el parametro
             JSONObject jsonParams = new JSONObject();
-            jsonParams.put("idplaylist", Integer.valueOf(idplaylist));
+            jsonParams.put("idUsuario", Integer.valueOf(idplaylist));
 
             // Escribe el JSON al output stream
             OutputStream out = new BufferedOutputStream(urlConnection.getOutputStream());
