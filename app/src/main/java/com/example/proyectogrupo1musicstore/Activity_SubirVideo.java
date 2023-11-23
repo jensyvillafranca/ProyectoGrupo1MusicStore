@@ -45,7 +45,7 @@ public class Activity_SubirVideo extends AppCompatActivity {
     ImageView imageViewBuscarArchivos, iconoArchivos,iconInicios;
     CardView buscars,busquedaVideos, seleccionarVideos, btnPrincipalAudio;
     private static final int PICK_VIDEOS_REQUEST = 1;// Código de solicitud para seleccionar un archivo de audio
-    private static final int REQUEST_CODE = 123;
+    private static final int REQUEST_CODE_VIDEO = 123;
     // Inicialización de Firebase Storage
 
 
@@ -77,15 +77,16 @@ public class Activity_SubirVideo extends AppCompatActivity {
         seleccionarVideos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (ContextCompat.checkSelfPermission(Activity_SubirVideo.this, Manifest.permission.READ_MEDIA_VIDEO) != PackageManager.PERMISSION_GRANTED) {
+               /* if (ContextCompat.checkSelfPermission(Activity_SubirMusica.this, Manifest.permission.READ_MEDIA_AUDIO) != PackageManager.PERMISSION_GRANTED) {
                     // Permission is not granted, request it
-                    ActivityCompat.requestPermissions(Activity_SubirVideo.this, new String[]{Manifest.permission.READ_MEDIA_VIDEO}, REQUEST_CODE);
+                    ActivityCompat.requestPermissions(Activity_SubirMusica.this, new String[]{android.Manifest.permission.READ_MEDIA_AUDIO}, REQUEST_CODE);
                 } else {
                     // Create an intent to pick an image from the gallery
-                    Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Video.Media.EXTERNAL_CONTENT_URI);
-                    startActivityForResult(intent, PICK_VIDEOS_REQUEST);
-                }
-            }
+                    Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Audio.Media.EXTERNAL_CONTENT_URI);
+                    startActivityForResult(intent, PICK_AUDIOS_REQUEST);
+                }*/
+                requestVideoPermission() ;
+        }
         });
         //subida
         View.OnClickListener buttonClick = new View.OnClickListener() {
@@ -118,24 +119,37 @@ public class Activity_SubirVideo extends AppCompatActivity {
         startActivity(intent);
     }
 
+    private void requestVideoPermission() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
+                showPermissionExplanation();
+            } else {
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_CODE_VIDEO);
+            }
+        } else {
+            pickVideoFromGallery();
+        }
+    }
 
+
+    private void pickVideoFromGallery() {
+        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Video.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(intent, PICK_VIDEOS_REQUEST);
+    }
 
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
-        if (requestCode == REQUEST_CODE) {
+        if (requestCode == REQUEST_CODE_VIDEO) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                // Create an intent to pick an audio from the gallery
-                Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Video.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(intent, PICK_VIDEOS_REQUEST);
+                pickVideoFromGallery();
             } else {
                 showPermissionExplanation();
             }
         }
     }
-
     private byte[] getBytes(InputStream inputStream) throws IOException {
         ByteArrayOutputStream byteBuffer = new ByteArrayOutputStream();
         int bufferSize = 1024;
@@ -160,6 +174,7 @@ public class Activity_SubirVideo extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
