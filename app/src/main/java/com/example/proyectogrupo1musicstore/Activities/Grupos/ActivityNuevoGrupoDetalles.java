@@ -35,6 +35,8 @@ import com.example.proyectogrupo1musicstore.Models.vistaDeNuevoGrupo;
 import com.example.proyectogrupo1musicstore.NetworkTasks.CreateGroupAsyncTask;
 import com.example.proyectogrupo1musicstore.NetworkTasks.FetchMemberDetailsAsyncTask;
 import com.example.proyectogrupo1musicstore.R;
+import com.example.proyectogrupo1musicstore.Utilidades.JwtDecoder;
+import com.example.proyectogrupo1musicstore.Utilidades.token;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -55,6 +57,8 @@ public class ActivityNuevoGrupoDetalles extends AppCompatActivity implements Fet
     byte[] imgPerfilByteArray;
     private int estadoPrivado;
     ProgressDialog progressDialog;
+    private com.example.proyectogrupo1musicstore.Utilidades.token token = new token(this);
+    private int idUsuario = Integer.parseInt(JwtDecoder.decodeJwt(token.recuperarTokenFromKeystore()));
     private static final int PICK_IMAGE_REQUEST = 1;
     private static final int REQUEST_CODE = 123;
     private static final int REQUEST_CODE_EXTERNAL = 124;
@@ -141,6 +145,7 @@ public class ActivityNuevoGrupoDetalles extends AppCompatActivity implements Fet
             }
         });
 
+        //Listener para el boton de agregar imagen
         imgAgragarImagen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -152,11 +157,12 @@ public class ActivityNuevoGrupoDetalles extends AppCompatActivity implements Fet
         btnUnirse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new CreateGroupAsyncTask(ActivityNuevoGrupoDetalles.this, selectedUserIds, textNombreGrupo.getText().toString(), textDescripcion.getText().toString(), imgPerfilByteArray, estadoPrivado, textNombreGrupo).execute();
+                new CreateGroupAsyncTask(ActivityNuevoGrupoDetalles.this, selectedUserIds, textNombreGrupo.getText().toString(), textDescripcion.getText().toString(), imgPerfilByteArray, estadoPrivado, textNombreGrupo, idUsuario).execute();
                 Log.e("Info", selectedUserIds.toString() + " " + textNombreGrupo.getText().toString() + " " + textDescripcion.getText().toString());
             }
         });
 
+        //Listener para el checkbox
         checkPrivado.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
                 // Si el checkbox esta seleccionado
@@ -208,8 +214,7 @@ public class ActivityNuevoGrupoDetalles extends AppCompatActivity implements Fet
                 // Create an intent to pick an image from the gallery
                 pickImage();
             } else {
-                //showPermissionExplanation();
-                checkPermissions();
+                showPermissionExplanation();
             }
         }
     }
@@ -260,9 +265,9 @@ public class ActivityNuevoGrupoDetalles extends AppCompatActivity implements Fet
     private void fetchMemberDetails(List<Integer> userIds, List<vistaDeNuevoGrupo> dataList) {
         for (Integer userId : userIds) {
             // Fetch data from the server
-            String idUsuario = userId.toString();
+            String idUsuarios = userId.toString();
             String url = "https://phpclusters-152621-0.cloudclusters.net/buscarIntegrantePorID.php";
-            new FetchMemberDetailsAsyncTask(this, dataList).execute(url, idUsuario);
+            new FetchMemberDetailsAsyncTask(this, dataList).execute(url, idUsuarios);
         }
     }
 

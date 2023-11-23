@@ -25,8 +25,8 @@ public class FetchMemberDetailsAsyncTask extends AsyncTask<String, Void, List<vi
 
     private static final String TAG = "FetchMemberDetailsAsyncTask";
     private DataFetchListener dataFetchListener;
-    private int idUsuarioInt;
     private List<vistaDeNuevoGrupo> dataList;
+    private int idUsuario;
 
     public FetchMemberDetailsAsyncTask(DataFetchListener listener, List<vistaDeNuevoGrupo> dataList) {
         this.dataFetchListener = listener;
@@ -36,8 +36,7 @@ public class FetchMemberDetailsAsyncTask extends AsyncTask<String, Void, List<vi
     @Override
     protected List<vistaDeNuevoGrupo> doInBackground(String... params) {
         String urlString = params[0]; // URL para el microservicio
-        String idUsuario = params[1]; // idusuario parametro
-        idUsuarioInt = Integer.parseInt(idUsuario);
+        idUsuario = Integer.parseInt(params[1]);
 
         try {
             // construye el URL
@@ -99,7 +98,7 @@ public class FetchMemberDetailsAsyncTask extends AsyncTask<String, Void, List<vi
                 String nombre = jsonObject.getString("nombrecompleto");
                 Bitmap imageResource = ImageDownloader.downloadImage(jsonObject.getString("enlacefoto"));
 
-                dataList.add(new vistaDeNuevoGrupo(nombre, imageResource, idUsuarioInt));
+                dataList.add(new vistaDeNuevoGrupo(nombre, imageResource, idUsuario));
             }
 
         } catch (JSONException e) {

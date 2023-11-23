@@ -19,6 +19,8 @@ import com.example.proyectogrupo1musicstore.Models.informacionGrupoEditar;
 import com.example.proyectogrupo1musicstore.Models.integrantesItem;
 import com.example.proyectogrupo1musicstore.NetworkTasks.InformacionGrupoEditarAsyncTask;
 import com.example.proyectogrupo1musicstore.R;
+import com.example.proyectogrupo1musicstore.Utilidades.JwtDecoder;
+import com.example.proyectogrupo1musicstore.Utilidades.token;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +36,8 @@ public class ActivityEditarGrupo extends AppCompatActivity implements Informacio
     Button btnGuardar;
     ProgressDialog  progressDialog;
     private int idgrupo;
+    private token token = new token(this);
+    private int idUsuario = Integer.parseInt(JwtDecoder.decodeJwt(token.recuperarTokenFromKeystore()));
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

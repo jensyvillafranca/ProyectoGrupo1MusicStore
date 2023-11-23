@@ -20,15 +20,13 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.example.proyectogrupo1musicstore.Activities.Grupos.ActivityGrupoPrincipal;
 import com.example.proyectogrupo1musicstore.ActivityPlayList;
-import com.example.proyectogrupo1musicstore.NetworkTasks.UpdateTokenAsyncTask;
 import com.example.proyectogrupo1musicstore.R;
 import com.example.proyectogrupo1musicstore.Utilidades.token;
+import com.example.proyectogrupo1musicstore.Utilidades.updateFirebaseToken;
 import com.example.proyectogrupo1musicstore.activity_login;
 import com.example.proyectogrupo1musicstore.activity_principal_login;
 import com.google.firebase.messaging.FirebaseMessaging;
-
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.example.proyectogrupo1musicstore.Utilidades.JwtDecoder;
 
 public class ActivityPantallaPrincipal extends AppCompatActivity {
 
@@ -36,8 +34,10 @@ public class ActivityPantallaPrincipal extends AppCompatActivity {
     private ImageButton openMenuButton;
     TextView Grupos, Inicio, CerrarSesion;
     ImageView iconGrupos, iconInicio, multimedia, iconCerrarSesion;
-    private token acceso;
-    private String userID;
+
+    //Crea nueva instancia de clase token, para obtener el valor de idusuario de la clase decodetoken
+    private token acceso = new token(this);
+    private int idUsuario = Integer.parseInt(JwtDecoder.decodeJwt(acceso.recuperarTokenFromKeystore()));
 
     // Declare the launcher at the top of your Activity/Fragment:
     private final ActivityResultLauncher<String> requestPermissionLauncher =
@@ -61,7 +61,9 @@ public class ActivityPantallaPrincipal extends AppCompatActivity {
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful() && task.getResult() != null) {
                         String token = task.getResult();
+                        updateFirebaseToken.updateToken(token, idUsuario);
                         Log.e("Token: ", token);
+
                     } else {
                         // Handle the error
                     }});
@@ -82,7 +84,7 @@ public class ActivityPantallaPrincipal extends AppCompatActivity {
         /*Variables para cerrar sesión*/
         iconCerrarSesion = (ImageView) findViewById(R.id.iconCerrarSesion);
         CerrarSesion = (TextView) findViewById(R.id.txtviewCerrarSesion);
-        acceso = new token(this);
+
 
 
         View.OnClickListener buttonClick = new View.OnClickListener() {
@@ -129,19 +131,6 @@ public class ActivityPantallaPrincipal extends AppCompatActivity {
         openMenuButton.setOnClickListener(v -> {
             drawerLayout.openDrawer(findViewById(R.id.side_menu));
         });
-    }
-
-    private void updateToken(String token, int idusuario) {
-        // Construye el JSON
-        JSONObject jsonData = new JSONObject();
-        try {
-            jsonData.put("token", token);
-            jsonData.put("idusuario", idusuario);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        new UpdateTokenAsyncTask().execute(jsonData.toString());
     }
 
     private void moveActivity(Class<?> actividad) {

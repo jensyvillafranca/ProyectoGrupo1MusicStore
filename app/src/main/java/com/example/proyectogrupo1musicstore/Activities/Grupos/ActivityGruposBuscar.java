@@ -24,6 +24,8 @@ import com.example.proyectogrupo1musicstore.Adapters.CustomAdapterBuscarGrupos;
 import com.example.proyectogrupo1musicstore.Models.buscarGrupo;
 import com.example.proyectogrupo1musicstore.NetworkTasks.BuscarGruposAsyncTask;
 import com.example.proyectogrupo1musicstore.R;
+import com.example.proyectogrupo1musicstore.Utilidades.JwtDecoder;
+import com.example.proyectogrupo1musicstore.Utilidades.token;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +40,8 @@ public class ActivityGruposBuscar extends AppCompatActivity {
     EditText txtGruposBuscar;
     ImageView imgBuscar, imgBuscar2, iconGrupos, iconInicio;
     ProgressDialog progressDialog;
-    private int idGrupo = 1;
+    private com.example.proyectogrupo1musicstore.Utilidades.token token = new token(this);
+    private int idUsuario = Integer.parseInt(JwtDecoder.decodeJwt(token.recuperarTokenFromKeystore()));
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,7 +119,7 @@ public class ActivityGruposBuscar extends AppCompatActivity {
 
                     //llama el asynctask
                     new BuscarGruposAsyncTask(ActivityGruposBuscar.this, lista, adapter)
-                            .execute(String.valueOf(idGrupo), query); // Reemplazar "1" con el idusuario
+                            .execute(String.valueOf(idUsuario), query);
 
                     // Cierra el teclado
                     InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -135,7 +138,7 @@ public class ActivityGruposBuscar extends AppCompatActivity {
 
                 //llama el asynctask
                 new BuscarGruposAsyncTask(ActivityGruposBuscar.this, lista, adapter)
-                        .execute(String.valueOf(idGrupo), query); // Reemplazar "1" con el idusuario
+                        .execute(String.valueOf(idUsuario), query);
             }
         });
 

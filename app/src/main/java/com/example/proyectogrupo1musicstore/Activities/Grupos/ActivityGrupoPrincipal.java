@@ -19,6 +19,8 @@ import com.example.proyectogrupo1musicstore.Adapters.CustomAdapter;
 import com.example.proyectogrupo1musicstore.Models.vistaDeGrupo;
 import com.example.proyectogrupo1musicstore.NetworkTasks.FetchDataAsyncGruposPrincipal;
 import com.example.proyectogrupo1musicstore.R;
+import com.example.proyectogrupo1musicstore.Utilidades.JwtDecoder;
+import com.example.proyectogrupo1musicstore.Utilidades.token;
 
 import java.util.List;
 
@@ -32,7 +34,8 @@ public class ActivityGrupoPrincipal extends AppCompatActivity implements FetchDa
     ImageView imageviewGruposBuscar, imageviewNuevoGrupo, iconGrupos, iconInicio;
     CardView buscar, nuevoGrupo;
     ProgressDialog progressDialog;
-    private int idUsuario = 1;
+    private com.example.proyectogrupo1musicstore.Utilidades.token token = new token(this);
+    private int idUsuario = Integer.parseInt(JwtDecoder.decodeJwt(token.recuperarTokenFromKeystore()));
 
 
     @Override
@@ -143,7 +146,7 @@ public class ActivityGrupoPrincipal extends AppCompatActivity implements FetchDa
     public void onDataFetched(List<vistaDeGrupo> dataList) {
         // Muestra el Recycle view con la nueva informacion
         progressDialog.dismiss(); // Esconde el spinner de carga
-        CustomAdapter adapter = new CustomAdapter(this, dataList);
+        CustomAdapter adapter = new CustomAdapter(this, dataList, idUsuario);
         lista.setAdapter(adapter);
     }
 

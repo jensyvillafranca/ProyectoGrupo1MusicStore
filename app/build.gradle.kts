@@ -55,6 +55,6 @@ dependencies {
     implementation("com.google.code.gson:gson:2.8.8")
     //Implementacion para decodificar jwt
     implementation ("io.jsonwebtoken:jjwt-api:0.12.3")
-    implementation ("io.jsonwebtoken:jjwt-impl:0.12.3")
-    implementation ("io.jsonwebtoken:jjwt-jackson:0.12.3")
+    runtimeOnly ("io.jsonwebtoken:jjwt-impl:0.12.3")
+    runtimeOnly ("io.jsonwebtoken:jjwt-jackson:0.12.3")
 }

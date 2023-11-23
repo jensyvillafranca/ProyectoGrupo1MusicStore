@@ -45,7 +45,6 @@ public class BuscarIntegranteAsyncTask extends AsyncTask<String, Void, List<vist
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        //progressDialog.show();
     }
 
     @Override

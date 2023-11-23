@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.security.keystore.KeyGenParameterSpec;
 import android.security.keystore.KeyProperties;
-import android.util.Log;
 
 import java.nio.charset.StandardCharsets;
 import java.security.KeyStore;
@@ -91,9 +90,6 @@ public class token {
                 cipher.init(Cipher.DECRYPT_MODE, keyStore.getKey(KEY_ALIAS, null), new GCMParameterSpec(128, iv)); // Inicializa el objeto de Cipher para el modo de descifrado con el IV recuperado
 
                 byte[] decryptedToken = cipher.doFinal(encryptedToken); // Descifrado final del token cifrado y devuelve el resultado como un arreglo de bytes.
-
-                String decrypt = new String(decryptedToken, StandardCharsets.UTF_8);
-                Log.e("Decrypted Token", decrypt);
 
                 return new String(decryptedToken, StandardCharsets.UTF_8); // Ese arreglo de bytes lo convierte nuevamente a una cadena utilizando UTF-8
             }

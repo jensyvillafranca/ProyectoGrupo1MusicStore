@@ -17,6 +17,8 @@ import com.example.proyectogrupo1musicstore.Models.vistaDeNuevoGrupo;
 import com.example.proyectogrupo1musicstore.NetworkTasks.BuscarIntegranteAsyncTask;
 import com.example.proyectogrupo1musicstore.NetworkTasks.NuevoGrupoIntegrantesAsyncTask;
 import com.example.proyectogrupo1musicstore.R;
+import com.example.proyectogrupo1musicstore.Utilidades.JwtDecoder;
+import com.example.proyectogrupo1musicstore.Utilidades.token;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +31,8 @@ public class ActivityNuevoGrupoIntegrantes extends AppCompatActivity implements 
     ProgressDialog progressDialog;
     List<Integer> selectedUserIds;
     CustomAdapterNuevoGrupoIntegrantes adapter;
+    private com.example.proyectogrupo1musicstore.Utilidades.token token = new token(this);
+    private int idUsuario = Integer.parseInt(JwtDecoder.decodeJwt(token.recuperarTokenFromKeystore()));
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,9 +53,8 @@ public class ActivityNuevoGrupoIntegrantes extends AppCompatActivity implements 
 
         // Fetch data from the server
         String url = "https://phpclusters-152621-0.cloudclusters.net/buscarSeguidores.php";
-        String idUsuario = "1"; // Reemplazar por el idusuario - Motivos de prueba
         progressDialog.show();
-        new NuevoGrupoIntegrantesAsyncTask(this).execute(url, idUsuario);
+        new NuevoGrupoIntegrantesAsyncTask(this).execute(url, String.valueOf(idUsuario));
 
         // Configuración del administrador de diseño y adaptador para el RecyclerView
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
@@ -62,7 +65,7 @@ public class ActivityNuevoGrupoIntegrantes extends AppCompatActivity implements 
             public boolean onQueryTextSubmit(String query) {
                 // Para controlar el boton Submit
                 new BuscarIntegranteAsyncTask(ActivityNuevoGrupoIntegrantes.this, lista, adapter)
-                        .execute("1", query); // Reemplazar "1" con el idusuario
+                        .execute(String.valueOf(idUsuario), query);
                 return false;
             }
 

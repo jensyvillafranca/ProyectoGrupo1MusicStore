@@ -27,6 +27,8 @@ import com.example.proyectogrupo1musicstore.NetworkTasks.obtenerAudiosGrupoAsync
 import com.example.proyectogrupo1musicstore.NetworkTasks.obtenerIntegrantesGrupoAsyncTask;
 import com.example.proyectogrupo1musicstore.NetworkTasks.obtenerVideosGrupoAsyncTask;
 import com.example.proyectogrupo1musicstore.R;
+import com.example.proyectogrupo1musicstore.Utilidades.JwtDecoder;
+import com.example.proyectogrupo1musicstore.Utilidades.token;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +42,8 @@ public class ActivityGrupoInfo extends AppCompatActivity implements InfomacionGe
     RecyclerView recyclerViewIntegrantes, recyclerViewMusica, recyclerViewVideos;
     private int idgrupo;
     ProgressDialog progressDialog;
+    private com.example.proyectogrupo1musicstore.Utilidades.token token = new token(this);
+    private int idUsuario = Integer.parseInt(JwtDecoder.decodeJwt(token.recuperarTokenFromKeystore()));
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +55,6 @@ public class ActivityGrupoInfo extends AppCompatActivity implements InfomacionGe
         progressDialog.setCancelable(false);
 
        idgrupo = getIntent().getIntExtra("idgrupo", 0);
-       Log.e("Id: ", String.valueOf(idgrupo));
 
         // Declaración de variables
         recyclerViewIntegrantes = (RecyclerView) findViewById(R.id.recyclerviewIntegrantes);

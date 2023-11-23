@@ -7,19 +7,18 @@ import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
-import com.example.proyectogrupo1musicstore.NetworkTasks.UpdateTokenAsyncTask;
+
 import com.example.proyectogrupo1musicstore.R;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.Map;
 
 public class GrupoPrivadoFirebaseMessagingService extends FirebaseMessagingService {
 
     private static final String TAG = "GrupoPrivadoFirebaseMessagingService";
+    private token token = new token(this);
+    private int idUsuario = Integer.parseInt(JwtDecoder.decodeJwt(token.recuperarTokenFromKeystore()));
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
@@ -46,7 +45,7 @@ public class GrupoPrivadoFirebaseMessagingService extends FirebaseMessagingServi
 
         // Store the new token locally or send it to your server
         saveTokenLocally(newToken);
-        updateToken(newToken, 70);
+        updateFirebaseToken.updateToken(newToken, idUsuario);
         Log.e("newToken: ", newToken);
     }
 
@@ -56,19 +55,6 @@ public class GrupoPrivadoFirebaseMessagingService extends FirebaseMessagingServi
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString("fcm_token", token);
         editor.apply();
-    }
-
-    private void updateToken(String token, int idusuario) {
-        // Construye el JSON
-        JSONObject jsonData = new JSONObject();
-        try {
-            jsonData.put("token", token);
-            jsonData.put("idusuario", idusuario);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        new UpdateTokenAsyncTask().execute(jsonData.toString());
     }
 
     private void handleDataMessage(Map<String, String> data) {
