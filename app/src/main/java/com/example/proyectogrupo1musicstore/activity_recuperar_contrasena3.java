@@ -1,5 +1,7 @@
 package com.example.proyectogrupo1musicstore;
 
+import static com.example.proyectogrupo1musicstore.activity_recuperar_contrasena1.email;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Base64;
@@ -19,6 +21,8 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.proyectogrupo1musicstore.R;
 
+import org.mindrot.jbcrypt.BCrypt;
+
 import java.security.MessageDigest;
 import java.util.HashMap;
 import java.util.Map;
@@ -31,8 +35,6 @@ public class activity_recuperar_contrasena3 extends AppCompatActivity {
     Button btnRecuperarRestaurar;
     EditText txtRecuperarNuevoPass, txtRecuperarConfirmar;
 
-    // Asegúrate de inicializar estas variables adecuadamente
-    String email = ""; // Debes obtener el email de algún lugar
     String contraseniaParaClave = "programacionMovil1"; // Clave para encriptar el correo
 
     @Override
@@ -63,9 +65,7 @@ public class activity_recuperar_contrasena3 extends AppCompatActivity {
     }
 
     public void actualizarContrasenia() {
-        final String encriptarCorreo = encriptarCorreo(email, contraseniaParaClave);
-
-        String url = "https://phpclusters-152621-0.cloudclusters.net/actualizarContrasenia.php";
+        String url = "https://phpclusters-152621-0.cloudclusters.net/actualizarContrasena.php";
 
         RequestQueue queue = Volley.newRequestQueue(this);
         StringRequest actualizarContraseniaRequest = new StringRequest(
@@ -91,10 +91,8 @@ public class activity_recuperar_contrasena3 extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> parametros = new HashMap<>();
-                parametros.put("contrasenia", txtRecuperarConfirmar.getText().toString());
-                Log.d("El mensaje que quiero",encriptarCorreo);
-                Log.d("El mensaje que quiero",encriptarCorreo.trim());
-                parametros.put("correo", encriptarCorreo.trim());
+                parametros.put("correo", email.trim());
+                parametros.put("contrasenia", encriptarPassword(txtRecuperarConfirmar.getText().toString()));
                 return parametros;
             }
         };
@@ -102,25 +100,10 @@ public class activity_recuperar_contrasena3 extends AppCompatActivity {
         queue.add(actualizarContraseniaRequest);
     }
 
-    // Métodos de encriptación
-    public static String encriptarCorreo(String correo, String password) {
-        try {
-            SecretKeySpec key = generateKey(password);
-            Cipher c = Cipher.getInstance("AES");
-            c.init(Cipher.ENCRYPT_MODE, key);
-            byte[] encVal = c.doFinal(correo.getBytes());
-            return Base64.encodeToString(encVal, Base64.DEFAULT);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
+    /*Encriptar todas las contraseñas*/
+    public static String encriptarPassword(String passwordPlana) {
+        String salt = BCrypt.gensalt(10);
+        return BCrypt.hashpw(passwordPlana, salt);
     }
 
-    private static SecretKeySpec generateKey(String password) throws Exception {
-        final MessageDigest digest = MessageDigest.getInstance("SHA-256");
-        byte[] bytes = password.getBytes("UTF-8");
-        digest.update(bytes, 0, bytes.length);
-        byte[] key = digest.digest();
-        return new SecretKeySpec(key, "AES");
-    }
 }

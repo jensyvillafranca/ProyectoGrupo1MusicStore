@@ -134,6 +134,7 @@ public class activity_login extends AppCompatActivity {
                             if(estadoJson == "false"){ //si el usuario existe
                                 /*Obtener el hash de la contra correcto para ese usuario que esta intentando loguiarse*/
                                 String password = jsonObject.getString("contrasenia");
+                                Log.d("La contraseña: ", password);
                                 /*Comparar este hash contra el pass que el usuario digita en texto plano*/
                                 if((permitirLogin(txtLoginPassword.getText().toString(),password) == true)){
 

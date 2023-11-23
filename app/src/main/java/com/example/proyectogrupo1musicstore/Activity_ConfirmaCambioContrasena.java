@@ -199,7 +199,6 @@ public class Activity_ConfirmaCambioContrasena extends AppCompatActivity {
     }
 
     public void actualizarContrasenia() {
-
         if(inputVerificacion.getText().toString().trim().equals(verificationCode_NuevaContra)){
             String url = "https://phpclusters-152621-0.cloudclusters.net/actualizarContrasenia_NuevaContra.php";
             RequestQueue queue = Volley.newRequestQueue(this);
@@ -238,7 +237,7 @@ public class Activity_ConfirmaCambioContrasena extends AppCompatActivity {
                     Map<String, String> parametros = new HashMap<>();
                     //------------------------------------------------------------------------------------------------------------
                     //Este solo es de prueba, cambiarlo por el id del token
-                    parametros.put("idUsuario", "1");
+                    parametros.put("idUsuario", "68");
                     parametros.put("contrasenia", nuevoPass_Encriptada);
                     return parametros;
                 }
