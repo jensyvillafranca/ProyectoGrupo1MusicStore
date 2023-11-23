@@ -185,4 +185,7 @@ public class Activity_SubirVideo extends AppCompatActivity {
         builder.show();
     }
 
+    /*Hasta aqui*/
+    /*Hasta aqui*/
+
 }
