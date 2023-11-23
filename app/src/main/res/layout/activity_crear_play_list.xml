@@ -4,18 +4,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background"
+    android:paddingTop="15dp"
     tools:context=".Activity_CrearPlayList">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout"
-        android:layout_width="476dp"
-        android:layout_height="988dp"
-        android:foreground="@drawable/fondodetodaslaspantallas"
-        tools:layout_editor_absoluteX="-18dp"
-        tools:layout_editor_absoluteY="-39dp"
-        tools:ignore="MissingConstraints">
+    <ImageButton
+        android:id="@+id/btn_CrearPlayList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="350dp"
+        android:layout_marginBottom="690dp"
+        android:background="@drawable/iconoatras"
+        android:scrollbarThumbHorizontal="@drawable/iconoatras"
+        android:scrollbarThumbVertical="@drawable/iconoatras"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/iconoatras" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     <TextView
         android:id="@+id/txtPlaylist"
@@ -49,23 +57,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageButton
-        android:id="@+id/btn_CrearPlayList"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="350dp"
-        android:layout_marginBottom="690dp"
-        android:background="@drawable/iconoatras"
-        android:scrollbarThumbHorizontal="@drawable/iconoatras"
-        android:scrollbarThumbVertical="@drawable/iconoatras"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/iconoatras" />
-
-
 
 
 

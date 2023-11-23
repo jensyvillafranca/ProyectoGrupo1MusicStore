@@ -39,7 +39,7 @@ public class informacionGeneralPlayListAstAsyncTask extends AsyncTask<String, Vo
     protected List<PlayListItem> doInBackground(String... params) {
         String urlString = params[0]; // URL para el microservicio
         String idUsuario = params[1]; // idplaylist parametro
-
+       // String idplaylist = params[1];
         try {
             // construye el URL
             URL url = new URL(urlString);
@@ -53,7 +53,7 @@ public class informacionGeneralPlayListAstAsyncTask extends AsyncTask<String, Vo
 
             // Crea el objeto JSON con el parametro
             JSONObject jsonParams = new JSONObject();
-            jsonParams.put("idusuario", Integer.valueOf(idUsuario));
+            jsonParams.put("idUsuario", Integer.valueOf(idUsuario));
 
             // Escribe el JSON al output stream
             OutputStream out = new BufferedOutputStream(urlConnection.getOutputStream());
