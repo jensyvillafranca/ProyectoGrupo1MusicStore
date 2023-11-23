@@ -45,7 +45,6 @@ public class BuscarIntegranteAsyncTask extends AsyncTask<String, Void, List<vist
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        //progressDialog.show();
     }
 
     @Override
@@ -96,7 +95,7 @@ public class BuscarIntegranteAsyncTask extends AsyncTask<String, Void, List<vist
 
     @Override
     protected void onPostExecute(List<vistaDeNuevoGrupo> result) {
-        //progressDialog.dismiss();
+        progressDialog.dismiss();
 
         if (result != null) {
             adapter.setDataList(result);

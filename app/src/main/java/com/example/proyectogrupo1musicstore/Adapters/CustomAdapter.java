@@ -26,11 +26,12 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
     private List<vistaDeGrupo> dataList;
     private Context context;
     boolean isImage1;
-    private int idUsuario = 1;
+    private int idUsuario;
 
-    public CustomAdapter(Context context, List<vistaDeGrupo> dataList) {
+    public CustomAdapter(Context context, List<vistaDeGrupo> dataList, int idUsuario) {
         this.context = context;
         this.dataList = dataList;
+        this.idUsuario = idUsuario;
     }
 
     @Override

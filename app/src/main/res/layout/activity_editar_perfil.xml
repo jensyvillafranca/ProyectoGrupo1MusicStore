@@ -28,15 +28,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:id="@+id/btn_EditarPerfilAtras"
                     tools:ignore="UseCompoundDrawables">
 
                     <ImageView
+                        android:id="@+id/btn_EditarPerfilAtras"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:src="@drawable/iconoatras"
-                        android:importantForAccessibility="no"/>
+                        android:importantForAccessibility="no"
+                        android:src="@drawable/iconoatras" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -184,6 +184,7 @@
                             android:orientation="horizontal">
 
                             <TextView
+                                android:id="@+id/txtviewCambiarContrasenia"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/cambiarContrasena"
@@ -197,7 +198,7 @@
                                 android:layout_weight="1" />
 
                             <ImageView
-                                android:id="@+id/imgContrasena"
+                                android:id="@+id/imgContrasenia"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginRight="6dp"

@@ -35,8 +35,10 @@ public class CreateGroupAsyncTask extends AsyncTask<String, Void, Void> {
     private EditText textNombreGrupo;
     private byte[] groupImage;
     private boolean onProgressCalled = false;
+    private int idUsuario;
 
-    public CreateGroupAsyncTask(Context context, List<Integer> selectedUserIds, String groupName, String groupDescription, byte[] groupImage, int estado, EditText textNombreGrupo) {
+
+    public CreateGroupAsyncTask(Context context, List<Integer> selectedUserIds, String groupName, String groupDescription, byte[] groupImage, int estado, EditText textNombreGrupo, int idUsuario) {
         this.context = context;
         this.selectedUserIds = selectedUserIds;
         this.groupName = groupName;
@@ -44,6 +46,7 @@ public class CreateGroupAsyncTask extends AsyncTask<String, Void, Void> {
         this.groupImage = groupImage;
         this.estado = estado;
         this.textNombreGrupo = textNombreGrupo;
+        this.idUsuario = idUsuario;
     }
 
     @Override
@@ -120,7 +123,7 @@ public class CreateGroupAsyncTask extends AsyncTask<String, Void, Void> {
             JSONObject jsonData = new JSONObject();
             jsonData.put("nombre", groupName);
             jsonData.put("descripcion", groupDescription);
-            jsonData.put("idusuario", 1); // Replace with the actual user ID
+            jsonData.put("idusuario", idUsuario); // Replace with the actual user ID
             jsonData.put("idvisualizacion", estado); // Replace with the actual visualizacion ID
             jsonData.put("estadofavorito", 0);
             jsonData.put("imagen", base64Image);

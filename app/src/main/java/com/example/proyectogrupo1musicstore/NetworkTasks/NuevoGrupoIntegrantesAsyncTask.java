@@ -1,5 +1,6 @@
 package com.example.proyectogrupo1musicstore.NetworkTasks;
 
+import android.app.ProgressDialog;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -25,8 +26,11 @@ public class NuevoGrupoIntegrantesAsyncTask extends AsyncTask<String, Void, List
     private static final String TAG = "NuevoGrupoIntegrantesAsyncTask";
     private DataFetchListener dataFetchListener;
 
-    public NuevoGrupoIntegrantesAsyncTask(DataFetchListener listener) {
+    private ProgressDialog progressDialog;
+
+    public NuevoGrupoIntegrantesAsyncTask(DataFetchListener listener, ProgressDialog progressDialog) {
         this.dataFetchListener = listener;
+        this.progressDialog = progressDialog;
     }
 
     @Override
@@ -75,6 +79,7 @@ public class NuevoGrupoIntegrantesAsyncTask extends AsyncTask<String, Void, List
 
     @Override
     protected void onPostExecute(List<vistaDeNuevoGrupo> dataList) {
+        progressDialog.dismiss();
         if (dataList != null) {
             dataFetchListener.onDataFetched(dataList);
         }

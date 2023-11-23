@@ -19,6 +19,8 @@ import java.util.List;
 
 import com.example.proyectogrupo1musicstore.NetworkTasks.InsertarIntegranteAsyncTask;
 import com.example.proyectogrupo1musicstore.R;
+import com.example.proyectogrupo1musicstore.Utilidades.JwtDecoder;
+import com.example.proyectogrupo1musicstore.Utilidades.token;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -31,6 +33,8 @@ public class ActivityUnirseGrupo extends AppCompatActivity {
     private List<buscarGrupo> receivedDataList;
     private String tipo;
     ImageView iconGrupos, iconInicio, imageGrupo;
+    private com.example.proyectogrupo1musicstore.Utilidades.token token = new token(this);
+    private int idUsuario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +45,8 @@ public class ActivityUnirseGrupo extends AppCompatActivity {
         String jsonString = intent.getStringExtra("jsonString");
         Type listType = new TypeToken<List<buscarGrupo>>() {}.getType();
         receivedDataList = new Gson().fromJson(jsonString, listType);
+
+        idUsuario = Integer.parseInt(JwtDecoder.decodeJwt(token.recuperarTokenFromKeystore()));
 
         // Inicialización de vistas y elementos del diseño
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layoutGruposUnirse);
@@ -84,10 +90,10 @@ public class ActivityUnirseGrupo extends AppCompatActivity {
             public void onClick(View v) {
                 if(receivedDataList.get(0).getIdvisualizacion()==1){
                     new InsertarIntegranteAsyncTask(ActivityUnirseGrupo.this)
-                            .execute(String.valueOf(receivedDataList.get(0).getIdgrupo()), "56", "Privado", String.valueOf(receivedDataList.get(0).getIdOwner()));
+                            .execute(String.valueOf(receivedDataList.get(0).getIdgrupo()), String.valueOf(idUsuario), "Privado", String.valueOf(receivedDataList.get(0).getIdOwner()));
                 }else{
                     new InsertarIntegranteAsyncTask(ActivityUnirseGrupo.this)
-                            .execute(String.valueOf(receivedDataList.get(0).getIdgrupo()), "56", "Publico", String.valueOf(receivedDataList.get(0).getIdOwner()));
+                            .execute(String.valueOf(receivedDataList.get(0).getIdgrupo()), String.valueOf(idUsuario), "Publico", String.valueOf(receivedDataList.get(0).getIdOwner()));
                 }
             }
         });

@@ -135,7 +135,7 @@
                     android:textStyle="bold"></TextView>
 
                 <TextView
-                    android:id="@+id/txtviewCronometro"
+                    android:id="@+id/txtviewCronometro_NuevaC"
                     android:layout_width="276dp"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
