@@ -65,7 +65,7 @@ public class InsertarIntegranteAsyncTask extends AsyncTask<String, Void, Boolean
     protected void onPostExecute(Boolean success) {
         if (success) {
             Log.d("InsertarIntegranteAsyncTask", "Insertion successful");
-            //startGrupoPrincipalActivity();
+            startGrupoPrincipalActivity();
         } else {
             Log.e("InsertarIntegranteAsyncTask", "Insertion failed");
         }

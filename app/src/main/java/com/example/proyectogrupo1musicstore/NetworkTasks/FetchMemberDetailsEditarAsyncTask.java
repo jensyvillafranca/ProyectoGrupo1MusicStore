@@ -1,10 +1,13 @@
 package com.example.proyectogrupo1musicstore.NetworkTasks;
 
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.util.Log;
 
 
+import com.example.proyectogrupo1musicstore.Adapters.CustomAdapterNuevoGrupoIntegrantes;
 import com.example.proyectogrupo1musicstore.Models.vistaDeNuevoGrupo;
 import com.example.proyectogrupo1musicstore.Utilidades.ImageDownloader;
 
@@ -21,24 +24,26 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FetchMemberDetailsAsyncTask extends AsyncTask<String, Void, List<vistaDeNuevoGrupo>> {
+public class FetchMemberDetailsEditarAsyncTask extends AsyncTask<String, Void, List<vistaDeNuevoGrupo>> {
 
-    private static final String TAG = "FetchMemberDetailsAsyncTask";
-    private DataFetchListener dataFetchListener;
-    private List<vistaDeNuevoGrupo> dataList;
-    private int idUsuario;
+    private static final String TAG = "FetchMemberDetailsEditarAsyncTask";
+    private Context context;
+    private CustomAdapterNuevoGrupoIntegrantes adapter;
+    private int idGrupo;
+    private ProgressDialog progressDialog;
     private int version;
 
-    public FetchMemberDetailsAsyncTask(DataFetchListener listener, List<vistaDeNuevoGrupo> dataList, int version) {
-        this.dataFetchListener = listener;
-        this.dataList = dataList;
+    public FetchMemberDetailsEditarAsyncTask(Context context, CustomAdapterNuevoGrupoIntegrantes adapter, ProgressDialog progressDialog, int version) {
+        this.context = context;
+        this.adapter = adapter;
+        this.progressDialog = progressDialog;
         this.version = version;
     }
 
     @Override
     protected List<vistaDeNuevoGrupo> doInBackground(String... params) {
         String urlString = params[0]; // URL para el microservicio
-        idUsuario = Integer.parseInt(params[1]);
+        idGrupo = Integer.parseInt(params[1]);
 
         try {
             // construye el URL
@@ -52,7 +57,7 @@ public class FetchMemberDetailsAsyncTask extends AsyncTask<String, Void, List<vi
 
             // Crea el objeto JSON con el parametro
             JSONObject jsonParams = new JSONObject();
-            jsonParams.put("idusuario", idUsuario);
+            jsonParams.put("idgrupo", idGrupo);
 
             // Escribe el JSON al output stream
             OutputStream out = new BufferedOutputStream(urlConnection.getOutputStream());
@@ -82,8 +87,8 @@ public class FetchMemberDetailsAsyncTask extends AsyncTask<String, Void, List<vi
     @Override
     protected void onPostExecute(List<vistaDeNuevoGrupo> newDataList) {
         if (newDataList != null) {
-            dataList.addAll(newDataList);
-            dataFetchListener.onDataFetched(dataList);
+            progressDialog.dismiss();
+            adapter.setDataList(newDataList);
         }
     }
 
@@ -99,8 +104,9 @@ public class FetchMemberDetailsAsyncTask extends AsyncTask<String, Void, List<vi
                 // Extrae la informacion y crea objetos
                 String nombre = jsonObject.getString("nombrecompleto");
                 Bitmap imageResource = ImageDownloader.downloadImage(jsonObject.getString("enlacefoto"));
+                Integer userId = jsonObject.getInt("idusuario");
 
-                dataList.add(new vistaDeNuevoGrupo(nombre, imageResource, idUsuario, version));
+                dataList.add(new vistaDeNuevoGrupo(nombre, imageResource, userId, version));
             }
 
         } catch (JSONException e) {
@@ -108,10 +114,5 @@ public class FetchMemberDetailsAsyncTask extends AsyncTask<String, Void, List<vi
         }
 
         return dataList;
-    }
-
-    // Interface to notify when data is fetched
-    public interface DataFetchListener {
-        void onDataFetched(List<vistaDeNuevoGrupo> dataList);
     }
 }

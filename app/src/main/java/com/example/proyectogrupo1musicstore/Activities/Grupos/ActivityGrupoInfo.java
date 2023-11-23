@@ -43,7 +43,7 @@ public class ActivityGrupoInfo extends AppCompatActivity implements InfomacionGe
     private int idgrupo;
     ProgressDialog progressDialog;
     private com.example.proyectogrupo1musicstore.Utilidades.token token = new token(this);
-    private int idUsuario = Integer.parseInt(JwtDecoder.decodeJwt(token.recuperarTokenFromKeystore()));
+    private int idUsuario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +54,8 @@ public class ActivityGrupoInfo extends AppCompatActivity implements InfomacionGe
         progressDialog.setMessage("Cargando...");
         progressDialog.setCancelable(false);
 
-       idgrupo = getIntent().getIntExtra("idgrupo", 0);
+        idgrupo = getIntent().getIntExtra("idgrupo", 0);
+        idUsuario = Integer.parseInt(JwtDecoder.decodeJwt(token.recuperarTokenFromKeystore()));
 
         // Declaración de variables
         recyclerViewIntegrantes = (RecyclerView) findViewById(R.id.recyclerviewIntegrantes);
@@ -143,23 +144,23 @@ public class ActivityGrupoInfo extends AppCompatActivity implements InfomacionGe
                 if (view.getId() == R.id.txtviewNavInicio) {
                     actividad = ActivityPantallaPrincipal.class;
                 }
-                if (view.getId() == R.id.iconNavGrupos){
+                if (view.getId() == R.id.iconNavGrupos) {
                     actividad = ActivityGrupoPrincipal.class;
                 }
-                if (view.getId() == R.id.iconNavInicio){
+                if (view.getId() == R.id.iconNavInicio) {
                     actividad = ActivityPantallaPrincipal.class;
                 }
-                if(view.getId() == R.id.textviewVerTodoIntegrantes){
+                if (view.getId() == R.id.textviewVerTodoIntegrantes) {
                     actividad = ActivityVerTodosIntegrantes.class;
                 }
-                if(view.getId() == R.id.textviewVerTodoMusica){
+                if (view.getId() == R.id.textviewVerTodoMusica) {
                     actividad = ActivityVerTodosMusica.class;
                 }
-                if(view.getId() == R.id.textviewVerTodoVideo){
+                if (view.getId() == R.id.textviewVerTodoVideo) {
                     actividad = ActivityVerTodosVideo.class;
                 }
                 if (actividad != null) {
-                        moveActivity(actividad);
+                    moveActivity(actividad);
                 }
             }
         };
@@ -169,13 +170,13 @@ public class ActivityGrupoInfo extends AppCompatActivity implements InfomacionGe
             @Override
             public void onClick(View view) {
                 Class<?> actividad = null;
-                if(view.getId() == R.id.textviewVerTodoIntegrantes){
+                if (view.getId() == R.id.textviewVerTodoIntegrantes) {
                     actividad = ActivityVerTodosIntegrantes.class;
                 }
-                if(view.getId() == R.id.textviewVerTodoMusica){
+                if (view.getId() == R.id.textviewVerTodoMusica) {
                     actividad = ActivityVerTodosMusica.class;
                 }
-                if(view.getId() == R.id.textviewVerTodoVideo){
+                if (view.getId() == R.id.textviewVerTodoVideo) {
                     actividad = ActivityVerTodosVideo.class;
                 }
                 if (actividad != null) {
@@ -202,9 +203,9 @@ public class ActivityGrupoInfo extends AppCompatActivity implements InfomacionGe
 
             nombreGrupo.setText(groupInfo.getNombre());
             fotoGrupo.setImageBitmap(groupInfo.getFoto());
-            textviewNumeroIntegrantes.setText("Integrantes: "+groupInfo.getNumeroMiembros());
-            textviewNumeroAudio.setText("Audio: "+groupInfo.getNumeroMusica());
-            textviewNumeroVideo.setText("Videos: "+groupInfo.getNumeroVideos());
+            textviewNumeroIntegrantes.setText("Integrantes: " + groupInfo.getNumeroMiembros());
+            textviewNumeroAudio.setText("Audio: " + groupInfo.getNumeroMusica());
+            textviewNumeroVideo.setText("Videos: " + groupInfo.getNumeroVideos());
         } else {
             Log.e("Error", "No data fetched from the server");
         }

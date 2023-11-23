@@ -18,7 +18,7 @@ public class GrupoPrivadoFirebaseMessagingService extends FirebaseMessagingServi
 
     private static final String TAG = "GrupoPrivadoFirebaseMessagingService";
     private token token = new token(this);
-    private int idUsuario = Integer.parseInt(JwtDecoder.decodeJwt(token.recuperarTokenFromKeystore()));
+    private int idUsuario;
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
@@ -39,11 +39,11 @@ public class GrupoPrivadoFirebaseMessagingService extends FirebaseMessagingServi
         }
     }
 
+    //Guarda el token en el servidor
     @Override
     public void onNewToken(@NonNull String newToken) {
         super.onNewToken(newToken);
-
-        // Store the new token locally or send it to your server
+        idUsuario = Integer.parseInt(JwtDecoder.decodeJwt(token.recuperarTokenFromKeystore()));
         saveTokenLocally(newToken);
         updateFirebaseToken.updateToken(newToken, idUsuario);
         Log.e("newToken: ", newToken);

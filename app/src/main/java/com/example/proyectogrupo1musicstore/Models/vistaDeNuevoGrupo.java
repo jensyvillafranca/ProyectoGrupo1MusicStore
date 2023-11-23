@@ -7,10 +7,14 @@ public class vistaDeNuevoGrupo {
     private int idSeguidor;
     private Bitmap imageResource;
 
-    public vistaDeNuevoGrupo(String text1, Bitmap imageResource, int idSeguidor) {
+    //para controlar la vista del checkbox o boton eliminar
+    private int version;
+
+    public vistaDeNuevoGrupo(String text1, Bitmap imageResource, int idSeguidor, int version) {
         this.text1 = text1;
         this.imageResource = imageResource;
         this.idSeguidor = idSeguidor;
+        this.version = version;
     }
 
     public String getText1() {
@@ -24,4 +28,6 @@ public class vistaDeNuevoGrupo {
     public int getIdSeguidor() {return idSeguidor;}
 
     public void setIdSeguidor(int idSeguidor) {this.idSeguidor = idSeguidor;}
+
+    public int getVersion() {return version;}
 }
