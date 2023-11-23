@@ -55,10 +55,10 @@ public class activity_recuperar_contrasena2 extends AppCompatActivity {
         /*Amarrando los valores de las variables al objeto de la interfaz*/
         btnRecuperarVerificar = (Button) findViewById(R.id.btnRecuperarVerificar);
         txtRecuperarVerificar = (EditText) findViewById(R.id.txtRecuperarVerificar);
-        txtviewCronometro = (TextView) findViewById(R.id.txtviewCronometro);
+        txtviewCronometro = (TextView) findViewById(R.id.txtviewCronometro_NuevaC);
         txtviewActivaLetras = (TextView) findViewById(R.id.txtviewActivaLetras);
         txtviewVerificarEnviarNuevamente = (TextView) findViewById(R.id.txtviewVerificarEnviarNuevamente);
-        txtviewCronometro = (TextView) findViewById(R.id.txtviewCronometro);
+        txtviewCronometro = (TextView) findViewById(R.id.txtviewCronometro_NuevaC);
         txtviewActivaLetras = (TextView) findViewById(R.id.txtviewActivaLetras);
         //Log.d("Mensaje",email);
         btnRecuperarVerificar.setOnClickListener(new View.OnClickListener() {
