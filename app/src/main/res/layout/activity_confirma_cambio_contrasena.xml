@@ -16,6 +16,9 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             tools:ignore="UselessParent">
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="8dp" />
 
             <LinearLayout
                 android:id="@+id/btn_ConfirmarCambiarContrasenaAtras"
@@ -26,32 +29,34 @@
 
                 <ImageView
 
+                    android:id="@+id/btn_ConfirmarCorreo_Atras"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:src="@drawable/iconoatras"
-                    android:importantForAccessibility="no"/>
+                    android:importantForAccessibility="no"
+                    android:src="@drawable/iconoatras" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/fuente_jost_global"
                     android:text="@string/atras"
                     android:textColor="@color/white"
-                    android:layout_gravity="center"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" />
 
                 <Space
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"/>
+                    android:layout_weight="1" />
 
                 <ImageView
                     android:id="@+id/btnMenu"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:src="@drawable/menudespegable"
-                    android:importantForAccessibility="no"/>
+                    android:importantForAccessibility="no"
+                    android:src="@drawable/menudespegable" />
 
             </LinearLayout>
 
@@ -62,64 +67,106 @@
 
                 <Space
                     android:layout_width="match_parent"
-                    android:layout_height="70dp" />
+                    android:layout_height="50dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:fontFamily="@font/fuente_jost_global"
                     android:text="@string/cambiarContrasena"
                     android:textColor="#D3D3D3"
-                    android:textSize="20sp" />
+                    android:textSize="20sp"
+                    android:textStyle="bold"/>
 
-                <Space
-                    android:layout_width="match_parent"
-                    android:layout_height="190dp" />
+                <ImageView
+                    android:id="@+id/imgviewRecuperarEnviarLogo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="256dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/actualizarcontrasenia" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:paddingHorizontal="40dp">
+                    android:paddingHorizontal="30dp">
 
                     <TextView
                         android:id="@+id/txtcodeVerificacion"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/ingreseCodigoVerificacion"
+                        android:layout_width="match_parent"
+                        android:layout_height="63dp"
+                        android:fontFamily="@font/fuente_jost_global"
+                        android:justificationMode="inter_word"
+                        android:text="@string/LabelRecuperarContra"
                         android:textColor="#D3D3D3"
-                        android:textSize="15sp" />
+                        android:textSize="12sp"
+                        android:textStyle="bold"/>
 
                     <EditText
                         android:id="@+id/inputVerificacion"
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
+                        android:layout_width="300dp"
+                        android:layout_height="45dp"
                         android:background="@drawable/edittext"
                         android:importantForAutofill="no"
                         android:inputType="number"
                         android:labelFor="@+id/txtcodeVerificacion"
                         tools:ignore="LabelFor,SpeakableTextPresentCheck,TouchTargetSizeCheck,VisualLintTextFieldSize" />
 
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp" />
+
                     <TextView
-                        android:id="@+id/btnEnviarCodigo"
+                        android:id="@+id/txtviewEnviarCodigoNuevamente"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="right"
+                        android:fontFamily="@font/fuente_jost_global"
                         android:text="@string/enviarCodigo"
                         android:textColor="@color/lightGray90"
-                        tools:ignore="RtlHardcoded" />
-                    
+                        tools:ignore="RtlHardcoded"
+                        android:textStyle="bold"
+                        android:textSize="11sp"/>
                     <Space
                         android:layout_width="match_parent"
-                        android:layout_height="150dp"/>
+                        android:layout_height="10dp"/>
+                    <TextView
+                        android:id="@+id/txtviewActivaLetras_Nueva"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:layout_marginTop="30dp"
+                        android:fontFamily="@font/fuente_jost_global"
+                        android:justificationMode="inter_word"
+                        android:textColor="#D3D3D3"
+                        android:textSize="12sp"
+                        android:textStyle="bold"></TextView>
+                    <TextView
+                        android:id="@+id/txtviewCronometro_NuevaC"
+                        android:layout_width="276dp"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_marginTop="0dp"
+                        android:enabled="false"
+                        android:gravity="center"
+                        android:text="00:00"
+                        android:textColor="@color/white"
+                        android:textSize="30sp"
+                        android:visibility="invisible">
+                    </TextView>
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp"/>
 
                     <Button
                         android:id="@+id/btn_Verificar"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:background="@color/button"
+                        android:fontFamily="@font/fuente_jost_global"
                         android:text="@string/verificar"
                         android:textColor="@color/white"
+                        android:textStyle="bold"
                         tools:ignore="TextContrastCheck,VisualLintButtonSize" />
 
 

@@ -20,6 +20,8 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.example.proyectogrupo1musicstore.Activities.Grupos.ActivityGrupoPrincipal;
 import com.example.proyectogrupo1musicstore.ActivityPlayList;
+import com.example.proyectogrupo1musicstore.Activity_EditarPerfil;
+import com.example.proyectogrupo1musicstore.NetworkTasks.UpdateTokenAsyncTask;
 import com.example.proyectogrupo1musicstore.R;
 import com.example.proyectogrupo1musicstore.Utilidades.token;
 import com.example.proyectogrupo1musicstore.Utilidades.updateFirebaseToken;
@@ -32,6 +34,10 @@ public class ActivityPantallaPrincipal extends AppCompatActivity {
 
     private DrawerLayout drawerLayout;
     private ImageButton openMenuButton;
+    TextView Grupos, Inicio, CerrarSesion, Ajustes;
+    ImageView iconGrupos, iconInicio, multimedia, iconCerrarSesion, iconAjustes;
+    private token acceso;
+    private String userID;
     TextView Grupos, Inicio, CerrarSesion;
     ImageView iconGrupos, iconInicio, multimedia, iconCerrarSesion;
 
@@ -65,7 +71,6 @@ public class ActivityPantallaPrincipal extends AppCompatActivity {
                         String token = task.getResult();
                         updateFirebaseToken.updateToken(token, idUsuario);
                         Log.e("Token: ", token);
-
                     } else {
                         // Handle the error
                     }});
@@ -87,6 +92,9 @@ public class ActivityPantallaPrincipal extends AppCompatActivity {
         iconCerrarSesion = (ImageView) findViewById(R.id.iconCerrarSesion);
         CerrarSesion = (TextView) findViewById(R.id.txtviewCerrarSesion);
 
+
+        iconAjustes = (ImageView) findViewById(R.id.iconNavAjustes);
+        Ajustes = (TextView) findViewById(R.id.txtviewNavAjustes);
 
 
         View.OnClickListener buttonClick = new View.OnClickListener() {
@@ -116,6 +124,12 @@ public class ActivityPantallaPrincipal extends AppCompatActivity {
                     cerrarSesion();
                     actividad = activity_principal_login.class;
                 }
+                if (view.getId() == R.id.txtviewNavAjustes){
+                    actividad = Activity_EditarPerfil.class;
+                }
+                if (view.getId() == R.id.iconNavAjustes){
+                    actividad = Activity_EditarPerfil.class;
+                }
                 if (actividad != null) {
                     moveActivity(actividad);
                 }
@@ -129,6 +143,8 @@ public class ActivityPantallaPrincipal extends AppCompatActivity {
         multimedia.setOnClickListener(buttonClick);
         CerrarSesion.setOnClickListener(buttonClick);
         iconCerrarSesion.setOnClickListener(buttonClick);
+        Ajustes.setOnClickListener(buttonClick);
+        iconAjustes.setOnClickListener(buttonClick);
 
         openMenuButton.setOnClickListener(v -> {
             drawerLayout.openDrawer(findViewById(R.id.side_menu));

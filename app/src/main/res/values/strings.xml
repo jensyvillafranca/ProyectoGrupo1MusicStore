@@ -15,7 +15,7 @@
     <string name="grupo1">Grupo 1</string>
     <string name="grupo2">Grupo 2</string>
     <string name="grupo3">Grupo 3</string>
-    <string name="ingreseCodigoVerificacion">Ingrese el codigo de Verficacion</string>
+    <string name="ingreseCodigoVerificacion">Hemos enviado un código de verificación a tu dirección de correo. Por favor, introduce esta secuencia de números en la siguiente casilla de verificación.</string>
     <string name="verificar">Verificar</string>
 
 
@@ -29,7 +29,7 @@
     <string name="CrearPlayList">Crear PlayList</string>
     <string name="CambiarNombre">Seleccionar una imagen</string>
     <string name="EscribaNombrePlayList">Escriba un nombre que le guste</string>
-    <string name="EscribaBiografa">Escriba una Biografa</string>
+    <string name="EscribaBiografa">Escriba una Biografía</string>
     <string name="Crearplaylist">Crear Play List</string>
     <string name="playList">Play List</string>
     <string name="cancelar">Cancelar</string>
@@ -39,8 +39,8 @@
 
     <string name="ingreseContrasenaActual">Ingrese su contraseña actual</string>
     <string name="enviarCodigo">Enviar código</string>
-    <string name="biografia">Biografia</string>
-    <string name="habilitarDatosBiometricos">Habilitar Dato Biometrícos</string>
+    <string name="biografia">Biografía</string>
+    <string name="habilitarDatosBiometricos">Habilitar Datos Biométricos</string>
     <string name="perfilPrivado">Perfil Privado</string>
     <string name="eliminarCuenta">Eliminar Cuenta</string>
     <string name="notificaciones">Notificaciones</string>
