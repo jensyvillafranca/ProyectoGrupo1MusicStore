@@ -130,6 +130,7 @@ public class ActivityNuevoGrupoIntegrantes extends AppCompatActivity implements 
 
     // Metodo Sobrecargado con la lista
     private void moveActivity(Class<?> actividad, List<Integer> selectedUserIds) {
+        selectedUserIds.add(idUsuario);
         Intent intent = new Intent(getApplicationContext(), actividad);
         intent.putIntegerArrayListExtra("selectedUserIds", new ArrayList<>(selectedUserIds));
         startActivity(intent);
