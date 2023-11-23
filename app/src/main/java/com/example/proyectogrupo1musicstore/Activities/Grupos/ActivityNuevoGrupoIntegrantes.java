@@ -32,7 +32,7 @@ public class ActivityNuevoGrupoIntegrantes extends AppCompatActivity implements 
     List<Integer> selectedUserIds;
     CustomAdapterNuevoGrupoIntegrantes adapter;
     private com.example.proyectogrupo1musicstore.Utilidades.token token = new token(this);
-    private int idUsuario = Integer.parseInt(JwtDecoder.decodeJwt(token.recuperarTokenFromKeystore()));
+    private int idUsuario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +42,8 @@ public class ActivityNuevoGrupoIntegrantes extends AppCompatActivity implements 
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Cargando...");
         progressDialog.setCancelable(false);
+
+        idUsuario = Integer.parseInt(JwtDecoder.decodeJwt(token.recuperarTokenFromKeystore()));
 
         // Inicialización de vistas y elementos del diseño
         lista = (RecyclerView) findViewById(R.id.recyclerview_NuevoGrupoIntegrantes);
@@ -54,7 +56,7 @@ public class ActivityNuevoGrupoIntegrantes extends AppCompatActivity implements 
         // Fetch data from the server
         String url = "https://phpclusters-152621-0.cloudclusters.net/buscarSeguidores.php";
         progressDialog.show();
-        new NuevoGrupoIntegrantesAsyncTask(this).execute(url, String.valueOf(idUsuario));
+        new NuevoGrupoIntegrantesAsyncTask(this, progressDialog).execute(url, String.valueOf(idUsuario));
 
         // Configuración del administrador de diseño y adaptador para el RecyclerView
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
@@ -116,7 +118,7 @@ public class ActivityNuevoGrupoIntegrantes extends AppCompatActivity implements 
     public void onDataFetched(List<vistaDeNuevoGrupo> dataList) {
         // Muestra el Recycle view con la nueva informacion
         progressDialog.dismiss(); // Esconde el spinner de carga
-        adapter = new CustomAdapterNuevoGrupoIntegrantes(this, dataList);
+        adapter = new CustomAdapterNuevoGrupoIntegrantes(this, dataList, idUsuario);
         lista.setAdapter(adapter);
         selectedUserIds = adapter.getSelectedUserIds();
     }

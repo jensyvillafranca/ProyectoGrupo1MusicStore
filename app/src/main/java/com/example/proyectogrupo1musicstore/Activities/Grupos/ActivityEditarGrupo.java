@@ -37,7 +37,7 @@ public class ActivityEditarGrupo extends AppCompatActivity implements Informacio
     ProgressDialog  progressDialog;
     private int idgrupo;
     private token token = new token(this);
-    private int idUsuario = Integer.parseInt(JwtDecoder.decodeJwt(token.recuperarTokenFromKeystore()));
+    private int idUsuario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +49,7 @@ public class ActivityEditarGrupo extends AppCompatActivity implements Informacio
         progressDialog.setCancelable(false);
 
         idgrupo = getIntent().getIntExtra("idgrupo", 0);
+        idUsuario = Integer.parseInt(JwtDecoder.decodeJwt(token.recuperarTokenFromKeystore()));
 
         imagebuttonAtras = (ImageButton) findViewById(R.id.btn_EditarGrupoAtras);
         imagebuttonEditarFoto = (ImageView) findViewById(R.id.imageview_EditarGrupoSubir2);

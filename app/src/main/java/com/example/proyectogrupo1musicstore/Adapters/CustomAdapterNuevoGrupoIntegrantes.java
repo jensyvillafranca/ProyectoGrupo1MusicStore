@@ -20,8 +20,9 @@ public class CustomAdapterNuevoGrupoIntegrantes extends RecyclerView.Adapter<Cus
     private List<vistaDeNuevoGrupo> dataList;
     private Context context;
     private List<Integer> selectedUserIds;
+    private int idUsuario;
 
-    public CustomAdapterNuevoGrupoIntegrantes(Context context, List<vistaDeNuevoGrupo> dataList) {
+    public CustomAdapterNuevoGrupoIntegrantes(Context context, List<vistaDeNuevoGrupo> dataList, int idUsuario) {
         this.context = context;
         this.dataList = dataList;
         this.selectedUserIds = new ArrayList<>();

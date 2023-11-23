@@ -58,7 +58,7 @@ public class ActivityNuevoGrupoDetalles extends AppCompatActivity implements Fet
     private int estadoPrivado;
     ProgressDialog progressDialog;
     private com.example.proyectogrupo1musicstore.Utilidades.token token = new token(this);
-    private int idUsuario = Integer.parseInt(JwtDecoder.decodeJwt(token.recuperarTokenFromKeystore()));
+    private int idUsuario;
     private static final int PICK_IMAGE_REQUEST = 1;
     private static final int REQUEST_CODE = 123;
     private static final int REQUEST_CODE_EXTERNAL = 124;
@@ -74,7 +74,15 @@ public class ActivityNuevoGrupoDetalles extends AppCompatActivity implements Fet
         progressDialog.setCancelable(false);
         progressDialog.show();
 
-        selectedUserIds = getIntent().getIntegerArrayListExtra("selectedUserIds");
+        idUsuario = Integer.parseInt(JwtDecoder.decodeJwt(token.recuperarTokenFromKeystore()));
+
+        try{
+            selectedUserIds = getIntent().getIntegerArrayListExtra("selectedUserIds");
+        }catch (Exception e){
+            Log.e("Error", "Lista se usuarios vacia");
+        }
+
+
 
         // Inicialización de vistas y elementos del diseño
         lista = (RecyclerView) findViewById(R.id.recyclerview_NuevoGrupoDetalles);
@@ -158,7 +166,6 @@ public class ActivityNuevoGrupoDetalles extends AppCompatActivity implements Fet
             @Override
             public void onClick(View v) {
                 new CreateGroupAsyncTask(ActivityNuevoGrupoDetalles.this, selectedUserIds, textNombreGrupo.getText().toString(), textDescripcion.getText().toString(), imgPerfilByteArray, estadoPrivado, textNombreGrupo, idUsuario).execute();
-                Log.e("Info", selectedUserIds.toString() + " " + textNombreGrupo.getText().toString() + " " + textDescripcion.getText().toString());
             }
         });
 

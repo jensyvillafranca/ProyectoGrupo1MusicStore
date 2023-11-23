@@ -41,7 +41,7 @@ public class ActivityGruposBuscar extends AppCompatActivity {
     ImageView imgBuscar, imgBuscar2, iconGrupos, iconInicio;
     ProgressDialog progressDialog;
     private com.example.proyectogrupo1musicstore.Utilidades.token token = new token(this);
-    private int idUsuario = Integer.parseInt(JwtDecoder.decodeJwt(token.recuperarTokenFromKeystore()));
+    private int idUsuario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +51,8 @@ public class ActivityGruposBuscar extends AppCompatActivity {
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Cargando...");
         progressDialog.setCancelable(false);
+
+        idUsuario = Integer.parseInt(JwtDecoder.decodeJwt(token.recuperarTokenFromKeystore()));
 
         // Inicialización de vistas y elementos del diseño
         lista = (RecyclerView) findViewById(R.id.recyclerview_GruposBuscar);

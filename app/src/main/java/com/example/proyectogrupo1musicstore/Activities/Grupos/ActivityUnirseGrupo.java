@@ -34,7 +34,7 @@ public class ActivityUnirseGrupo extends AppCompatActivity {
     private String tipo;
     ImageView iconGrupos, iconInicio, imageGrupo;
     private com.example.proyectogrupo1musicstore.Utilidades.token token = new token(this);
-    private int idUsuario = Integer.parseInt(JwtDecoder.decodeJwt(token.recuperarTokenFromKeystore()));
+    private int idUsuario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +45,8 @@ public class ActivityUnirseGrupo extends AppCompatActivity {
         String jsonString = intent.getStringExtra("jsonString");
         Type listType = new TypeToken<List<buscarGrupo>>() {}.getType();
         receivedDataList = new Gson().fromJson(jsonString, listType);
+
+        idUsuario = Integer.parseInt(JwtDecoder.decodeJwt(token.recuperarTokenFromKeystore()));
 
         // Inicialización de vistas y elementos del diseño
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layoutGruposUnirse);

@@ -35,7 +35,7 @@ public class ActivityGrupoPrincipal extends AppCompatActivity implements FetchDa
     CardView buscar, nuevoGrupo;
     ProgressDialog progressDialog;
     private com.example.proyectogrupo1musicstore.Utilidades.token token = new token(this);
-    private int idUsuario = Integer.parseInt(JwtDecoder.decodeJwt(token.recuperarTokenFromKeystore()));
+    private int idUsuario;
 
 
     @Override
@@ -46,6 +46,8 @@ public class ActivityGrupoPrincipal extends AppCompatActivity implements FetchDa
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Cargando...");
         progressDialog.setCancelable(false);
+
+        idUsuario = Integer.parseInt(JwtDecoder.decodeJwt(token.recuperarTokenFromKeystore()));
 
         // Inicialización de vistas y elementos del diseño
         lista = (RecyclerView) findViewById(R.id.recyclerview_GruposPrincipal);

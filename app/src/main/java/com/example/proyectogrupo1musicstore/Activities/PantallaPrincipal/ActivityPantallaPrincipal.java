@@ -37,7 +37,7 @@ public class ActivityPantallaPrincipal extends AppCompatActivity {
 
     //Crea nueva instancia de clase token, para obtener el valor de idusuario de la clase decodetoken
     private token acceso = new token(this);
-    private int idUsuario = Integer.parseInt(JwtDecoder.decodeJwt(acceso.recuperarTokenFromKeystore()));
+    private int idUsuario;
 
     // Declare the launcher at the top of your Activity/Fragment:
     private final ActivityResultLauncher<String> requestPermissionLauncher =
@@ -56,6 +56,8 @@ public class ActivityPantallaPrincipal extends AppCompatActivity {
         setContentView(R.layout.activity_pantalla_principal);
 
         askNotificationPermission();
+
+        idUsuario = Integer.parseInt(JwtDecoder.decodeJwt(acceso.recuperarTokenFromKeystore()));
 
         FirebaseMessaging.getInstance().getToken()
                 .addOnCompleteListener(task -> {
