@@ -150,7 +150,7 @@ public class Activity_SubirVideo extends AppCompatActivity {
     private void showPermissionExplanation() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Permiso Requerido");
-        builder.setMessage("Para acceder a tu archivos y seleccionar un video en especifico, necesitamos el permiso de almacenamiento. Por favor, otorga el permiso en la configuración de la aplicación...");
+        builder.setMessage("Para acceder a tu archivos y seleccionar un video en específico, necesitamos el permiso de almacenamiento. Por favor, otorga el permiso en la configuración de la aplicación...");
         builder.setPositiveButton("Go to Settings", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
