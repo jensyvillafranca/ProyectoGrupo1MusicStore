@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 public class ActivityReproductor extends AppCompatActivity {
 
+    //Listo para extraer informacion de la base de datos
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

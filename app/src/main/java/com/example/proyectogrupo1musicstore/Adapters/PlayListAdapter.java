@@ -26,6 +26,8 @@ public class PlayListAdapter extends RecyclerView.Adapter<PlayListAdapter.PlayLi
         this.itemList = itemList;
     }
 
+
+
     @NonNull
     @Override
     public PlayListAdapter.PlayListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

@@ -40,7 +40,7 @@ public class ActivityPlayList extends AppCompatActivity implements informacionGe
 
     private int idplaylist;
 
-    private int idUsuario = 2;
+    //private int idUsuario = 2;
     ProgressDialog progressDialog;
 
     @Override
@@ -50,23 +50,23 @@ public class ActivityPlayList extends AppCompatActivity implements informacionGe
 
 
 
-        idplaylist = getIntent().getIntExtra("idplaylist",0);
+        idplaylist = 2;
 
         // Declaración de variables
         recyclerviewPlayLists = (RecyclerView) findViewById(R.id.recyclerviewPlayList);
         recyclerviewMusicasFavoritass = (RecyclerView) findViewById(R.id.recyclerviewMusicasFavoritas);
         textviewNumeroPlay = (TextView) findViewById(R.id.textviewPlayList);
         txtSiguiente = (TextView) findViewById(R.id.txtPrincipal);
-        txtSiguienteVerTodo  = (TextView) findViewById(R.id.textviewVerTodoMusica);
+        txtSiguienteVerTodo  = (TextView) findViewById(R.id.textviewVerTodoMusicas);
 
-        // Creación de una lista de elementos de integrantesItem
+        // Creación de una lista de elementos de playlistitem
         List<PlayListItem> playlistitemList = new ArrayList<>();
 
-        // Crea y vincula el adaptador - integrantes
+        // Crea y vincula el adaptador - playadapter
         PlayListAdapter playAdapter = new PlayListAdapter(this, playlistitemList);
         recyclerviewPlayLists.setAdapter(playAdapter);
 
-        //Configuracion del administrador de diseño - integrantes
+        //Configuracion del administrador de diseño - platlist
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         recyclerviewPlayLists.setLayoutManager(layoutManager);
@@ -74,7 +74,7 @@ public class ActivityPlayList extends AppCompatActivity implements informacionGe
         //Fetch data from the server
         String url = "https://phpclusters-152621-0.cloudclusters.net/obtenerPlayList.php";
 
-        new informacionGeneralPlayListAstAsyncTask(this).execute(url, String.valueOf(idUsuario));
+        new informacionGeneralPlayListAstAsyncTask(this).execute(url, String.valueOf(idplaylist));
         new ObtenerPlayListAsyncTask(ActivityPlayList.this, playAdapter, progressDialog).execute(String.valueOf(idplaylist));
 
 //        new ObtenerPlayListAsyncTask(ActivityPlayList.this, playAdapter, progressDialog)
