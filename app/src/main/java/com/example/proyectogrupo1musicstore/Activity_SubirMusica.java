@@ -121,7 +121,7 @@ public class Activity_SubirMusica extends AppCompatActivity {
                     actividad = Activity_BuscarMusica.class;
                 }
                 if (view.getId() == R.id.btn_PrincipalAtras) {
-                    actividad = ActivityArchivosPersonales.class;
+                    actividad = ActivityPlayList.class;
                 }
 
                 if (actividad != null) {
@@ -180,6 +180,10 @@ public class Activity_SubirMusica extends AppCompatActivity {
 
 
 
+
+
+
+
     private byte[] getBytes(InputStream inputStream) throws IOException {
         ByteArrayOutputStream byteBuffer = new ByteArrayOutputStream();
         int bufferSize = 1024;
@@ -190,6 +194,9 @@ public class Activity_SubirMusica extends AppCompatActivity {
         }
         return byteBuffer.toByteArray();
     }
+
+
+
 
     private void showPermissionExplanation() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);

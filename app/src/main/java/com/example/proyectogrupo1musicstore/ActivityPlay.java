@@ -36,9 +36,12 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.proyectogrupo1musicstore.Activities.PantallaPrincipal.ActivityPantallaPrincipal;
 import com.example.proyectogrupo1musicstore.Models.vistaDeNuevoGrupo;
 import com.example.proyectogrupo1musicstore.NetworkTaksMulti.CreatePlayListTask;
 import com.example.proyectogrupo1musicstore.NetworkTasks.CreateGroupAsyncTask;
+import com.example.proyectogrupo1musicstore.Utilidades.JwtDecoder;
+import com.example.proyectogrupo1musicstore.Utilidades.token;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -60,7 +63,9 @@ public class ActivityPlay extends AppCompatActivity {
     List<Integer> selectedUserIds;
     byte[] imgPerfilByteArray;
     ProgressDialog progressDialog;
-
+    private int idUsuario;
+    private int idFavorito;
+    private com.example.proyectogrupo1musicstore.Utilidades.token token = new token(this);
 
     private static final int PICK_IMAGE_REQUEST = 1;
     private static final int REQUEST_CODE = 123;
@@ -72,7 +77,7 @@ public class ActivityPlay extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play);
 
-
+        idUsuario = Integer.parseInt(JwtDecoder.decodeJwt(token.recuperarTokenFromKeystore()));
 
         selectedUserIds = getIntent().getIntegerArrayListExtra("selectedUserIds");
 
@@ -88,7 +93,7 @@ public class ActivityPlay extends AppCompatActivity {
                 Class<?> actividad = null;
 
                 if (view.getId() == R.id.btnAtrass) {
-                    actividad = Activity_CrearPlayList.class;
+                    actividad = ActivityPlayList.class;
                 }
 
                 if (actividad != null) {
@@ -100,9 +105,10 @@ public class ActivityPlay extends AppCompatActivity {
         btnCance.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                cancelar();
             }
         });
+
 
 
         imgAgragarImagen.setOnClickListener(new View.OnClickListener() {
@@ -126,8 +132,13 @@ public class ActivityPlay extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                new CreatePlayListTask(ActivityPlay.this, selectedUserIds, textNombrePlayList.getText().toString(), txtBiografia.getText().toString(), imgPerfilByteArray, textNombrePlayList).execute();
-                setTitle("El nombre de la PlayList se agrego correctamente");
+                if (validar() == true){
+                    new CreatePlayListTask(ActivityPlay.this, selectedUserIds, textNombrePlayList.getText().toString(), txtBiografia.getText().toString(), imgPerfilByteArray, textNombrePlayList,idFavorito).execute();
+                    setTitle("El nombre de la PlayList se agrego correctamente");
+                }else{
+                    mensajesPersonalizados();
+                }
+
             }
 
         });
@@ -160,6 +171,51 @@ public class ActivityPlay extends AppCompatActivity {
                 return false;
             }
         });
+
+
+    }
+    private void cancelar() {
+        // Intent para ir a la actividad principal de la app
+        Intent intent = new Intent(this, ActivityPlayList.class);
+        startActivity(intent);
+        finish();
+    }
+
+    /*Validación para no dejar campos vacíos*/
+    public boolean validar(){
+        boolean retorna = true;
+
+        if(txtBiografia.getText().toString().isEmpty()){
+            retorna = false;
+        }
+        if(textNombrePlayList.getText().toString().isEmpty()){
+            retorna = false;
+        }
+
+        if(txtBiografia.getText().toString().isEmpty() && textNombrePlayList.getText().toString().isEmpty()){
+            retorna = false;
+        }
+        return retorna;
+    }
+
+    public void mensajesPersonalizados(){
+
+        if (imgAgragarImagen.getDrawable() == null) {
+            String textoAdvertencia = "Por favor, selecciona una imagen.";
+            activity_personalizado_advertencia dialogFragment = activity_personalizado_advertencia.newInstance(textoAdvertencia);
+            dialogFragment.show(getSupportFragmentManager(), "advertencia");
+        }
+
+        if(textNombrePlayList.getText().toString().isEmpty()){
+            String textoAdvertencia = "Por favor, rellena el campo de nombres de la PlayList.";
+            activity_personalizado_advertencia dialogFragment = activity_personalizado_advertencia.newInstance(textoAdvertencia);
+            dialogFragment.show(getSupportFragmentManager(), "advertencia");
+        }
+        if(txtBiografia.getText().toString().isEmpty()){
+            String textoAdvertencia = "Por favor, rellena el campo de biografia.";
+            activity_personalizado_advertencia dialogFragment = activity_personalizado_advertencia.newInstance(textoAdvertencia);
+            dialogFragment.show(getSupportFragmentManager(), "advertencia");
+        }
 
 
     }

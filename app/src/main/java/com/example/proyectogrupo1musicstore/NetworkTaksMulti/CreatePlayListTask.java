@@ -9,6 +9,7 @@ import android.util.Log;
 import android.widget.EditText;
 
 
+import com.example.proyectogrupo1musicstore.ActivityPlay;
 import com.example.proyectogrupo1musicstore.ActivityPlayList;
 
 import org.json.JSONArray;
@@ -36,14 +37,16 @@ public class CreatePlayListTask extends AsyncTask<String, Void, Void> {
     private EditText textNombrePlayList;
     private byte[] playImage;
     private boolean onProgressCalled = false;
+    private int idFavorito;
 
-    public CreatePlayListTask(Context context, List<Integer> selectedUserIds, String playName, String biografiaDescripcion, byte[] playImage, EditText textNombrePlayList) {
+    public CreatePlayListTask(Context context, List<Integer> selectedUserIds, String playName, String biografiaDescripcion, byte[] playImage, EditText textNombrePlayList, int idFavorito) {
         this.context = context;
         this.selectedUserIds = selectedUserIds;
         this.playName = playName;
         this.biografiaDescripcion = biografiaDescripcion;
         this.playImage = playImage;
         this.textNombrePlayList = textNombrePlayList;
+        this.idFavorito = idFavorito;
 
     }
 
@@ -92,7 +95,7 @@ public class CreatePlayListTask extends AsyncTask<String, Void, Void> {
             progressDialog.dismiss();
             if(onProgressCalled==false){
                 // Me lleva a otra actividad
-                Intent intent = new Intent(context, ActivityPlayList.class);
+                Intent intent = new Intent(context, ActivityPlay.class);
                 context.startActivity(intent);
             }
         }
@@ -115,7 +118,7 @@ public class CreatePlayListTask extends AsyncTask<String, Void, Void> {
             jsonData.put("nombre", playName);
             jsonData.put("biografia", biografiaDescripcion);
             jsonData.put("idtipoplaylist", 1); // Replace with the actual user ID
-            jsonData.put("idfavorito", 4); // Replace with the actual user ID
+            jsonData.put("idfavorito", idFavorito); // Replace with the actual user ID
             jsonData.put("imagen", base64Image);
 
             return jsonData.toString();
