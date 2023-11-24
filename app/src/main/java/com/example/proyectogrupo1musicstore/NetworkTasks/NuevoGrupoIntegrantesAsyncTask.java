@@ -99,7 +99,7 @@ public class NuevoGrupoIntegrantesAsyncTask extends AsyncTask<String, Void, List
                 String nombre = jsonObject.getString("nombrecompleto");
                 Bitmap imageResource = ImageDownloader.downloadImage(jsonObject.getString("enlacefoto"));
 
-                dataList.add(new vistaDeNuevoGrupo(nombre, imageResource, idusuario));
+                dataList.add(new vistaDeNuevoGrupo(nombre, imageResource, idusuario, 1));
             }
 
         } catch (JSONException e) {
