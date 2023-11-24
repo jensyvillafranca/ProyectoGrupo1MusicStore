@@ -92,10 +92,10 @@ public class ActivityEditarGrupo extends AppCompatActivity implements Informacio
             @Override
             public void onClick(View view) {
                 Class<?> actividad = null;
-                if (view.getId()==R.id.btn_GruposPrincipalAtras) {
-                    actividad = ActivityPantallaPrincipal.class;
+                if (view.getId()==R.id.btn_EditarGrupoAtras) {
+                    actividad = ActivityGrupoPrincipal.class;
                 }
-                if (view.getId()==R.id.textview_GrupoPrincipalbotAtras){
+                if (view.getId()==R.id.textview_EditarGrupoBotAtras){
                     actividad = ActivityPantallaPrincipal.class;
                 }
                 if (actividad != null) {
@@ -103,6 +103,9 @@ public class ActivityEditarGrupo extends AppCompatActivity implements Informacio
                 }
             }
         };
+
+        imagebuttonAtras.setOnClickListener(buttonClick);
+        textviewAtras.setOnClickListener(buttonClick);
     }
 
     @Override
