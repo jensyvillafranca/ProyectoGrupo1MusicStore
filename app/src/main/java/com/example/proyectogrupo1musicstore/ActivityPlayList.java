@@ -1,6 +1,7 @@
 package com.example.proyectogrupo1musicstore;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -14,6 +15,7 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -37,6 +39,8 @@ public class ActivityPlayList extends AppCompatActivity implements informacionGe
     TextView txtSiguiente, nombreplay,textviewNumeroPlay,txtSiguienteVerTodo;
     RecyclerView recyclerviewPlayLists, recyclerviewMusicasFavoritass;
     ImageView fotoPlay;
+    DrawerLayout drawerLayout;
+    ImageButton openMenuButton;
 
     private int idplaylist;
 
@@ -58,6 +62,8 @@ public class ActivityPlayList extends AppCompatActivity implements informacionGe
         textviewNumeroPlay = (TextView) findViewById(R.id.textviewPlayList);
         txtSiguiente = (TextView) findViewById(R.id.txtPrincipal);
         txtSiguienteVerTodo  = (TextView) findViewById(R.id.textviewVerTodoMusicas);
+        openMenuButton = (ImageButton) findViewById(R.id.btn_Principal);
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layoutPlayList);
 
         // Creación de una lista de elementos de playlistitem
         List<PlayListItem> playlistitemList = new ArrayList<>();
@@ -77,6 +83,10 @@ public class ActivityPlayList extends AppCompatActivity implements informacionGe
         new informacionGeneralPlayListAstAsyncTask(this).execute(url, String.valueOf(idplaylist));
         new ObtenerPlayListAsyncTask(ActivityPlayList.this, playAdapter, progressDialog).execute(String.valueOf(idplaylist));
 
+        // Listener para abrir el menú lateral
+        openMenuButton.setOnClickListener(v -> {
+            drawerLayout.openDrawer(findViewById(R.id.side_menus));
+        });
 //        new ObtenerPlayListAsyncTask(ActivityPlayList.this, playAdapter, progressDialog)
   //              .execute(String.valueOf(idplaylist));
 
@@ -85,7 +95,7 @@ public class ActivityPlayList extends AppCompatActivity implements informacionGe
         CrearPlays.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent creacion = new Intent(getApplicationContext(),Activity_CrearPlayList.class);
+                Intent creacion = new Intent(getApplicationContext(),ActivityPlay.class);
                 startActivity(creacion);
             }
         });
@@ -95,7 +105,7 @@ public class ActivityPlayList extends AppCompatActivity implements informacionGe
             public void onClick(View view) {
                 Class<?> actividad = null;
                 if (view.getId() == R.id.txtPrincipal) {
-                    actividad = ActivityArchivosPersonales.class;
+                    actividad = Activity_SubirMusica.class;
                 }
                 if (view.getId() == R.id.textviewVerTodoMusica) {
                     actividad = ActivityVerPlayList.class;

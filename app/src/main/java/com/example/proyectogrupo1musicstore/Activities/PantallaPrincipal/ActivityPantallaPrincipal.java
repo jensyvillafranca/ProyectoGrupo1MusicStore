@@ -34,7 +34,7 @@ public class ActivityPantallaPrincipal extends AppCompatActivity {
 
     private DrawerLayout drawerLayout;
     private ImageButton openMenuButton;
-    TextView Grupos, Inicio, CerrarSesion, Ajustes;
+    TextView Grupos, Inicio, CerrarSesion, Ajustes,multimediaTexto;
     ImageView iconGrupos, iconInicio, multimedia, iconCerrarSesion, iconAjustes;
 
     //Crea nueva instancia de clase token, para obtener el valor de idusuario de la clase decodetoken
@@ -83,6 +83,8 @@ public class ActivityPantallaPrincipal extends AppCompatActivity {
         iconGrupos = (ImageView) findViewById(R.id.iconNavGrupos);
         iconInicio = (ImageView) findViewById(R.id.iconNavInicio);
         multimedia = (ImageView) findViewById(R.id.iconNavMultimedia);
+        multimediaTexto = (TextView) findViewById(R.id.txtviewNavMultimedia);
+
 
         /*Variables para cerrar sesión*/
         iconCerrarSesion = (ImageView) findViewById(R.id.iconCerrarSesion);
@@ -110,6 +112,9 @@ public class ActivityPantallaPrincipal extends AppCompatActivity {
                     actividad = ActivityPantallaPrincipal.class;
                 }
                 if (view.getId() == R.id.iconNavMultimedia){
+                    actividad = ActivityPlayList.class;
+                }
+                if (view.getId() == R.id.txtviewNavMultimedia){
                     actividad = ActivityPlayList.class;
                 }
                 if (view.getId() == R.id.iconCerrarSesion){
@@ -141,6 +146,7 @@ public class ActivityPantallaPrincipal extends AppCompatActivity {
         iconCerrarSesion.setOnClickListener(buttonClick);
         Ajustes.setOnClickListener(buttonClick);
         iconAjustes.setOnClickListener(buttonClick);
+        multimediaTexto.setOnClickListener(buttonClick);
 
         openMenuButton.setOnClickListener(v -> {
             drawerLayout.openDrawer(findViewById(R.id.side_menu));
