@@ -1,5 +1,6 @@
 package com.example.proyectogrupo1musicstore.Utilidades;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 
@@ -43,7 +44,10 @@ public class GrupoPrivadoFirebaseMessagingService extends FirebaseMessagingServi
     @Override
     public void onNewToken(@NonNull String newToken) {
         super.onNewToken(newToken);
-        idUsuario = Integer.parseInt(JwtDecoder.decodeJwt(token.recuperarTokenFromKeystore()));
+        String storedToken = retrieveTokenFromSharedPreferences();
+        if (storedToken == null) {
+            return;
+        }
         saveTokenLocally(newToken);
         updateFirebaseToken.updateToken(newToken, idUsuario);
         Log.e("newToken: ", newToken);
@@ -78,5 +82,10 @@ public class GrupoPrivadoFirebaseMessagingService extends FirebaseMessagingServi
         } else {
             // Handle the case where notifications are disabled
         }
+    }
+
+    private String retrieveTokenFromSharedPreferences() {
+        SharedPreferences sharedPreferences = getSharedPreferences("sesiones", Context.MODE_PRIVATE);
+        return sharedPreferences.getString("token", null);
     }
 }
