@@ -106,8 +106,9 @@ public class InformacionGrupoEditarAsyncTask extends AsyncTask<String, Void, Lis
                 Integer idowner = jsonObject.getInt("idusuario");
                 Integer visualizacion = jsonObject.getInt("idvisualizacion");
                 Bitmap imageResource = ImageDownloader.downloadImage(jsonObject.getString("enlacefoto"));
+                String urlAnterior = jsonObject.getString("enlacefoto");
 
-                dataList.add(new informacionGrupoEditar(idgrupo, nombre, descripcion, idowner, visualizacion, imageResource));
+                dataList.add(new informacionGrupoEditar(idgrupo, nombre, descripcion, idowner, visualizacion, imageResource, urlAnterior));
             }
 
         } catch (JSONException e) {

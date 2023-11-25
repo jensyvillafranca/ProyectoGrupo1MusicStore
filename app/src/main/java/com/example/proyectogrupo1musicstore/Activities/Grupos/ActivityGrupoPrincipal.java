@@ -148,7 +148,7 @@ public class ActivityGrupoPrincipal extends AppCompatActivity implements FetchDa
     public void onDataFetched(List<vistaDeGrupo> dataList) {
         // Muestra el Recycle view con la nueva informacion
         progressDialog.dismiss(); // Esconde el spinner de carga
-        CustomAdapter adapter = new CustomAdapter(this, dataList, idUsuario);
+        CustomAdapter adapter = new CustomAdapter(this, dataList, idUsuario, lista);
         lista.setAdapter(adapter);
     }
 

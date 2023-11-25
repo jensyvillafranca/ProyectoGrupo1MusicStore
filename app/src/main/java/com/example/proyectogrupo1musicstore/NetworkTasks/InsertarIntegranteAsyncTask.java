@@ -1,11 +1,13 @@
 package com.example.proyectogrupo1musicstore.NetworkTasks;
 
+import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.example.proyectogrupo1musicstore.Activities.Grupos.ActivityGrupoPrincipal;
+import com.example.proyectogrupo1musicstore.Utilidades.DelayedActivityStarter;
 
 import org.json.JSONObject;
 
@@ -15,17 +17,24 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class InsertarIntegranteAsyncTask extends AsyncTask<String, Void, Boolean> {
-    private Context context;
+    private final Context context;
+
+    private final ProgressDialog progressDialog;
+    private String tipoAccion;
 
     public InsertarIntegranteAsyncTask(Context context) {
         this.context = context;
+        progressDialog = new ProgressDialog(context);
+        progressDialog.setMessage("Porfavor Espere...");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
     }
 
     @Override
     protected Boolean doInBackground(String... params) {
         String idgrupo = params[0];
         String idusuario = params[1];
-        String tipoAccion = params[2];
+        tipoAccion = params[2];
         String idOwner = params[3];
 
         try {
@@ -64,16 +73,17 @@ public class InsertarIntegranteAsyncTask extends AsyncTask<String, Void, Boolean
     @Override
     protected void onPostExecute(Boolean success) {
         if (success) {
-            Log.d("InsertarIntegranteAsyncTask", "Insertion successful");
-            startGrupoPrincipalActivity();
+            if(tipoAccion.equals("Privado")){
+                Log.d("InsertarIntegranteAsyncTask", "Solicitud Enviada!");
+                Toast.makeText(context, "¡Se ha enviado la solicitud para unirse al grupo! Redirigiendo...", Toast.LENGTH_SHORT).show();
+                DelayedActivityStarter.startDelayedActivity(context, ActivityGrupoPrincipal.class, 1500);
+            }else{
+                Log.d("InsertarIntegranteAsyncTask", "Insertion successful");
+                Toast.makeText(context, "¡Se ha unido al grupo! Redirigiendo...", Toast.LENGTH_SHORT).show();
+                DelayedActivityStarter.startDelayedActivity(context, ActivityGrupoPrincipal.class, 1500);
+            }
         } else {
             Log.e("InsertarIntegranteAsyncTask", "Insertion failed");
         }
-    }
-
-    private void startGrupoPrincipalActivity() {
-        // Empieza la actividad: ActivityGrupoPrincipal
-        Intent intent = new Intent(context, ActivityGrupoPrincipal.class);
-        context.startActivity(intent);
     }
 }

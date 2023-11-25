@@ -2,13 +2,14 @@ package com.example.proyectogrupo1musicstore.NetworkTasks;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Base64;
 import android.util.Log;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.proyectogrupo1musicstore.Activities.Grupos.ActivityGrupoPrincipal;
+import com.example.proyectogrupo1musicstore.Utilidades.DelayedActivityStarter;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -27,15 +28,15 @@ import java.util.List;
 
 public class CreateGroupAsyncTask extends AsyncTask<String, Void, Void> {
     private ProgressDialog progressDialog;
-    private Context context;
-    private List<Integer> selectedUserIds;
-    private String groupName;
-    private String groupDescription;
-    private int estado;
-    private EditText textNombreGrupo;
-    private byte[] groupImage;
+    private final Context context;
+    private final List<Integer> selectedUserIds;
+    private final String groupName;
+    private final String groupDescription;
+    private final int estado;
+    private final EditText textNombreGrupo;
+    private final byte[] groupImage;
     private boolean onProgressCalled = false;
-    private int idUsuario;
+    private final int idUsuario;
 
 
     public CreateGroupAsyncTask(Context context, List<Integer> selectedUserIds, String groupName, String groupDescription, byte[] groupImage, int estado, EditText textNombreGrupo, int idUsuario) {
@@ -101,8 +102,8 @@ public class CreateGroupAsyncTask extends AsyncTask<String, Void, Void> {
             progressDialog.dismiss();
             if(onProgressCalled==false){
                 // Me lleva a otra actividad
-                Intent intent = new Intent(context, ActivityGrupoPrincipal.class);
-                context.startActivity(intent);
+                Toast.makeText(context, "¡El Grupo ha sido Creado! Redirigiendo...", Toast.LENGTH_SHORT).show();
+                DelayedActivityStarter.startDelayedActivity(context, ActivityGrupoPrincipal.class, 1500);
             }
         }
     }

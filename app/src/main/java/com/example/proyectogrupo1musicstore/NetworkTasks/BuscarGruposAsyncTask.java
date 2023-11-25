@@ -5,6 +5,8 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.util.Pair;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -27,7 +29,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BuscarGruposAsyncTask extends AsyncTask<String, Void, List<buscarGrupo>> {
+public class BuscarGruposAsyncTask extends AsyncTask<String, Void, Pair<Integer, List<buscarGrupo>>> {
     private static final String TAG = "BuscarGrupoAsyncTask";
     private Context context;
     private RecyclerView recyclerView;
@@ -50,7 +52,7 @@ public class BuscarGruposAsyncTask extends AsyncTask<String, Void, List<buscarGr
     }
 
     @Override
-    protected List<buscarGrupo> doInBackground(String... params) {
+    protected Pair<Integer, List<buscarGrupo>> doInBackground(String... params) {
         String idusuario = params[0];
         String search = params[1];
 
@@ -71,6 +73,7 @@ public class BuscarGruposAsyncTask extends AsyncTask<String, Void, List<buscarGr
             out.close();
 
             int responseCode = urlConnection.getResponseCode();
+
             if (responseCode == HttpURLConnection.HTTP_OK) {
                 InputStream inputStream = urlConnection.getInputStream();
                 BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
@@ -82,7 +85,8 @@ public class BuscarGruposAsyncTask extends AsyncTask<String, Void, List<buscarGr
                 reader.close();
                 inputStream.close();
 
-                return parseJsonResponse(response.toString());
+                List<buscarGrupo> result = parseJsonResponse(response.toString());
+                return new Pair<>(responseCode, result);
             } else {
                 Log.e(TAG, "Error response code: " + responseCode);
             }
@@ -92,16 +96,28 @@ public class BuscarGruposAsyncTask extends AsyncTask<String, Void, List<buscarGr
             e.printStackTrace();
         }
 
-        return null;
+        return new Pair<>(HttpURLConnection.HTTP_INTERNAL_ERROR, null);
     }
 
     @Override
-    protected void onPostExecute(List<buscarGrupo> result) {
+    protected void onPostExecute(Pair<Integer, List<buscarGrupo>> result) {
         progressDialog.dismiss();
 
-        if (result != null) {
-            adapter.setDataList(result);
-            adapter.notifyDataSetChanged();
+        int responseCode = result.first;
+        List<buscarGrupo> data = result.second;
+
+        if (responseCode == HttpURLConnection.HTTP_OK) {
+            // Parse and process the JSON data
+            if (data != null) {
+                adapter.setDataList(data);
+                adapter.notifyDataSetChanged();
+            }
+        } else if (responseCode == HttpURLConnection.HTTP_NOT_FOUND) {
+            // No groups found, show a toast
+            Toast.makeText(context, "¡No se encontró ningún grupo!", Toast.LENGTH_SHORT).show();
+        } else {
+            // Handle other response codes or errors
+            Toast.makeText(context, "¡No se encontró ningún grupo!", Toast.LENGTH_SHORT).show();
         }
     }
 

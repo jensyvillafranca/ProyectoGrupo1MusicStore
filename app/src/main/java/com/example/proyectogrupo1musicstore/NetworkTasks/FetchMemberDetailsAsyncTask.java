@@ -99,6 +99,7 @@ public class FetchMemberDetailsAsyncTask extends AsyncTask<String, Void, List<vi
                 // Extrae la informacion y crea objetos
                 String nombre = jsonObject.getString("nombrecompleto");
                 Bitmap imageResource = ImageDownloader.downloadImage(jsonObject.getString("enlacefoto"));
+                String urlAnterior = jsonObject.getString("enlacefoto");
 
                 dataList.add(new vistaDeNuevoGrupo(nombre, imageResource, idUsuario, version));
             }

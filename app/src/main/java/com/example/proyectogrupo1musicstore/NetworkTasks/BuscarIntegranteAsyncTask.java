@@ -5,10 +5,13 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.util.Pair;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.proyectogrupo1musicstore.Adapters.CustomAdapterNuevoGrupoIntegrantes;
+import com.example.proyectogrupo1musicstore.Models.buscarGrupo;
 import com.example.proyectogrupo1musicstore.Models.vistaDeNuevoGrupo;
 import com.example.proyectogrupo1musicstore.Utilidades.ImageDownloader;
 
@@ -26,7 +29,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BuscarIntegranteAsyncTask extends AsyncTask<String, Void, List<vistaDeNuevoGrupo>> {
+public class BuscarIntegranteAsyncTask extends AsyncTask<String, Void, Pair<Integer, List<vistaDeNuevoGrupo>>> {
     private static final String TAG = "BuscarIntegrantesAsyncTask";
     private Context context;
     private RecyclerView recyclerView;
@@ -48,7 +51,7 @@ public class BuscarIntegranteAsyncTask extends AsyncTask<String, Void, List<vist
     }
 
     @Override
-    protected List<vistaDeNuevoGrupo> doInBackground(String... params) {
+    protected Pair<Integer, List<vistaDeNuevoGrupo>> doInBackground(String... params) {
         String idusuario = params[0];
         String search = params[1];
 
@@ -69,6 +72,7 @@ public class BuscarIntegranteAsyncTask extends AsyncTask<String, Void, List<vist
             out.close();
 
             int responseCode = urlConnection.getResponseCode();
+
             if (responseCode == HttpURLConnection.HTTP_OK) {
                 InputStream inputStream = urlConnection.getInputStream();
                 BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
@@ -80,26 +84,38 @@ public class BuscarIntegranteAsyncTask extends AsyncTask<String, Void, List<vist
                 reader.close();
                 inputStream.close();
 
-                return parseJsonResponse(response.toString());
+                List<vistaDeNuevoGrupo> result = parseJsonResponse(response.toString());
+                urlConnection.disconnect();
+                return new Pair<>(responseCode, result);
             } else {
                 Log.e("BuscarIntegranteAsyncTask", "Error response code: " + responseCode);
+                urlConnection.disconnect();
+                return new Pair<>(responseCode, null);
             }
-
-            urlConnection.disconnect();
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        return null;
+        return new Pair<>(HttpURLConnection.HTTP_INTERNAL_ERROR, null);
     }
 
     @Override
-    protected void onPostExecute(List<vistaDeNuevoGrupo> result) {
+    protected void onPostExecute(Pair<Integer, List<vistaDeNuevoGrupo>> result) {
         progressDialog.dismiss();
 
-        if (result != null) {
-            adapter.setDataList(result);
-            adapter.notifyDataSetChanged();
+        int responseCode = result.first;
+        List<vistaDeNuevoGrupo> data = result.second;
+
+        if (responseCode == HttpURLConnection.HTTP_OK) {
+            // Parse and process the JSON data
+            if (data != null) {
+                adapter.setDataList(data);
+                adapter.notifyDataSetChanged();
+            }
+        } else if (responseCode == HttpURLConnection.HTTP_NOT_FOUND) {
+            Toast.makeText(context, "No se encontró ningún seguidor.", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(context, "Error de Servidor.", Toast.LENGTH_SHORT).show();
         }
     }
 

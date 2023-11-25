@@ -3,6 +3,7 @@ package com.example.proyectogrupo1musicstore.Activities.Grupos;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.SearchView;
@@ -23,13 +24,13 @@ import com.example.proyectogrupo1musicstore.Utilidades.token;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ActivityNuevoGrupoIntegrantes extends AppCompatActivity implements NuevoGrupoIntegrantesAsyncTask.DataFetchListener{
+public class ActivityNuevoGrupoIntegrantes extends AppCompatActivity implements NuevoGrupoIntegrantesAsyncTask.DataFetchListener {
 
     RecyclerView lista;
     ImageButton botonSiguiente, botonAtras;
     TextView textviewSiguiente, textviewAtras;
     ProgressDialog progressDialog;
-    List<Integer> selectedUserIds;
+    List<Integer> selectedUserIds = null;
     CustomAdapterNuevoGrupoIntegrantes adapter;
     private com.example.proyectogrupo1musicstore.Utilidades.token token = new token(this);
     private int idUsuario;
@@ -79,6 +80,16 @@ public class ActivityNuevoGrupoIntegrantes extends AppCompatActivity implements 
                 return true;
             }
         });
+        searchView.setOnCloseListener(new SearchView.OnCloseListener() {
+            @Override
+            public boolean onClose() {
+                // Reload all followers using NuevoGrupoIntegrantesAsyncTask
+                String url = "https://phpclusters-152621-0.cloudclusters.net/buscarSeguidores.php";
+                progressDialog.show();
+                new NuevoGrupoIntegrantesAsyncTask(ActivityNuevoGrupoIntegrantes.this, progressDialog).execute(url, String.valueOf(idUsuario));
+                return false;
+            }
+        });
 
         // Listener para manejar los botones de "Atrás"
         View.OnClickListener buttonClick = new View.OnClickListener() {
@@ -118,7 +129,7 @@ public class ActivityNuevoGrupoIntegrantes extends AppCompatActivity implements 
     public void onDataFetched(List<vistaDeNuevoGrupo> dataList) {
         // Muestra el Recycle view con la nueva informacion
         progressDialog.dismiss(); // Esconde el spinner de carga
-        adapter = new CustomAdapterNuevoGrupoIntegrantes(this, dataList, idUsuario);
+        adapter = new CustomAdapterNuevoGrupoIntegrantes(this, dataList, idUsuario, 0, lista);
         lista.setAdapter(adapter);
         selectedUserIds = adapter.getSelectedUserIds();
     }
@@ -130,10 +141,7 @@ public class ActivityNuevoGrupoIntegrantes extends AppCompatActivity implements 
 
     // Metodo Sobrecargado con la lista
     private void moveActivity(Class<?> actividad, List<Integer> selectedUserIds) {
-        if(selectedUserIds == null){
-            selectedUserIds  = new ArrayList<>();
-            selectedUserIds.add(idUsuario);
-        }
+        selectedUserIds.add(idUsuario);
         Intent intent = new Intent(getApplicationContext(), actividad);
         intent.putIntegerArrayListExtra("selectedUserIds", new ArrayList<>(selectedUserIds));
         startActivity(intent);

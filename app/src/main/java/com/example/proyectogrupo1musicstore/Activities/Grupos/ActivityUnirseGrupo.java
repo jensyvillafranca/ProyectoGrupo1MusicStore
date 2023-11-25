@@ -1,5 +1,6 @@
 package com.example.proyectogrupo1musicstore.Activities.Grupos;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -19,9 +20,13 @@ import java.util.List;
 
 import com.example.proyectogrupo1musicstore.NetworkTasks.InsertarIntegranteAsyncTask;
 import com.example.proyectogrupo1musicstore.R;
+import com.example.proyectogrupo1musicstore.Utilidades.ConfirmationDialog;
 import com.example.proyectogrupo1musicstore.Utilidades.JwtDecoder;
 import com.example.proyectogrupo1musicstore.Utilidades.token;
 import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
+import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 
 public class ActivityUnirseGrupo extends AppCompatActivity {
@@ -31,6 +36,7 @@ public class ActivityUnirseGrupo extends AppCompatActivity {
     TextView textviewAtras, Grupos, Inicio, textviewNombreGrupo, textviewIntegrantes, textviewCreadoPor, textviewDescripcion, textviewTipoGrupo;
     Button btnUnirse;
     private List<buscarGrupo> receivedDataList;
+    private buscarGrupo object;
     private String tipo;
     ImageView iconGrupos, iconInicio, imageGrupo;
     private com.example.proyectogrupo1musicstore.Utilidades.token token = new token(this);
@@ -43,8 +49,21 @@ public class ActivityUnirseGrupo extends AppCompatActivity {
 
         Intent intent = getIntent();
         String jsonString = intent.getStringExtra("jsonString");
-        Type listType = new TypeToken<List<buscarGrupo>>() {}.getType();
-        receivedDataList = new Gson().fromJson(jsonString, listType);
+
+        try {
+            JsonElement element = JsonParser.parseString(jsonString);
+
+            if (element.isJsonObject()) {
+                // Handle object
+                object = new Gson().fromJson(element, buscarGrupo.class);
+            } else if (element.isJsonArray()) {
+                // Handle array
+                Type listType = new TypeToken<List<buscarGrupo>>() {}.getType();
+                receivedDataList = new Gson().fromJson(element, listType);
+            }
+        } catch (JsonSyntaxException e) {
+            e.printStackTrace();
+        }
 
         idUsuario = Integer.parseInt(JwtDecoder.decodeJwt(token.recuperarTokenFromKeystore()));
 
@@ -65,18 +84,18 @@ public class ActivityUnirseGrupo extends AppCompatActivity {
         btnUnirse = (Button) findViewById(R.id.btnUnirse);
         imageGrupo = (ImageView) findViewById(R.id.imageviewUnirseImagenGrupo);
 
-        if(receivedDataList.get(0).getIdvisualizacion()==1){
+        if(object.getIdvisualizacion()==1){
             tipo = "Grupo Privado";
         }else{
             tipo = "Grupo Publico";
         }
 
         //coloca calores en los textviews
-        imageGrupo.setImageBitmap(receivedDataList.get(0).getImage());
-        textviewNombreGrupo.setText(receivedDataList.get(0).getNombre());
-        textviewIntegrantes.setText("Integrantes: " + String.valueOf(receivedDataList.get(0).getTotalusuarios()) );
-        textviewCreadoPor.setText("Creado Por: " + receivedDataList.get(0).getUsuario());
-        textviewDescripcion.setText(receivedDataList.get(0).getDescripcion());
+        imageGrupo.setImageBitmap(object.getImage());
+        textviewNombreGrupo.setText(object.getNombre());
+        textviewIntegrantes.setText("Integrantes: " + String.valueOf(object.getTotalusuarios()) );
+        textviewCreadoPor.setText("Creado Por: " + object.getUsuario());
+        textviewDescripcion.setText(object.getDescripcion());
         textviewTipoGrupo.setText(tipo);
 
         // Listener para abrir el menú lateral
@@ -88,13 +107,45 @@ public class ActivityUnirseGrupo extends AppCompatActivity {
         btnUnirse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(receivedDataList.get(0).getIdvisualizacion()==1){
+                if(object.getIdvisualizacion()==1){
                     new InsertarIntegranteAsyncTask(ActivityUnirseGrupo.this)
-                            .execute(String.valueOf(receivedDataList.get(0).getIdgrupo()), String.valueOf(idUsuario), "Privado", String.valueOf(receivedDataList.get(0).getIdOwner()));
+                            .execute(String.valueOf(object.getIdgrupo()), String.valueOf(idUsuario), "Privado", String.valueOf(object.getIdOwner()));
                 }else{
                     new InsertarIntegranteAsyncTask(ActivityUnirseGrupo.this)
-                            .execute(String.valueOf(receivedDataList.get(0).getIdgrupo()), String.valueOf(idUsuario), "Publico", String.valueOf(receivedDataList.get(0).getIdOwner()));
+                            .execute(String.valueOf(object.getIdgrupo()), String.valueOf(idUsuario), "Publico", String.valueOf(object.getIdOwner()));
                 }
+            }
+        });
+
+        btnUnirse.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Show confirmation dialog
+                ConfirmationDialog.showConfirmationDialog(
+                        ActivityUnirseGrupo.this, // Replace with your activity or fragment context
+                        "Confirmación",
+                        "¿Está seguro de que desea unirse al grupo?",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                // Si el usuario hace click en si
+                                if(object.getIdvisualizacion()==1){
+                                    new InsertarIntegranteAsyncTask(ActivityUnirseGrupo.this)
+                                            .execute(String.valueOf(object.getIdgrupo()), String.valueOf(idUsuario), "Privado", String.valueOf(object.getIdOwner()));
+                                }else{
+                                    new InsertarIntegranteAsyncTask(ActivityUnirseGrupo.this)
+                                            .execute(String.valueOf(object.getIdgrupo()), String.valueOf(idUsuario), "Publico", String.valueOf(object.getIdOwner()));
+                                }
+                            }
+                        },
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                // Si el usuario hace click en no
+                                dialog.dismiss();
+                            }
+                        }
+                );
             }
         });
 
@@ -104,10 +155,10 @@ public class ActivityUnirseGrupo extends AppCompatActivity {
             public void onClick(View view) {
                 Class<?> actividad = null;
                 if (view.getId() == R.id.btn_GruposUnirseAtras) {
-                    actividad = ActivityGrupoPrincipal.class;
+                    actividad = ActivityGruposBuscar.class;
                 }
                 if (view.getId() == R.id.textview_GrupoUnirsebotAtras) {
-                    actividad = ActivityGrupoPrincipal.class;
+                    actividad = ActivityGruposBuscar.class;
                 }
                 if (view.getId() == R.id.txtViewNavGrupos) {
                     actividad = ActivityGrupoPrincipal.class;

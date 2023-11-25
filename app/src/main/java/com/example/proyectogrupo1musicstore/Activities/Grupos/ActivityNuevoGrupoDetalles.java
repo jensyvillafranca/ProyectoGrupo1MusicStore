@@ -34,7 +34,9 @@ import com.example.proyectogrupo1musicstore.Adapters.CustomAdapterNuevoGrupoDeta
 import com.example.proyectogrupo1musicstore.Models.vistaDeNuevoGrupo;
 import com.example.proyectogrupo1musicstore.NetworkTasks.CreateGroupAsyncTask;
 import com.example.proyectogrupo1musicstore.NetworkTasks.FetchMemberDetailsAsyncTask;
+import com.example.proyectogrupo1musicstore.NetworkTasks.InsertarIntegranteAsyncTask;
 import com.example.proyectogrupo1musicstore.R;
+import com.example.proyectogrupo1musicstore.Utilidades.ConfirmationDialog;
 import com.example.proyectogrupo1musicstore.Utilidades.JwtDecoder;
 import com.example.proyectogrupo1musicstore.Utilidades.token;
 
@@ -165,7 +167,26 @@ public class ActivityNuevoGrupoDetalles extends AppCompatActivity implements Fet
         btnUnirse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new CreateGroupAsyncTask(ActivityNuevoGrupoDetalles.this, selectedUserIds, textNombreGrupo.getText().toString(), textDescripcion.getText().toString(), imgPerfilByteArray, estadoPrivado, textNombreGrupo, idUsuario).execute();
+                // Show confirmation dialog
+                ConfirmationDialog.showConfirmationDialog(
+                        ActivityNuevoGrupoDetalles.this,
+                        "Confirmación",
+                        "¿Está seguro de que desea crear el grupo?",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                // Si el usuario hace click en si
+                                new CreateGroupAsyncTask(ActivityNuevoGrupoDetalles.this, selectedUserIds, textNombreGrupo.getText().toString(), textDescripcion.getText().toString(), imgPerfilByteArray, estadoPrivado, textNombreGrupo, idUsuario).execute();
+                            }
+                        },
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                // Si el usuario hace click en no
+                                dialog.dismiss();
+                            }
+                        }
+                );
             }
         });
 
@@ -286,7 +307,7 @@ public class ActivityNuevoGrupoDetalles extends AppCompatActivity implements Fet
 
     //metodo para revisar los permisos
     private void checkPermissions() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
             // Android 10 and above, request READ_MEDIA_IMAGES
             if (ContextCompat.checkSelfPermission(ActivityNuevoGrupoDetalles.this, Manifest.permission.READ_MEDIA_IMAGES) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(ActivityNuevoGrupoDetalles.this, new String[]{Manifest.permission.READ_MEDIA_IMAGES}, REQUEST_CODE);
