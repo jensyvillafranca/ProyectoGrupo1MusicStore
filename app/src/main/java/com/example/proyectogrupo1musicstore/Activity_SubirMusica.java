@@ -7,6 +7,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Build;
@@ -14,17 +17,10 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.provider.Settings;
 import android.util.Base64;
-import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.ListAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
@@ -33,53 +29,48 @@ import androidx.core.content.ContextCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
-import com.example.proyectogrupo1musicstore.Activities.Grupos.ActivityNuevoGrupoDetalles;
 import com.example.proyectogrupo1musicstore.Adapters.CustomAdapterMusicaVideos;
 import com.example.proyectogrupo1musicstore.Models.vistaMusicaVideo;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-
-
-import org.json.JSONObject;
-
+import com.example.proyectogrupo1musicstore.Utilidades.JwtDecoder;
+import com.example.proyectogrupo1musicstore.Utilidades.token;
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
 
 public class Activity_SubirMusica extends AppCompatActivity {
     RecyclerView listas;
-   // ListView listas;
+    // ListView listas;
     DrawerLayout drawerLayouts;
     ImageButton botonAtrass;
     TextView textviewAtrass, txtBuscarArchivos;
     ImageView imageViewBuscarArchivos;
-    CardView buscars, videos,seleccionarAudio;
+    CardView buscars, videos, seleccionarAudio;
     private static final int PICK_AUDIOS_REQUEST = 1;// Código de solicitud para seleccionar un archivo de audio
     private static final int REQUEST_CODE = 123;
     private static final int REQUEST_CODE_EXTERNAL = 124;
+    private com.example.proyectogrupo1musicstore.Utilidades.token token = new token(this);
 
+    private int idUsuario;
+    private String idPlayList = "1";
+    private String idFavorito = "1";
 
+    byte[] audioBase64;
 
+    /*Clase que nos permitira obtener la metadata de ese audio*/
+    MediaMetadataRetriever metadata = new MediaMetadataRetriever();
+    Uri audioUri;
+    String nombreCancion, artista,album,genero,duracion, imagenPortadaBase64;
+    byte[] imagenPortada;
+    Bitmap imagenPortada_Bitmap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_subir_musica);
-
-
-        // Obtén la referencia al Firebase Storage
 
         listas = (RecyclerView) findViewById(R.id.recyclerview_SubirMusica);
         drawerLayouts = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -102,7 +93,10 @@ public class Activity_SubirMusica extends AppCompatActivity {
         CustomAdapterMusicaVideos adapter = new CustomAdapterMusicaVideos(this, dataList);
         listas.setAdapter(adapter);
 
-//Modificados
+        //Obteniendo el id del usuario por medio del token
+        idUsuario = Integer.parseInt(JwtDecoder.decodeJwt(token.recuperarTokenFromKeystore()));
+
+        //Modificados
         seleccionarAudio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -178,26 +172,6 @@ public class Activity_SubirMusica extends AppCompatActivity {
         }
     }
 
-
-
-
-
-
-
-    private byte[] getBytes(InputStream inputStream) throws IOException {
-        ByteArrayOutputStream byteBuffer = new ByteArrayOutputStream();
-        int bufferSize = 1024;
-        byte[] buffer = new byte[bufferSize];
-        int len;
-        while ((len = inputStream.read(buffer)) != -1) {
-            byteBuffer.write(buffer, 0, len);
-        }
-        return byteBuffer.toByteArray();
-    }
-
-
-
-
     private void showPermissionExplanation() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Permiso Requerido");
@@ -226,32 +200,37 @@ public class Activity_SubirMusica extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
         if (requestCode == PICK_AUDIOS_REQUEST && resultCode == RESULT_OK && data != null) {
-            Uri audioUri = data.getData();
-            // Convierte la URI en una ruta de archivo real, si es necesario
-            String audioPath = getRealPathFromURI(getApplicationContext(),audioUri);
-            // Llama al método que convierte el audio a base 64
-            String audioBase64 = convertirAudioBase64(audioPath);
-            Log.d("Probando: ", audioPath);
-            if (audioBase64 != null) {
-                Log.d("Base64Audio", audioBase64);
-            } else {
-                Log.d("Base64Audio", "El audio en Base64 es null");
+            //Ubicación del recurso de audio
+            audioUri = data.getData();
+            //Pasar todos los parametros que la clase Activity_SubirMusicaAsyncTask necesita para mandar al PHP
+            obtenerRutaRealMusica(getApplicationContext(), audioUri);
+            //Mandar a llamar el metodo que manda toda la data a la clase Activity_SubirMusicaAsyncTask
+            try {
+                subirAudioFirebase();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
-            //playAudioPreview(audioUri);
         }
     }
 
-    public String getRealPathFromURI(Context context, Uri contentUri) {
+    /*Este metódo convierte la Uri en una ruta de archivo real en el sistema de archivos del dispositivo*/
+    /*Es útil porque gracias a él podemos hacer operaciones de lectura y escritura, en nuestro caso necesitamos leerlo
+    * para convertirlo a base 64 y también para la metadata del audio*/
+    public String obtenerRutaRealMusica(Context context, Uri contentUri) {
         Cursor cursor = null;
         try {
             String[] proj = { MediaStore.Audio.Media.DATA };
             cursor = context.getContentResolver().query(contentUri, proj, null, null, null);
             if (cursor != null && cursor.moveToFirst()) {
                 int column_index = cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.DATA);
-                return cursor.getString(column_index);
+                String filePath = cursor.getString(column_index);
+                InputStream inputStream = new FileInputStream(filePath); // Abre el archivo como InputStream
+                audioBase64 = getBytes(inputStream); // Convierte a arreglo de bytes
             }
+        } catch (IOException e) {
+            e.printStackTrace();
+            // Manejo de excepciones
         } finally {
             if (cursor != null) {
                 cursor.close();
@@ -260,40 +239,63 @@ public class Activity_SubirMusica extends AppCompatActivity {
         return null;
     }
 
+    /*Convertir el audio en base 64 mandando la ruta real desde el metodo de la parte de arriba*/
 
-    /*Metodo de prueba para reproducir el audio que seleccionamos
-    private void playAudioPreview(Uri audioUri) {
-        MediaPlayer mediaPlayer = new MediaPlayer();
-        try {
-            mediaPlayer.setDataSource(this, audioUri);
-            mediaPlayer.prepare();
-            mediaPlayer.start();
-
-            // Podrías detener la reproducción después de algunos segundos
-            // O permitir que el usuario detenga la vista previa con un botón
-
-        } catch (IOException e) {
-            // Manejo de error
+    private byte[] getBytes(InputStream inputStream) throws IOException {
+        ByteArrayOutputStream byteBuffer = new ByteArrayOutputStream();
+        int bufferSize = 1024;
+        byte[] buffer = new byte[bufferSize];
+        int len;
+        while ((len = inputStream.read(buffer)) != -1) {
+            byteBuffer.write(buffer, 0, len);
         }
-    }*/
-
-    /*Convertir el audio a base64 a partir de su URL para posteriormente subirlo a firebase por medio de volley y PHP*/
-    private String convertirAudioBase64(String filePath) {
-        try {
-            InputStream inputStream = new FileInputStream(filePath);
-            byte[] audioBytes;
-            if (inputStream != null) {
-                audioBytes = new byte[inputStream.available()];
-                inputStream.read(audioBytes);
-                return Base64.encodeToString(audioBytes, Base64.DEFAULT);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
+        return byteBuffer.toByteArray();
     }
 
 
-    /*Hasta aqui*/
+
+    public void subirAudioFirebase() throws IOException {
+        extraerMetadata();
+        new Activity_SubirMusicaAsyncTask(getApplicationContext(),artista, idUsuario, audioBase64 , imagenPortadaBase64, idPlayList, idFavorito, nombreCancion, album, genero);
+        //idPlayList preguntar a Jonathan
+        //idFavorito resolver también
+    }
+
+    /*Metodo para obtener metadata del archivo de música*/
+    /*Obtener la metada del archivo de audio*/
+    public void extraerMetadata() throws IOException {
+        try {
+            metadata.setDataSource(getApplicationContext(), audioUri);
+            nombreCancion = metadata.extractMetadata(MediaMetadataRetriever.METADATA_KEY_TITLE);
+            artista = metadata.extractMetadata(MediaMetadataRetriever.METADATA_KEY_ARTIST);
+            album = metadata.extractMetadata(MediaMetadataRetriever.METADATA_KEY_ALBUM);
+            genero = metadata.extractMetadata(MediaMetadataRetriever.METADATA_KEY_GENRE);
+           // duracion = metadata.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION);
+            imagenPortada = metadata.getEmbeddedPicture();
+
+            if (imagenPortada != null) {
+                // Si la canción tiene una imagen de portada
+                imagenPortada_Bitmap = BitmapFactory.decodeByteArray(imagenPortada, 0, imagenPortada.length);
+                // Convertir el Bitmap a un array de bytes
+                ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+                imagenPortada_Bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
+                byte[] imagenPortadaBytes = byteArrayOutputStream.toByteArray();
+                // Convertir el array de bytes a Base64
+                imagenPortadaBase64 = Base64.encodeToString(imagenPortadaBytes, Base64.DEFAULT);
+            } else {
+                // Si no hay imagen de portada, asignamos nulo el bitmap
+                imagenPortadaBase64 = "null";
+            }
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            metadata.release(); // No olvides liberar el recurso
+        }
+    }
+
+
+
 
 }
