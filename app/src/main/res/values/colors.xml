@@ -10,4 +10,7 @@
     <color name="lightGray90">#E6CCCCCC</color>
     <color name="black90">#E6000000</color>
     <color name="negro">#00abe3</color>
+    <color name="whiteseguir">#fff</color>
+    <color name="azulseguido">#3CA7E6</color>
+
 </resources>

@@ -28,15 +28,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:id="@+id/btnatras"
                     tools:ignore="UseCompoundDrawables">
 
                     <ImageView
+                        android:id="@+id/btn_EditarPerfilAtras"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:src="@drawable/iconoatras"
-                        android:importantForAccessibility="no"/>
+                        android:importantForAccessibility="no"
+                        android:src="@drawable/iconoatras" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -52,14 +52,6 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"/>
-
-                <ImageView
-                    android:id="@+id/btnMenu"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:src="@drawable/menudespegable"
-                    android:importantForAccessibility="no"/>
 
             </LinearLayout>
 
@@ -83,13 +75,17 @@
                         android:background="@drawable/borderimg"
                         android:layout_gravity="center"/>
 
-                    <ImageView
+                    <com.makeramen.roundedimageview.RoundedImageView
                         android:id="@+id/imgFoto"
                         android:layout_width="180dp"
                         android:layout_height="180dp"
                         android:layout_gravity="center"
+                        android:background="@drawable/borderimg"
                         android:src="@drawable/pfp"
-                        android:importantForAccessibility="no" />
+                        android:importantForAccessibility="no"
+                        android:scaleType="centerCrop"
+                        app:riv_corner_radius="50dp"
+                        app:riv_oval="true" />
 
                     <FrameLayout
                         android:layout_width="70dp"
@@ -128,7 +124,7 @@
 
                 <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="313dp"
                     android:layout_gravity="center">
 
                     <ImageView
@@ -141,42 +137,11 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
                         android:layout_gravity="center"
+                        android:orientation="vertical"
                         android:paddingHorizontal="70dp"
                         android:paddingVertical="40dp">
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/biografia"
-                                android:textColor="@color/white"
-                                android:textSize="15sp" />
-
-                            <Space
-                                android:layout_width="0dp"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1" />
-
-                            <ImageView
-                                android:id="@+id/imgBiografia"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginRight="6dp"
-                                android:src="@drawable/botoneditardebiocambiarcontrasena"
-                                android:importantForAccessibility="no"
-                                tools:ignore="RtlHardcoded" />
-
-                        </LinearLayout>
-
-                        <Space
-                            android:layout_width="wrap_content"
-                            android:layout_height="20dp" />
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -184,6 +149,7 @@
                             android:orientation="horizontal">
 
                             <TextView
+                                android:id="@+id/txtviewCambiarContrasenia"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/cambiarContrasena"
@@ -197,45 +163,12 @@
                                 android:layout_weight="1" />
 
                             <ImageView
-                                android:id="@+id/imgContrasena"
+                                android:id="@+id/imgContrasenia"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginRight="6dp"
                                 android:importantForAccessibility="no"
                                 android:src="@drawable/botoneditardebiocambiarcontrasena"
-                                tools:ignore="RtlHardcoded" />
-
-                        </LinearLayout>
-
-                        <Space
-                            android:layout_width="wrap_content"
-                            android:layout_height="20dp" />
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/habilitarDatosBiometricos"
-                                android:textColor="@color/white"
-                                android:textSize="15sp"
-                                tools:ignore="TextContrastCheck" />
-
-                            <Space
-                                android:layout_width="0dp"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1" />
-
-                            <ImageView
-                                android:id="@+id/imgBiometricos"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginRight="6dp"
-                                android:src="@drawable/botoneditardebiocambiarcontrasena"
-                                android:importantForAccessibility="no"
                                 tools:ignore="RtlHardcoded" />
 
                         </LinearLayout>
@@ -266,8 +199,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="18dp"
                                     android:layout_gravity="right"
-                                    android:theme="@style/checkbox"
-                                    tools:ignore="RtlHardcoded,TouchTargetSizeCheck,DuplicateSpeakableTextCheck" />
+                                    android:theme="@style/checkbox" />
 
                             </LinearLayout>
 
@@ -332,8 +264,8 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginRight="6dp"
-                                android:src="@drawable/botoneditardebiocambiarcontrasena"
                                 android:importantForAccessibility="no"
+                                android:src="@drawable/botoneditardebiocambiarcontrasena"
                                 tools:ignore="RtlHardcoded" />
 
                         </LinearLayout>
