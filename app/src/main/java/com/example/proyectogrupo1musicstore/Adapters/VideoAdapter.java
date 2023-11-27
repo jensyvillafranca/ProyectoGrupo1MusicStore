@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.proyectogrupo1musicstore.Models.integrantesItem;
 import com.example.proyectogrupo1musicstore.Models.videoItem;
 import com.example.proyectogrupo1musicstore.R;
 
@@ -34,7 +35,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoViewHol
     @Override
     public void onBindViewHolder(@NonNull VideoViewHolder holder, int position) {
         videoItem item = itemList.get(position);
-        holder.videoImage.setImageResource(item.getImageResId());
+        holder.videoImage.setImageBitmap(item.getImageResId());
         holder.videoName.setText(item.getItemName());
     }
 
@@ -52,5 +53,9 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoViewHol
             videoImage = itemView.findViewById(R.id.imageviewCarouselItemVideo);
             videoName = itemView.findViewById(R.id.textviewCarouselItemVideo);
         }
+    }
+    public void setDataList(List<videoItem> newDataList) {
+        itemList = newDataList;
+        notifyDataSetChanged();
     }
 }

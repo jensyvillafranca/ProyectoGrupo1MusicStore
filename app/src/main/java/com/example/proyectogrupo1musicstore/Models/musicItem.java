@@ -1,19 +1,29 @@
 package com.example.proyectogrupo1musicstore.Models;
 
-public class musicItem {
-    private int imageResId;
-    private String itemName;
+import android.graphics.Bitmap;
 
-    public musicItem(int imageResId, String itemName) {
+public class musicItem {
+    private Bitmap imageResId;
+    private String itemName;
+    private int id;
+    private String url;
+
+    public musicItem(Bitmap imageResId, String itemName, int id, String url) {
         this.imageResId = imageResId;
         this.itemName = itemName;
+        this.id = id;
+        this.url = url;
     }
 
-    public int getImageResId() {
+    public Bitmap getImageResId() {
         return imageResId;
     }
 
     public String getItemName() {
         return itemName;
     }
+
+    public int getId() {return id;}
+
+    public String getUrl() {return url;}
 }

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/fondodetodaslaspantallas"
-    tools:context=".ActivityNuevoGrupoDetalles">
+    tools:context=".Activities.Grupos.ActivityNuevoGrupoDetalles">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -47,6 +47,7 @@
                     android:layout_alignParentTop="true"
                     android:layout_marginStart="62dp"
                     android:layout_marginTop="12dp"
+                    android:fontFamily="@font/fuente_jost_global"
                     android:text="@string/atras"
                     android:textColor="#FFFFFF"
                     android:textStyle="bold"
@@ -75,12 +76,12 @@
                     android:id="@+id/imageview_NuevoGrupoDetallesSubir"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
-                    android:layout_marginStart="20dp"
+                    android:layout_marginStart="10dp"
                     android:layout_marginTop="20dp"
-                    android:layout_marginEnd="20dp"
+                    android:layout_marginEnd="250dp"
                     android:layout_marginBottom="20dp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/text_NuevoGrupoDetallesNombreGrupo"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@drawable/sinimagen" />
@@ -89,17 +90,20 @@
                     android:id="@+id/text_NuevoGrupoDetallesNombreGrupo"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="30dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="20dp"
                     android:background="@android:color/transparent"
                     android:ems="10"
+                    android:fontFamily="@font/fuente_jost_global"
                     android:hint="@string/ingrese_nombreGrupo"
+                    android:imeOptions="actionDone"
                     android:inputType="text"
                     android:textColor="@color/lightGray90"
                     android:textColorHint="@color/lightGray90"
                     android:textSize="16sp"
-                    android:imeOptions="actionDone"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/imageview_NuevoGrupoDetallesSubir"
                     app:layout_constraintTop_toTopOf="parent" />
 
 
@@ -107,12 +111,15 @@
                     android:id="@+id/text_NuevoGrupoDetallesDescripcion"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="30dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="20dp"
                     android:layout_marginBottom="10dp"
                     android:background="@android:drawable/gallery_thumb"
                     android:ems="10"
+                    android:fontFamily="@font/fuente_jost_global"
                     android:hint="@string/ingrese_descripcion"
+                    android:imeOptions="actionDone"
                     android:inputType="textMultiLine"
                     android:maxLines="10"
                     android:minLines="3"
@@ -120,9 +127,9 @@
                     android:textColor="@color/lightGray90"
                     android:textColorHint="@color/lightGray90"
                     android:textSize="16sp"
-                    android:imeOptions="actionDone"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/imageview_NuevoGrupoDetallesSubir"
                     app:layout_constraintTop_toBottomOf="@+id/text_NuevoGrupoDetallesNombreGrupo"
                     app:layout_constraintVertical_bias="1.0" />
 
@@ -130,7 +137,7 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="0dp"
-                android:layout_height="563dp"
+                android:layout_height="560dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="10dp"
@@ -140,33 +147,47 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
+                app:layout_constraintVertical_bias="0.0">
 
                 <Button
                     android:id="@+id/btnNuevoGrupoDetallesUnirse"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="30dp"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="30dp"
                     android:layout_marginEnd="30dp"
-                    android:layout_marginBottom="10dp"
+                    android:layout_marginBottom="50dp"
                     android:backgroundTint="@color/button"
+                    android:fontFamily="@font/fuente_jost_global"
                     android:text="@string/crearGrupo"
+                    android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/recyclerview_NuevoGrupoDetalles" />
+                    app:layout_constraintTop_toBottomOf="@+id/checkboxNuevoGrupoDetalles" />
 
+                <CheckBox
+                    android:id="@+id/checkboxNuevoGrupoDetalles"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="68dp"
+                    android:layout_marginBottom="70dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/recyclerview_NuevoGrupoDetalles" />
 
                 <TextView
                     android:id="@+id/textview_NuevoGrupoDetallesIntegrantes"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginBottom="20dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="10dp"
+                    android:fontFamily="@font/fuente_jost_global"
                     android:text="@string/integrantes"
                     android:textColor="@color/lightGray90"
-                    android:textSize="16sp"
+                    android:textSize="18sp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toTopOf="@+id/recyclerview_NuevoGrupoDetalles"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -176,16 +197,33 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerview_NuevoGrupoDetalles"
                     android:layout_width="0dp"
-                    android:layout_height="382dp"
+                    android:layout_height="0dp"
                     android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"
                     android:layout_marginEnd="10dp"
-                    android:layout_marginBottom="57dp"
+                    android:layout_marginBottom="80dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textview_NuevoGrupoDetallesIntegrantes" />
+
+                <TextView
+                    android:id="@+id/textview_NuevoGrupoDetallesPrivado"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="100dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="70dp"
+                    android:fontFamily="@font/fuente_jost_global"
+                    android:text="@string/grupoPrivado"
+                    android:textColor="@color/lightGray90"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/checkboxNuevoGrupoDetalles"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/recyclerview_NuevoGrupoDetalles" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>

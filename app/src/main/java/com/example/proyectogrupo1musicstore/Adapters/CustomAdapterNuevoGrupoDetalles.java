@@ -35,7 +35,7 @@ public class CustomAdapterNuevoGrupoDetalles extends RecyclerView.Adapter<Custom
 
         // Vincula los datos a las vistas en tu diseño de elemento de lista personalizado
         holder.nombreUsuario.setText(data.getText1());
-        holder.image.setImageResource(data.getImageResource());
+        holder.image.setImageBitmap(data.getImageResource());
     }
 
     //Devuelve el número total de elementos en la lista de datos.

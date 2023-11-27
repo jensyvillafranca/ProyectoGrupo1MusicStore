@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/fondodetodaslaspantallas"
-    tools:context=".ActivityGrupoInfo">
+    tools:context=".Activities.Grupos.ActivityGrupoInfo">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -47,6 +47,7 @@
                     android:layout_alignParentTop="true"
                     android:layout_marginStart="62dp"
                     android:layout_marginTop="12dp"
+                    android:fontFamily="@font/fuente_jost_global"
                     android:text="@string/atras"
                     android:textColor="#FFFFFF"
                     android:textStyle="bold"
@@ -86,7 +87,7 @@
 
 
                 <ImageView
-                    android:id="@+id/imageView"
+                    android:id="@+id/imageviewGrupoInfoFoto"
                     android:layout_width="160dp"
                     android:layout_height="116dp"
                     android:layout_marginStart="50dp"
@@ -103,6 +104,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
+                    android:fontFamily="@font/fuente_jost_global"
                     android:text="@string/nombreGrupo"
                     android:textColor="@color/white"
                     android:textSize="20sp"
@@ -110,7 +112,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/imageView" />
+                    app:layout_constraintTop_toBottomOf="@+id/imageviewGrupoInfoFoto" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -145,10 +147,12 @@
                     android:id="@+id/textviewVerTodoVideo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="14dp"
+                    android:layout_marginTop="12dp"
                     android:layout_marginEnd="10dp"
+                    android:fontFamily="@font/fuente_jost_global"
                     android:text="@string/verTodo"
                     android:textColor="#FFFFFF"
+                    android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/recyclerviewMusica" />
 
@@ -158,6 +162,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="10dp"
+                    android:fontFamily="@font/fuente_jost_global"
                     android:text="@string/video"
                     android:textColor="#FFFFFF"
                     android:textSize="18sp"
@@ -178,12 +183,14 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textviewMusicaTitle" />
 
+
                 <TextView
                     android:id="@+id/textviewMusicaTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="10dp"
+                    android:fontFamily="@font/fuente_jost_global"
                     android:text="@string/musica"
                     android:textColor="#FFFFFF"
                     android:textSize="18sp"
@@ -197,6 +204,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="5dp"
+                    android:fontFamily="@font/fuente_jost_global"
                     android:text="@string/integrantes"
                     android:textColor="#FFFFFF"
                     android:textSize="18sp"
@@ -205,13 +213,15 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/textviewVerTodoIntegrantes"
+                    android:id="@+id/textviewVerTodoMusica"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="14dp"
+                    android:layout_marginTop="12dp"
                     android:layout_marginEnd="10dp"
+                    android:fontFamily="@font/fuente_jost_global"
                     android:text="@string/verTodo"
                     android:textColor="#FFFFFF"
+                    android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/recyclerviewIntegrantes" />
 
@@ -228,13 +238,15 @@
                     app:layout_constraintTop_toBottomOf="@+id/textviewIntegrantesTitle" />
 
                 <TextView
-                    android:id="@+id/textviewVerTodoMusica"
+                    android:id="@+id/textviewVerTodoIntegrantes"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
+                    android:layout_marginTop="10dp"
                     android:layout_marginEnd="10dp"
+                    android:fontFamily="@font/fuente_jost_global"
                     android:text="@string/verTodo"
                     android:textColor="#FFFFFF"
+                    android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>

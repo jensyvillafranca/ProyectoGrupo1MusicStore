@@ -15,11 +15,11 @@ import com.example.proyectogrupo1musicstore.R;
 
 import java.util.List;
 
-public class CustomAdapterBuscarMusica extends RecyclerView.Adapter {
+public class CustomAdapterBuscarMusica extends RecyclerView.Adapter<CustomAdapterBuscarMusica.CustomViewHolder>  {
 
     private List<vistaMusicaVideo> dataList;
     private Context context;
-    boolean isImage1 = true;
+
 
     public CustomAdapterBuscarMusica(Context context, List<vistaMusicaVideo> dataList) {
         this.context = context;
@@ -32,24 +32,21 @@ public class CustomAdapterBuscarMusica extends RecyclerView.Adapter {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-
-    }
-
-
-    public void onBindViewHolder(CustomAdapterBuscarMusica.CustomViewHolder holder, int position) {
+    public void onBindViewHolder(CustomViewHolder holder, int position) {
         vistaMusicaVideo data = dataList.get(position);
 
         // Vincula los datos a las vistas en tu diseño de elemento de lista personalizado
         holder.nombreCancion.setText(data.getText1());
         holder.creadoPor.setText(data.getText2());
         holder.image.setImageResource(data.getImageResource());
+
+        // Obtiene el ImageView del diseño
+        ImageView imgUnirse = holder.itemView.findViewById(R.id.imageviewListItemImage);
     }
 
 
+
     public int getItemCount(){return dataList.size(); }
-
-
     public class CustomViewHolder extends RecyclerView.ViewHolder {
         TextView nombreCancion; // TextView para mostrar el nombre del grupo
         TextView creadoPor; // TextView para mostrar el creador del grupo

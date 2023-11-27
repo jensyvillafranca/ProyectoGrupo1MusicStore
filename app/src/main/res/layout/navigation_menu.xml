@@ -24,6 +24,7 @@
             android:layout_width="224dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:fontFamily="@font/fuente_jost_global"
             android:text="@string/appName"
             android:textAlignment="center"
             android:textColor="@color/white"
@@ -61,10 +62,12 @@
                     android:id="@+id/txtviewNavInicio"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/fuente_jost_global"
                     android:paddingStart="8dp"
                     android:text="@string/inicio"
                     android:textColor="@color/white"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -86,10 +89,12 @@
                     android:id="@+id/txtViewNavGrupos"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/fuente_jost_global"
                     android:paddingStart="8dp"
                     android:text="@string/grupos"
                     android:textColor="@color/white"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -111,10 +116,12 @@
                     android:id="@+id/txtviewNavUsuarios"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/fuente_jost_global"
                     android:paddingStart="8dp"
                     android:text="@string/usuarios"
                     android:textColor="@color/white"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -136,10 +143,12 @@
                     android:id="@+id/txtviewNavBuscar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/fuente_jost_global"
                     android:paddingStart="8dp"
                     android:text="@string/buscar"
                     android:textColor="@color/white"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -161,10 +170,12 @@
                     android:id="@+id/txtviewNavMultimedia"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/fuente_jost_global"
                     android:paddingStart="8dp"
                     android:text="@string/multimedia"
                     android:textColor="@color/white"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -186,10 +197,12 @@
                     android:id="@+id/txtviewNavAjustes"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/fuente_jost_global"
                     android:paddingStart="8dp"
                     android:text="@string/ajustes"
                     android:textColor="@color/white"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -211,10 +224,39 @@
                     android:id="@+id/txtviewNavAcerca"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/fuente_jost_global"
                     android:paddingStart="8dp"
                     android:text="@string/acercade"
                     android:textColor="@color/white"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="16dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:onClick="onMenuItemClick">
+
+                <ImageView
+                    android:id="@+id/iconCerrarSesion"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:contentDescription="Cerrar sesión Icon"
+                    android:src="@drawable/iconoeliminargrupo" />
+
+                <TextView
+                    android:id="@+id/txtviewCerrarSesion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/fuente_jost_global"
+                    android:paddingStart="8dp"
+                    android:text="@string/cerrarSesion"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
             </LinearLayout>
 
         </LinearLayout>

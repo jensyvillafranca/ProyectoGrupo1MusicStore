@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.proyectogrupo1musicstore.Models.integrantesItem;
+import com.example.proyectogrupo1musicstore.Models.vistaDeNuevoGrupo;
 import com.example.proyectogrupo1musicstore.R;
 
 import java.util.List;
@@ -34,7 +35,7 @@ public class IntegrantesAdapter extends RecyclerView.Adapter<IntegrantesAdapter.
     @Override
     public void onBindViewHolder(@NonNull IntegrantesViewHolder holder, int position) {
         integrantesItem item = itemList.get(position);
-        holder.integranteImage.setImageResource(item.getImageResId());
+        holder.integranteImage.setImageBitmap(item.getImageResId());
         holder.integranteName.setText(item.getItemName());
     }
 
@@ -52,5 +53,10 @@ public class IntegrantesAdapter extends RecyclerView.Adapter<IntegrantesAdapter.
             integranteImage = itemView.findViewById(R.id.imageviewCarouselItemIntegrantes);
             integranteName = itemView.findViewById(R.id.textviewCarouselItemIntegrantes);
         }
+    }
+
+    public void setDataList(List<integrantesItem> newDataList) {
+        itemList = newDataList;
+        notifyDataSetChanged();
     }
 }

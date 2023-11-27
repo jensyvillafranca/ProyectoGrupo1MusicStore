@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/fondodetodaslaspantallas"
-    tools:context=".ActivityUnirseGrupo">
+    tools:context=".Activities.Grupos.ActivityUnirseGrupo">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <RelativeLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -25,7 +25,7 @@
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/relativeLayoutGruposUnirse2"
-                app:layout_constraintVertical_bias="1.0">
+                app:layout_constraintVertical_bias="0.0">
 
                 <ImageView
                     android:id="@+id/imageviewUnirseImagenGrupo"
@@ -45,33 +45,35 @@
 
                 <TextView
                     android:id="@+id/textviewUnirseNombreGrupo"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/imageviewUnirseImagenGrupo"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentEnd="true"
-                    android:layout_marginStart="100dp"
+                    android:layout_marginStart="80dp"
                     android:layout_marginTop="40dp"
-                    android:layout_marginEnd="100dp"
+                    android:layout_marginEnd="80dp"
+                    android:fontFamily="@font/fuente_jost_global"
                     android:text="@string/nombreGrupo"
                     android:textAlignment="center"
                     android:textColor="@color/white"
-                    android:textSize="20sp"
+                    android:textSize="30sp"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/imageviewUnirseImagenGrupo" />
 
                 <TextView
-                    android:id="@+id/textView5"
-                    android:layout_width="match_parent"
+                    android:id="@+id/textviewUnirseIntegrantes"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/textviewUnirseNombreGrupo"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentEnd="true"
                     android:layout_marginStart="100dp"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="10dp"
                     android:layout_marginEnd="100dp"
+                    android:fontFamily="@font/fuente_jost_global"
                     android:text="@string/integrantes"
                     android:textColor="@color/lightGray90"
                     android:textSize="16sp"
@@ -84,35 +86,71 @@
                     android:id="@+id/textviewUnirseDescripcion"
                     android:layout_width="300dp"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/textView5"
+                    android:layout_below="@+id/textviewUnirseIntegrantes"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentEnd="true"
-                    android:layout_marginStart="50dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginEnd="50dp"
+                    android:layout_marginStart="47dp"
+                    android:layout_marginTop="79dp"
+                    android:layout_marginEnd="54dp"
+                    android:fontFamily="@font/fuente_jost_global"
+                    android:text="@string/ingrese_descripcion"
                     android:textColor="@color/white"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView5" />
+                    app:layout_constraintTop_toBottomOf="@+id/textviewUnirseIntegrantes" />
 
                 <Button
                     android:id="@+id/btnUnirse"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/textviewUnirseDescripcion"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentEnd="true"
                     android:layout_marginStart="75dp"
-                    android:layout_marginTop="160dp"
+                    android:layout_marginTop="20dp"
                     android:layout_marginEnd="75dp"
+                    android:layout_marginBottom="100dp"
                     android:backgroundTint="@color/button"
+                    android:fontFamily="@font/fuente_jost_global"
+                    android:text="@string/unirse"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textviewUnirseDescripcion"
-                    tools:text="@string/unirse" />
+                    app:layout_constraintTop_toBottomOf="@+id/textviewUnirseTipoGrupo" />
 
-            </RelativeLayout>
+                <TextView
+                    android:id="@+id/textviewUnirseCreadoPor"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/textviewUnirseIntegrantes"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="100dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="100dp"
+                    android:fontFamily="@font/fuente_jost_global"
+                    android:textColor="@color/white"
+                    android:text="@string/creador"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textviewUnirseIntegrantes" />
+
+                <TextView
+                    android:id="@+id/textviewUnirseTipoGrupo"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="75dp"
+                    android:layout_marginTop="100dp"
+                    android:layout_marginEnd="75dp"
+                    android:text="@string/tipoGrupo"
+                    android:fontFamily="@font/fuente_jost_global"
+                    android:textColor="@color/white"
+                    android:textAlignment="center"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textviewUnirseDescripcion" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <RelativeLayout
                 android:id="@+id/layout_GruposUnirseBtnAtras"
@@ -144,6 +182,7 @@
                     android:layout_alignParentTop="true"
                     android:layout_marginStart="62dp"
                     android:layout_marginTop="12dp"
+                    android:fontFamily="@font/fuente_jost_global"
                     android:text="@string/atras"
                     android:textColor="#FFFFFF"
                     android:textStyle="bold"
@@ -167,6 +206,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
                     android:layout_marginStart="19dp"
+                    android:fontFamily="@font/fuente_jost_global"
                     android:text="@string/appName"
                     android:textColor="@color/white"
                     android:textSize="18sp"

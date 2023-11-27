@@ -15,11 +15,11 @@ import com.example.proyectogrupo1musicstore.R;
 
 import java.util.List;
 
-public class CustomAdapterBuscarVideo extends RecyclerView.Adapter {
+public class CustomAdapterBuscarVideo extends RecyclerView.Adapter<CustomAdapterBuscarVideo.CustomViewHolder> {
 
     private List<vistaMusicaVideo> dataList;
     private Context context;
-    boolean isImage1 = true;
+
 
     public CustomAdapterBuscarVideo(Context context, List<vistaMusicaVideo> dataList) {
         this.context = context;
@@ -32,19 +32,17 @@ public class CustomAdapterBuscarVideo extends RecyclerView.Adapter {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(CustomViewHolder holder, int position) {
 
-    }
-
-
-    public void onBindViewHolder(CustomAdapterBuscarVideo.CustomViewHolder holder, int position) {
         vistaMusicaVideo data = dataList.get(position);
 
         // Vincula los datos a las vistas en tu diseño de elemento de lista personalizado
         holder.nombreCancion.setText(data.getText1());
         holder.creadoPor.setText(data.getText2());
         holder.image.setImageResource(data.getImageResource());
+
     }
+
 
 
     public int getItemCount(){return dataList.size(); }

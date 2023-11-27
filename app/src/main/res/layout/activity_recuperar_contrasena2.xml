@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".perfilPersonal"
+    tools:context=".activity_recuperar_contrasena2"
     android:background="@drawable/background"
     android:paddingTop="15dp">
 
@@ -34,10 +34,11 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/atras"
-                    android:textColor="@color/white"
                     android:layout_gravity="center"
-                    android:textStyle="bold"/>
+                    android:fontFamily="@font/fuente_jost_global"
+                    android:text="@string/Atras"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
 
                 <Space
                     android:layout_width="0dp"
@@ -53,19 +54,23 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-             <Space
-                 android:layout_width="match_parent"
-                 android:layout_height="70dp"/>
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="70dp"/>
 
             <TextView
+                android:id="@+id/txtviewVerificarTitulo1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:fontFamily="@font/fuente_jost_global"
                 android:text="@string/RecuperarContra"
                 android:textColor="#D3D3D3"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
             <ImageView
+                android:id="@+id/imgviewVerificarLogo"
                 android:layout_width="wrap_content"
                 android:layout_height="256dp"
                 android:layout_gravity="center"
@@ -79,12 +84,15 @@
                 android:paddingHorizontal="40dp">
 
                 <TextView
-                    android:id="@+id/ingreseContrsenaActual"
+                    android:id="@+id/txtviewRecuperarEnviarTitulo2"
                     android:layout_width="wrap_content"
                     android:layout_height="58dp"
+                    android:fontFamily="@font/fuente_jost_global"
                     android:text="@string/LabelRecuperarContra"
                     android:textColor="#D3D3D3"
-                    android:textSize="12sp" />
+                    android:textSize="12sp"
+                    android:justificationMode="inter_word"
+                    android:textStyle="bold"/>
 
                 <EditText
                     android:id="@+id/txtRecuperarVerificar"
@@ -92,8 +100,9 @@
                     android:layout_height="39dp"
                     android:background="@drawable/edittext"
                     android:importantForAutofill="no"
-                    android:inputType="textPassword"
-                    android:labelFor="@+id/ingreseContrsenaActual"
+                    android:inputType="number"
+                    android:labelFor="@+id/txtviewRecuperarEnviarTitulo2"
+                    android:textSize="15sp"
                     tools:ignore="LabelFor,SpeakableTextPresentCheck,TouchTargetSizeCheck,VisualLintTextFieldSize" />
 
                 <Space
@@ -101,28 +110,54 @@
                     android:layout_height="11dp" />
 
                 <TextView
-                    android:id="@+id/lblenviardenuevo2"
+                    android:id="@+id/txtviewVerificarEnviarNuevamente"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/fuente_jost_global"
                     android:text="@string/LinkEnviarDeNuevo2"
                     android:textAlignment="textEnd"
                     android:textColor="#878484"
-                    android:textSize="11sp" />
+                    android:textSize="11sp"
+                    android:textStyle="bold"/>
 
                 <Space
                     android:layout_width="match_parent"
                     android:layout_height="10dp" />
-
-                <Space
+                <TextView
+                    android:id="@+id/txtviewActivaLetras"
                     android:layout_width="match_parent"
-                    android:layout_height="123dp" />
+                    android:layout_height="45dp"
+                    android:layout_marginTop="30dp"
+                    android:fontFamily="@font/fuente_jost_global"
+                    android:justificationMode="inter_word"
+                    android:textColor="#D3D3D3"
+                    android:textSize="12sp"
+                    android:textStyle="bold"></TextView>
+
+                <TextView
+                    android:id="@+id/txtviewCronometro_NuevaC"
+                    android:layout_width="276dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_marginTop="0dp"
+                    android:enabled="false"
+                    android:gravity="center"
+                    android:text="00:00"
+                    android:textColor="@color/white"
+                    android:textSize="30sp"
+                    android:visibility="invisible">
+
+                </TextView>
+
 
                 <Button
-                    android:id="@+id/BtnRestaurarVerificar"
+                    android:id="@+id/btnRecuperarVerificar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/button"
+                    android:fontFamily="@font/fuente_jost_global"
                     android:text="@string/VerificarCodigo"
+                    android:textStyle="bold"
                     android:textColor="@color/white"
                     tools:ignore="TextContrastCheck,VisualLintButtonSize" />
 
