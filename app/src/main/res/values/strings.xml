@@ -25,6 +25,7 @@
     <string name="grupo3">Grupo 3</string>
     <string name="ingreseCodigoVerificacion">Hemos enviado un código de verificación a tu dirección de correo. Por favor, introduce esta secuencia de números en la siguiente casilla de verificación.</string>
     <string name="verificar">Verificar</string>
+    <string name="gruposfavs">Grupos Favoritos</string>
 
 
     <string name="atras">Atrás</string>
@@ -139,6 +140,7 @@
     <string name="cerrarSesion">Cerrar Sesión</string>
     <string name="tipoGrupo">Tipo de Grupo</string>
     <string name="guardarCambios">Guardar Cambios</string>
+    <string name="notificacionesI">NOTIFICACIONES</string>
 
     <!--Jonathan-->
     <string name="btnCrearPlayList">Crear PlayList</string>
