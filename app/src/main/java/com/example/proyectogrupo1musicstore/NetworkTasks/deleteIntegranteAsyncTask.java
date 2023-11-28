@@ -9,7 +9,6 @@ import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.proyectogrupo1musicstore.Models.vistaDeGrupo;
 import com.example.proyectogrupo1musicstore.Models.vistaDeNuevoGrupo;
 
 import java.io.BufferedOutputStream;
@@ -54,7 +53,7 @@ public class deleteIntegranteAsyncTask extends AsyncTask<String, Void, Void> {
             out.close();
 
             int responseCode = urlConnection.getResponseCode();
-            Log.d("UpdateTokenAsyncTask", "Response Code: " + responseCode);
+            Log.d("deleteIntegranteAsyncTask", "Response Code: " + responseCode);
 
             urlConnection.disconnect();
         } catch (Exception e) {

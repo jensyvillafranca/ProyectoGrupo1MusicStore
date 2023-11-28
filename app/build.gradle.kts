@@ -40,6 +40,7 @@ dependencies {
     implementation("com.google.android.material:material:1.10.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("com.google.firebase:firebase-storage:20.3.0")
+    implementation("com.google.firebase:firebase-auth:22.3.0")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
@@ -56,4 +57,9 @@ dependencies {
     implementation ("io.jsonwebtoken:jjwt-api:0.12.3")
     runtimeOnly ("io.jsonwebtoken:jjwt-impl:0.12.3")
     runtimeOnly ("io.jsonwebtoken:jjwt-jackson:0.12.3")
+
+    //implementacion de Picasso/Imagen Redonda y Github
+    implementation ("com.github.bumptech.glide:glide:4.15.1")
+    implementation ("com.makeramen:roundedimageview:2.3.0")
+    implementation ("com.squareup.picasso:picasso:2.8")
 }
