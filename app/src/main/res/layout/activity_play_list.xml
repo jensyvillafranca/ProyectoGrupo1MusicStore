@@ -31,19 +31,24 @@
                     android:orientation="horizontal"
                     tools:ignore="UselessParent">
 
-                    <ImageView
-                        android:id="@+id/btnAtras"
-                        android:layout_width="70dp"
-                        android:layout_height="70dp"
-                        android:layout_marginLeft="15dp"
-                        android:layout_gravity="center"
-                        android:src="@drawable/pfp"
-                        android:importantForAccessibility="no"/>
+                    <ImageButton
+                        android:id="@+id/btnAtrass"
+                        android:layout_width="54dp"
+                        android:layout_height="46dp"
+                        android:layout_marginTop="23dp"
+                        android:background="@android:color/transparent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/textview_BuscarbotAtrasVideos"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/iconoatras" />
 
                     <TextView
+                        android:id="@+id/textAtras"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/NombreUsuario"
+                        android:text="Atras"
+                        android:textSize="18dp"
                         android:textColor="@color/white"
                         android:layout_gravity="center"
                         android:fontFamily="@font/fuente_jost_global"
@@ -253,7 +258,7 @@
     </FrameLayout>
 
     <FrameLayout
-        android:id="@+id/side_menus"
+        android:id="@+id/side_menusss"
         android:layout_width="240dp"
         android:layout_height="match_parent"
         android:layout_gravity="start">

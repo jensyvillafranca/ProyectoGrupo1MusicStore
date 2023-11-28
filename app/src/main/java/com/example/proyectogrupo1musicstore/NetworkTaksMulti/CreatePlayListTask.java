@@ -38,8 +38,9 @@ public class CreatePlayListTask extends AsyncTask<String, Void, Void> {
     private byte[] playImage;
     private boolean onProgressCalled = false;
     private int idFavorito;
+    private int idUsuario;
 
-    public CreatePlayListTask(Context context, List<Integer> selectedUserIds, String playName, String biografiaDescripcion, byte[] playImage, EditText textNombrePlayList, int idFavorito) {
+    public CreatePlayListTask(Context context, List<Integer> selectedUserIds, String playName, String biografiaDescripcion, byte[] playImage, EditText textNombrePlayList, int idFavorito, int idUsuario) {
         this.context = context;
         this.selectedUserIds = selectedUserIds;
         this.playName = playName;
@@ -47,6 +48,7 @@ public class CreatePlayListTask extends AsyncTask<String, Void, Void> {
         this.playImage = playImage;
         this.textNombrePlayList = textNombrePlayList;
         this.idFavorito = idFavorito;
+        this.idUsuario = idUsuario;
 
     }
 
@@ -120,6 +122,7 @@ public class CreatePlayListTask extends AsyncTask<String, Void, Void> {
             jsonData.put("idtipoplaylist", 1); // Replace with the actual user ID
             jsonData.put("idfavorito", idFavorito); // Replace with the actual user ID
             jsonData.put("imagen", base64Image);
+            jsonData.put("idusuario", idUsuario);
 
             return jsonData.toString();
         } catch (JSONException e) {
