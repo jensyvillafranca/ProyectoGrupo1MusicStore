@@ -56,4 +56,9 @@ dependencies {
     implementation ("io.jsonwebtoken:jjwt-api:0.12.3")
     runtimeOnly ("io.jsonwebtoken:jjwt-impl:0.12.3")
     runtimeOnly ("io.jsonwebtoken:jjwt-jackson:0.12.3")
+
+    //implementacion de Picasso/Imagen Redonda y Github
+    implementation ("com.github.bumptech.glide:glide:4.15.1")
+    implementation ("com.makeramen:roundedimageview:2.3.0")
+    implementation ("com.squareup.picasso:picasso:2.8")
 }
