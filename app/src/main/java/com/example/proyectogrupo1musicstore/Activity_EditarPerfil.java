@@ -1,6 +1,7 @@
 package com.example.proyectogrupo1musicstore;
 
 import android.Manifest;
+import com.example.proyectogrupo1musicstore.Utilidades.token;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -34,6 +35,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.example.proyectogrupo1musicstore.Adapters.AppData;
+import com.example.proyectogrupo1musicstore.Utilidades.JwtDecoder;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
@@ -54,6 +56,7 @@ public class Activity_EditarPerfil extends AppCompatActivity {
     int IdPersonal;
     private ImageView imgFoto, imgCambiarPerfil;
     private StorageReference storageRef;
+    private token acceso = new token(this);
     ImageView btnAtras;
     TextView txtviewCambiarContrasenia, txtNombre;
     ImageView imgContrasenia;
@@ -71,7 +74,7 @@ public class Activity_EditarPerfil extends AppCompatActivity {
         storageRef = FirebaseStorage.getInstance().getReferenceFromUrl("gs://proyectogrupo1musicstore.appspot.com/imagenesEditarPerfil");
 
 
-        IdPersonal = getIntent().getIntExtra("IdPersonal", -1);
+        IdPersonal = Integer.parseInt(JwtDecoder.decodeJwt(acceso.recuperarTokenFromKeystore()));
         btnAtras = (ImageView) findViewById(R.id.btn_EditarPerfilAtras);
         imgContrasenia=findViewById(R.id.imgContrasenia);
         txtviewCambiarContrasenia=findViewById(R.id.txtviewCambiarContrasenia);
