@@ -10,16 +10,19 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.MediaMetadataRetriever;
-import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.provider.Settings;
 import android.util.Base64;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -39,6 +42,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 
 public class Activity_SubirMusica extends AppCompatActivity {
@@ -53,24 +57,29 @@ public class Activity_SubirMusica extends AppCompatActivity {
     private static final int REQUEST_CODE = 123;
     private static final int REQUEST_CODE_EXTERNAL = 124;
     private com.example.proyectogrupo1musicstore.Utilidades.token token = new token(this);
-
-    private int idUsuario;
-    private String idPlayList = "1";
-    private String idFavorito = "1";
-
-    byte[] audioBase64;
+    public static byte[] audioBase64;
 
     /*Clase que nos permitira obtener la metadata de ese audio*/
     MediaMetadataRetriever metadata = new MediaMetadataRetriever();
     Uri audioUri;
-    String nombreCancion, artista,album,genero,duracion, imagenPortadaBase64;
+    public static String nombreCancion, artista,album,genero,imagenPortadaBase64;
+    public static int idUsuario;
+    public static String idPlayList = "1";
+    public static String idFavorito = "1";
     byte[] imagenPortada;
     Bitmap imagenPortada_Bitmap;
+
+    /*Contar cuantos elementos se necesitarán ingresar de la metadata del archivo*/
+    public static int contadorElementos=0;
+
+    /*Generar de ID único para los plain text en los que se va llenar la info faltante de la metadata*/
+    private static final AtomicInteger generarID = new AtomicInteger(1);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_subir_musica);
+
 
         listas = (RecyclerView) findViewById(R.id.recyclerview_SubirMusica);
         drawerLayouts = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -203,11 +212,11 @@ public class Activity_SubirMusica extends AppCompatActivity {
         if (requestCode == PICK_AUDIOS_REQUEST && resultCode == RESULT_OK && data != null) {
             //Ubicación del recurso de audio
             audioUri = data.getData();
-            //Pasar todos los parametros que la clase Activity_SubirMusicaAsyncTask necesita para mandar al PHP
             obtenerRutaRealMusica(getApplicationContext(), audioUri);
-            //Mandar a llamar el metodo que manda toda la data a la clase Activity_SubirMusicaAsyncTask
+
+            /*Mandar a llamar el metodo que captura la metadata del archivo de audio*/
             try {
-                subirAudioFirebase();
+                extraerMetadata();
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -255,10 +264,8 @@ public class Activity_SubirMusica extends AppCompatActivity {
 
 
     public void subirAudioFirebase() throws IOException {
-        extraerMetadata();
-        new Activity_SubirMusicaAsyncTask(getApplicationContext(),artista, idUsuario, audioBase64 , imagenPortadaBase64, idPlayList, idFavorito, nombreCancion, album, genero);
-        //idPlayList preguntar a Jonathan
-        //idFavorito resolver también
+        Log.d("Mensaje", "se mandaron los datos");
+        new Activity_SubirMusicaAsyncTask(Activity_SubirMusica.this,artista, idUsuario, audioBase64 , imagenPortadaBase64, idPlayList, idFavorito, nombreCancion, album, genero).execute();
     }
 
     /*Metodo para obtener metadata del archivo de música*/
@@ -284,18 +291,46 @@ public class Activity_SubirMusica extends AppCompatActivity {
                 imagenPortadaBase64 = Base64.encodeToString(imagenPortadaBytes, Base64.DEFAULT);
             } else {
                 // Si no hay imagen de portada, asignamos nulo el bitmap
-                imagenPortadaBase64 = "null";
+                imagenPortadaBase64 = null;
             }
 
+            //Si el nombre de la canción viene vacío
+            if(nombreCancion == null){
+                contadorElementos++;
+            }
+            //Si el artista de la canción viene vacío
+            if(artista == null){
+                contadorElementos++;
+            }
+            //Si el albúm de la canción viene vacío
+            if(album == null){
+                contadorElementos++;
+            }
+            //Si el género de la canción viene vacío
+            if(genero == null){
+                contadorElementos++;
+            }
 
+            //Mandar a llamar la modal donde el usuario digitara la información que esta nula de la metadata.
+            if(contadorElementos > 0 && contadorElementos < 5){
+                activity_personalizada_metadata dialogFragment = activity_personalizada_metadata.newInstance();
+                dialogFragment.show(getSupportFragmentManager(), "ventana");
+                /*Una vez que la data este llena, en la otra clase de la modal se mandara a instanciar esta clase para
+                * acceder al método de subirAudioFirebase*/
+            }else if(contadorElementos == 0){
+                //En caso de que no existan valores en null, seguimos con el proceso inicial: insertar.
+                //Mandar a llamar el metodo que manda toda la data a la clase Activity_SubirMusicaAsyncTask
+                try {
+                    subirAudioFirebase();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            metadata.release(); // No olvides liberar el recurso
+            metadata.release(); // Liberar el recurso
         }
     }
-
-
-
 
 }

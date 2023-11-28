@@ -76,11 +76,11 @@ public class Activity_SubirMusicaAsyncTask extends AsyncTask<String, Void, Void>
                 out.close();
 
                 int responseCode = urlConnection.getResponseCode();
-                Log.d("CreateGroupAsyncTask", "Response Code: " + responseCode);
+                Log.d("SubirMusicaAsyncTask", "Response Code: " + responseCode);
 
                 urlConnection.disconnect();
             } catch (Exception e) {
-                e.printStackTrace();
+                Log.d("Error",""+e);
             }
             return null;
     }
