@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ActivityPlay"
+    tools:context=".ActivityEditarPlayList"
     android:background="@drawable/background"
     android:paddingTop="15dp">
 
@@ -31,7 +31,7 @@
                     tools:ignore="UseCompoundDrawables">
 
                     <ImageButton
-                        android:id="@+id/btnAtrass"
+                        android:id="@+id/btnEditarAtrass"
                         android:layout_width="54dp"
                         android:layout_height="46dp"
                         android:background="@android:color/transparent"
@@ -63,24 +63,6 @@
                     android:layout_weight="1"/>
 
 
-
-                <TextView
-                    android:id="@+id/modificarPlayList"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="EDITAR PLAYLIST"
-                    android:textColor="@color/white"
-                    android:paddingTop="15dp"
-                    android:textSize="17dp"
-                    android:fontFamily="@font/fuente_jost_global"
-                    android:layout_marginRight="20sp"
-                    android:layout_marginLeft="0dp"
-                    android:textStyle="bold"/>
-
-
-
-
-
             </LinearLayout>
 
             <TextView
@@ -94,7 +76,7 @@
                 android:layout_gravity="center"/>
 
             <ImageView
-                android:id="@+id/ImageViewFoto"
+                android:id="@+id/ImageViewFotoEditar"
                 android:layout_width="120dp"
                 android:layout_height="120dp"
                 android:layout_gravity="center"
@@ -132,77 +114,82 @@
                     android:background="@drawable/fondoblancoparaeditardatosperfil"
                     android:layout_gravity="center"/>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_gravity="center"
-                android:paddingHorizontal="70dp"
-                android:paddingVertical="20dp">
-
-                <TextView
-                    android:id="@+id/NombrePlayList"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/EscribaNombrePlayList"
-                    android:textColor="#D3D3D3"
-                    android:textStyle="bold"
-                    android:fontFamily="@font/fuente_jost_global"
-                    android:textSize="15sp" />
+                    android:orientation="vertical"
+                    android:layout_gravity="center"
+                    android:paddingHorizontal="70dp"
+                    android:paddingVertical="20dp">
 
-                <EditText
-                    android:id="@+id/txtNombrePlayList"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:background="@drawable/edittext"
-                    android:importantForAutofill="no"
-                    android:inputType="text"
-                    android:labelFor="@+id/NombrePlayList"
-                    tools:ignore="LabelFor,SpeakableTextPresentCheck,TouchTargetSizeCheck,VisualLintTextFieldSize" />
+                    <TextView
+                        android:id="@+id/NombrePlayList"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/EscribaNombrePlayList"
+                        android:textColor="#D3D3D3"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/fuente_jost_global"
+                        android:textSize="15sp" />
 
-                <Space
-                    android:layout_width="match_parent"
-                    android:layout_height="30dp" />
+                    <EditText
+                        android:id="@+id/txtNombrePlayListEditar"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:background="@drawable/edittext"
+                        android:importantForAutofill="no"
+                        android:inputType="text"
+                        android:labelFor="@+id/NombrePlayList"
+                        tools:ignore="LabelFor,SpeakableTextPresentCheck,TouchTargetSizeCheck,VisualLintTextFieldSize" />
 
-                <TextView
-                    android:id="@+id/ingreseNuevaContrasena"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/EscribaBiografa"
-                    android:textColor="#D3D3D3"
-                    android:textStyle="bold"
-                    android:fontFamily="@font/fuente_jost_global"
-                    android:textSize="15sp" />
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp" />
 
-                <EditText
-                    android:id="@+id/txtBiografia"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:background="@drawable/edittext"
-                    android:importantForAutofill="no"
-                    android:inputType="text"
-                    android:labelFor="@id/ingreseNuevaContrasena"
-                    tools:ignore="LabelFor,SpeakableTextPresentCheck,TouchTargetSizeCheck,VisualLintTextFieldSize" />
+                    <TextView
+                        android:id="@+id/ingreseNuevaContrasena"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/EscribaBiografa"
+                        android:textColor="#D3D3D3"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/fuente_jost_global"
+                        android:textSize="15sp" />
 
-                <Space
-                    android:layout_width="match_parent"
-                    android:layout_height="10dp"/>
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    <EditText
+                        android:id="@+id/txtBiografiaEditar"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:background="@drawable/edittext"
+                        android:importantForAutofill="no"
+                        android:inputType="text"
+                        android:labelFor="@id/ingreseNuevaContrasena"
+                        tools:ignore="LabelFor,SpeakableTextPresentCheck,TouchTargetSizeCheck,VisualLintTextFieldSize" />
 
-                    <ImageView
-                        android:id="@+id/ImageViewSubirArchi"
-                        android:layout_width="150dp"
-                        android:layout_height="150dp"
-                        android:layout_gravity="center"
-                        android:importantForAccessibility="no"
-                        android:onClick="clickInsertar"
-                        android:src="@drawable/abrirarchivo" />
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"/>
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
 
-                </FrameLayout>
+                        <Button
+                            android:id="@+id/btnSubirArchiEditar"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:background="@color/button"
+                            android:fontFamily="@font/fuente_jost_global"
+                            android:onClick="insertarPlay"
+                            android:text="Actualizarr"
+                            android:textColor="@color/white"
+                            android:textStyle="bold"
+                            tools:ignore="TextContrastCheck,VisualLintButtonSize" />
 
-            </LinearLayout>
+
+
+                    </FrameLayout>
+
+                </LinearLayout>
 
             </FrameLayout>
 
@@ -223,7 +210,7 @@
                         android:layout_height="0dp" />
 
                     <Button
-                        android:id="@+id/btnCancelar"
+                        android:id="@+id/btnCancelarEditar"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:background="@color/button"
