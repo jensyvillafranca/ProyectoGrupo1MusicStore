@@ -1,7 +1,7 @@
 <resources>
 
     <!--Kevin-->
-    <string name="app_name">ProyectoGrupo1MusicStore</string>
+    <string name="app_name">Music Store HN</string>
     <string name="name">Nombre Completo</string>
     <string name="username">username</string>
     <string name="email">user@user.com</string>
@@ -131,6 +131,7 @@
     <string name="cerrarSesion">Cerrar Sesión</string>
     <string name="tipoGrupo">Tipo de Grupo</string>
     <string name="guardarCambios">Guardar Cambios</string>
+    <string name="notificacionesI">NOTIFICACIONES</string>
 
     <!--Jonathan-->
     <string name="btnCrearPlayList">Crear PlayList</string>

@@ -1,15 +1,21 @@
 package com.example.proyectogrupo1musicstore.Activities.PantallaPrincipal;
 
+import android.app.AlertDialog;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -21,8 +27,9 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import com.example.proyectogrupo1musicstore.Activities.Grupos.ActivityGrupoPrincipal;
 import com.example.proyectogrupo1musicstore.ActivityPlayList;
 import com.example.proyectogrupo1musicstore.Activity_EditarPerfil;
-import com.example.proyectogrupo1musicstore.NetworkTasks.UpdateTokenAsyncTask;
+import com.example.proyectogrupo1musicstore.NetworkTasks.aceptarSolicitudAsyncTask;
 import com.example.proyectogrupo1musicstore.R;
+import com.example.proyectogrupo1musicstore.Room.NotificationEntity;
 import com.example.proyectogrupo1musicstore.Utilidades.token;
 import com.example.proyectogrupo1musicstore.Utilidades.updateFirebaseToken;
 import com.example.proyectogrupo1musicstore.activity_login;
@@ -30,18 +37,33 @@ import com.example.proyectogrupo1musicstore.activity_principal_login;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.example.proyectogrupo1musicstore.Utilidades.JwtDecoder;
 
+import com.example.proyectogrupo1musicstore.Room.AppDatabase;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.lang.ref.WeakReference;
+import java.util.ArrayList;
+import java.util.List;
+
 public class ActivityPantallaPrincipal extends AppCompatActivity {
 
     private DrawerLayout drawerLayout;
     private ImageButton openMenuButton;
-    TextView Grupos, Inicio, CerrarSesion, Ajustes,multimediaTexto;
+    TextView Grupos, Inicio, CerrarSesion, Ajustes, multimediaTexto;
     ImageView iconGrupos, iconInicio, multimedia, iconCerrarSesion, iconAjustes;
+    private Button btnNotifications;
+    private int numeroNotificaciones;
 
     //Crea nueva instancia de clase token, para obtener el valor de idusuario de la clase decodetoken
     private token acceso = new token(this);
     private int idUsuario;
 
-    // Declare the launcher at the top of your Activity/Fragment:
+    private AppDatabase appDatabase;
+
+    private List<NotificationEntity> notificationList;
+
+    // Declara el launcher de permiso
     private final ActivityResultLauncher<String> requestPermissionLauncher =
             registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
                 if (isGranted) {
@@ -59,7 +81,11 @@ public class ActivityPantallaPrincipal extends AppCompatActivity {
 
         askNotificationPermission();
 
+        notificationList = new ArrayList<>();
+
         idUsuario = Integer.parseInt(JwtDecoder.decodeJwt(acceso.recuperarTokenFromKeystore()));
+
+        appDatabase = AppDatabase.getInstance(getApplicationContext());
 
         FirebaseMessaging.getInstance().getToken()
                 .addOnCompleteListener(task -> {
@@ -69,7 +95,8 @@ public class ActivityPantallaPrincipal extends AppCompatActivity {
                         Log.e("Token: ", token);
                     } else {
                         // Handle the error
-                    }});
+                    }
+                });
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             createNotificationChannel();
@@ -84,6 +111,8 @@ public class ActivityPantallaPrincipal extends AppCompatActivity {
         iconInicio = (ImageView) findViewById(R.id.iconNavInicio);
         multimedia = (ImageView) findViewById(R.id.iconNavMultimedia);
         multimediaTexto = (TextView) findViewById(R.id.txtviewNavMultimedia);
+        btnNotifications = findViewById(R.id.btn_notifications);
+        btnNotifications.setOnClickListener(v -> showNotificationsPopup());
 
 
         /*Variables para cerrar sesión*/
@@ -94,6 +123,8 @@ public class ActivityPantallaPrincipal extends AppCompatActivity {
         iconAjustes = (ImageView) findViewById(R.id.iconNavAjustes);
         Ajustes = (TextView) findViewById(R.id.txtviewNavAjustes);
 
+        // AsyncTask para obtener las notifications de la base de datos en un hilo de fondo
+        new LoadNotificationsAsyncTask(this).execute();
 
         View.OnClickListener buttonClick = new View.OnClickListener() {
             @Override
@@ -105,30 +136,30 @@ public class ActivityPantallaPrincipal extends AppCompatActivity {
                 if (view.getId() == R.id.txtviewNavInicio) {
                     actividad = ActivityPantallaPrincipal.class;
                 }
-                if (view.getId() == R.id.iconNavGrupos){
+                if (view.getId() == R.id.iconNavGrupos) {
                     actividad = ActivityGrupoPrincipal.class;
                 }
-                if (view.getId() == R.id.iconNavInicio){
+                if (view.getId() == R.id.iconNavInicio) {
                     actividad = ActivityPantallaPrincipal.class;
                 }
-                if (view.getId() == R.id.iconNavMultimedia){
+                if (view.getId() == R.id.iconNavMultimedia) {
                     actividad = ActivityPlayList.class;
                 }
-                if (view.getId() == R.id.txtviewNavMultimedia){
+                if (view.getId() == R.id.txtviewNavMultimedia) {
                     actividad = ActivityPlayList.class;
                 }
-                if (view.getId() == R.id.iconCerrarSesion){
+                if (view.getId() == R.id.iconCerrarSesion) {
                     cerrarSesion();
                     actividad = activity_principal_login.class;
                 }
-                if (view.getId() == R.id.txtviewCerrarSesion){
+                if (view.getId() == R.id.txtviewCerrarSesion) {
                     cerrarSesion();
                     actividad = activity_principal_login.class;
                 }
-                if (view.getId() == R.id.txtviewNavAjustes){
+                if (view.getId() == R.id.txtviewNavAjustes) {
                     actividad = Activity_EditarPerfil.class;
                 }
-                if (view.getId() == R.id.iconNavAjustes){
+                if (view.getId() == R.id.iconNavAjustes) {
                     actividad = Activity_EditarPerfil.class;
                 }
                 if (actividad != null) {
@@ -153,11 +184,44 @@ public class ActivityPantallaPrincipal extends AppCompatActivity {
         });
     }
 
+    // AsyncTask para cargar las notificaciones de la base de datos en el fondo
+    private static class LoadNotificationsAsyncTask extends AsyncTask<Void, Void, List<NotificationEntity>> {
+        private WeakReference<ActivityPantallaPrincipal> activityReference;
+
+        LoadNotificationsAsyncTask(ActivityPantallaPrincipal context) {
+            activityReference = new WeakReference<>(context);
+        }
+
+        @Override
+        protected List<NotificationEntity> doInBackground(Void... voids) {
+            // Obtiene todas las notificaciones
+            ActivityPantallaPrincipal activity = activityReference.get();
+            if (activity == null || activity.isFinishing()) {
+                return null;
+            }
+
+            return activity.appDatabase.notificationDao().getAllNotifications();
+        }
+
+        @Override
+        protected void onPostExecute(List<NotificationEntity> result) {
+            ActivityPantallaPrincipal activity = activityReference.get();
+            if (activity == null || activity.isFinishing() || result == null) {
+                return;
+            }
+
+            activity.notificationList = result;
+            activity.btnNotifications.setText("NOTIFICACIONES ( " + activity.notificationList.size() + " )");
+        }
+    }
+
+    //Metodo para cambiar de actividad
     private void moveActivity(Class<?> actividad) {
         Intent intent = new Intent(getApplicationContext(), actividad);
         startActivity(intent);
     }
 
+    //Metodo para cerrar sesion
     private void cerrarSesion() {
         acceso.borrarToken();
         // Regresar al usuario a la pantalla de inicio de sesión
@@ -166,10 +230,11 @@ public class ActivityPantallaPrincipal extends AppCompatActivity {
         finish();
     }
 
+    //Creat un canal de notificaciones
     private void createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            CharSequence name = "Channel Name";
-            String description = "Channel Description";
+            CharSequence name = "MusisStoreHN";
+            String description = "Description";
             int importance = NotificationManager.IMPORTANCE_DEFAULT;
             NotificationChannel channel = new NotificationChannel("channel_id", name, importance);
             channel.setDescription(description);
@@ -181,8 +246,9 @@ public class ActivityPantallaPrincipal extends AppCompatActivity {
         }
     }
 
+    //Metodo para pedir permiso de notificaciones
     private void askNotificationPermission() {
-        // This is only necessary for API level >= 33 (TIRAMISU)
+        // Solo es necesario para API level >= 33 (TIRAMISU)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.POST_NOTIFICATIONS) ==
                     PackageManager.PERMISSION_GRANTED) {
@@ -193,9 +259,87 @@ public class ActivityPantallaPrincipal extends AppCompatActivity {
                 //       "OK" and "No thanks" buttons. If the user selects "OK," directly request the permission.
                 //       If the user selects "No thanks," allow the user to continue without notifications.
             } else {
-                // Directly ask for the permission
+                // Preguntar por el permiso directamente
                 requestPermissionLauncher.launch(android.Manifest.permission.POST_NOTIFICATIONS);
             }
         }
+    }
+
+    //Metodo para mostrar las notificaciones
+    private void showNotificationsPopup() {
+        PopupMenu popupMenu = new PopupMenu(this, btnNotifications);
+        Menu menu = popupMenu.getMenu();
+
+        // Agrega las notificaciones al menu
+        for (int i = 0; i < notificationList.size(); i++) {
+            menu.add(0, i, i, notificationList.get(i).title);
+        }
+
+        popupMenu.setOnMenuItemClickListener(item -> {
+            // Controla lo que pasa cuando se le da click a una notificacion
+            int notificationIndex = item.getItemId();
+            handleNotificationButtonClick(notificationIndex);
+            return true;
+        });
+
+        popupMenu.show();
+    }
+
+    private void handleNotificationButtonClick(int notificationIndex) {
+        // Obtiene la informacion de la notificacion seleccionada
+        NotificationEntity selectedNotification = notificationList.get(notificationIndex);
+
+        // Muestra los detalles de la notificacion dependiendo el tipo
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        if (selectedNotification.tipo.equals("request")) {
+            builder.setTitle(selectedNotification.title)
+                    .setMessage(selectedNotification.body)
+                    .setPositiveButton("Aceptar", (dialog, which) -> {
+
+                        //crea el json
+                        JSONObject jsonData = new JSONObject();
+                        try {
+                            jsonData.put("idgrupo", selectedNotification.groupid);
+                            jsonData.put("idusuario", selectedNotification.userid);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                        new aceptarSolicitudAsyncTask(ActivityPantallaPrincipal.this).execute(jsonData.toString());
+                        dialog.dismiss();
+                        deleteNotificationFromDatabase(selectedNotification.id);
+                    })
+                    .setNegativeButton("Denegar", (dialog, which) -> {
+                        // Desaparece el dialogo en accion negativa
+                        dialog.dismiss();
+                    })
+                    .show();
+        } else {
+            builder.setTitle(selectedNotification.title)
+                    .setMessage(selectedNotification.body)
+                    .setPositiveButton("Aceptar", (dialog, which) -> {
+                        dialog.dismiss();
+                        deleteNotificationFromDatabase(selectedNotification.id);
+                    })
+                    .show();
+        }
+    }
+
+    //Metodo para eliminar una notificacion mediante async task en el fondo
+    private void deleteNotificationFromDatabase(int notificationId) {
+        // Use AsyncTask or another background thread to perform database operation
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... voids) {
+                // Perform database operations (delete) in the background
+                appDatabase.notificationDao().deleteNotificationById(notificationId);
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void aVoid) {
+                recreate();
+            }
+        }.execute();
     }
 }
