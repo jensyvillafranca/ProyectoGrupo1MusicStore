@@ -3,13 +3,11 @@ package com.example.proyectogrupo1musicstore.Adapters;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -17,9 +15,8 @@ import com.example.proyectogrupo1musicstore.Activities.Grupos.ActivityChat;
 import com.example.proyectogrupo1musicstore.Activities.Grupos.ActivityEditarGrupo;
 import com.example.proyectogrupo1musicstore.Activities.Grupos.ActivityGrupoInfo;
 import com.example.proyectogrupo1musicstore.Models.vistaDeGrupo;
-import com.example.proyectogrupo1musicstore.Models.vistaDeNuevoGrupo;
+import com.example.proyectogrupo1musicstore.NetworkTasks.DeleteGrupoAsyncTask;
 import com.example.proyectogrupo1musicstore.NetworkTasks.UpdateFavoritoAsyncTask;
-import com.example.proyectogrupo1musicstore.NetworkTasks.deleteIntegranteAsyncTask;
 import com.example.proyectogrupo1musicstore.NetworkTasks.salirGrupoAsyncTask;
 import com.example.proyectogrupo1musicstore.R;
 import com.example.proyectogrupo1musicstore.Utilidades.ConfirmationDialog;
@@ -157,8 +154,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     // Si el usuario da click en si
-                                    Toast.makeText(context, "¡Grupo Eliminado!", Toast.LENGTH_SHORT).show();
-                                    //deleteIntegrante(idUsuario, data.getIdgrupo(), dataList);
+                                    deleteGrupo(data.getIdgrupo(), dataList);
                                 }
                             },
                             new DialogInterface.OnClickListener() {
@@ -227,6 +223,28 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
 
         new salirGrupoAsyncTask(context, recyclerView, index, dataList).execute(jsonData.toString());
 
+    }
+
+    //Funcion para salir de un grupo
+    private void deleteGrupo(int idGrupo, List<vistaDeGrupo> dataList) {
+        Integer index = null;
+
+        for (int i = 0; i < dataList.size(); i++) {
+            vistaDeGrupo item = dataList.get(i);
+            if (item.getIdgrupo() == idGrupo) {
+                index = i;
+            }
+        }
+
+        //crea el json
+        JSONObject jsonData = new JSONObject();
+        try {
+            jsonData.put("idgrupo", idGrupo);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        new DeleteGrupoAsyncTask(context, recyclerView, index, dataList).execute(jsonData.toString());
     }
 
     public static class CustomViewHolder extends RecyclerView.ViewHolder {

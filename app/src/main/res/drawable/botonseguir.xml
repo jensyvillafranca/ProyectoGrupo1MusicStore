@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <gradient android:startColor="#3CA7E6" android:endColor="#ac44f5" android:type="linear" android:angle="@android:integer/config_longAnimTime"/>
+    <corners android:radius="40sp"/>
+
+</shape>

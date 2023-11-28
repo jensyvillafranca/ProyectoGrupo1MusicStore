@@ -17,7 +17,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.List;
 
-public class salirGrupoAsyncTask extends AsyncTask<String, Void, Void> {
+public class DeleteGrupoAsyncTask extends AsyncTask<String, Void, Void> {
 
     private final Context context;
     private final ProgressDialog progressDialog;
@@ -25,7 +25,7 @@ public class salirGrupoAsyncTask extends AsyncTask<String, Void, Void> {
     private final int index;
     private final List<vistaDeGrupo> dataList;
 
-    public salirGrupoAsyncTask(Context context, RecyclerView recyclerView, int index, List<vistaDeGrupo> list) {
+    public DeleteGrupoAsyncTask(Context context, RecyclerView recyclerView, int index, List<vistaDeGrupo> list) {
         this.context = context;
         this.recyclerView = recyclerView;
         this.index = index;
@@ -41,7 +41,7 @@ public class salirGrupoAsyncTask extends AsyncTask<String, Void, Void> {
         String jsonData = params[0];
 
         try {
-            URL url = new URL("https://phpclusters-152621-0.cloudclusters.net/deleteIntegrante.php");
+            URL url = new URL("https://phpclusters-152621-0.cloudclusters.net/deleteGroup.php");
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setRequestMethod("POST");
             urlConnection.setRequestProperty("Content-Type", "application/json");
@@ -53,7 +53,7 @@ public class salirGrupoAsyncTask extends AsyncTask<String, Void, Void> {
             out.close();
 
             int responseCode = urlConnection.getResponseCode();
-            Log.d("salirGrupoAsyncTask", "Response Code: " + responseCode);
+            Log.d("DeleteGrupoAsyncTask", "Response Code: " + responseCode);
 
             urlConnection.disconnect();
         } catch (Exception e) {
@@ -67,7 +67,7 @@ public class salirGrupoAsyncTask extends AsyncTask<String, Void, Void> {
     protected void onPostExecute(Void aVoid) {
         super.onPostExecute(aVoid);
         progressDialog.dismiss();
-        Toast.makeText(context, "¡Ha salido del Grupo!", Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, "¡Grupo Eliminado!", Toast.LENGTH_SHORT).show();
         dataList.remove(index);
         ((Activity) context).runOnUiThread(new Runnable() {
             @Override
