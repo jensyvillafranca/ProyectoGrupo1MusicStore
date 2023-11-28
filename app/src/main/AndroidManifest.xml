@@ -126,6 +126,15 @@
             android:exported="false" />
         <activity android:name=".activity_principal_login" />
         <activity
+            android:name=".Activity_PerfilUsuario"
+            android:exported="false"/>
+        <activity
+            android:name=".ActivityListaSeguidos"
+            android:exported="false"/>
+        <activity
+            android:name=".ActivityListaSeguidores"
+            android:exported="false"/>
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

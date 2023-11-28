@@ -2,6 +2,7 @@ package com.example.proyectogrupo1musicstore;
 
 import static com.example.proyectogrupo1musicstore.R.id.menu_editar_perfil;
 
+import com.example.proyectogrupo1musicstore.Utilidades.token;
 import android.content.ClipData;
 import android.content.Intent;
 import android.os.Bundle;
@@ -24,6 +25,7 @@ import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.example.proyectogrupo1musicstore.R;
 import com.example.proyectogrupo1musicstore.Adapters.AppData;
+import com.example.proyectogrupo1musicstore.Utilidades.JwtDecoder;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -35,7 +37,9 @@ import java.net.URLEncoder;
 
 public class Activity_PerfilPersonal extends AppCompatActivity {
 
-    int ID = 43;
+
+    int ID;
+    private token acceso = new token(this);
     final int myMenuId = menu_editar_perfil;
     TextView txtNombreCompleto, txtUsername, txtCorreo, txtSeguidores, txtSiguiendo;
     ImageView imgPFP;
@@ -59,6 +63,7 @@ public class Activity_PerfilPersonal extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_perfil_personal);
 
+        ID = Integer.parseInt(JwtDecoder.decodeJwt(acceso.recuperarTokenFromKeystore()));
         txtCorreo = findViewById(R.id.txtCorreoPerfilPersonal);
         txtUsername = findViewById(R.id.txtUsernamePerfilPersonal);
         txtNombreCompleto = findViewById(R.id.txtNombreCompletoPerfilPersonal);
