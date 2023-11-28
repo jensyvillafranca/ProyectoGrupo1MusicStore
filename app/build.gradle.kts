@@ -60,4 +60,9 @@ dependencies {
     implementation ("androidx.room:room-runtime:2.4.0")
     annotationProcessor ("androidx.room:room-compiler:2.4.0")
     implementation ("androidx.room:room-ktx:2.4.0")
+
+    //implementacion de Picasso/Imagen Redonda y Github
+    implementation ("com.github.bumptech.glide:glide:4.15.1")
+    implementation ("com.makeramen:roundedimageview:2.3.0")
+    implementation ("com.squareup.picasso:picasso:2.8")
 }

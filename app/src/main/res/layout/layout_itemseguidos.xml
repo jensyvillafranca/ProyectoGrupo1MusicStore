@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout_mainItemNuevoGrupoIntegrantes"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingHorizontal="2dp"
+    android:paddingTop="2dp"
+    android:background="@color/underline">
+
+
+    <LinearLayout
+        android:id="@+id/layoutVerUsuario"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="8dp"
+        android:background="@drawable/cuadrotransparenteblanco">
+
+
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/imageviewListItemImageUsuario"
+            android:layout_width="62dp"
+            android:layout_height="62dp"
+            android:layout_gravity="center"
+            android:background="@drawable/borderimg"
+            android:src="@drawable/pfp"
+            android:importantForAccessibility="no"
+            android:scaleType="centerCrop"
+            app:riv_corner_radius="50dp"
+            app:riv_oval="true" />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:id="@+id/txtListItemNombreUsuario"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/nombreUsuario"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:layout_gravity="center"/>
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="10"/>
+
+        <Button
+            android:id="@+id/btnSeguirSeguido"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginEnd="15dp"/>
+
+    </LinearLayout>
+
+
+</LinearLayout>

@@ -1,16 +1,13 @@
 package com.example.proyectogrupo1musicstore.NetworkTaksMulti;
 
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.example.proyectogrupo1musicstore.Adapters.IntegrantesAdapter;
-import com.example.proyectogrupo1musicstore.Adapters.PlayListAdapter;
-import com.example.proyectogrupo1musicstore.Models.PlayListItem;
-import com.example.proyectogrupo1musicstore.Models.integrantesItem;
+import com.example.proyectogrupo1musicstore.Models.vistadeplaylist;
 import com.example.proyectogrupo1musicstore.Utilidades.ImageDownloader;
+
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -26,30 +23,27 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+public class FetchDataAsyncModiPlayList extends AsyncTask<String, Void, List<vistadeplaylist>> {
 
-public class ObtenerPlayListAsyncTask extends AsyncTask<String, Void, List<PlayListItem>> {
+    private static final String TAG = "FetchDataAsyncModiPlayList";
+    private DataFetchListener dataFetchListener;
 
-    private static final String TAG = "ObtenerPlayListAsyncTask";
-    private Context context;
-    private PlayListAdapter adapter;
     ProgressDialog progressDialog;
-    private int tipoProgress;
-    private int idusuario;
 
-    public ObtenerPlayListAsyncTask(Context context, PlayListAdapter adapter, ProgressDialog progressDialog) {
-        this.context = context;
-        this.adapter = adapter;
+
+    public FetchDataAsyncModiPlayList(DataFetchListener listener, ProgressDialog progressDialog) {
+        this.dataFetchListener = listener;
         this.progressDialog = progressDialog;
     }
 
     @Override
-    protected List<PlayListItem> doInBackground(String... params) {
-        String idusuario = params[0]; // idUsuario parametro
-
+    protected List<vistadeplaylist> doInBackground(String... params) {
+        String urlString = params[0]; // URL para el microservicio
+        String idUsuario = params[1]; // idusuario parametro
 
         try {
             // construye el URL
-            URL url = new URL("https://phpclusters-152621-0.cloudclusters.net/obtenerPlayList.php");
+            URL url = new URL(urlString);
 
             // Crea la conexion y la abre
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
@@ -59,7 +53,7 @@ public class ObtenerPlayListAsyncTask extends AsyncTask<String, Void, List<PlayL
 
             // Crea el objeto JSON con el parametro
             JSONObject jsonParams = new JSONObject();
-            jsonParams.put("idUsuario", Integer.valueOf(idusuario));
+            jsonParams.put("idusuario", idUsuario);
 
             // Escribe el JSON al output stream
             OutputStream out = new BufferedOutputStream(urlConnection.getOutputStream());
@@ -82,27 +76,20 @@ public class ObtenerPlayListAsyncTask extends AsyncTask<String, Void, List<PlayL
 
         } catch (Exception e) {
             Log.e(TAG, "Error obteniendo la Información del servidor: " + e.getMessage());
+            progressDialog.dismiss();
         }
 
         return null;
     }
-
-
     @Override
-    protected void onPostExecute(List<PlayListItem> dataList) {
-
-        if (tipoProgress == 1) {
-            progressDialog.dismiss();
-        }
+    protected void onPostExecute(List<vistadeplaylist> dataList) {
         if (dataList != null) {
-            adapter.setDataList(dataList);
+            dataFetchListener.onDataFetched(dataList);
         }
-
     }
 
-
-    private List<PlayListItem> parseJsonResponse(String json) {
-        List<PlayListItem> dataList = new ArrayList<>();
+    private List<vistadeplaylist> parseJsonResponse(String json) {
+        List<vistadeplaylist> dataList = new ArrayList<>();
 
         try {
             JSONArray jsonArray = new JSONArray(json);
@@ -112,11 +99,14 @@ public class ObtenerPlayListAsyncTask extends AsyncTask<String, Void, List<PlayL
 
                 // Extrae la informacion y crea objetos
                 Integer idplaylist = jsonObject.getInt("idplaylist");
-                String nombrePlay = jsonObject.getString("nombreplaylist");
+                String nombre = jsonObject.getString("nombre");
+                String biografia = jsonObject.getString("biografia");
+                String creador = jsonObject.getString("usuario");
+                Integer idOwner = jsonObject.getInt("idusuario");
+
                 Bitmap imageResource = ImageDownloader.downloadImage(jsonObject.getString("enlacefoto"));
 
-
-                dataList.add(new PlayListItem(imageResource, nombrePlay, idplaylist, 8));
+                dataList.add(new vistadeplaylist(nombre, creador,biografia, idplaylist, imageResource , idOwner));
             }
 
         } catch (JSONException e) {
@@ -126,4 +116,9 @@ public class ObtenerPlayListAsyncTask extends AsyncTask<String, Void, List<PlayL
         return dataList;
     }
 
+
+
+    public interface DataFetchListener {
+        void onDataFetched(List<vistadeplaylist> dataList);
+    }
 }

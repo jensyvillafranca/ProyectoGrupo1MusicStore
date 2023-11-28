@@ -2,14 +2,22 @@
 
     <!--Kevin-->
     <string name="app_name">Music Store HN</string>
-    <string name="name">Nombre Completo</string>
-    <string name="username">username</string>
-    <string name="email">user@user.com</string>
+    <string name="name">Usuario Eliminado</string>
+    <string name="username">deleteduser</string>
+    <string name="email">user@deleted.app</string>
     <string name="followers">0</string>
     <string name="seguidores">Seguidores</string>
     <string name="following">0</string>
     <string name="siguiendo">Siguiendo</string>
-    <string name="gruposfavs">Grupos Favoritos</string>
+    <string name="eliminar">Eliminar</string>
+    <string name="privada">Privada</string>
+    <string name="confirmar">Confirmar</string>
+    <string name="pendiente">Pendiente</string>
+    <string name="buscarUsuario">Buscar Usuarios</string>
+    <string name="busquedaUsuario">Busqueda de Usuarios</string>
+    <string name="seguir">Seguir</string>
+    <string name="seguido">Seguido</string>
+    <string name="seguidos">Seguidos</string>
     <string name="playlist">Playlists</string>
     <string name="playlist1">Nombre de Playlist</string>
     <string name="grupo1">Grupo 1</string>
@@ -131,7 +139,6 @@
     <string name="cerrarSesion">Cerrar Sesión</string>
     <string name="tipoGrupo">Tipo de Grupo</string>
     <string name="guardarCambios">Guardar Cambios</string>
-    <string name="notificacionesI">NOTIFICACIONES</string>
 
     <!--Jonathan-->
     <string name="btnCrearPlayList">Crear PlayList</string>

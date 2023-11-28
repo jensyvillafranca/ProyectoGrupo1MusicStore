@@ -29,6 +29,8 @@ import com.example.proyectogrupo1musicstore.Models.integrantesItem;
 import com.example.proyectogrupo1musicstore.Models.musicItem;
 import com.example.proyectogrupo1musicstore.NetworkTaksMulti.ObtenerPlayListAsyncTask;
 import com.example.proyectogrupo1musicstore.NetworkTaksMulti.informacionGeneralPlayListAstAsyncTask;
+import com.example.proyectogrupo1musicstore.Utilidades.JwtDecoder;
+import com.example.proyectogrupo1musicstore.Utilidades.token;
 
 
 import java.util.ArrayList;
@@ -36,13 +38,15 @@ import java.util.List;
 
 public class ActivityPlayList extends AppCompatActivity implements informacionGeneralPlayListAstAsyncTask.DataFetchListener {
     Button CrearPlays;
-    TextView txtSiguiente, nombreplay,textviewNumeroPlay,txtSiguienteVerTodo;
+    TextView txtSiguiente, nombreplay,textviewNumeroPlay,txtSiguienteVerTodo, mostrarNombreUsuario;
     RecyclerView recyclerviewPlayLists, recyclerviewMusicasFavoritass;
     ImageView fotoPlay;
     DrawerLayout drawerLayout;
     ImageButton openMenuButton;
+    private com.example.proyectogrupo1musicstore.Utilidades.token token = new token(this);
 
     private int idplaylist;
+    private int idUsuario;
 
     //private int idUsuario = 2;
     ProgressDialog progressDialog;
@@ -52,9 +56,13 @@ public class ActivityPlayList extends AppCompatActivity implements informacionGe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play_list);
 
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Cargando...");
+        progressDialog.setCancelable(false);
 
+        idUsuario = Integer.parseInt(JwtDecoder.decodeJwt(token.recuperarTokenFromKeystore()));
 
-        idplaylist = 2;
+        idplaylist = getIntent().getIntExtra("idplaylist", 0);
 
         // Declaración de variables
         recyclerviewPlayLists = (RecyclerView) findViewById(R.id.recyclerviewPlayList);
@@ -64,6 +72,7 @@ public class ActivityPlayList extends AppCompatActivity implements informacionGe
         txtSiguienteVerTodo  = (TextView) findViewById(R.id.textviewVerTodoMusicas);
         openMenuButton = (ImageButton) findViewById(R.id.btn_Principal);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layoutPlayList);
+       // mostrarNombreUsuario = (TextView) findViewById(R.id.txtNombreUsuario);
 
         // Creación de una lista de elementos de playlistitem
         List<PlayListItem> playlistitemList = new ArrayList<>();
@@ -85,7 +94,7 @@ public class ActivityPlayList extends AppCompatActivity implements informacionGe
 
         // Listener para abrir el menú lateral
         openMenuButton.setOnClickListener(v -> {
-            drawerLayout.openDrawer(findViewById(R.id.side_menus));
+            drawerLayout.openDrawer(findViewById(R.id.side_menusss));
         });
 //        new ObtenerPlayListAsyncTask(ActivityPlayList.this, playAdapter, progressDialog)
   //              .execute(String.valueOf(idplaylist));
@@ -107,7 +116,7 @@ public class ActivityPlayList extends AppCompatActivity implements informacionGe
                 if (view.getId() == R.id.txtPrincipal) {
                     actividad = Activity_SubirMusica.class;
                 }
-                if (view.getId() == R.id.textviewVerTodoMusica) {
+                if (view.getId() == R.id.textviewVerTodoMusicas) {
                     actividad = ActivityVerPlayList.class;
                 }
                 if (actividad != null) {

@@ -59,6 +59,7 @@ public class ActivityPlay extends AppCompatActivity {
     ImageButton botonAtrass;
     EditText textNombrePlayList,txtBiografia;
     ImageView imgAgragarImagen, insertarInfo,ImageViewFoto;
+    TextView agrearModificarPlayList;
     Button btnCance;
     List<Integer> selectedUserIds;
     byte[] imgPerfilByteArray;
@@ -87,6 +88,7 @@ public class ActivityPlay extends AppCompatActivity {
         textNombrePlayList = (EditText) findViewById(R.id.txtNombrePlayList);
         txtBiografia = (EditText) findViewById(R.id.txtBiografia);
         btnCance = (Button) findViewById(R.id.btnCancelar);
+        agrearModificarPlayList = (TextView) findViewById(R.id.modificarPlayList);
         View.OnClickListener buttonClick = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -94,6 +96,9 @@ public class ActivityPlay extends AppCompatActivity {
 
                 if (view.getId() == R.id.btnAtrass) {
                     actividad = ActivityPlayList.class;
+                }
+                if (view.getId() == R.id.modificarPlayList) {
+                    actividad = ActivityModificarPlayList.class;
                 }
 
                 if (actividad != null) {
@@ -130,10 +135,11 @@ public class ActivityPlay extends AppCompatActivity {
         //Insertar Datos
         insertarInfo.setOnClickListener(new View.OnClickListener() {
 
+
             @Override
             public void onClick(View v) {
                 if (validar() == true){
-                    new CreatePlayListTask(ActivityPlay.this, selectedUserIds, textNombrePlayList.getText().toString(), txtBiografia.getText().toString(), imgPerfilByteArray, textNombrePlayList,idFavorito).execute();
+                    new CreatePlayListTask(ActivityPlay.this, selectedUserIds, textNombrePlayList.getText().toString(), txtBiografia.getText().toString(), imgPerfilByteArray, textNombrePlayList,idFavorito,idUsuario).execute();
                     setTitle("El nombre de la PlayList se agrego correctamente");
                 }else{
                     mensajesPersonalizados();
@@ -143,6 +149,7 @@ public class ActivityPlay extends AppCompatActivity {
 
         });
         botonAtrass.setOnClickListener(buttonClick);
+        agrearModificarPlayList.setOnClickListener(buttonClick);
 
         //Listener para manejar el cierre del teclado con el boton de enter
         textNombrePlayList.setOnEditorActionListener(new TextView.OnEditorActionListener() {
