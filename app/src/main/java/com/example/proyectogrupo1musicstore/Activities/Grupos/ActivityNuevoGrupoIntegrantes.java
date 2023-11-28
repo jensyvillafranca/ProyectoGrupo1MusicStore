@@ -30,7 +30,7 @@ public class ActivityNuevoGrupoIntegrantes extends AppCompatActivity implements 
     ImageButton botonSiguiente, botonAtras;
     TextView textviewSiguiente, textviewAtras;
     ProgressDialog progressDialog;
-    List<Integer> selectedUserIds = null;
+    List<Integer> selectedUserIds;
     CustomAdapterNuevoGrupoIntegrantes adapter;
     private com.example.proyectogrupo1musicstore.Utilidades.token token = new token(this);
     private int idUsuario;
@@ -45,6 +45,8 @@ public class ActivityNuevoGrupoIntegrantes extends AppCompatActivity implements 
         progressDialog.setCancelable(false);
 
         idUsuario = Integer.parseInt(JwtDecoder.decodeJwt(token.recuperarTokenFromKeystore()));
+
+        selectedUserIds = new ArrayList<>();
 
         // Inicialización de vistas y elementos del diseño
         lista = (RecyclerView) findViewById(R.id.recyclerview_NuevoGrupoIntegrantes);
@@ -141,6 +143,7 @@ public class ActivityNuevoGrupoIntegrantes extends AppCompatActivity implements 
 
     // Metodo Sobrecargado con la lista
     private void moveActivity(Class<?> actividad, List<Integer> selectedUserIds) {
+        Log.e("IdUsuario: ", String.valueOf(idUsuario));
         selectedUserIds.add(idUsuario);
         Intent intent = new Intent(getApplicationContext(), actividad);
         intent.putIntegerArrayListExtra("selectedUserIds", new ArrayList<>(selectedUserIds));
