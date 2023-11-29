@@ -7,22 +7,31 @@
     android:layout_marginEnd="10dp"
     android:layout_marginBottom="5dp"
     android:orientation="vertical">
+    <CheckBox
+        android:id="@+id/checkboxCancion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:buttonTint="@android:color/white"/>
 
     <ImageView
         android:id="@+id/itemPortadaAudio"
         android:layout_width="99dp"
         android:layout_height="99dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/iconodeusuariossinfoto" />
+        android:background="@drawable/circle_icono_audio"
+        android:clipToOutline="true"
+        android:src="@drawable/iconodecadaarchivomusica"/>
+
 
     <TextView
         android:id="@+id/textviewNombreCancion"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_marginTop="1dp"
         android:fontFamily="@font/fuente_jost_global"
         android:gravity="center"
-        android:text="@string/integrante"
+        android:text="Nombre de la canción"
         android:textColor="@color/lightGray90"
         android:textSize="14sp" />
 </LinearLayout>
