@@ -1,7 +1,4 @@
 package com.example.proyectogrupo1musicstore;
-
-
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
@@ -17,6 +14,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.provider.Settings;
@@ -44,10 +42,11 @@ public class Activity_SubirVideo extends AppCompatActivity {
     TextView textviewAtrass, txtBuscarArchivos, Archivoss, Inicios;
     ImageView imageViewBuscarArchivos, iconoArchivos,iconInicios;
     CardView buscars,busquedaVideos, seleccionarVideos, btnPrincipalAudio;
-    private static final int PICK_VIDEOS_REQUEST = 1;// Código de solicitud para seleccionar un archivo de audio
-    private static final int REQUEST_CODE_VIDEO = 123;
-    // Inicialización de Firebase Storage
+    private static final int REQUEST_CODE = 123;
+    private static final int REQUEST_CODE_EXTERNAL = 124;
+    private static final int PICK_VIDEOS_REQUEST = 1;// Código de solicitud para seleccionar un archivo de video
 
+    RecyclerView recyclerViewVideos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,27 +63,12 @@ public class Activity_SubirVideo extends AppCompatActivity {
         btnPrincipalAudio = (CardView) findViewById(R.id.cardViewNavegacionMusicavideoos);
         seleccionarVideos = (CardView) findViewById(R.id.cardViewSubirMusicaVideos);
         busquedaVideos = (CardView) findViewById(R.id.cardViewBuscarArchivovideos);
+        recyclerViewVideos = (RecyclerView) findViewById(R.id.recyclerview_SubirMusicavideos);
 
-        //Creacion de una lista de elementos de vistaArchivos
-        List<vistaMusicaVideo> dataList = new ArrayList<>();
-
-        //Configuracion del administrador de disenio y adaptador para el RecyclerView
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this); // Use an appropriate layout manager
-        listas.setLayoutManager(layoutManager);
-        CustomAdapterMusicaVideos adapter = new CustomAdapterMusicaVideos(this, dataList);
-        listas.setAdapter(adapter);
 
         seleccionarVideos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               /* if (ContextCompat.checkSelfPermission(Activity_SubirMusica.this, Manifest.permission.READ_MEDIA_AUDIO) != PackageManager.PERMISSION_GRANTED) {
-                    // Permission is not granted, request it
-                    ActivityCompat.requestPermissions(Activity_SubirMusica.this, new String[]{android.Manifest.permission.READ_MEDIA_AUDIO}, REQUEST_CODE);
-                } else {
-                    // Create an intent to pick an image from the gallery
-                    Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Audio.Media.EXTERNAL_CONTENT_URI);
-                    startActivityForResult(intent, PICK_AUDIOS_REQUEST);
-                }*/
                 requestVideoPermission() ;
         }
         });
@@ -120,16 +104,25 @@ public class Activity_SubirVideo extends AppCompatActivity {
     }
 
     private void requestVideoPermission() {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
-                showPermissionExplanation();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+            // Android 10 y superior, solicitar READ_MEDIA_VIDEO
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_MEDIA_VIDEO) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_MEDIA_VIDEO}, REQUEST_CODE);
             } else {
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_CODE_VIDEO);
+                // El permiso está concedido, proceder a seleccionar un video
+                pickVideoFromGallery();
             }
         } else {
-            pickVideoFromGallery();
+            // Android 9 y inferior, solicitar WRITE_EXTERNAL_STORAGE
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_CODE_EXTERNAL);
+            } else {
+                // El permiso está concedido, proceder a seleccionar un video
+                pickVideoFromGallery();
+            }
         }
     }
+
 
 
     private void pickVideoFromGallery() {
@@ -184,9 +177,5 @@ public class Activity_SubirVideo extends AppCompatActivity {
         });
         builder.show();
     }
-
-    /*Hasta aqui*/
-    /*Hasta aqui*/
-    /*Hasta aqui*/
 
 }
