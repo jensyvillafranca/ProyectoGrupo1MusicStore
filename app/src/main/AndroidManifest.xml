@@ -27,6 +27,9 @@
         android:theme="@style/Theme.ProyectoGrupo1MusicStore"
         tools:targetApi="31">
         <activity
+            android:name=".ActivityReproductoVideo"
+            android:exported="false" />
+        <activity
             android:name=".ActivityEditarPlayList"
             android:exported="false" />
         <activity
@@ -132,13 +135,13 @@
         <activity android:name=".activity_principal_login" />
         <activity
             android:name=".Activity_PerfilUsuario"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".ActivityListaSeguidos"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".ActivityListaSeguidores"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -159,6 +162,5 @@
             </intent-filter>
         </service>
     </application>
-
 
 </manifest>
