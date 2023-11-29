@@ -123,35 +123,24 @@ public class Activity_SubirVideo extends AppCompatActivity {
         }
     }
 
-
-
     private void pickVideoFromGallery() {
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Video.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(intent, PICK_VIDEOS_REQUEST);
     }
 
-
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
-        if (requestCode == REQUEST_CODE_VIDEO) {
+        if (requestCode == REQUEST_CODE) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // Si el permiso es concedido, proceder a seleccionar un video
                 pickVideoFromGallery();
             } else {
+                // Si el permiso es denegado, mostrar una explicación
                 showPermissionExplanation();
             }
         }
-    }
-    private byte[] getBytes(InputStream inputStream) throws IOException {
-        ByteArrayOutputStream byteBuffer = new ByteArrayOutputStream();
-        int bufferSize = 1024;
-        byte[] buffer = new byte[bufferSize];
-        int len;
-        while ((len = inputStream.read(buffer)) != -1) {
-            byteBuffer.write(buffer, 0, len);
-        }
-        return byteBuffer.toByteArray();
     }
 
     private void showPermissionExplanation() {
@@ -177,5 +166,4 @@ public class Activity_SubirVideo extends AppCompatActivity {
         });
         builder.show();
     }
-
 }
