@@ -38,7 +38,7 @@ public class informacionGeneralPlayListAstAsyncTask extends AsyncTask<String, Vo
     @Override
     protected List<PlayListItem> doInBackground(String... params) {
         String urlString = params[0]; // URL para el microservicio
-       String idUsuario = params[1]; // idplaylist parametro
+       String idusuario = params[1]; // idplaylist parametro
         //String idplaylist = params[1];
         try {
             // construye el URL
@@ -53,7 +53,7 @@ public class informacionGeneralPlayListAstAsyncTask extends AsyncTask<String, Vo
 
             // Crea el objeto JSON con el parametro
             JSONObject jsonParams = new JSONObject();
-            jsonParams.put("idUsuario", Integer.valueOf(idUsuario));
+            jsonParams.put("idusuario", Integer.valueOf(idusuario));
 
             // Escribe el JSON al output stream
             OutputStream out = new BufferedOutputStream(urlConnection.getOutputStream());
@@ -106,12 +106,12 @@ public class informacionGeneralPlayListAstAsyncTask extends AsyncTask<String, Vo
 
                 // Extrae la informacion y crea objetos
                 Integer idplaylist = jsonObject.getInt("idplaylist");
-                String nombre = jsonObject.getString("nombreplaylist");
+                String nombre = jsonObject.getString("nombre");
                 Bitmap imageResource = ImageDownloader.downloadImage(jsonObject.getString("enlacefoto"));
                 //Integer numeroMusica = jsonObject.getInt("numeromusica");
 
 
-                dataList.add(new PlayListItem(imageResource, nombre, idplaylist, 8));
+                dataList.add(new PlayListItem(imageResource, nombre, idplaylist));
             }
 
         } catch (JSONException e) {
