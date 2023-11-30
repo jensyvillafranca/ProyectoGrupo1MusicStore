@@ -85,18 +85,29 @@
                 app:layout_constraintTop_toBottomOf="@+id/layout_GrupoInfoBtnAtras"
                 app:layout_constraintVertical_bias="0.0">
 
-
-                <ImageView
-                    android:id="@+id/imageviewGrupoInfoFoto"
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardviewImageGroupInfo"
                     android:layout_width="160dp"
                     android:layout_height="116dp"
                     android:layout_marginStart="50dp"
                     android:layout_marginTop="15dp"
                     android:layout_marginEnd="50dp"
+                    android:layout_marginBottom="50dp"
+                    android:backgroundTint="@android:color/transparent"
+                    app:cardCornerRadius="50dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/logopantallaprincipal" />
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:id="@+id/imageviewGrupoInfoFoto"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="fitXY"
+                        app:srcCompat="@drawable/logopantallaprincipal" />
+
+                </androidx.cardview.widget.CardView>
 
                 <TextView
                     android:id="@+id/textview_GrupoInfoTitulo"
@@ -112,7 +123,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/imageviewGrupoInfoFoto" />
+                    app:layout_constraintTop_toBottomOf="@+id/cardviewImageGroupInfo" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -228,7 +239,7 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerviewIntegrantes"
                     android:layout_width="0dp"
-                    android:layout_height="127dp"
+                    android:layout_height="135dp"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="10dp"

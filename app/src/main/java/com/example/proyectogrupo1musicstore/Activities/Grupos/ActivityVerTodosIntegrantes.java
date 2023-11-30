@@ -58,30 +58,20 @@ public class ActivityVerTodosIntegrantes extends AppCompatActivity {
         new obtenerIntegrantesGrupoAsyncTask(ActivityVerTodosIntegrantes.this, integrantesAdapter, progressDialog)
                 .execute(String.valueOf(idgrupo), tipo);
 
-        // Listener para manejar los botones de "Atrás"
-        View.OnClickListener buttonClick = new View.OnClickListener() {
+        botonAtras.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Class<?> actividad = null;
-                if (view.getId() == R.id.btn_vertodosIntegrantesAtras) {
-                    actividad = ActivityGrupoInfo.class;
-                }
-                if (view.getId() == R.id.textview_vertodosIntegrantesBotAtras) {
-                    actividad = ActivityGrupoInfo.class;
-                }
-                if (actividad != null) {
-                    moveActivity(actividad, idgrupo);
-                }
+            public void onClick(View v) {
+                finish();
             }
-        };
+        });
 
-        botonAtras.setOnClickListener(buttonClick);
-        textviewAtras.setOnClickListener(buttonClick);
-    }
+        textviewAtras.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
-    private void moveActivity(Class<?> actividad, int idgrupo) {
-        Intent intent = new Intent(getApplicationContext(), actividad);
-        intent.putExtra("idgrupo", idgrupo);
-        startActivity(intent);
+
     }
 }

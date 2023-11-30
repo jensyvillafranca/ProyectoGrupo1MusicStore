@@ -8,15 +8,24 @@
     android:layout_marginEnd="10dp"
     android:layout_marginBottom="5dp">
 
-    <ImageView
-        android:id="@+id/imageviewCarouselItemVideo"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardviewImageCarouselVideo"
         android:layout_width="95dp"
         android:layout_height="95dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/iconodecadaarchivovideo"
+        app:cardCornerRadius="50dp"
+        android:backgroundTint="@android:color/transparent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/imageviewCarouselItemVideo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:srcCompat="@drawable/iconodecadaarchivovideo"
+            android:scaleType="fitXY"/>
+
+    </androidx.cardview.widget.CardView>
 
     <TextView
         android:id="@+id/textviewCarouselItemVideo"
@@ -31,5 +40,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageviewCarouselItemVideo" />
+        app:layout_constraintTop_toBottomOf="@+id/cardviewImageCarouselVideo" />
 </androidx.constraintlayout.widget.ConstraintLayout>

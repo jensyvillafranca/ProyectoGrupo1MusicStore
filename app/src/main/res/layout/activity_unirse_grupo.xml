@@ -27,27 +27,37 @@
                 app:layout_constraintTop_toBottomOf="@+id/relativeLayoutGruposUnirse2"
                 app:layout_constraintVertical_bias="0.0">
 
-                <ImageView
-                    android:id="@+id/imageviewUnirseImagenGrupo"
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardviewImageUnirse"
                     android:layout_width="166dp"
                     android:layout_height="154dp"
+                    app:cardCornerRadius="50dp"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
                     android:layout_alignParentEnd="true"
                     android:layout_marginStart="100dp"
                     android:layout_marginTop="50dp"
                     android:layout_marginEnd="100dp"
+                    android:backgroundTint="@android:color/transparent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.498"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/logopantallaprincipal" />
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:id="@+id/imageviewUnirseImagenGrupo"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:srcCompat="@drawable/logopantallaprincipal"
+                        android:scaleType="fitXY"/>
+
+                </androidx.cardview.widget.CardView>
 
                 <TextView
                     android:id="@+id/textviewUnirseNombreGrupo"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/imageviewUnirseImagenGrupo"
+                    android:layout_below="@+id/cardviewImageUnirse"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentEnd="true"
                     android:layout_marginStart="80dp"
@@ -61,7 +71,7 @@
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/imageviewUnirseImagenGrupo" />
+                    app:layout_constraintTop_toBottomOf="@+id/cardviewImageUnirse" />
 
                 <TextView
                     android:id="@+id/textviewUnirseIntegrantes"

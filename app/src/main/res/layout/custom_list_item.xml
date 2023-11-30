@@ -9,15 +9,24 @@
     android:background="@color/white"
     android:padding="16dp">
 
-    <ImageView
-        android:id="@+id/imageviewListItemImage"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardviewImagePrincipal"
         android:layout_width="62dp"
         android:layout_height="57dp"
-        android:contentDescription="Image"
-        android:src="@drawable/botongruposmenudespegable"
+        android:backgroundTint="@android:color/transparent"
+        app:cardCornerRadius="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/imageviewListItemImage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitXY"
+            app:srcCompat="@drawable/botongruposmenudespegable" />
+
+    </androidx.cardview.widget.CardView>
 
     <TextView
         android:id="@+id/txtListItemNombreGrupo"
@@ -28,7 +37,7 @@
         android:textColor="@color/black"
         android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/iconLayout"
-        app:layout_constraintStart_toEndOf="@+id/imageviewListItemImage"
+        app:layout_constraintStart_toEndOf="@+id/cardviewImagePrincipal"
         app:layout_constraintTop_toTopOf="@+id/layout_mainItem" />
 
     <TextView
@@ -39,7 +48,7 @@
         android:text="@string/creador"
         android:textColor="@color/black"
         app:layout_constraintEnd_toStartOf="@+id/iconLayout"
-        app:layout_constraintStart_toEndOf="@+id/imageviewListItemImage"
+        app:layout_constraintStart_toEndOf="@+id/cardviewImagePrincipal"
         app:layout_constraintTop_toBottomOf="@+id/txtListItemNombreGrupo" />
 
     <TextView
@@ -50,7 +59,7 @@
         android:text="@string/integrantes"
         android:textColor="@color/black"
         app:layout_constraintEnd_toStartOf="@+id/iconLayout"
-        app:layout_constraintStart_toEndOf="@+id/imageviewListItemImage"
+        app:layout_constraintStart_toEndOf="@+id/cardviewImagePrincipal"
         app:layout_constraintTop_toBottomOf="@+id/txtListItemCreado" />
 
     <LinearLayout

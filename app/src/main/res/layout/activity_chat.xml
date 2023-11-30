@@ -46,24 +46,33 @@
             android:textSize="20sp"
             android:gravity="center"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/groupImage"
+            app:layout_constraintEnd_toStartOf="@+id/cardviewImage"
             app:layout_constraintStart_toEndOf="@+id/backButton"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/groupImage"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardviewImage"
             android:layout_width="50dp"
             android:layout_height="55dp"
+            app:cardCornerRadius="50dp"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:layout_marginTop="5dp"
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="5dp"
-            android:contentDescription="Group Image"
-            android:src="@drawable/logopantallaprincipal"
+            android:backgroundTint="@android:color/transparent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/groupImage"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:srcCompat="@drawable/logopantallaprincipal"
+                android:scaleType="fitXY"/>
+
+        </androidx.cardview.widget.CardView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <!-- Chat Messages -->
@@ -82,18 +91,23 @@
         android:padding="10dp"
         app:layout_constraintBottom_toTopOf="@+id/messageInputLayout"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/headerLayout">
+        app:layout_constraintTop_toBottomOf="@+id/headerLayout"
+        app:layout_constraintVertical_bias="1.0">
 
-        <LinearLayout
-            android:id="@+id/chatMessagesLayout"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/messageInputLayout"
+            android:layout_below="@+id/headerLayout"
             android:layout_marginTop="0dp"
             android:background="@drawable/cuadronuevogrupogrande"
-            android:orientation="vertical">
-            <!-- Add chat messages dynamically here -->
-        </LinearLayout>
+            app:layout_constraintBottom_toTopOf="@+id/messageInputLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/headerLayout" />
     </ScrollView>
 
     <androidx.constraintlayout.widget.ConstraintLayout

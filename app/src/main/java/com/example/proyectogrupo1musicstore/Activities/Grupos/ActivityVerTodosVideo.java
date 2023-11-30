@@ -58,30 +58,22 @@ public class ActivityVerTodosVideo extends AppCompatActivity {
         new obtenerVideosGrupoAsyncTask(ActivityVerTodosVideo.this, videoAdapter, progressDialog)
                 .execute(String.valueOf(idgrupo), tipo);
 
-        // Listener para manejar los botones de "Atrás"
-        View.OnClickListener buttonClick = new View.OnClickListener() {
+
+        botonAtras.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Class<?> actividad = null;
-                if (view.getId() == R.id.btn_vertodosVideoAtras) {
-                    actividad = ActivityGrupoInfo.class;
-                }
-                if (view.getId() == R.id.textview_vertodosVideoBotAtras) {
-                    actividad = ActivityGrupoInfo.class;
-                }
-                if (actividad != null) {
-                    moveActivity(actividad, idgrupo);
-                }
+            public void onClick(View v) {
+                finish();
             }
-        };
+        });
 
-        botonAtras.setOnClickListener(buttonClick);
-        textviewAtras.setOnClickListener(buttonClick);
+        textviewAtras.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+
     }
 
-    private void moveActivity(Class<?> actividad, int idgrupo) {
-        Intent intent = new Intent(getApplicationContext(), actividad);
-        intent.putExtra("idgrupo", idgrupo);
-        startActivity(intent);
-    }
 }

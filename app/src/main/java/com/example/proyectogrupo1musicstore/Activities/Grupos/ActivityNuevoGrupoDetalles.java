@@ -23,6 +23,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -167,26 +168,38 @@ public class ActivityNuevoGrupoDetalles extends AppCompatActivity implements Fet
         btnUnirse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Show confirmation dialog
-                ConfirmationDialog.showConfirmationDialog(
-                        ActivityNuevoGrupoDetalles.this,
-                        "Confirmación",
-                        "¿Está seguro de que desea crear el grupo?",
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                // Si el usuario hace click en si
-                                new CreateGroupAsyncTask(ActivityNuevoGrupoDetalles.this, selectedUserIds, textNombreGrupo.getText().toString(), textDescripcion.getText().toString(), imgPerfilByteArray, estadoPrivado, textNombreGrupo, idUsuario).execute();
+                if(imgPerfilByteArray == null){
+                    Toast.makeText(ActivityNuevoGrupoDetalles.this, "Porfavor Seleccione una Imagen para el Grupo", Toast.LENGTH_SHORT).show();
+                } else if (textNombreGrupo.getText().toString().isEmpty()) {
+                    Toast.makeText(ActivityNuevoGrupoDetalles.this, "Porfavor Ingrese un Nombre para el Grupo", Toast.LENGTH_SHORT).show();
+                    textNombreGrupo.setError("Ingrese un Nombre");
+                } else if(textDescripcion.getText().toString().isEmpty()){
+                    Toast.makeText(ActivityNuevoGrupoDetalles.this, "Porfavor Ingrese una Descripción para el Grupo", Toast.LENGTH_SHORT).show();
+                    textDescripcion.setError("Ingrese una Descripción");
+                }
+                else{
+                    // Show confirmation dialog
+                    ConfirmationDialog.showConfirmationDialog(
+                            ActivityNuevoGrupoDetalles.this,
+                            "Confirmación",
+                            "¿Está seguro de que desea crear el grupo?",
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    // Si el usuario hace click en si
+                                    new CreateGroupAsyncTask(ActivityNuevoGrupoDetalles.this, selectedUserIds, textNombreGrupo.getText().toString(), textDescripcion.getText().toString(), imgPerfilByteArray, estadoPrivado, textNombreGrupo, idUsuario).execute();
+                                }
+                            },
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    // Si el usuario hace click en no
+                                    dialog.dismiss();
+                                }
                             }
-                        },
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                // Si el usuario hace click en no
-                                dialog.dismiss();
-                            }
-                        }
-                );
+                    );
+                }
+
             }
         });
 

@@ -49,8 +49,8 @@ public class IntegrantesAdapter extends RecyclerView.Adapter<IntegrantesAdapter.
 
         public IntegrantesViewHolder(@NonNull View itemView) {
             super(itemView);
-            integranteImage = itemView.findViewById(R.id.itemPortadaAudio);
-            integranteName = itemView.findViewById(R.id.textviewNombreCancion);
+            integranteImage = itemView.findViewById(R.id.imageviewCarouselItemIntegrantes);
+            integranteName = itemView.findViewById(R.id.textviewCarouselItemIntegrantes);
         }
     }
 

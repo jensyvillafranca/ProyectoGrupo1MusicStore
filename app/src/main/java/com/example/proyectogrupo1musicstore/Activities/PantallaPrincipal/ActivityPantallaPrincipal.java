@@ -53,7 +53,6 @@ public class ActivityPantallaPrincipal extends AppCompatActivity {
     TextView Grupos, Inicio, CerrarSesion, Ajustes, multimediaTexto;
     ImageView iconGrupos, iconInicio, multimedia, iconCerrarSesion, iconAjustes;
     private Button btnNotifications;
-    private int numeroNotificaciones;
 
     //Crea nueva instancia de clase token, para obtener el valor de idusuario de la clase decodetoken
     private token acceso = new token(this);
