@@ -25,6 +25,8 @@ import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.example.proyectogrupo1musicstore.Adapters.AppData;
 import com.example.proyectogrupo1musicstore.Models.User;
+import com.example.proyectogrupo1musicstore.Utilidades.JwtDecoder;
+import com.example.proyectogrupo1musicstore.Utilidades.token;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -36,12 +38,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ActivityListaSeguidores extends AppCompatActivity {
-
+    private token acceso = new token(this);
     private RecyclerView recyclerView;
     private List<User> listaDeUsuarios;
     ImageButton btnUsuariosBuscarAtras;
     String seguidoseguir = "false";
-    int IdPersonal = Integer.parseInt(AppData.getInstance().getId());
+    int IdPersonal;
     int IdUsuario;
 
     @Override
@@ -53,6 +55,7 @@ public class ActivityListaSeguidores extends AppCompatActivity {
         btnUsuariosBuscarAtras = findViewById(R.id.btn_UsuariosBuscarAtras);
         IdUsuario = getIntent().getIntExtra("IdUsuario", -1);
         listaDeUsuarios = new ArrayList<>();
+        IdPersonal = Integer.parseInt(JwtDecoder.decodeJwt(acceso.recuperarTokenFromKeystore()));
 
         btnUsuariosBuscarAtras.setOnClickListener(new View.OnClickListener() {
             @Override

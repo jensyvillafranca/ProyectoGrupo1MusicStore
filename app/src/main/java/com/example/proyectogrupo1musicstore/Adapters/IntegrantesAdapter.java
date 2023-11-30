@@ -11,7 +11,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.proyectogrupo1musicstore.Models.integrantesItem;
-import com.example.proyectogrupo1musicstore.Models.vistaDeNuevoGrupo;
 import com.example.proyectogrupo1musicstore.R;
 
 import java.util.List;
@@ -50,8 +49,8 @@ public class IntegrantesAdapter extends RecyclerView.Adapter<IntegrantesAdapter.
 
         public IntegrantesViewHolder(@NonNull View itemView) {
             super(itemView);
-            integranteImage = itemView.findViewById(R.id.imageviewCarouselItemIntegrantes);
-            integranteName = itemView.findViewById(R.id.textviewCarouselItemIntegrantes);
+            integranteImage = itemView.findViewById(R.id.itemPortadaAudio);
+            integranteName = itemView.findViewById(R.id.textviewNombreCancion);
         }
     }
 

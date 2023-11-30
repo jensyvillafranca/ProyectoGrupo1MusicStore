@@ -320,7 +320,7 @@ public class ActivityNuevoGrupoDetalles extends AppCompatActivity implements Fet
 
     //metodo para revisar los permisos
     private void checkPermissions() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S_V2) {
             // Android 10 and above, request READ_MEDIA_IMAGES
             if (ContextCompat.checkSelfPermission(ActivityNuevoGrupoDetalles.this, Manifest.permission.READ_MEDIA_IMAGES) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(ActivityNuevoGrupoDetalles.this, new String[]{Manifest.permission.READ_MEDIA_IMAGES}, REQUEST_CODE);

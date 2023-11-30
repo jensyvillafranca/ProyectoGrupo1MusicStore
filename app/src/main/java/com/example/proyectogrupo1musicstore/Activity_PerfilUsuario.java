@@ -21,6 +21,8 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.example.proyectogrupo1musicstore.Adapters.AppData;
+import com.example.proyectogrupo1musicstore.Utilidades.JwtDecoder;
+import com.example.proyectogrupo1musicstore.Utilidades.token;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -29,7 +31,8 @@ import java.net.URL;
 import java.net.URLDecoder;
 
 public class Activity_PerfilUsuario extends AppCompatActivity {
-    int IdPersonal = Integer.parseInt(AppData.getInstance().getId());
+    private token acceso = new token(this);
+    int IdPersonal;
     int IdUsuario;
     TextView txtNombreCompleto, txtUsername, txtCorreo, txtSeguidores, txtSiguiendo;
     ImageView imgPFP;
@@ -59,7 +62,7 @@ public class Activity_PerfilUsuario extends AppCompatActivity {
         txtUsername = findViewById(R.id.txtUsernamePerfilPersonal);
         txtNombreCompleto = findViewById(R.id.txtNombreCompletoPerfilPersonal);
         IdUsuario = getIntent().getIntExtra("IdUsuario", -1);
-
+        IdPersonal = Integer.parseInt(JwtDecoder.decodeJwt(acceso.recuperarTokenFromKeystore()));
 
         imgPFP = findViewById(R.id.imgPerfilPersonal);
         txtSeguidores = findViewById(R.id.txtSeguidores);
