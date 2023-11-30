@@ -93,9 +93,6 @@ public class Activity_SubirMusica extends AppCompatActivity {
         videos = (CardView) findViewById(R.id.cardViewNavegacionVideo);
         recyclerViewAudios = (RecyclerView) findViewById(R.id.recyclerview_SubirMusica);
 
-        /*Llamar la clase que permite traer todos los archivos musicales*/
-        musicaItems();
-
         //Modificados
         seleccionarAudio.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -126,7 +123,7 @@ public class Activity_SubirMusica extends AppCompatActivity {
         buscars.setOnClickListener(buttonClick);
         videos.setOnClickListener(buttonClick);
         botonAtrass.setOnClickListener(buttonClick);
-        //comentario
+        musicaItems();
     }
     // Método para cambiar a otra actividad
     private void moveActivity(Class<?> actividad) {

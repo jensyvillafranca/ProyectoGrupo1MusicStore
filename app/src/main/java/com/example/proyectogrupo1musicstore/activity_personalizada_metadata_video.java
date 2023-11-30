@@ -242,7 +242,7 @@ public class activity_personalizada_metadata_video extends DialogFragment {
     //Mandar todos los valores al PHP mediante el llamado del siguiente metódo
     public void subirAudioFirebase(){
         Log.d("Mensaje", "se mandaron los datos");
-        new Activity_SubirVideoAsyncTask(getContext(), autor, idUsuario, videoBase64 , imagenPortadaBase64, idPlayList, idFavorito, nombreVideo_aux, genero_aux, duracion, fechaLanzamiento).execute();
+        new Activity_SubirVideoAsyncTask(getContext(), autor_aux, idUsuario, videoBase64 , imagenPortadaBase64, idPlayList, idFavorito, nombreVideo_aux, genero_aux, duracion, fechaLanzamiento).execute();
     }
 
 

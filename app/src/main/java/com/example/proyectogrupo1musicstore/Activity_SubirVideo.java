@@ -326,6 +326,7 @@ public class Activity_SubirVideo extends AppCompatActivity {
         }
         contadorElementosV = 0;
         /*Llamar la clase que permite traer todos los archivos musicales*/
+        videoItems();
     }
 
     public void videoItems(){
