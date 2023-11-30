@@ -77,7 +77,9 @@ public class ActivityChat extends AppCompatActivity {
 
         //Inicia Recycler view
         recyclerView = findViewById(R.id.recyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        layoutManager.setStackFromEnd(true);
+        recyclerView.setLayoutManager(layoutManager);
 
         List<mensajeModel> messages = new ArrayList<>();
 
@@ -95,6 +97,13 @@ public class ActivityChat extends AppCompatActivity {
                 Log.e("Data: ", String.valueOf(dataSnapshot.getValue(mensajeModel.class)));
                 Log.d("Firebase", "Received message: " + message.getText());
                 messageAdapter.addMessage(message);
+                recyclerView.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        // Scroll to the last item
+                        recyclerView.smoothScrollToPosition(messageAdapter.getItemCount() - 1);
+                    }
+                });
             }
 
             @Override
