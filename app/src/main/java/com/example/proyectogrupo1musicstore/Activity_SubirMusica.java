@@ -341,7 +341,7 @@ public class Activity_SubirMusica extends AppCompatActivity {
         List<audioItem> audioList = new ArrayList<>();
 
         // Crea y vincula el adaptador
-        AudioAdapter audioAdapter = new AudioAdapter(this, audioList);
+        AudioAdapter audioAdapter = new AudioAdapter(this, audioList );
         recyclerViewAudios.setAdapter(audioAdapter);
 
         //Configuracion del administrador de diseño
