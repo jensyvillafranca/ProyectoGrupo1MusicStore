@@ -35,6 +35,7 @@ dependencies {
     implementation("com.google.firebase:firebase-messaging")
     implementation("com.google.firebase:firebase-analytics")
     implementation ("com.google.firebase:firebase-messaging-directboot:20.2.0")
+    implementation("com.google.firebase:firebase-database")
 
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.10.0")

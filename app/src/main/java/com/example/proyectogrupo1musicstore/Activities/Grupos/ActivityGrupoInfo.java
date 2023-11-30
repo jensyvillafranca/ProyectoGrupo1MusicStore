@@ -127,17 +127,25 @@ public class ActivityGrupoInfo extends AppCompatActivity implements InfomacionGe
             drawerLayout.openDrawer(findViewById(R.id.side_menu));
         });
 
+        botonAtras.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+        textviewAtras.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
         // Listener para manejar los botones de "Atrás"
         View.OnClickListener buttonClick = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Class<?> actividad = null;
-                if (view.getId() == R.id.btn_GrupoInfoAtras) {
-                    actividad = ActivityGrupoPrincipal.class;
-                }
-                if (view.getId() == R.id.textview_GrupoInfoBotAtras) {
-                    actividad = ActivityGrupoPrincipal.class;
-                }
                 if (view.getId() == R.id.txtViewNavGrupos) {
                     actividad = ActivityGrupoPrincipal.class;
                 }
@@ -185,8 +193,6 @@ public class ActivityGrupoInfo extends AppCompatActivity implements InfomacionGe
             }
         };
 
-        botonAtras.setOnClickListener(buttonClick);
-        textviewAtras.setOnClickListener(buttonClick);
         Grupos.setOnClickListener(buttonClick);
         Inicio.setOnClickListener(buttonClick);
         iconGrupos.setOnClickListener(buttonClick);

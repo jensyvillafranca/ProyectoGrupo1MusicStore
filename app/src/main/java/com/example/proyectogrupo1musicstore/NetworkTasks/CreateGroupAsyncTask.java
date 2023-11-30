@@ -119,6 +119,7 @@ public class CreateGroupAsyncTask extends AsyncTask<String, Void, Void> {
         try {
             JSONArray jsonUserIds = new JSONArray(selectedUserIds);
 
+
             String base64Image = Base64.encodeToString(groupImage, Base64.DEFAULT);
 
             JSONObject jsonData = new JSONObject();

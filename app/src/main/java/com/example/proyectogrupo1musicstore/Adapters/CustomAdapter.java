@@ -3,6 +3,7 @@ package com.example.proyectogrupo1musicstore.Adapters;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +25,7 @@ import com.example.proyectogrupo1musicstore.Utilidades.ConfirmationDialog;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
 import java.util.List;
 
 public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomViewHolder> {
@@ -174,6 +176,8 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), ActivityChat.class);
                 intent.putExtra("idgrupo", data.getIdgrupo());
+                intent.putExtra("nombregrupo", data.getText1());
+                intent.putExtra("image", data.getUrl());
                 v.getContext().startActivity(intent);
             }
         });

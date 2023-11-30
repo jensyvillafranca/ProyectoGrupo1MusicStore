@@ -6,6 +6,8 @@ import android.os.Bundle;
 
 import androidx.room.Room;
 
+import com.google.firebase.database.FirebaseDatabase;
+
 public class MyApplication extends Application {
 
     private static AppDatabase appDatabase;
@@ -16,6 +18,8 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
 
+        //Inicia firebase database
+        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
         // Initialize Room database
         appDatabase = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, "notification-db").build();
         // Register activity lifecycle callbacks
