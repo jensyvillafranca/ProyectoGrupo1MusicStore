@@ -11,6 +11,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.MediaMetadataRetriever;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -92,9 +93,6 @@ public class Activity_SubirMusica extends AppCompatActivity {
         videos = (CardView) findViewById(R.id.cardViewNavegacionVideo);
         recyclerViewAudios = (RecyclerView) findViewById(R.id.recyclerview_SubirMusica);
 
-        /*Llamar la clase que permite traer todos los archivos musicales*/
-        musicaItems();
-
         //Modificados
         seleccionarAudio.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -125,7 +123,7 @@ public class Activity_SubirMusica extends AppCompatActivity {
         buscars.setOnClickListener(buttonClick);
         videos.setOnClickListener(buttonClick);
         botonAtrass.setOnClickListener(buttonClick);
-        //comentario
+        musicaItems();
     }
     // Método para cambiar a otra actividad
     private void moveActivity(Class<?> actividad) {
@@ -203,7 +201,6 @@ public class Activity_SubirMusica extends AppCompatActivity {
             //Ubicación del recurso de audio
             audioUri = data.getData();
             obtenerRutaRealMusica(getApplicationContext(), audioUri);
-
             /*Mandar a llamar el metodo que captura la metadata del archivo de audio*/
             try {
                 extraerMetadata();
@@ -344,7 +341,7 @@ public class Activity_SubirMusica extends AppCompatActivity {
         List<audioItem> audioList = new ArrayList<>();
 
         // Crea y vincula el adaptador
-        AudioAdapter audioAdapter = new AudioAdapter(this, audioList);
+        AudioAdapter audioAdapter = new AudioAdapter(this, audioList );
         recyclerViewAudios.setAdapter(audioAdapter);
 
         //Configuracion del administrador de diseño

@@ -1,13 +1,14 @@
 package com.example.proyectogrupo1musicstore;
-import static com.example.proyectogrupo1musicstore.Activity_SubirMusica.album;
-import static com.example.proyectogrupo1musicstore.Activity_SubirMusica.artista;
-import static com.example.proyectogrupo1musicstore.Activity_SubirMusica.audioBase64;
-import static com.example.proyectogrupo1musicstore.Activity_SubirMusica.genero;
-import static com.example.proyectogrupo1musicstore.Activity_SubirMusica.idFavorito;
-import static com.example.proyectogrupo1musicstore.Activity_SubirMusica.idPlayList;
-import static com.example.proyectogrupo1musicstore.Activity_SubirMusica.idUsuario;
-import static com.example.proyectogrupo1musicstore.Activity_SubirMusica.imagenPortadaBase64;
-import static com.example.proyectogrupo1musicstore.Activity_SubirMusica.nombreCancion;
+import static com.example.proyectogrupo1musicstore.Activity_SubirVideo.autor;
+import static com.example.proyectogrupo1musicstore.Activity_SubirVideo.duracion;
+import static com.example.proyectogrupo1musicstore.Activity_SubirVideo.fechaLanzamiento;
+import static com.example.proyectogrupo1musicstore.Activity_SubirVideo.genero;
+import static com.example.proyectogrupo1musicstore.Activity_SubirVideo.idFavorito;
+import static com.example.proyectogrupo1musicstore.Activity_SubirVideo.idPlayList;
+import static com.example.proyectogrupo1musicstore.Activity_SubirVideo.idUsuario;
+import static com.example.proyectogrupo1musicstore.Activity_SubirVideo.imagenPortadaBase64;
+import static com.example.proyectogrupo1musicstore.Activity_SubirVideo.nombreVideo;
+import static com.example.proyectogrupo1musicstore.Activity_SubirVideo.videoBase64;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -26,35 +27,31 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.DialogFragment;
 
-import com.example.proyectogrupo1musicstore.Utilidades.JwtDecoder;
-import com.example.proyectogrupo1musicstore.Utilidades.token;
-
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class activity_personalizada_metadata extends DialogFragment {
+public class activity_personalizada_metadata_video extends DialogFragment {
     //ArrayList para almacenar el valor de cada id de los Edittexts
     private final ArrayList<Integer> editTextIds = new ArrayList<>();
     private final ArrayList<String> metadataExistente = new ArrayList<>(Arrays.asList(null, null, null, null));
     private View dialogView;
-    String nombreCancion_aux, artista_aux, genero_aux, album_aux;
+    String nombreVideo_aux, autor_aux, genero_aux,duracion_aux;
 
 
     /*Expresion*/
     String[] expresiones_regulares = new String[]{
-            "[A-Za-z0-9À-ÖØ-öø-ÿ!,. ]+",      //edittext 1
-            "[A-Za-z0-9 ]+",                      //edittext 2
-            "[A-Za-zÀ-ÖØ-öø-ÿ!$., ]+",    //edittext 3
-            "[A-Za-zÀ-ÖØ-öø-ÿ/:,!$., ]+"  //edittext 4
+            "[A-Za-z0-9À-ÖØ-öø-ÿ!,. ]+",      //edittext 1 (Autor del video)
+            "[A-Za-z0-9 ]+",                      //edittext 2 (Nombre del video)
+            "[A-Za-zÀ-ÖØ-öø-ÿ/:,!$., ]+"  //edittext 3 (Genero)
     };
 
-    public static activity_personalizada_metadata newInstance() {
-        activity_personalizada_metadata fragment = new activity_personalizada_metadata();
+    public static activity_personalizada_metadata_video newInstance() {
+        activity_personalizada_metadata_video fragment = new activity_personalizada_metadata_video();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -68,7 +65,7 @@ public class activity_personalizada_metadata extends DialogFragment {
         Typeface typeface = ResourcesCompat.getFont(getContext(), R.font.fuente_jost_global);
 
         // Arreglo para los labels de los EditText en la pantalla modal
-        String[] labels = {"Artista:", "Nombre de la canción:", "Albúm:", "Género Musical:"};
+        String[] labels = {"Autor:", "Nombre del video:", "Género del video:"};
 
         // Inflar el layout personalizado
         LayoutInflater inflater = requireActivity().getLayoutInflater();
@@ -80,7 +77,7 @@ public class activity_personalizada_metadata extends DialogFragment {
         // Crear ImageView para mostrar la imagen
         ImageView imageView = new ImageView(getActivity());
         imageView.setId(View.generateViewId());
-        imageView.setImageResource(R.drawable.iconodecadaarchivomusica);
+        imageView.setImageResource(R.drawable.iconodecadaarchivovideo);
 
         RelativeLayout.LayoutParams imageParams = new RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.WRAP_CONTENT,
@@ -95,7 +92,7 @@ public class activity_personalizada_metadata extends DialogFragment {
         //Crear TextView para el título de la ventana modal
         TextView textViewTitulo = new TextView(getActivity());
         textViewTitulo.setId(View.generateViewId());
-        textViewTitulo.setText("Nos gustaría que compartieras más información a cerca de esta canción en particular:");
+        textViewTitulo.setText("Nos gustaría que compartieras más información a cerca de este video en particular:");
         textViewTitulo.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18); // Tamaño de texto para el título
         textViewTitulo.setTextColor(Color.WHITE); // Color del texto del título
 
@@ -206,37 +203,28 @@ public class activity_personalizada_metadata extends DialogFragment {
 
             if(contadorAux == 0){
                 if(inputText.isEmpty()){
-                    //Si el usuario no conoce el nombre del artista y decide dejarlo como vacío
-                    artista_aux = null;
+                    //Si el usuario no conoce el nombre del autor y decide dejarlo como vacío
+                    autor_aux = null;
                 }else{
                     //Mandar el valor de nombre del autor en caso de que el usuario si lo llene
-                    artista_aux = inputText;
+                    autor_aux = inputText;
                 }
             }
             if(contadorAux == 1){
                 if(inputText.isEmpty()){
-                    //Si el usuario no conoce el nombre de la canción y decide dejarlo como vacío
-                    nombreCancion_aux = null;
+                    //Si el usuario no conoce el nombre del video y decide dejarlo como vacío
+                    nombreVideo_aux = null;
                 }else{
-                    //Mandar el valor de nombre del autor en caso de que el usuario si lo llene
-                    nombreCancion_aux = inputText;
+                    //Mandar el valor de nombre del video en caso de que el usuario si lo llene
+                    nombreVideo_aux = inputText;
                 }
             }
             if(contadorAux == 2){
                 if(inputText.isEmpty()){
-                    //Si el usuario no conoce el nombre del albúm y decide dejarlo como vacío
-                    album_aux = null;
-                }else{
-                    //Mandar el valor de album en caso de que el usuario si lo llene
-                    album_aux = inputText;
-                }
-            }
-            if(contadorAux == 3){
-                if(inputText.isEmpty()){
-                    //Si el usuario no conoce el género de la canción y decide dejarlo como vacío
+                    //Si el usuario no conoce el género del video y decide dejarlo como vacío
                     genero_aux = null;
                 }else{
-                    //Mandar el género de la canción  en caso de que el usuario si lo llene
+                    //Mandar el género del video en caso de que el usuario si lo llene
                     genero_aux = inputText;
                 }
             }
@@ -246,32 +234,29 @@ public class activity_personalizada_metadata extends DialogFragment {
         //Invocar el método que manda todos los datos al PHP.
         subirAudioFirebase();
 
-        if (getActivity() instanceof Activity_SubirMusica) {
-            ((Activity_SubirMusica) getActivity()).musicaItems();
+        if (getActivity() instanceof Activity_SubirVideo) {
+            ((Activity_SubirVideo) getActivity()).videoItems();
         }
     }
 
     //Mandar todos los valores al PHP mediante el llamado del siguiente metódo
     public void subirAudioFirebase(){
         Log.d("Mensaje", "se mandaron los datos");
-        new Activity_SubirMusicaAsyncTask(getContext(),artista_aux, idUsuario, audioBase64 , imagenPortadaBase64, idPlayList, idFavorito, nombreCancion_aux, album_aux, genero_aux).execute();
+        new Activity_SubirVideoAsyncTask(getContext(), autor_aux, idUsuario, videoBase64 , imagenPortadaBase64, idPlayList, idFavorito, nombreVideo_aux, genero_aux, duracion, fechaLanzamiento).execute();
     }
 
 
-    //Método para poner los valores que ya existen en la metadata del audio y que no serán necesarios capturar del usuario
+    //Método para poner los valores que ya existen en la metadata del video y que no serán necesarios capturar del usuario
     public void dataPorDefecto() {
         // Asignar valores existentes a metadataExistente
-        if(nombreCancion != null) {
-            metadataExistente.set(0, nombreCancion);
+        if(autor != null) {
+            metadataExistente.set(0, autor);
         }
-        if(artista != null) {
-            metadataExistente.set(1, artista);
-        }
-        if(album != null) {
-            metadataExistente.set(2, album);
+        if(nombreVideo != null) {
+            metadataExistente.set(1, nombreVideo);
         }
         if(genero != null) {
-            metadataExistente.set(3, genero);
+            metadataExistente.set(2, genero);
         }
 
         // Colocar valores en los EditText y cambiar color del texto a gris

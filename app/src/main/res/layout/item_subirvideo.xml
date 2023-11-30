@@ -15,13 +15,13 @@
         android:buttonTint="@android:color/white"/>
 
     <ImageView
-        android:id="@+id/itemPortadaAudios"
+        android:id="@+id/itemPortadaAudio"
         android:layout_width="99dp"
         android:layout_height="99dp"
         android:scaleType="centerCrop"
         android:background="@drawable/circle_icono_audio"
         android:clipToOutline="true"
-        android:src="@drawable/iconodecadaarchivomusica"/>
+        android:src="@drawable/iconodecadaarchivovideo"/>
 
 
     <TextView
@@ -31,7 +31,7 @@
         android:layout_marginTop="1dp"
         android:fontFamily="@font/fuente_jost_global"
         android:gravity="center"
-        android:text="Nombre de la canción"
+        android:text="Nombre del video"
         android:textColor="@color/lightGray90"
         android:textSize="14sp" />
 </LinearLayout>

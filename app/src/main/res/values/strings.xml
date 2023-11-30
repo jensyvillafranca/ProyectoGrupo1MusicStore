@@ -107,6 +107,7 @@
     <string name="open">Open</string>
     <string name="close">Close</string>
     <string name="tituloConometro">Por favor, espera a que el tiempo finalice para poder solicitar un nuevo código.</string>
+    <string name="habilitarHuella">Habilitar Huella Digital</string>
 
 
     <!--Gustavo Brocato -->
