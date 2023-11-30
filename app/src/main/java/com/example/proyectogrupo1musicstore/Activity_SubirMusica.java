@@ -11,6 +11,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.MediaMetadataRetriever;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -203,7 +204,6 @@ public class Activity_SubirMusica extends AppCompatActivity {
             //Ubicación del recurso de audio
             audioUri = data.getData();
             obtenerRutaRealMusica(getApplicationContext(), audioUri);
-
             /*Mandar a llamar el metodo que captura la metadata del archivo de audio*/
             try {
                 extraerMetadata();

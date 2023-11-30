@@ -1,10 +1,10 @@
 package com.example.proyectogrupo1musicstore;
+
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.util.Pair;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -13,6 +13,7 @@ import com.example.proyectogrupo1musicstore.Utilidades.ImageDownloader;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -23,28 +24,29 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BuscarAudioAsyncTask extends AsyncTask<String, Void, List<audioItem>>{
-    private static final String TAG = "BuscarAudioAsyncTask";
+public class BuscarVideoAsyncTask extends AsyncTask<String, Void, List<videoItem>>{
+    private static final String TAG = "BuscarVideoAsyncTask";
     private Context context;
     private RecyclerView recyclerView;
-    private AudioAdapter adapter;
+    private VideoAdapter adapter;
     ProgressDialog progressDialog;
     private int tipoProgress;
 
-    public BuscarAudioAsyncTask(Context context, AudioAdapter adapter, ProgressDialog progressDialog) {
+    public BuscarVideoAsyncTask(Context context, VideoAdapter adapter, ProgressDialog progressDialog) {
         this.context = context;
         this.adapter = adapter;
         this.progressDialog = progressDialog;
     }
+
     @Override
-    protected List<audioItem> doInBackground(String... params) {
-        String idUsuario = params[0]; // idgrupo parametro
+    protected List<videoItem> doInBackground(String... params) {
+        String idUsuario = params[0];
         String tipo = params[1];
         tipoProgress = Integer.valueOf(tipo);
 
         try {
             // construye el URL
-            URL url = new URL("https://phpclusters-152621-0.cloudclusters.net/obtenerMusicaUsuario.php");
+            URL url = new URL("https://phpclusters-152621-0.cloudclusters.net/obtenerVideosUsuario.php");
 
             // Crea la conexion y la abre
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
@@ -83,7 +85,7 @@ public class BuscarAudioAsyncTask extends AsyncTask<String, Void, List<audioItem
     }
 
     @Override
-    protected void onPostExecute(List<audioItem> dataList) {
+    protected void onPostExecute(List<videoItem> dataList) {
         if (tipoProgress == 1) {
             progressDialog.dismiss();
         }
@@ -91,8 +93,8 @@ public class BuscarAudioAsyncTask extends AsyncTask<String, Void, List<audioItem
             adapter.setDataList(dataList);
         }
     }
-    private List<audioItem> parseJsonResponse(String json) {
-        List<audioItem> dataList = new ArrayList<>();
+    private List<videoItem> parseJsonResponse(String json) {
+        List<videoItem> dataList = new ArrayList<>();
 
         try {
             JSONArray jsonArray = new JSONArray(json);
@@ -102,10 +104,10 @@ public class BuscarAudioAsyncTask extends AsyncTask<String, Void, List<audioItem
 
                 // Extrae la informacion y crea objetos
                 Integer idUsuario = jsonObject.getInt("idusuario");
-                String nombreCancion = jsonObject.getString("nombrecancion");
+                String nombreCancion = jsonObject.getString("nombrevideo");
                 Bitmap enlacePortada = ImageDownloader.downloadImage(jsonObject.getString("enlaceportada"));
 
-                dataList.add(new audioItem(enlacePortada, nombreCancion, idUsuario));
+                dataList.add(new videoItem(enlacePortada, nombreCancion, idUsuario));
             }
 
         } catch (JSONException e) {
