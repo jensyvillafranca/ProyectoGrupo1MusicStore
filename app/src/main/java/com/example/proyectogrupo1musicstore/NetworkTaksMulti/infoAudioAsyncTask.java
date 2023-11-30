@@ -110,7 +110,6 @@ public class infoAudioAsyncTask extends AsyncTask<String, Void, List<infoReprodu
                 String url = jsonObject.getString("download_url");
                 Bitmap imageResource = ImageDownloader.downloadImage(jsonObject.getString("enlacefoto"));
 
-
                 dataList.add(new infoReproductor(idaudio, nombre, idowner,  url, imageResource));
             }
 

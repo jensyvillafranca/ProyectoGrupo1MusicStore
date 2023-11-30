@@ -31,7 +31,7 @@ public class AudioAdapter extends RecyclerView.Adapter<AudioAdapter.AudioViewHol
     @Override
     public void onBindViewHolder(@NonNull AudioViewHolder holder, int position) {
         audioItem item = itemList.get(position);
-        holder.audioImage.setImageBitmap(item.getImageResId());
+        //holder.audioImage.setImageBitmap(item.getImageResId());
         holder.audioName.setText(item.getItemName());
     }
 
