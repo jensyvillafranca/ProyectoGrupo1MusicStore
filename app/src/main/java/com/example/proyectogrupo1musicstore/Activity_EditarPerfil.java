@@ -1,7 +1,6 @@
 package com.example.proyectogrupo1musicstore;
 
 import android.Manifest;
-import com.example.proyectogrupo1musicstore.Utilidades.token;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -35,7 +34,6 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.example.proyectogrupo1musicstore.Adapters.AppData;
-import com.example.proyectogrupo1musicstore.Utilidades.JwtDecoder;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
@@ -56,7 +54,6 @@ public class Activity_EditarPerfil extends AppCompatActivity {
     int IdPersonal;
     private ImageView imgFoto, imgCambiarPerfil;
     private StorageReference storageRef;
-    private token acceso = new token(this);
     ImageView btnAtras;
     TextView txtviewCambiarContrasenia, txtNombre;
     ImageView imgContrasenia;
@@ -74,7 +71,7 @@ public class Activity_EditarPerfil extends AppCompatActivity {
         storageRef = FirebaseStorage.getInstance().getReferenceFromUrl("gs://proyectogrupo1musicstore.appspot.com/imagenesEditarPerfil");
 
 
-        IdPersonal = Integer.parseInt(JwtDecoder.decodeJwt(acceso.recuperarTokenFromKeystore()));
+        IdPersonal = getIntent().getIntExtra("IdPersonal", -1);
         btnAtras = (ImageView) findViewById(R.id.btn_EditarPerfilAtras);
         imgContrasenia=findViewById(R.id.imgContrasenia);
         txtviewCambiarContrasenia=findViewById(R.id.txtviewCambiarContrasenia);
@@ -94,8 +91,6 @@ public class Activity_EditarPerfil extends AppCompatActivity {
                 }
             }
         });
-        // Restaurar la imagen desde las preferencias compartidas
-        restoreImageFromSharedPreferences();
 
 
         btnAtras.setOnClickListener(new View.OnClickListener() {
@@ -171,6 +166,8 @@ public class Activity_EditarPerfil extends AppCompatActivity {
                                     .load(imageUrl)
                                     .into(imgFoto);
                             txtNombre.setText(nombreCompleto);
+                            Log.d("Nombre: ", nombreCompleto);
+
 
 
 
@@ -299,7 +296,7 @@ public class Activity_EditarPerfil extends AppCompatActivity {
                     @Override
                     public void onSuccess(Uri downloadUri) {
                         // Guardar la URL de la imagen en las preferencias compartidas
-                        saveImageUriToSharedPreferences(downloadUri.toString());
+                        subirImagen(downloadUri.toString());
 
                         // Asignar la URL a la variable de clase
                         uri = downloadUri;
@@ -313,26 +310,6 @@ public class Activity_EditarPerfil extends AppCompatActivity {
                 Toast.makeText(Activity_EditarPerfil.this, "Error al subir la foto", Toast.LENGTH_SHORT).show();
             }
         });
-    }
-
-    private void saveImageUriToSharedPreferences(String imageUrl) {
-        // Guardar la URL de la imagen en las preferencias compartidas
-        SharedPreferences preferences = getPreferences(MODE_PRIVATE);
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.putString("imageUri", imageUrl);
-        editor.apply();
-    }
-
-    private void restoreImageFromSharedPreferences() {
-        SharedPreferences preferences = getPreferences(MODE_PRIVATE);
-        String imageUrl = preferences.getString("imageUri", null);
-
-        if (imageUrl != null) {
-            // Cargar la imagen desde la URL almacenada
-            Picasso.get().load(imageUrl).into(imgFoto);
-            Log.d("Url de IMAGEN:", imageUrl);
-            subirImagen(imageUrl);
-        }
     }
 
     // Eliminar Cuenta --------------------------------------------------------------------
@@ -393,6 +370,10 @@ public class Activity_EditarPerfil extends AppCompatActivity {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
+                        // Redireccionar a la clase "Activity_Principal"
+                        // Intent intent = new Intent(Activity_EditarPerfil.this, activity_principal_login.class);
+                        //  startActivity(intent);
+                        //  finish();  // Cerrar la actividad actual para que no se pueda volver atrás
                     }
                 },
                 new Response.ErrorListener() {

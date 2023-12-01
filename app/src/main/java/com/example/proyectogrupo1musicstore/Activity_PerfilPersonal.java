@@ -2,6 +2,7 @@ package com.example.proyectogrupo1musicstore;
 
 import static com.example.proyectogrupo1musicstore.R.id.menu_editar_perfil;
 
+import com.example.proyectogrupo1musicstore.Activities.PantallaPrincipal.ActivityPantallaPrincipal;
 import com.example.proyectogrupo1musicstore.Utilidades.token;
 import android.content.ClipData;
 import android.content.Intent;
@@ -43,6 +44,7 @@ public class Activity_PerfilPersonal extends AppCompatActivity {
     final int myMenuId = menu_editar_perfil;
     TextView txtNombreCompleto, txtUsername, txtCorreo, txtSeguidores, txtSiguiendo;
     ImageView imgPFP;
+    LinearLayout btnAtras;
     LinearLayout verSeguidores, verSeguidos;
     int intervaloActualizacion = 5 * 1000;
 
@@ -72,6 +74,7 @@ public class Activity_PerfilPersonal extends AppCompatActivity {
         txtSiguiendo = findViewById(R.id.txtSiguiendo);
         verSeguidores = findViewById(R.id.layoutVerSeguidores);
         verSeguidos = findViewById(R.id.layoutVerSeguidos);
+        btnAtras = findViewById(R.id.btnAtras);
 
         verSeguidores.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,6 +89,14 @@ public class Activity_PerfilPersonal extends AppCompatActivity {
             public void onClick(View v) {
                 // Cuando se hace clic en "Ver Seguidos"
                 abrirListaSeguidos(ID);
+            }
+        });
+
+        btnAtras.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Activity_PerfilPersonal.this, ActivityPantallaPrincipal.class);
+                startActivity(intent);
             }
         });
 

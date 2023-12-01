@@ -1,12 +1,17 @@
 package com.example.proyectogrupo1musicstore;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -25,8 +30,6 @@ import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.example.proyectogrupo1musicstore.Adapters.AppData;
 import com.example.proyectogrupo1musicstore.Models.User;
-import com.example.proyectogrupo1musicstore.Utilidades.JwtDecoder;
-import com.example.proyectogrupo1musicstore.Utilidades.token;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -38,12 +41,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ActivityListaSeguidores extends AppCompatActivity {
-    private token acceso = new token(this);
+
     private RecyclerView recyclerView;
     private List<User> listaDeUsuarios;
     ImageButton btnUsuariosBuscarAtras;
+
+    ImageView imageViewUsuarioBuscar, imageViewUsuarioBuscar2;
+    EditText editTextUsuarioBuscar;
+
+    TextView txtUsuarioBuscarBuscarUsuario;
     String seguidoseguir = "false";
-    int IdPersonal;
+    int IdPersonal = Integer.parseInt(AppData.getInstance().getId());
     int IdUsuario;
 
     @Override
@@ -53,9 +61,12 @@ public class ActivityListaSeguidores extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerview_UsuarioBuscar);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         btnUsuariosBuscarAtras = findViewById(R.id.btn_UsuariosBuscarAtras);
+        imageViewUsuarioBuscar = (ImageView) findViewById(R.id.imageViewUsuarioBuscar);
+        imageViewUsuarioBuscar2 = (ImageView) findViewById(R.id.imageViewUsuarioBuscar2);
+        txtUsuarioBuscarBuscarUsuario = (TextView) findViewById(R.id.txtUsuarioBuscarBuscarUsuario);
+        editTextUsuarioBuscar = (EditText) findViewById(R.id.editTextUsuarioBuscar);
         IdUsuario = getIntent().getIntExtra("IdUsuario", -1);
         listaDeUsuarios = new ArrayList<>();
-        IdPersonal = Integer.parseInt(JwtDecoder.decodeJwt(acceso.recuperarTokenFromKeystore()));
 
         btnUsuariosBuscarAtras.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,6 +76,144 @@ public class ActivityListaSeguidores extends AppCompatActivity {
             }
         });
 
+        txtUsuarioBuscarBuscarUsuario.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Esconde el textview y muestra el edittext
+                txtUsuarioBuscarBuscarUsuario.setVisibility(View.GONE);
+                editTextUsuarioBuscar.setVisibility(View.VISIBLE);
+                imageViewUsuarioBuscar.setVisibility(View.GONE);
+                imageViewUsuarioBuscar2.setVisibility(View.VISIBLE);
+                editTextUsuarioBuscar.requestFocus();
+
+                // Mostrar el Teclado
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.showSoftInput(editTextUsuarioBuscar, InputMethodManager.SHOW_IMPLICIT);
+
+            }
+        });
+
+        editTextUsuarioBuscar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Esconde el textview y muestra el edittext
+                txtUsuarioBuscarBuscarUsuario.setVisibility(View.VISIBLE);
+                editTextUsuarioBuscar.setVisibility(View.GONE);
+                imageViewUsuarioBuscar.setVisibility(View.VISIBLE);
+                imageViewUsuarioBuscar2.setVisibility(View.GONE);
+                // Mostrar el Teclado
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.showSoftInput(editTextUsuarioBuscar, InputMethodManager.SHOW_IMPLICIT);
+
+            }
+        });
+
+        editTextUsuarioBuscar.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    //obtiene el texto de busqueda
+                    String query = editTextUsuarioBuscar.getText().toString();
+                    listaDeUsuarios.clear();
+
+                    String url = "https://phpclusters-152621-0.cloudclusters.net/buscarUsuarios.php?id=" + IdPersonal + "&buscar=" + query;
+                    JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
+                            new Response.Listener<JSONArray>() {
+                                @Override
+                                public void onResponse(JSONArray response) {
+                                    for (int i = 0; i < response.length(); i++) {
+                                        try {
+                                            JSONObject usuarioJson = response.getJSONObject(i);
+
+                                            int idusuario = usuarioJson.getInt("idusuario");
+                                            String nombres = usuarioJson.getString("nombres");
+                                            String apellidos = usuarioJson.getString("apellidos");
+                                            String correo = usuarioJson.getString("correo");
+                                            String usuario = usuarioJson.getString("usuario");
+                                            String enlacefoto = usuarioJson.getString("enlacefoto");
+
+                                            try {
+                                                // Parsear la URL
+                                                URL url = new URL(enlacefoto);
+
+                                                // Obtener el protocolo y el host
+                                                String protocol = url.getProtocol();
+                                                String host = url.getHost();
+
+                                                // Verificar si la URL comienza con la cadena específica
+                                                String prefijo = "https://firebasestorage.googleapis.com/v0/b/proyectogrupo1musicstore.appspot.com/o/imagenesEditarPerfil/";
+                                                if (enlacefoto.startsWith(prefijo)) {
+                                                    // Obtener la ruta completa y el query
+                                                    String pathAndQuery = url.getPath() + "?" + url.getQuery();
+
+                                                    // Decodificar la ruta y el query
+                                                    String decodedPathAndQuery = URLDecoder.decode(pathAndQuery, "UTF-8");
+
+                                                    // Dividir la URL en dos partes
+                                                    String primeraParte = "https://firebasestorage.googleapis.com/v0/b/proyectogrupo1musicstore.appspot.com/o/imagenesEditarPerfil%2F";
+                                                    String segundaParte = url.getFile().substring(url.getPath().lastIndexOf('/') + 1);
+
+                                                    enlacefoto = primeraParte + segundaParte;
+                                                } else {
+                                                    // La URL no comienza con la cadena específica, no hacer nada o manejar según sea necesario
+                                                }
+
+                                            } catch (Exception e) {
+                                                e.printStackTrace();
+                                            }
+
+
+                                            int idVisualizacion = usuarioJson.getInt("idvisualizacion");
+                                            String seguirseguido = usuarioJson.getString("sigue");
+                                            User user = new User(idusuario, nombres, apellidos, correo, usuario, enlacefoto, seguirseguido, idVisualizacion);
+                                            listaDeUsuarios.add(user);
+
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+
+                                    ConfigurarRecyclerView();
+                                }
+                            },
+                            new Response.ErrorListener() {
+                                @Override
+                                public void onErrorResponse(VolleyError error) {
+                                    // Manejar errores de la solicitud
+                                }
+                            });
+
+                    Volley.newRequestQueue(ActivityListaSeguidores.this).add(jsonArrayRequest);
+
+                    // Cierra el teclado
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                    return true;
+                }
+                return false;
+            }
+        });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//----------------------------------------------------------------------------------------------------------------------------
 
         if(IdUsuario == -1){
             String url = "https://phpclusters-152621-0.cloudclusters.net/mostrarUsuariosSeguidor.php?id="+IdPersonal+"";
@@ -82,6 +231,39 @@ public class ActivityListaSeguidores extends AppCompatActivity {
                                     String correo = usuarioJson.getString("correo");
                                     String usuario = usuarioJson.getString("usuario");
                                     String enlacefoto = usuarioJson.getString("enlacefoto");
+                                    try {
+                                        // Parsear la URL
+                                        URL url = new URL(enlacefoto);
+
+                                        // Obtener el protocolo y el host
+                                        String protocol = url.getProtocol();
+                                        String host = url.getHost();
+
+                                        // Verificar si la URL comienza con la cadena específica
+                                        String prefijo = "https://firebasestorage.googleapis.com/v0/b/proyectogrupo1musicstore.appspot.com/o/imagenesEditarPerfil/";
+                                        if (enlacefoto.startsWith(prefijo)) {
+                                            // Obtener la ruta completa y el query
+                                            String pathAndQuery = url.getPath() + "?" + url.getQuery();
+
+                                            // Decodificar la ruta y el query
+                                            String decodedPathAndQuery = URLDecoder.decode(pathAndQuery, "UTF-8");
+
+                                            // Dividir la URL en dos partes
+                                            String primeraParte = "https://firebasestorage.googleapis.com/v0/b/proyectogrupo1musicstore.appspot.com/o/imagenesEditarPerfil%2F";
+                                            String segundaParte = url.getFile().substring(url.getPath().lastIndexOf('/') + 1);
+
+                                            enlacefoto = primeraParte + segundaParte;
+                                            Log.d("Estado URL", "url incorrecta: "+enlacefoto);
+                                        } else {
+
+                                            Log.d("Estado URL", "url CORRECTAAA: "+enlacefoto);
+                                            // La URL no comienza con la cadena específica, no hacer nada o manejar según sea necesario
+                                        }
+
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
+
                                     int idVisualizacion = usuarioJson.getInt("idvisualizacion");
                                     String seguirseguido = usuarioJson.getString("sigue");
                                     User user = new User(idusuario, nombres, apellidos, correo, usuario, enlacefoto, seguirseguido, idVisualizacion);
@@ -119,6 +301,7 @@ public class ActivityListaSeguidores extends AppCompatActivity {
                                     String correo = usuarioJson.getString("correo");
                                     String usuario = usuarioJson.getString("usuario");
                                     String enlacefoto = usuarioJson.getString("enlacefoto");
+                                    Log.d("Estado FOTO", "uuuuuurrrrllllllll: "+enlacefoto);
 
                                     try {
                                         // Parsear la URL
@@ -142,7 +325,10 @@ public class ActivityListaSeguidores extends AppCompatActivity {
                                             String segundaParte = url.getFile().substring(url.getPath().lastIndexOf('/') + 1);
 
                                             enlacefoto = primeraParte + segundaParte;
+                                            Log.d("Estado URL", "url incorrecta: "+enlacefoto);
                                         } else {
+
+                                            Log.d("Estado URL", "url CORRECTAAA: "+enlacefoto);
                                             // La URL no comienza con la cadena específica, no hacer nada o manejar según sea necesario
                                         }
 
