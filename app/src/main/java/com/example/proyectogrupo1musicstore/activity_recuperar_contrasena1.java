@@ -122,7 +122,7 @@ public class activity_recuperar_contrasena1 extends AppCompatActivity {
     /*Método para poder mandar el código de verificación*/
     public boolean enviarCodigoVerificacion() {
 
-        String url = "https://phpclusters-152621-0.cloudclusters.net/verificacionCorreo.php";
+        String url = "https://phpclusters-152621-0.cloudclusters.net/verificarCorreo_CambioPass.php";
         RequestQueue queue = Volley.newRequestQueue(this);
 
         // Validar el correo electrónico
