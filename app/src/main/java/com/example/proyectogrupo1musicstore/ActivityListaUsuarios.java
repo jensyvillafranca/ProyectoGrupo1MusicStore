@@ -79,8 +79,7 @@ public class ActivityListaUsuarios extends AppCompatActivity {
         btn_AtrasUsuarios.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ActivityListaUsuarios.this, ActivityPantallaPrincipal.class);
-                startActivity(intent);
+                finish();
             }
         });
 
@@ -252,6 +251,9 @@ public class ActivityListaUsuarios extends AppCompatActivity {
 
                                 int idVisualizacion = usuarioJson.getInt("idvisualizacion");
                                 String seguirseguido = usuarioJson.getString("sigue");
+                                if(IdPersonal == idusuario){
+                                    seguirseguido = "usuario";
+                                }
                                 User user = new User(idusuario, nombres, apellidos, correo, usuario, enlacefoto, seguirseguido, idVisualizacion);
                                 listaDeUsuarios.add(user);
 
@@ -351,12 +353,23 @@ public class ActivityListaUsuarios extends AppCompatActivity {
                         }
                     });
 
-                    usuarioViewHolder.verUsuario.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            abrirActivityPerfilUsuario(usuario.getIdusuario());
-                        }
-                    });
+
+
+                    if(usuario.getIdusuario() == IdPersonal){
+                        usuarioViewHolder.verUsuario.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                abrirActivityPerfilPersonal();
+                            }
+                        });
+                    }else {
+                        usuarioViewHolder.verUsuario.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                abrirActivityPerfilUsuario(usuario.getIdusuario());
+                            }
+                        });
+                    }
 
                 }
             }
@@ -433,9 +446,10 @@ public class ActivityListaUsuarios extends AppCompatActivity {
         }
     }
 
-
-
-
+    private void abrirActivityPerfilPersonal() {
+        Intent intent = new Intent(this, Activity_PerfilPersonal.class);
+        startActivity(intent);
+    }
     private void abrirActivityPerfilUsuario(int id) {
         Intent intent = new Intent(this, Activity_PerfilUsuario.class);
         intent.putExtra("IdUsuario", id);

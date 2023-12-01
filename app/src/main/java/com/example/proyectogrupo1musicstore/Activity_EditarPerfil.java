@@ -123,8 +123,7 @@ public class Activity_EditarPerfil extends AppCompatActivity {
         btnAtras.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Activity_EditarPerfil.this, Activity_PerfilPersonal.class);
-                startActivity(intent);
+                finish();
             }
         });
 
