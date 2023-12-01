@@ -20,8 +20,26 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.proyectogrupo1musicstore.R;
-import com.example.proyectogrupo1musicstore.activity_codigoverificacion_crearcuenta;
-import com.example.proyectogrupo1musicstore.activity_personalizado_advertencia;
+import androidx.appcompat.app.AppCompatActivity;
+
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.text.Spanned;
+import android.util.Patterns;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.text.InputFilter;
+import android.widget.Toast;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -34,6 +52,7 @@ public class activity_registrarse extends AppCompatActivity {
 
     /*Asignación de variables*/
     EditText nombres, apellidos,correo_electronico,usuario,password,confirmar_password;
+    TextView errorMensaje, errorMensaje2;
     Button btn_insertar;
 
     /*Variables públicas para utilizar en la pantalla de verificación para poder insertar en la base de datos el usuario*/
@@ -57,6 +76,8 @@ public class activity_registrarse extends AppCompatActivity {
         password = (EditText) findViewById(R.id.txtRegistrarPassword);
         confirmar_password = (EditText) findViewById(R.id.txtRegistrarConfirmarPassword);
         btn_insertar = (Button) findViewById(R.id.btnRegistrarEntrar);
+        errorMensaje = (TextView) findViewById(R.id.errorMensaje);
+        errorMensaje2 = (TextView) findViewById(R.id.errorMensaje2);
         txtviewRegistrarCuentaCreada = (TextView) findViewById(R.id.txtviewRegistrarCuentaCreada);
 
 
@@ -67,9 +88,7 @@ public class activity_registrarse extends AppCompatActivity {
                 //la función validar permite validar cuando los campos están vacios y lanza una alerta
                 if(validar() == true){
                     /*Manda a llamar la ventana de verificación de correo*/
-                    enviarCodigoVerificacion();
-                    Intent verificarCorreo = new Intent(getApplicationContext(), activity_codigoverificacion_crearcuenta.class);
-                    startActivity(verificarCorreo);
+                    verificarcorreo();
                 }else{
                     /*Ventana personalizada*/
                     mensajesPersonalizados();
@@ -101,7 +120,7 @@ public class activity_registrarse extends AppCompatActivity {
     }
 
     /*Método para poder mandar el código de verificación*/
-    public void enviarCodigoVerificacion() {
+    public boolean enviarCodigoVerificacion() {
         /*Asignando a esa variable global el valor que el usuario escribe*/
         form_nombres = nombres.getText().toString();
         form_apellidos = apellidos.getText().toString();
@@ -110,6 +129,13 @@ public class activity_registrarse extends AppCompatActivity {
         form_password = password.getText().toString();
 
         String url = "https://phpclusters-152621-0.cloudclusters.net/verificacionCorreo.php";
+        if (!isValidEmail(form_correo)) {
+            errorMensaje.setText("Correo electrónico no válido");
+            return false;
+        } else {
+            errorMensaje.setText(""); // Limpiar el mensaje de error si el correo es válido
+        }
+
         RequestQueue queue = Volley.newRequestQueue(this);
 
         StringRequest resultadoPost = new StringRequest(
@@ -127,6 +153,8 @@ public class activity_registrarse extends AppCompatActivity {
                             //String status = jsonObject.getString("status");
                             //String message = jsonObject.getString("message");
                             verificationCode = jsonObject.getString("verification_code");
+                            Intent verificarCorreo = new Intent(getApplicationContext(), activity_codigoverificacion_crearcuenta.class);
+                            startActivity(verificarCorreo);
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -149,7 +177,87 @@ public class activity_registrarse extends AppCompatActivity {
             }
         };
         queue.add(resultadoPost);
+        return false;
     }
+    public void verificarcorreo() {
+        String url = "https://phpclusters-152621-0.cloudclusters.net/confirmarcorreobd.php";
+
+        RequestQueue queue = Volley.newRequestQueue(this);
+        StringRequest verificacionRequest = new StringRequest(
+                Request.Method.POST, url,
+
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        if (response.equals("El usuario con el correo existe en la base de datos.")) {
+                            errorMensaje.setText("Ya existe una cuenta con este email");
+                        } else if (response.equals("El usuario con el correo no existe en la base de datos.")) {
+                            errorMensaje.setText("");
+                            verificarusuario();
+                        } else {
+                            // Manejar otro tipo de respuesta
+                            mostrarMensajeError("Respuesta inesperada del servidor");
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> parametros = new HashMap<>();
+                parametros.put("correo", correo_electronico.getText().toString());
+                return parametros;
+            }
+        };
+
+        queue.add(verificacionRequest);
+    }
+
+    public void verificarusuario() {
+        String url = "https://phpclusters-152621-0.cloudclusters.net/confirmarusuariobd.php";
+
+        RequestQueue queue = Volley.newRequestQueue(this);
+        StringRequest verificacionRequest = new StringRequest(
+                Request.Method.POST, url,
+
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        if (response.equals("El usuario existe en la base de datos")) {
+                            errorMensaje2.setText("Ya existe una cuenta con este usuario");
+                        } else if (response.equals("El usuario no existe en la base de datos")) {
+                            errorMensaje2.setText("");
+                            enviarCodigoVerificacion();
+                        } else {
+                            // Manejar otro tipo de respuesta
+                            mostrarMensajeError("Respuesta inesperada del servidor");
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> parametros = new HashMap<>();
+                parametros.put("usuario", usuario.getText().toString());
+                return parametros;
+            }
+        };
+
+        queue.add(verificacionRequest);
+    }
+
+
     // Función para validar el formato del correo electrónico
     private boolean isValidEmail(String email) {
         String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
@@ -355,7 +463,7 @@ public class activity_registrarse extends AppCompatActivity {
             }
         };
 
-// Aplicar el filtro al EditText
+        // Aplicar el filtro al EditText
         // Reemplaza 'R.id.miEditText' con el ID de tu EditText
 
         nombres.setFilters(new InputFilter[]{soloLetras});

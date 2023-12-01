@@ -123,7 +123,6 @@ public class activity_recuperar_contrasena2 extends AppCompatActivity {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-
                         String textoConfirmacion = "¡Código reenviado con exito! Por favor revisa tu correo electrónico!";
                         activity_personalizado_confirmacion_correcta dialogFragment = activity_personalizado_confirmacion_correcta.newInstance(textoConfirmacion);
                         dialogFragment.show(getSupportFragmentManager(), "confirmacion");
