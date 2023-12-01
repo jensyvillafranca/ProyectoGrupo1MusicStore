@@ -28,7 +28,7 @@ import java.util.Map;
 
 public class activity_recuperar_contrasena1 extends AppCompatActivity {
 
-    /*Declaración de variables*/
+    //Declaración de variables/
     Button btnRecuperarEnviar;
 
     TextView errorMensaje;
@@ -43,8 +43,8 @@ public class activity_recuperar_contrasena1 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recuperar_contrasena1);
 
-        /*Amarrando los valores de las variables al objeto de la interfaz*/
-        btnRecuperarEnviar = (Button) findViewById(R.id.btnRecuperarRegistrarse);
+        //Amarrando los valores de las variables al objeto de la interfaz/
+                btnRecuperarEnviar = (Button) findViewById(R.id.btnRecuperarRegistrarse);
         correo_electronico = (EditText) findViewById(R.id.txtRecuperarRegistrarse);
 
 
@@ -119,7 +119,7 @@ public class activity_recuperar_contrasena1 extends AppCompatActivity {
 
 
 
-    /*Método para poder mandar el código de verificación*/
+    //Método para poder mandar el código de verificación/
     public boolean enviarCodigoVerificacion() {
 
         String url = "https://phpclusters-152621-0.cloudclusters.net/verificarCorreo_CambioPass.php";

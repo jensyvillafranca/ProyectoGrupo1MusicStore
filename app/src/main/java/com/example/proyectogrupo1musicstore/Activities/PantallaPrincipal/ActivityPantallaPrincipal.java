@@ -24,6 +24,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.example.proyectogrupo1musicstore.Activities.AcercaDe.ActivityAcercaDe;
 import com.example.proyectogrupo1musicstore.Activities.Grupos.ActivityGrupoPrincipal;
 import com.example.proyectogrupo1musicstore.ActivityPlayList;
 import com.example.proyectogrupo1musicstore.Activity_EditarPerfil;
@@ -50,8 +51,8 @@ public class ActivityPantallaPrincipal extends AppCompatActivity {
 
     private DrawerLayout drawerLayout;
     private ImageButton openMenuButton;
-    TextView Grupos, Inicio, CerrarSesion, Ajustes, multimediaTexto;
-    ImageView iconGrupos, iconInicio, multimedia, iconCerrarSesion, iconAjustes;
+    TextView Grupos, Inicio, CerrarSesion, Ajustes, multimediaTexto, AcercaDe;
+    ImageView iconGrupos, iconInicio, multimedia, iconCerrarSesion, iconAjustes, iconAcerca;
     private Button btnNotifications;
 
     //Crea nueva instancia de clase token, para obtener el valor de idusuario de la clase decodetoken
@@ -106,6 +107,8 @@ public class ActivityPantallaPrincipal extends AppCompatActivity {
         openMenuButton = (ImageButton) findViewById(R.id.btn_PrincipalDesplegable);
         Grupos = (TextView) findViewById(R.id.txtViewNavGrupos);
         Inicio = (TextView) findViewById(R.id.txtviewNavInicio);
+        AcercaDe = (TextView) findViewById(R.id.txtviewNavAcerca);
+        iconAcerca = (ImageView) findViewById(R.id.iconNavAcerca);
         iconGrupos = (ImageView) findViewById(R.id.iconNavGrupos);
         iconInicio = (ImageView) findViewById(R.id.iconNavInicio);
         multimedia = (ImageView) findViewById(R.id.iconNavMultimedia);
@@ -161,6 +164,18 @@ public class ActivityPantallaPrincipal extends AppCompatActivity {
                 if (view.getId() == R.id.iconNavAjustes) {
                     actividad = Activity_EditarPerfil.class;
                 }
+                if (view.getId() == R.id.txtviewNavAcerca) {
+                    actividad = ActivityAcercaDe.class;
+                }
+                if (view.getId() == R.id.iconNavAcerca) {
+                    actividad = ActivityAcercaDe.class;
+                }
+                if (view.getId() == R.id.txtviewNavUsuarios) {
+                    //actividad = ActivityListaUsuarios.class;
+                }
+                if (view.getId() == R.id.iconNavAjustes) {
+                    //actividad = ActivityListaUsuarios.class;
+                }
                 if (actividad != null) {
                     moveActivity(actividad);
                 }
@@ -168,9 +183,11 @@ public class ActivityPantallaPrincipal extends AppCompatActivity {
         };
 
         Grupos.setOnClickListener(buttonClick);
+        AcercaDe.setOnClickListener(buttonClick);
         Inicio.setOnClickListener(buttonClick);
         iconGrupos.setOnClickListener(buttonClick);
         iconInicio.setOnClickListener(buttonClick);
+        iconAcerca.setOnClickListener(buttonClick);
         multimedia.setOnClickListener(buttonClick);
         CerrarSesion.setOnClickListener(buttonClick);
         iconCerrarSesion.setOnClickListener(buttonClick);

@@ -121,7 +121,6 @@ public class ActivityChat extends AppCompatActivity implements MessageAdapter.On
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String previousChildName) {
                 mensajeModel message = dataSnapshot.getValue(mensajeModel.class);
-                Log.e("Data: ", String.valueOf(dataSnapshot.getValue(mensajeModel.class)));
                 Log.d("Firebase", "Received message: " + message.getText());
                 messageAdapter.addMessage(message);
                 recyclerView.post(new Runnable() {
