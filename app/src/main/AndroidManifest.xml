@@ -31,6 +31,10 @@
         <activity
             android:name=".ActivityReproductoVideo"
             android:exported="false" />
+
+        <activity
+            android:name=".ActivityReproductor"
+            android:exported="false" />
         <activity
             android:name=".ActivityEditarPlayList"
             android:exported="false" />
