@@ -8,6 +8,18 @@
     android:background="@drawable/espaciodechatusuario"
     android:padding="8dp">
 
+    <ImageButton
+        android:id="@+id/imageButtonChatPlayUsuario"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="10dp"
+        android:background="@android:color/transparent"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/playicon" />
+
     <androidx.cardview.widget.CardView
         android:id="@+id/cardviewImageMessageUsuario"
         android:layout_width="40dp"
@@ -47,12 +59,12 @@
     <!-- Message Time -->
     <TextView
         android:id="@+id/messageTextUsuario"
-        android:layout_width="270dp"
+        android:layout_width="205dp"
         android:layout_height="50dp"
         android:background="@drawable/espaciodechat"
+        android:gravity="end"
         android:maxWidth="240dp"
         android:text="Message text goes here"
-        android:gravity="end"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/cardviewImageMessageUsuario"
         app:layout_constraintStart_toStartOf="parent"

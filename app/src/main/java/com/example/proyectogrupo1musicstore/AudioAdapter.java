@@ -1,5 +1,6 @@
 package com.example.proyectogrupo1musicstore;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,7 +32,7 @@ public class AudioAdapter extends RecyclerView.Adapter<AudioAdapter.AudioViewHol
     @Override
     public void onBindViewHolder(@NonNull AudioViewHolder holder, int position) {
         audioItem item = itemList.get(position);
-        //holder.audioImage.setImageBitmap(item.getImageResId());
+        holder.audioImage.setImageBitmap(item.getImageResId());
         holder.audioName.setText(item.getItemName());
     }
 
@@ -45,7 +46,7 @@ public class AudioAdapter extends RecyclerView.Adapter<AudioAdapter.AudioViewHol
         TextView audioName;
         public AudioViewHolder(@NonNull View itemView) {
             super(itemView);
-            audioImage = itemView.findViewById(R.id.itemPortadaAudio);
+            audioImage = itemView.findViewById(R.id.itemPortadaAudios);
             audioName = itemView.findViewById(R.id.textviewNombreCancion);
         }
     }

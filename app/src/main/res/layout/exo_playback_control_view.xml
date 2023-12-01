@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal">
+
+    <ImageButton
+        android:id="@id/exo_play"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:background="?attr/selectableItemBackground"
+        android:contentDescription="@string/exo_controls_play_description"
+        android:src="@drawable/exo_controls_play"/>
+
+    <ImageButton
+        android:id="@id/exo_pause"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:background="?attr/selectableItemBackground"
+        android:contentDescription="@string/exo_controls_pause_description"
+        android:src="@drawable/exo_controls_pause"/>
+
+    <ImageButton
+        android:id="@+id/exo_close"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:background="?attr/selectableItemBackground"
+        android:contentDescription="Close"
+        android:src="@drawable/closeicon"/>
+
+    <SeekBar
+        android:id="@+id/seekBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:progressBackgroundTint="@color/black"
+        android:progressTint="@color/white"
+        android:thumb="@android:drawable/presence_online" />
+
+</LinearLayout>
