@@ -165,7 +165,7 @@
         </activity>
 
         <service
-            android:name=".Utilidades.GrupoPrivadoFirebaseMessagingService"
+            android:name=".Utilidades.Firebase.GrupoPrivadoFirebaseMessagingService"
             android:directBootAware="true"
             android:exported="false">
             <intent-filter>

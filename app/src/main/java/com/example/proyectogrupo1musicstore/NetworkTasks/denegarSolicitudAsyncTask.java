@@ -1,21 +1,27 @@
 package com.example.proyectogrupo1musicstore.NetworkTasks;
 
-
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.io.BufferedOutputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class enviarMensajeAsyncTask extends AsyncTask<String, Void, Void> {
+public class denegarSolicitudAsyncTask extends AsyncTask<String, Void, Void> {
 
     private final Context context;
+    private final ProgressDialog progressDialog;
 
-    public enviarMensajeAsyncTask(Context context) {
+    public denegarSolicitudAsyncTask(Context context) {
         this.context = context;
+        progressDialog = new ProgressDialog(context);
+        progressDialog.setMessage("Porfavor espere...");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
     }
 
     @Override
@@ -23,7 +29,7 @@ public class enviarMensajeAsyncTask extends AsyncTask<String, Void, Void> {
         String jsonData = params[0];
 
         try {
-            URL url = new URL("https://phpclusters-152621-0.cloudclusters.net/guardarMensaje.php");
+            URL url = new URL("https://phpclusters-152621-0.cloudclusters.net/denegarSolicitud.php");
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setRequestMethod("POST");
             urlConnection.setRequestProperty("Content-Type", "application/json");
@@ -35,7 +41,7 @@ public class enviarMensajeAsyncTask extends AsyncTask<String, Void, Void> {
             out.close();
 
             int responseCode = urlConnection.getResponseCode();
-            Log.d("enviarMensajeAsyncTask", "Response Code: " + responseCode);
+            Log.d("denegarSolicitudAsyncTask", "Response Code: " + responseCode);
 
             urlConnection.disconnect();
         } catch (Exception e) {
@@ -48,5 +54,7 @@ public class enviarMensajeAsyncTask extends AsyncTask<String, Void, Void> {
     @Override
     protected void onPostExecute(Void aVoid) {
         super.onPostExecute(aVoid);
+        Toast.makeText(context, "¡Solicitud Denegada!", Toast.LENGTH_SHORT).show();
+        progressDialog.dismiss();
     }
 }

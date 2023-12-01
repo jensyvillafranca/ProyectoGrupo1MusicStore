@@ -24,8 +24,8 @@ import com.example.proyectogrupo1musicstore.Adapters.CustomAdapterBuscarGrupos;
 import com.example.proyectogrupo1musicstore.Models.buscarGrupo;
 import com.example.proyectogrupo1musicstore.NetworkTasks.BuscarGruposAsyncTask;
 import com.example.proyectogrupo1musicstore.R;
-import com.example.proyectogrupo1musicstore.Utilidades.JwtDecoder;
-import com.example.proyectogrupo1musicstore.Utilidades.token;
+import com.example.proyectogrupo1musicstore.Utilidades.Token.JwtDecoder;
+import com.example.proyectogrupo1musicstore.Utilidades.Token.token;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +40,7 @@ public class ActivityGruposBuscar extends AppCompatActivity {
     EditText txtGruposBuscar;
     ImageView imgBuscar, imgBuscar2, iconGrupos, iconInicio;
     ProgressDialog progressDialog;
-    private com.example.proyectogrupo1musicstore.Utilidades.token token = new token(this);
+    private com.example.proyectogrupo1musicstore.Utilidades.Token.token token = new token(this);
     private int idUsuario;
 
     @Override

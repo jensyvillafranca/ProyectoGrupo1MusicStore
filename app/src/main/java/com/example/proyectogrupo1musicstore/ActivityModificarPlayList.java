@@ -12,14 +12,11 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.example.proyectogrupo1musicstore.Adapters.CustomAdapter;
 import com.example.proyectogrupo1musicstore.Adapters.CustomAdapterPlay;
-import com.example.proyectogrupo1musicstore.Models.vistaDeGrupo;
 import com.example.proyectogrupo1musicstore.Models.vistadeplaylist;
 import com.example.proyectogrupo1musicstore.NetworkTaksMulti.FetchDataAsyncModiPlayList;
-import com.example.proyectogrupo1musicstore.NetworkTasks.FetchDataAsyncGruposPrincipal;
-import com.example.proyectogrupo1musicstore.Utilidades.JwtDecoder;
-import com.example.proyectogrupo1musicstore.Utilidades.token;
+import com.example.proyectogrupo1musicstore.Utilidades.Token.JwtDecoder;
+import com.example.proyectogrupo1musicstore.Utilidades.Token.token;
 
 import java.util.List;
 
@@ -30,7 +27,7 @@ public class ActivityModificarPlayList extends AppCompatActivity implements Fetc
     ImageButton openMenuButton, btnAtras;
     TextView ingresarModificar;
     ProgressDialog progressDialog;
-    private com.example.proyectogrupo1musicstore.Utilidades.token token = new token(this);
+    private com.example.proyectogrupo1musicstore.Utilidades.Token.token token = new token(this);
     private int idUsuario;
 
     @Override

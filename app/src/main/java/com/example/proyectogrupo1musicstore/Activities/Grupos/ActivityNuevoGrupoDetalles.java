@@ -35,11 +35,10 @@ import com.example.proyectogrupo1musicstore.Adapters.CustomAdapterNuevoGrupoDeta
 import com.example.proyectogrupo1musicstore.Models.vistaDeNuevoGrupo;
 import com.example.proyectogrupo1musicstore.NetworkTasks.CreateGroupAsyncTask;
 import com.example.proyectogrupo1musicstore.NetworkTasks.FetchMemberDetailsAsyncTask;
-import com.example.proyectogrupo1musicstore.NetworkTasks.InsertarIntegranteAsyncTask;
 import com.example.proyectogrupo1musicstore.R;
-import com.example.proyectogrupo1musicstore.Utilidades.ConfirmationDialog;
-import com.example.proyectogrupo1musicstore.Utilidades.JwtDecoder;
-import com.example.proyectogrupo1musicstore.Utilidades.token;
+import com.example.proyectogrupo1musicstore.Utilidades.UI.ConfirmationDialog;
+import com.example.proyectogrupo1musicstore.Utilidades.Token.JwtDecoder;
+import com.example.proyectogrupo1musicstore.Utilidades.Token.token;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -60,7 +59,7 @@ public class ActivityNuevoGrupoDetalles extends AppCompatActivity implements Fet
     byte[] imgPerfilByteArray;
     private int estadoPrivado;
     ProgressDialog progressDialog;
-    private com.example.proyectogrupo1musicstore.Utilidades.token token = new token(this);
+    private com.example.proyectogrupo1musicstore.Utilidades.Token.token token = new token(this);
     private int idUsuario;
     private static final int PICK_IMAGE_REQUEST = 1;
     private static final int REQUEST_CODE = 123;
