@@ -29,7 +29,7 @@ public class infoPlayListEditarAsyncTask extends AsyncTask<String, Void, List<in
     public infoPlayListEditarAsyncTask(DataFetchListener listener) {
         this.dataFetchListener = listener;
     }
-
+//modificado
     @Override
     protected List<infoEditarPlayList> doInBackground(String... params) {
         String urlString = params[0]; // URL para el microservicio

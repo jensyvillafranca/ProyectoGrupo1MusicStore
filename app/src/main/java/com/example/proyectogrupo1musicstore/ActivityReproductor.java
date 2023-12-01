@@ -42,7 +42,7 @@ public class ActivityReproductor extends AppCompatActivity implements infoAudioA
     Button btnPlay, btnStop,btnReproducirSiguiente,btnReproAtras;
     SeekBar seekMusick;
 
-
+//modificado
     ProgressDialog progressDialog;
     byte[] imgPerfilAudioByteArrays;
     private infoReproductor reproductoinfo;
