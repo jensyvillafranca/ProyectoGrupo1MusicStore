@@ -61,7 +61,6 @@ public class Activity_EditarPerfil extends AppCompatActivity {
     int IdPersonal;
     private ImageView imgFoto, imgCambiarPerfil;
     private StorageReference storageRef;
-    private token acceso = new token(this);
     ImageView btnAtras;
     TextView txtviewCambiarContrasenia, txtNombre, txtviewHabilitarHuella;
     ImageView imgContrasenia;
@@ -119,8 +118,6 @@ public class Activity_EditarPerfil extends AppCompatActivity {
                 }
             }
         });
-        // Restaurar la imagen desde las preferencias compartidas
-        restoreImageFromSharedPreferences();
 
 
         btnAtras.setOnClickListener(new View.OnClickListener() {
@@ -332,7 +329,7 @@ public class Activity_EditarPerfil extends AppCompatActivity {
                     @Override
                     public void onSuccess(Uri downloadUri) {
                         // Guardar la URL de la imagen en las preferencias compartidas
-                        saveImageUriToSharedPreferences(downloadUri.toString());
+                        subirImagen(downloadUri.toString());
 
                         // Asignar la URL a la variable de clase
                         uri = downloadUri;
@@ -346,26 +343,6 @@ public class Activity_EditarPerfil extends AppCompatActivity {
                 Toast.makeText(Activity_EditarPerfil.this, "Error al subir la foto", Toast.LENGTH_SHORT).show();
             }
         });
-    }
-
-    private void saveImageUriToSharedPreferences(String imageUrl) {
-        // Guardar la URL de la imagen en las preferencias compartidas
-        SharedPreferences preferences = getPreferences(MODE_PRIVATE);
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.putString("imageUri", imageUrl);
-        editor.apply();
-    }
-
-    private void restoreImageFromSharedPreferences() {
-        SharedPreferences preferences = getPreferences(MODE_PRIVATE);
-        String imageUrl = preferences.getString("imageUri", null);
-
-        if (imageUrl != null) {
-            // Cargar la imagen desde la URL almacenada
-            Picasso.get().load(imageUrl).into(imgFoto);
-            Log.d("Url de IMAGEN:", imageUrl);
-            subirImagen(imageUrl);
-        }
     }
 
     // Eliminar Cuenta --------------------------------------------------------------------

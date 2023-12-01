@@ -67,4 +67,8 @@ dependencies {
     implementation ("com.github.bumptech.glide:glide:4.15.1")
     implementation ("com.makeramen:roundedimageview:2.3.0")
     implementation ("com.squareup.picasso:picasso:2.8")
+
+    //ExoPlayer
+    implementation ("com.google.android.exoplayer:exoplayer-core:2.14.0")
+    implementation ("com.google.android.exoplayer:exoplayer-ui:2.14.0")
 }

@@ -20,9 +20,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
+import com.example.proyectogrupo1musicstore.Activities.PantallaPrincipal.ActivityPantallaPrincipal;
 import com.example.proyectogrupo1musicstore.Adapters.AppData;
-import com.example.proyectogrupo1musicstore.Utilidades.JwtDecoder;
-import com.example.proyectogrupo1musicstore.Utilidades.token;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -31,14 +30,15 @@ import java.net.URL;
 import java.net.URLDecoder;
 
 public class Activity_PerfilUsuario extends AppCompatActivity {
-    private token acceso = new token(this);
-    int IdPersonal;
+
+    int IdPersonal = Integer.parseInt(AppData.getInstance().getId());
     int IdUsuario;
     TextView txtNombreCompleto, txtUsername, txtCorreo, txtSeguidores, txtSiguiendo;
     ImageView imgPFP;
+
     Button btnSeguirSeguido, btnConfirmarSeguir, btnEliminarSeguir;
     FrameLayout perfilPublico, perfilPrivado;
-    LinearLayout verSeguidores, verSeguidos, layoutSeguir, layoutConfirmar;
+    LinearLayout verSeguidores,btnAtras, verSeguidos, layoutSeguir, layoutConfirmar;
     int intervaloActualizacion = 5 * 1000;
     String seguirseguido;
 
@@ -58,11 +58,29 @@ public class Activity_PerfilUsuario extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_perfil_usuario);
+
+
+
+        // Obtener IdPersonal de AppData
+        IdPersonal = Integer.parseInt(AppData.getInstance().getId());
+
+        // Obtener IdUsuario de los extras de la intención
+        Intent intent = getIntent();
+        if (intent != null && intent.hasExtra("IdUsuario")) {
+            IdUsuario = intent.getIntExtra("IdUsuario", -1);
+        } else {
+            // Manejar el caso en que no se proporciona "IdUsuario" en los extras
+            // Puedes establecer un valor predeterminado o mostrar un mensaje de error
+            Toast.makeText(this, "Error: IdUsuario no proporcionado", Toast.LENGTH_SHORT).show();
+            // Puedes cerrar la actividad si el IdUsuario es crítico para el funcionamiento
+            finish();
+            return;
+        }
         txtCorreo = findViewById(R.id.txtCorreoPerfilPersonal);
         txtUsername = findViewById(R.id.txtUsernamePerfilPersonal);
         txtNombreCompleto = findViewById(R.id.txtNombreCompletoPerfilPersonal);
         IdUsuario = getIntent().getIntExtra("IdUsuario", -1);
-        IdPersonal = Integer.parseInt(JwtDecoder.decodeJwt(acceso.recuperarTokenFromKeystore()));
+
 
         imgPFP = findViewById(R.id.imgPerfilPersonal);
         txtSeguidores = findViewById(R.id.txtSeguidores);
@@ -76,6 +94,7 @@ public class Activity_PerfilUsuario extends AppCompatActivity {
         btnSeguirSeguido = findViewById(R.id.btnSeguidoSeguir);
         btnConfirmarSeguir = findViewById(R.id.btnConfirmarSeguir);
         btnEliminarSeguir = findViewById(R.id.btnEliminarSeguir);
+        btnAtras = findViewById(R.id.btnAtras);
 
         verSeguidores.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,6 +109,14 @@ public class Activity_PerfilUsuario extends AppCompatActivity {
             public void onClick(View v) {
                 // Cuando se hace clic en "Ver Seguidos"
                 abrirListaSeguidos();
+            }
+        });
+
+        btnAtras.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Activity_PerfilUsuario.this, Activity_PerfilPersonal.class);
+                startActivity(intent);
             }
         });
 
@@ -282,7 +309,7 @@ public class Activity_PerfilUsuario extends AppCompatActivity {
     }
 
     private void eliminarSeguidor(int idUsuarioSeguido) {
-        String urlEliminarSeguido = "https://phpclusters-152621-0.cloudclusters.net/eliminarSeguidor.php?idUsuarioSeguido=" + IdPersonal +"&idUsuario="+IdUsuario+"";
+        String urlEliminarSeguido = "https://phpclusters-152621-0.cloudclusters.net/eliminarSeguidor.php?idUsuarioSeguido=" + IdUsuario +"&idUsuario="+IdPersonal+"";
         JSONObject postData = new JSONObject();
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, urlEliminarSeguido, null,

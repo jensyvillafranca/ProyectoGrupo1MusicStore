@@ -79,6 +79,7 @@
 
     <!-- Message Input -->
 
+    <!-- PlayerView for Audio Playback -->
     <ScrollView
         android:id="@+id/chatScrollView"
         android:layout_width="match_parent"
@@ -94,7 +95,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/headerLayout"
-        app:layout_constraintVertical_bias="1.0">
+        app:layout_constraintVertical_bias="0.0">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
@@ -109,6 +110,19 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/headerLayout" />
     </ScrollView>
+
+    <com.google.android.exoplayer2.ui.PlayerView
+        android:id="@+id/playerView"
+        android:layout_width="0dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:visibility="gone"
+        app:controller_layout_id="@layout/exo_playback_control_view"
+        app:layout_constraintBottom_toBottomOf="@+id/chatScrollView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:use_controller="true" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/messageInputLayout"

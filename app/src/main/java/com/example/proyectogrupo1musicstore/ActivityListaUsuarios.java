@@ -1,5 +1,6 @@
 package com.example.proyectogrupo1musicstore;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,73 +16,73 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.android.volley.NetworkResponse;
-import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
+import com.example.proyectogrupo1musicstore.Activities.Grupos.ActivityGruposBuscar;
+import com.example.proyectogrupo1musicstore.Activities.PantallaPrincipal.ActivityPantallaPrincipal;
 import com.example.proyectogrupo1musicstore.Adapters.AppData;
 import com.example.proyectogrupo1musicstore.Models.User;
+import com.example.proyectogrupo1musicstore.NetworkTasks.BuscarGruposAsyncTask;
+import com.example.proyectogrupo1musicstore.Utilidades.JwtDecoder;
+import com.example.proyectogrupo1musicstore.Utilidades.token;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ActivityListaSeguidos extends AppCompatActivity {
-
+public class ActivityListaUsuarios extends AppCompatActivity {
+    private token acceso = new token(this);
     private RecyclerView recyclerView;
-    ImageButton btnUsuariosBuscarAtras;
+
     private List<User> listaDeUsuarios;
+
+    ImageView imageViewUsuarioBuscar, imageViewUsuarioBuscar2, btn_AtrasUsuarios;
+
     EditText editTextUsuarioBuscar;
-    ImageView imageViewUsuarioBuscar, imageViewUsuarioBuscar2;
-
     TextView txtUsuarioBuscarBuscarUsuario;
-
-    String seguidoseguir = "true";
-    int IdPersonal = Integer.parseInt(AppData.getInstance().getId());
-    int IdUsuario = -1;
-
+    String seguidoseguir = "false";
+    int IdPersonal;
+    int IdUsuario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_lista_seguidos);
+        setContentView(R.layout.activity_lista_usuarios);
         recyclerView = findViewById(R.id.recyclerview_UsuarioBuscar);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        btnUsuariosBuscarAtras = findViewById(R.id.btn_UsuariosBuscarAtras);
-        imageViewUsuarioBuscar = (ImageView) findViewById(R.id.imageViewUsuarioBuscar);
-        imageViewUsuarioBuscar2 = (ImageView) findViewById(R.id.imageViewUsuarioBuscar2);
-        txtUsuarioBuscarBuscarUsuario = (TextView) findViewById(R.id.txtUsuarioBuscarBuscarUsuario);
-        editTextUsuarioBuscar = (EditText) findViewById(R.id.editTextUsuarioBuscar);
         IdUsuario = getIntent().getIntExtra("IdUsuario", -1);
         listaDeUsuarios = new ArrayList<>();
+        txtUsuarioBuscarBuscarUsuario = (TextView) findViewById(R.id.txtUsuarioBuscarBuscarUsuario);
+        editTextUsuarioBuscar = (EditText) findViewById(R.id.editTextUsuarioBuscar);
+        btn_AtrasUsuarios = (ImageView) findViewById(R.id.btn_AtrasUsuarios);
+        imageViewUsuarioBuscar = (ImageView) findViewById(R.id.imageViewUsuarioBuscar);
+        imageViewUsuarioBuscar2 = (ImageView) findViewById(R.id.imageViewUsuarioBuscar2);
+        IdPersonal = Integer.parseInt(JwtDecoder.decodeJwt(acceso.recuperarTokenFromKeystore()));
 
-        btnUsuariosBuscarAtras.setOnClickListener(new View.OnClickListener() {
+        btn_AtrasUsuarios.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Código para ejecutar al hacer clic en el botón
-                abrirActivityPerfilPersonal();
+                Intent intent = new Intent(ActivityListaUsuarios.this, ActivityPantallaPrincipal.class);
+                startActivity(intent);
             }
         });
-
 
         txtUsuarioBuscarBuscarUsuario.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -123,7 +124,7 @@ public class ActivityListaSeguidos extends AppCompatActivity {
                     String query = editTextUsuarioBuscar.getText().toString();
                     listaDeUsuarios.clear();
 
-                    String url = "https://phpclusters-152621-0.cloudclusters.net/buscarUsuarios.php?id=" + IdPersonal + "&buscar=" + query;
+                    String url = "https://phpclusters-152621-0.cloudclusters.net/buscarUsuarios.php?id="+IdPersonal+"&buscar="+query;
                     JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
                             new Response.Listener<JSONArray>() {
                                 @Override
@@ -190,7 +191,7 @@ public class ActivityListaSeguidos extends AppCompatActivity {
                                 }
                             });
 
-                    Volley.newRequestQueue(ActivityListaSeguidos.this).add(jsonArrayRequest);
+                    Volley.newRequestQueue(ActivityListaUsuarios.this).add(jsonArrayRequest);
 
                     // Cierra el teclado
                     InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -201,155 +202,82 @@ public class ActivityListaSeguidos extends AppCompatActivity {
             }
         });
 
-        if(IdUsuario == -1){
-            Log.d("Verificar datos", "IdPersonal: " +IdPersonal);
-            String url = "https://phpclusters-152621-0.cloudclusters.net/mostrarUsuariosSeguido.php?id="+IdPersonal+"";
-            JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
-                    new Response.Listener<JSONArray>() {
-                        @Override
-                        public void onResponse(JSONArray response) {
-                            for (int i = 0; i < response.length(); i++) {
+
+        String url = "https://phpclusters-152621-0.cloudclusters.net/buscarUsuarios.php?id="+IdPersonal;
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        for (int i = 0; i < response.length(); i++) {
+                            try {
+                                JSONObject usuarioJson = response.getJSONObject(i);
+
+                                int idusuario = usuarioJson.getInt("idusuario");
+                                String nombres = usuarioJson.getString("nombres");
+                                String apellidos = usuarioJson.getString("apellidos");
+                                String correo = usuarioJson.getString("correo");
+                                String usuario = usuarioJson.getString("usuario");
+                                String enlacefoto = usuarioJson.getString("enlacefoto");
+
                                 try {
-                                    JSONObject usuarioJson = response.getJSONObject(i);
+                                    // Parsear la URL
+                                    URL url = new URL(enlacefoto);
 
-                                    int idusuario = usuarioJson.getInt("idusuario");
-                                    String nombres = usuarioJson.getString("nombres");
-                                    String apellidos = usuarioJson.getString("apellidos");
-                                    String correo = usuarioJson.getString("correo");
-                                    String usuario = usuarioJson.getString("usuario");
-                                    String enlacefoto = usuarioJson.getString("enlacefoto");
+                                    // Obtener el protocolo y el host
+                                    String protocol = url.getProtocol();
+                                    String host = url.getHost();
 
-                                    try {
-                                        // Parsear la URL
-                                        URL url = new URL(enlacefoto);
+                                    // Verificar si la URL comienza con la cadena específica
+                                    String prefijo = "https://firebasestorage.googleapis.com/v0/b/proyectogrupo1musicstore.appspot.com/o/imagenesEditarPerfil/";
+                                    if (enlacefoto.startsWith(prefijo)) {
+                                        // Obtener la ruta completa y el query
+                                        String pathAndQuery = url.getPath() + "?" + url.getQuery();
 
-                                        // Obtener el protocolo y el host
-                                        String protocol = url.getProtocol();
-                                        String host = url.getHost();
+                                        // Decodificar la ruta y el query
+                                        String decodedPathAndQuery = URLDecoder.decode(pathAndQuery, "UTF-8");
 
-                                        // Verificar si la URL comienza con la cadena específica
-                                        String prefijo = "https://firebasestorage.googleapis.com/v0/b/proyectogrupo1musicstore.appspot.com/o/imagenesEditarPerfil/";
-                                        if (enlacefoto.startsWith(prefijo)) {
-                                            // Obtener la ruta completa y el query
-                                            String pathAndQuery = url.getPath() + "?" + url.getQuery();
+                                        // Dividir la URL en dos partes
+                                        String primeraParte = "https://firebasestorage.googleapis.com/v0/b/proyectogrupo1musicstore.appspot.com/o/imagenesEditarPerfil%2F";
+                                        String segundaParte = url.getFile().substring(url.getPath().lastIndexOf('/') + 1);
 
-                                            // Decodificar la ruta y el query
-                                            String decodedPathAndQuery = URLDecoder.decode(pathAndQuery, "UTF-8");
-
-                                            // Dividir la URL en dos partes
-                                            String primeraParte = "https://firebasestorage.googleapis.com/v0/b/proyectogrupo1musicstore.appspot.com/o/imagenesEditarPerfil%2F";
-                                             String segundaParte = url.getFile().substring(url.getPath().lastIndexOf('/') + 1);
-
-                                            enlacefoto = primeraParte + segundaParte;
-                                        } else {
-                                            // La URL no comienza con la cadena específica, no hacer nada o manejar según sea necesario
-                                        }
-
-                                    } catch (Exception e) {
-                                        e.printStackTrace();
+                                        enlacefoto = primeraParte + segundaParte;
+                                    } else {
+                                        // La URL no comienza con la cadena específica, no hacer nada o manejar según sea necesario
                                     }
 
-                                    int idVisualizacion = usuarioJson.getInt("idvisualizacion");
-                                    String seguirseguido = usuarioJson.getString("sigue");
-
-                                    User user = new User(idusuario, nombres, apellidos, correo, usuario, enlacefoto, seguirseguido, idVisualizacion);
-                                    listaDeUsuarios.add(user);
-                                } catch (JSONException e) {
+                                } catch (Exception e) {
                                     e.printStackTrace();
                                 }
+
+
+                                int idVisualizacion = usuarioJson.getInt("idvisualizacion");
+                                String seguirseguido = usuarioJson.getString("sigue");
+                                User user = new User(idusuario, nombres, apellidos, correo, usuario, enlacefoto, seguirseguido, idVisualizacion);
+                                listaDeUsuarios.add(user);
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
                             }
-
-                            ConfigurarRecyclerView();
                         }
-                    },
-                    new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            // Manejar errores de la solicitud
-                        }
-                    });
 
-            Volley.newRequestQueue(this).add(jsonArrayRequest);
-        }else {
-            Log.d("Verificar datos", "Id: " +IdUsuario);
-            String url = "https://phpclusters-152621-0.cloudclusters.net/mostrarUsuariosSeguido.php?id="+IdUsuario+"";
-            JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
-                    new Response.Listener<JSONArray>() {
-                        @Override
-                        public void onResponse(JSONArray response) {
-                            for (int i = 0; i < response.length(); i++) {
-                                try {
-                                    JSONObject usuarioJson = response.getJSONObject(i);
+                        ConfigurarRecyclerView();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // Manejar errores de la solicitud
+                    }
+                });
 
-                                    int idusuario = usuarioJson.getInt("idusuario");
-                                    String nombres = usuarioJson.getString("nombres");
-                                    String apellidos = usuarioJson.getString("apellidos");
-                                    String correo = usuarioJson.getString("correo");
-                                    String usuario = usuarioJson.getString("usuario");
-                                    String enlacefoto = usuarioJson.getString("enlacefoto");
-                                    try {
-                                        // Parsear la URL
-                                        URL url = new URL(enlacefoto);
-
-                                        // Obtener el protocolo y el host
-                                        String protocol = url.getProtocol();
-                                        String host = url.getHost();
-
-                                        // Verificar si la URL comienza con la cadena específica
-                                        String prefijo = "https://firebasestorage.googleapis.com/v0/b/proyectogrupo1musicstore.appspot.com/o/imagenesEditarPerfil/";
-                                        if (enlacefoto.startsWith(prefijo)) {
-                                            // Obtener la ruta completa y el query
-                                            String pathAndQuery = url.getPath() + "?" + url.getQuery();
-
-                                            // Decodificar la ruta y el query
-                                            String decodedPathAndQuery = URLDecoder.decode(pathAndQuery, "UTF-8");
-
-                                            // Dividir la URL en dos partes
-                                            String primeraParte = "https://firebasestorage.googleapis.com/v0/b/proyectogrupo1musicstore.appspot.com/o/imagenesEditarPerfil%2F";
-                                            String segundaParte = url.getFile().substring(url.getPath().lastIndexOf('/') + 1);
-
-                                            enlacefoto = primeraParte + segundaParte;
-                                            Log.d("Estado URL", "url incorrecta: "+enlacefoto);
-                                        } else {
-
-                                            Log.d("Estado URL", "url CORRECTAAA: "+enlacefoto);
-                                            // La URL no comienza con la cadena específica, no hacer nada o manejar según sea necesario
-                                        }
-
-                                    } catch (Exception e) {
-                                        e.printStackTrace();
-                                    }
-
-                                    int idVisualizacion = usuarioJson.getInt("idvisualizacion");
-                                    String seguirseguido = usuarioJson.getString("sigue");
-
-                                    User user = new User(idusuario, nombres, apellidos, correo, usuario, enlacefoto, seguirseguido, idVisualizacion);
-                                    listaDeUsuarios.add(user);
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
-                            }
-
-                            ConfigurarRecyclerView();
-                        }
-                    },
-                    new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            // Manejar errores de la solicitud
-                        }
-                    });
-
-            Volley.newRequestQueue(this).add(jsonArrayRequest);
-        }
-
+        Volley.newRequestQueue(this).add(jsonArrayRequest);
     }
 
     private void ConfigurarRecyclerView() {
         RecyclerView.Adapter<RecyclerView.ViewHolder> adapter = new RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             @Override
             public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_itemseguidos, parent, false);
+                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_itemseguidores, parent, false);
                 return new UsuarioViewHolder(view);
             }
 
@@ -357,19 +285,18 @@ public class ActivityListaSeguidos extends AppCompatActivity {
             public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
                 User usuario = listaDeUsuarios.get(position);
 
-                if (holder instanceof UsuarioViewHolder) {
-                    UsuarioViewHolder usuarioViewHolder = (UsuarioViewHolder) holder;
+                if (holder instanceof ActivityListaUsuarios.UsuarioViewHolder) {
+                    ActivityListaUsuarios.UsuarioViewHolder usuarioViewHolder = (ActivityListaUsuarios.UsuarioViewHolder) holder;
                     usuarioViewHolder.nombreTextView.setText(usuario.getUsuario());
-                    Glide.with(ActivityListaSeguidos.this).load(usuario.getEnlacefoto()).into(usuarioViewHolder.imgPFP);
+                    Glide.with(ActivityListaUsuarios.this).load(usuario.getEnlacefoto()).into(usuarioViewHolder.imgPFP);
                     int idUsuarioSeguidor = usuario.getIdusuario();
                     String seguirseguido = usuario.getSeguirseguido();
-
-                    // Configurar el estado inicial del botón
-                    if ("true".equals(seguirseguido)) {
+                    if("true".equals(seguirseguido)){
                         usuarioViewHolder.btnSeguirSeguido.setText(R.string.seguido);
                         usuarioViewHolder.btnSeguirSeguido.setTextColor(getResources().getColor(R.color.azulseguido));
                         usuarioViewHolder.btnSeguirSeguido.setBackgroundResource(R.drawable.botonseguido);
-                    } else if ("false".equals(seguirseguido)){
+                    }else if ("false".equals(seguirseguido)){
+                        Log.d("VerificarFalse", seguirseguido);
                         usuarioViewHolder.btnSeguirSeguido.setText(R.string.seguir);
                         usuarioViewHolder.btnSeguirSeguido.setTextColor(getResources().getColor(R.color.whiteseguir));
                         usuarioViewHolder.btnSeguirSeguido.setBackgroundResource(R.drawable.botonseguir);
@@ -378,29 +305,34 @@ public class ActivityListaSeguidos extends AppCompatActivity {
                         usuarioViewHolder.btnSeguirSeguido.setText(R.string.pendiente);
                         usuarioViewHolder.btnSeguirSeguido.setTextColor(getResources().getColor(R.color.azulseguido));
                         usuarioViewHolder.btnSeguirSeguido.setBackgroundResource(R.drawable.botonseguido);
-    }
+                    } else if ("usuario".equals(seguirseguido)) {
+                        usuarioViewHolder.btnSeguirSeguido.setVisibility(View.GONE);
+                    }
 
-                    // Agregar OnClickListener al botón
                     usuarioViewHolder.btnSeguirSeguido.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
+                            Log.d("VerificarClick", "Si se pudo");
                             if(usuario.getIdVisualizacion() == 0){
                                 if(seguidoseguir.equals("true")) {
+                                    Log.d("VerificarTrue", "Si se pudo");
                                     seguidoseguir = "false";
                                     eliminarSeguidor(idUsuarioSeguidor);
                                     usuarioViewHolder.btnSeguirSeguido.setText(R.string.seguir);
                                     usuarioViewHolder.btnSeguirSeguido.setTextColor(getResources().getColor(R.color.whiteseguir));
                                     usuarioViewHolder.btnSeguirSeguido.setBackgroundResource(R.drawable.botonseguir);
                                 } else if (seguidoseguir.equals("false")) {
+                                    Log.d("VerificarFalse", "Si se pudo");
                                     seguidoseguir = "true";
                                     crearSeguidor(idUsuarioSeguidor);
                                     usuarioViewHolder.btnSeguirSeguido.setText(R.string.pendiente);
                                     usuarioViewHolder.btnSeguirSeguido.setTextColor(getResources().getColor(R.color.azulseguido));
                                     usuarioViewHolder.btnSeguirSeguido.setBackgroundResource(R.drawable.botonseguido);
+                                }else if ("usuario".equals(seguirseguido)) {
                                 }
                             }
 
-                            if(usuario.getIdVisualizacion() == 1 ){
+                            if(usuario.getIdVisualizacion() == 1){
                                 if(seguidoseguir.equals("true")) {
                                     seguidoseguir = "false";
                                     eliminarSeguidor(idUsuarioSeguidor);
@@ -410,9 +342,10 @@ public class ActivityListaSeguidos extends AppCompatActivity {
                                 } else if (seguidoseguir.equals("false")) {
                                     seguidoseguir = "true";
                                     crearSeguidor(idUsuarioSeguidor);
-                                    usuarioViewHolder.btnSeguirSeguido.setText(R.string.pendiente);
+                                    usuarioViewHolder.btnSeguirSeguido.setText(R.string.seguido);
                                     usuarioViewHolder.btnSeguirSeguido.setTextColor(getResources().getColor(R.color.azulseguido));
                                     usuarioViewHolder.btnSeguirSeguido.setBackgroundResource(R.drawable.botonseguido);
+                                }else if ("usuario".equals(seguirseguido)) {
                                 }
                             }
                         }
@@ -421,12 +354,11 @@ public class ActivityListaSeguidos extends AppCompatActivity {
                     usuarioViewHolder.verUsuario.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            int id = usuario.getIdusuario();
-                            abrirActivityPerfilUsuario(id);
+                            abrirActivityPerfilUsuario(usuario.getIdusuario());
                         }
                     });
-                }
 
+                }
             }
 
             @Override
@@ -439,8 +371,6 @@ public class ActivityListaSeguidos extends AppCompatActivity {
     }
 
     private void eliminarSeguidor(int idUsuarioSeguido) {
-        Log.d("EliminarSeguidor", "Iniciando eliminación del seguidor con id: " + idUsuarioSeguido + "e usuario con id:" +IdPersonal);
-
         String urlEliminarSeguido = "https://phpclusters-152621-0.cloudclusters.net/eliminarSeguidor.php?idUsuarioSeguido=" + idUsuarioSeguido +"&idUsuario="+IdPersonal+"";
         JSONObject postData = new JSONObject();
 
@@ -497,21 +427,18 @@ public class ActivityListaSeguidos extends AppCompatActivity {
         public UsuarioViewHolder(View itemView) {
             super(itemView);
             nombreTextView = itemView.findViewById(R.id.txtListItemNombreUsuario);
-            btnSeguirSeguido = itemView.findViewById(R.id.btnSeguirSeguido);
-            imgPFP = itemView.findViewById((R.id.imageviewListItemImageUsuario));
+            btnSeguirSeguido = itemView.findViewById(R.id.btnSeguidoSeguir);
+            imgPFP = itemView.findViewById(R.id.imageviewListItemImageUsuario);
             verUsuario = itemView.findViewById(R.id.layoutVerUsuario);
         }
     }
 
-    private void abrirActivityPerfilPersonal() {
-        Intent intent = new Intent(this, Activity_PerfilPersonal.class);
-        startActivity(intent);
-    }
+
+
 
     private void abrirActivityPerfilUsuario(int id) {
         Intent intent = new Intent(this, Activity_PerfilUsuario.class);
         intent.putExtra("IdUsuario", id);
         startActivity(intent);
     }
-
 }
