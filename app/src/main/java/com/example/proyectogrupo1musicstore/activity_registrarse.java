@@ -420,7 +420,7 @@ public class activity_registrarse extends AppCompatActivity {
                         return "";
                     }
                 }
-                return null; // Accept the original value
+                return null;
             }
         };
 
