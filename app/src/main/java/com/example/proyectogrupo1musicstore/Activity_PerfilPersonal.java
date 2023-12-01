@@ -95,8 +95,7 @@ public class Activity_PerfilPersonal extends AppCompatActivity {
         btnAtras.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Activity_PerfilPersonal.this, ActivityPantallaPrincipal.class);
-                startActivity(intent);
+                finish();
             }
         });
 

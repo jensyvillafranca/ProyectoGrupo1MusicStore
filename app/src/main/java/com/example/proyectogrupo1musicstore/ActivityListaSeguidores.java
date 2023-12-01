@@ -72,7 +72,7 @@ public class ActivityListaSeguidores extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Código para ejecutar al hacer clic en el botón
-                abrirActivityPerfilPersonal();
+                finish();
             }
         });
 
@@ -266,6 +266,9 @@ public class ActivityListaSeguidores extends AppCompatActivity {
 
                                     int idVisualizacion = usuarioJson.getInt("idvisualizacion");
                                     String seguirseguido = usuarioJson.getString("sigue");
+                                    if(IdPersonal == idusuario){
+                                        seguirseguido = "usuario";
+                                    }
                                     User user = new User(idusuario, nombres, apellidos, correo, usuario, enlacefoto, seguirseguido, idVisualizacion);
                                     listaDeUsuarios.add(user);
 
@@ -338,7 +341,7 @@ public class ActivityListaSeguidores extends AppCompatActivity {
 
                                     int idVisualizacion = usuarioJson.getInt("idvisualizacion");
                                     String seguirseguido = usuarioJson.getString("sigue");
-                                    if(IdPersonal == IdUsuario){
+                                    if(IdPersonal == idusuario){
                                         seguirseguido = "usuario";
                                     }
                                     User user = new User(idusuario, nombres, apellidos, correo, usuario, enlacefoto, seguirseguido, idVisualizacion);
@@ -440,21 +443,23 @@ public class ActivityListaSeguidores extends AppCompatActivity {
                             }
                         }
                     });
-
-                    if(IdUsuario == IdPersonal){
+                    
+                    if(usuario.getIdusuario() == IdPersonal){
                         usuarioViewHolder.verUsuario.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 abrirActivityPerfilPersonal();
                             }
                         });
+                    }else {
+                        usuarioViewHolder.verUsuario.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                abrirActivityPerfilUsuario(usuario.getIdusuario());
+                            }
+                        });
                     }
-                    usuarioViewHolder.verUsuario.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            abrirActivityPerfilUsuario(usuario.getIdusuario());
-                        }
-                    });
+
 
                 }
             }

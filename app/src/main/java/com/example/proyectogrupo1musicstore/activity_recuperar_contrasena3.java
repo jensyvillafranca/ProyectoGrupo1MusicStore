@@ -73,7 +73,7 @@ public class activity_recuperar_contrasena3 extends AppCompatActivity {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        Log.d("Respuesta", response);
+                        Toast.makeText(getApplicationContext(), "¡Credenciales actualizadas!", Toast.LENGTH_LONG).show();
                         // Aquí puedes manejar la respuesta del servidor, verificar si la contraseña se actualizó correctamente, etc.
                         // Si la actualización fue exitosa, entonces puedes iniciar sesión nuevamente
                         Intent login = new Intent(getApplicationContext(), activity_login.class);
