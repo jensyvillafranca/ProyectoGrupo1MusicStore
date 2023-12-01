@@ -34,7 +34,7 @@ public class ObtenerPlayListAsyncTask extends AsyncTask<String, Void, List<PlayL
     private PlayListAdapter adapter;
     ProgressDialog progressDialog;
     private int tipoProgress;
-    private int idusuario;
+
 
     public ObtenerPlayListAsyncTask(Context context, PlayListAdapter adapter, ProgressDialog progressDialog) {
         this.context = context;
@@ -59,7 +59,7 @@ public class ObtenerPlayListAsyncTask extends AsyncTask<String, Void, List<PlayL
 
             // Crea el objeto JSON con el parametro
             JSONObject jsonParams = new JSONObject();
-            jsonParams.put("idUsuario", Integer.valueOf(idusuario));
+            jsonParams.put("idusuario", Integer.valueOf(idusuario));
 
             // Escribe el JSON al output stream
             OutputStream out = new BufferedOutputStream(urlConnection.getOutputStream());
@@ -112,11 +112,11 @@ public class ObtenerPlayListAsyncTask extends AsyncTask<String, Void, List<PlayL
 
                 // Extrae la informacion y crea objetos
                 Integer idplaylist = jsonObject.getInt("idplaylist");
-                String nombrePlay = jsonObject.getString("nombreplaylist");
+                String nombrePlay = jsonObject.getString("nombre");
                 Bitmap imageResource = ImageDownloader.downloadImage(jsonObject.getString("enlacefoto"));
 
 
-                dataList.add(new PlayListItem(imageResource, nombrePlay, idplaylist, 8));
+                dataList.add(new PlayListItem(imageResource, nombrePlay, idplaylist));
             }
 
         } catch (JSONException e) {

@@ -115,7 +115,7 @@ public class activity_recuperar_contrasena2 extends AppCompatActivity {
     public void reenviarCodigoVerificacion() {
         Log.d("Correo desde la otra ventana",email);
         tiempoCodigo();
-        String url = "https://phpclusters-152621-0.cloudclusters.net/verificacionCorreo.php";
+        String url = "https://phpclusters-152621-0.cloudclusters.net/verificarCorreo_CambioPass.php";
         RequestQueue queue = Volley.newRequestQueue(this);
 
         StringRequest resultadoPost = new StringRequest(

@@ -34,7 +34,7 @@ public class Activity_SubirMusicaAsyncTask extends AsyncTask<String, Void, Void>
     private boolean onProgressCalled = false;
 
 
-    /*Constructor donde se inicializan los datos que contendra la tabla de usuarios*/
+    /*Constructor donde se inicializan los datos que contendra la tabla de audios*/
 
     public Activity_SubirMusicaAsyncTask(Context context, String autor, int idUsuario, byte [] enlaceAudio, String enlacePortada, String idPlayList, String idFavorito, String nombreCancion, String album, String genero) {
         this.autor = autor;
@@ -111,7 +111,7 @@ public class Activity_SubirMusicaAsyncTask extends AsyncTask<String, Void, Void>
             progressDialog.dismiss();
             if(onProgressCalled==false){
                 // Me lleva a otra actividad
-                Toast.makeText(context, "¡El audio se ha subido con exito!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "¡El audio se ha subido con éxito!", Toast.LENGTH_SHORT).show();
             }
         }
     }

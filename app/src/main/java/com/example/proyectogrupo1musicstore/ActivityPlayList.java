@@ -46,9 +46,9 @@ public class ActivityPlayList extends AppCompatActivity implements informacionGe
     private com.example.proyectogrupo1musicstore.Utilidades.token token = new token(this);
 
     private int idplaylist;
-    private int idUsuario;
+   // private int idUsuario;
 
-    //private int idUsuario = 2;
+    private int idUsuario = 2;
     ProgressDialog progressDialog;
 
     @Override
@@ -89,8 +89,8 @@ public class ActivityPlayList extends AppCompatActivity implements informacionGe
         //Fetch data from the server
         String url = "https://phpclusters-152621-0.cloudclusters.net/obtenerPlayList.php";
 
-        new informacionGeneralPlayListAstAsyncTask(this).execute(url, String.valueOf(idplaylist));
-        new ObtenerPlayListAsyncTask(ActivityPlayList.this, playAdapter, progressDialog).execute(String.valueOf(idplaylist));
+        new informacionGeneralPlayListAstAsyncTask(this).execute(url, String.valueOf(idUsuario));
+        new ObtenerPlayListAsyncTask(ActivityPlayList.this, playAdapter, progressDialog).execute(String.valueOf(idUsuario));
 
         // Listener para abrir el menú lateral
         openMenuButton.setOnClickListener(v -> {

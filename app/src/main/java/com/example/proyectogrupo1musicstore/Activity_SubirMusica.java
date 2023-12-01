@@ -1,7 +1,7 @@
 package com.example.proyectogrupo1musicstore;
-
 import android.Manifest;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -11,18 +11,16 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.MediaMetadataRetriever;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.provider.Settings;
 import android.util.Base64;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -30,10 +28,8 @@ import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import com.example.proyectogrupo1musicstore.Adapters.CustomAdapterMusicaVideos;
-import com.example.proyectogrupo1musicstore.Models.vistaMusicaVideo;
 import com.example.proyectogrupo1musicstore.Utilidades.JwtDecoder;
 import com.example.proyectogrupo1musicstore.Utilidades.token;
 import java.io.ByteArrayOutputStream;
@@ -47,7 +43,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class Activity_SubirMusica extends AppCompatActivity {
     RecyclerView listas;
-    // ListView listas;
+    RecyclerView recyclerViewAudios;
     DrawerLayout drawerLayouts;
     ImageButton botonAtrass;
     TextView textviewAtrass, txtBuscarArchivos;
@@ -58,9 +54,6 @@ public class Activity_SubirMusica extends AppCompatActivity {
     private static final int REQUEST_CODE_EXTERNAL = 124;
     private com.example.proyectogrupo1musicstore.Utilidades.token token = new token(this);
     public static byte[] audioBase64;
-
-    /*Clase que nos permitira obtener la metadata de ese audio*/
-    MediaMetadataRetriever metadata = new MediaMetadataRetriever();
     Uri audioUri;
     public static String nombreCancion, artista,album,genero,imagenPortadaBase64;
     public static int idUsuario;
@@ -75,11 +68,20 @@ public class Activity_SubirMusica extends AppCompatActivity {
     /*Generar de ID único para los plain text en los que se va llenar la info faltante de la metadata*/
     private static final AtomicInteger generarID = new AtomicInteger(1);
 
+    ProgressDialog progressDialog;
+    public static final String tipo = "1";
+    //Modificacion
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_subir_musica);
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Cargando...");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
 
+        idUsuario = Integer.parseInt(JwtDecoder.decodeJwt(token.recuperarTokenFromKeystore()));
 
         listas = (RecyclerView) findViewById(R.id.recyclerview_SubirMusica);
         drawerLayouts = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -90,20 +92,7 @@ public class Activity_SubirMusica extends AppCompatActivity {
         buscars = (CardView) findViewById(R.id.cardViewBuscarArchivo);
         seleccionarAudio = (CardView) findViewById(R.id.cardViewSubirMusica);
         videos = (CardView) findViewById(R.id.cardViewNavegacionVideo);
-        //subida
-
-        //Creacion de una lista de elementos de vistaArchivos
-        List<vistaMusicaVideo> dataList = new ArrayList<>();
-
-
-        //Configuracion del administrador de disenio y adaptador para el RecyclerView
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this); // Use an appropriate layout manager
-        listas.setLayoutManager(layoutManager);
-        CustomAdapterMusicaVideos adapter = new CustomAdapterMusicaVideos(this, dataList);
-        listas.setAdapter(adapter);
-
-        //Obteniendo el id del usuario por medio del token
-        idUsuario = Integer.parseInt(JwtDecoder.decodeJwt(token.recuperarTokenFromKeystore()));
+        recyclerViewAudios = (RecyclerView) findViewById(R.id.recyclerview_SubirMusica);
 
         //Modificados
         seleccionarAudio.setOnClickListener(new View.OnClickListener() {
@@ -135,7 +124,7 @@ public class Activity_SubirMusica extends AppCompatActivity {
         buscars.setOnClickListener(buttonClick);
         videos.setOnClickListener(buttonClick);
         botonAtrass.setOnClickListener(buttonClick);
-        //comentario
+        musicaItems();
     }
     // Método para cambiar a otra actividad
     private void moveActivity(Class<?> actividad) {
@@ -213,7 +202,6 @@ public class Activity_SubirMusica extends AppCompatActivity {
             //Ubicación del recurso de audio
             audioUri = data.getData();
             obtenerRutaRealMusica(getApplicationContext(), audioUri);
-
             /*Mandar a llamar el metodo que captura la metadata del archivo de audio*/
             try {
                 extraerMetadata();
@@ -227,6 +215,7 @@ public class Activity_SubirMusica extends AppCompatActivity {
     /*Es útil porque gracias a él podemos hacer operaciones de lectura y escritura, en nuestro caso necesitamos leerlo
     * para convertirlo a base 64 y también para la metadata del audio*/
     public String obtenerRutaRealMusica(Context context, Uri contentUri) {
+       // Log.d("ENTRA", "ENTRA XDXDXD AL OBTENER RUTA REAL MUSICA");
         Cursor cursor = null;
         try {
             String[] proj = { MediaStore.Audio.Media.DATA };
@@ -235,6 +224,7 @@ public class Activity_SubirMusica extends AppCompatActivity {
                 int column_index = cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.DATA);
                 String filePath = cursor.getString(column_index);
                 InputStream inputStream = new FileInputStream(filePath); // Abre el archivo como InputStream
+                //Log.e("EL DE AHORITA: ",""+inputStream);
                 audioBase64 = getBytes(inputStream); // Convierte a arreglo de bytes
             }
         } catch (IOException e) {
@@ -271,14 +261,20 @@ public class Activity_SubirMusica extends AppCompatActivity {
     /*Metodo para obtener metadata del archivo de música*/
     /*Obtener la metada del archivo de audio*/
     public void extraerMetadata() throws IOException {
+        /*Clase que nos permitira obtener la metadata de ese audio*/
+        MediaMetadataRetriever metadata = new MediaMetadataRetriever();
+        //Log.d("ENTRA", "ENTRA XDXDXD A METADATA");
         try {
             metadata.setDataSource(getApplicationContext(), audioUri);
             nombreCancion = metadata.extractMetadata(MediaMetadataRetriever.METADATA_KEY_TITLE);
             artista = metadata.extractMetadata(MediaMetadataRetriever.METADATA_KEY_ARTIST);
             album = metadata.extractMetadata(MediaMetadataRetriever.METADATA_KEY_ALBUM);
             genero = metadata.extractMetadata(MediaMetadataRetriever.METADATA_KEY_GENRE);
-           // duracion = metadata.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION);
             imagenPortada = metadata.getEmbeddedPicture();
+            Log.e("NOMBRE CANCION 1",""+nombreCancion);
+            Log.e("ARTISTA 1",""+artista);
+            Log.e("ALBUM 1",""+album);
+            Log.e("GENERO 1",""+genero);
 
             if (imagenPortada != null) {
                 // Si la canción tiene una imagen de portada
@@ -310,6 +306,7 @@ public class Activity_SubirMusica extends AppCompatActivity {
             if(genero == null){
                 contadorElementos++;
             }
+            Log.d("CONTADOR", ""+contadorElementos);
 
             //Mandar a llamar la modal donde el usuario digitara la información que esta nula de la metadata.
             if(contadorElementos > 0 && contadorElementos < 5){
@@ -331,6 +328,28 @@ public class Activity_SubirMusica extends AppCompatActivity {
         } finally {
             metadata.release(); // Liberar el recurso
         }
+        contadorElementos = 0;
+        /*Llamar la clase que permite traer todos los archivos musicales*/
+        musicaItems();
+    }
+
+    /*Metodo para mostrar todas las canciones subidas en formato de grilla 2x2*/
+    public void musicaItems(){
+        //Obteniendo el id del usuario por medio del token
+        idUsuario = Integer.parseInt(JwtDecoder.decodeJwt(token.recuperarTokenFromKeystore()));
+
+        // Creación de una lista de elementos para los audios
+        List<audioItem> audioList = new ArrayList<>();
+
+        // Crea y vincula el adaptador
+        AudioAdapter audioAdapter = new AudioAdapter(this, audioList );
+        recyclerViewAudios.setAdapter(audioAdapter);
+
+        //Configuracion del administrador de diseño
+        GridLayoutManager layoutManager = new GridLayoutManager(this, 2);
+        recyclerViewAudios.setLayoutManager(layoutManager);
+
+        new BuscarAudioAsyncTask(getApplicationContext(), audioAdapter, progressDialog).execute(String.valueOf(idUsuario), tipo);
     }
 
 }

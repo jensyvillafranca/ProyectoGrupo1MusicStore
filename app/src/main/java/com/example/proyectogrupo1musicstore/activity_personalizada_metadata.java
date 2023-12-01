@@ -30,6 +30,9 @@ import androidx.annotation.NonNull;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.DialogFragment;
 
+import com.example.proyectogrupo1musicstore.Utilidades.JwtDecoder;
+import com.example.proyectogrupo1musicstore.Utilidades.token;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -40,6 +43,7 @@ public class activity_personalizada_metadata extends DialogFragment {
     private final ArrayList<String> metadataExistente = new ArrayList<>(Arrays.asList(null, null, null, null));
     private View dialogView;
     String nombreCancion_aux, artista_aux, genero_aux, album_aux;
+
 
     /*Expresion*/
     String[] expresiones_regulares = new String[]{
@@ -59,6 +63,7 @@ public class activity_personalizada_metadata extends DialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
+
         //Tipo de fuente para el layout
         Typeface typeface = ResourcesCompat.getFont(getContext(), R.font.fuente_jost_global);
 
@@ -229,7 +234,7 @@ public class activity_personalizada_metadata extends DialogFragment {
             if(contadorAux == 3){
                 if(inputText.isEmpty()){
                     //Si el usuario no conoce el género de la canción y decide dejarlo como vacío
-                    album_aux = null;
+                    genero_aux = null;
                 }else{
                     //Mandar el género de la canción  en caso de que el usuario si lo llene
                     genero_aux = inputText;
@@ -240,6 +245,10 @@ public class activity_personalizada_metadata extends DialogFragment {
 
         //Invocar el método que manda todos los datos al PHP.
         subirAudioFirebase();
+
+        if (getActivity() instanceof Activity_SubirMusica) {
+            ((Activity_SubirMusica) getActivity()).musicaItems();
+        }
     }
 
     //Mandar todos los valores al PHP mediante el llamado del siguiente metódo
@@ -275,4 +284,6 @@ public class activity_personalizada_metadata extends DialogFragment {
             }
         }
     }
+
+
 }

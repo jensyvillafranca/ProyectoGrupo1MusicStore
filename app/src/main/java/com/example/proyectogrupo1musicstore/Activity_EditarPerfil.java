@@ -1,39 +1,43 @@
 package com.example.proyectogrupo1musicstore;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import androidx.biometric.BiometricPrompt;
+import android.hardware.fingerprint.FingerprintManager;
 import android.net.Uri;
-import android.provider.MediaStore;
-import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.LinearLayout;
-import android.widget.Toast;
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentActivity;
 
 import com.android.volley.Request;
+import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
-import com.example.proyectogrupo1musicstore.Adapters.AppData;
+import com.example.proyectogrupo1musicstore.Utilidades.JwtDecoder;
+import com.example.proyectogrupo1musicstore.Utilidades.token;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
@@ -47,6 +51,9 @@ import org.json.JSONObject;
 import java.io.ByteArrayOutputStream;
 import java.net.URL;
 import java.net.URLDecoder;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.Executor;
 
 public class Activity_EditarPerfil extends AppCompatActivity {
     private static final int REQUEST_IMAGE_CAPTURE = 1;
@@ -55,10 +62,12 @@ public class Activity_EditarPerfil extends AppCompatActivity {
     private ImageView imgFoto, imgCambiarPerfil;
     private StorageReference storageRef;
     ImageView btnAtras;
-    TextView txtviewCambiarContrasenia, txtNombre;
+    TextView txtviewCambiarContrasenia, txtNombre, txtviewHabilitarHuella;
     ImageView imgContrasenia;
-    CheckBox chePerfil;
+    CheckBox chePerfil, checkHabilitarHuella;
     int idVisualizacion;
+    Boolean estadoComprobacion = false;
+    String estadoCheck;
 
     private Uri uri; // Variable para almacenar la URL de la imagen
 
@@ -69,9 +78,7 @@ public class Activity_EditarPerfil extends AppCompatActivity {
 
         // Obtener la referencia al Storage de Firebase
         storageRef = FirebaseStorage.getInstance().getReferenceFromUrl("gs://proyectogrupo1musicstore.appspot.com/imagenesEditarPerfil");
-
-
-        IdPersonal = getIntent().getIntExtra("IdPersonal", -1);
+        IdPersonal = Integer.parseInt(JwtDecoder.decodeJwt(acceso.recuperarTokenFromKeystore()));
         btnAtras = (ImageView) findViewById(R.id.btn_EditarPerfilAtras);
         imgContrasenia=findViewById(R.id.imgContrasenia);
         txtviewCambiarContrasenia=findViewById(R.id.txtviewCambiarContrasenia);
@@ -79,6 +86,26 @@ public class Activity_EditarPerfil extends AppCompatActivity {
         imgCambiarPerfil = findViewById(R.id.imgcambiarPerfil);
         imgFoto = findViewById(R.id.imgFoto);
         chePerfil = findViewById(R.id.chePerfil);
+        checkHabilitarHuella = findViewById(R.id.cheHuella);
+        txtviewHabilitarHuella = findViewById(R.id.textviewHabilitarHuella);
+        /*Cargar de forma automáticamente el estado del checkbox desde la base de datos*/
+        cargarEstadoCheckbox();
+
+
+        /*En caso de que el usuario tenga sensor de huella, hacer visible el check para habiliar/deshabilitar la huella*/
+        if (detectarSensor()) {
+            txtviewHabilitarHuella.setVisibility(View.VISIBLE);
+            checkHabilitarHuella.setVisibility(View.VISIBLE);
+
+            //Mandar a llamar método que verifica si el usuario tiene una huella confugurada en el dispositivo
+            //Pero hacerlo por medio de un evento en el checkbox
+            verificarCheck_Huella();
+        } else {
+            /*En caso de que el usuario no tenga sensor de huella, dejar invisible el check para habiliar/deshabilitar la huella*/
+            txtviewHabilitarHuella.setVisibility(View.INVISIBLE);
+            checkHabilitarHuella.setVisibility(View.INVISIBLE);
+        }
+
         imgCambiarPerfil.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -166,8 +193,6 @@ public class Activity_EditarPerfil extends AppCompatActivity {
                                     .load(imageUrl)
                                     .into(imgFoto);
                             txtNombre.setText(nombreCompleto);
-                            Log.d("Nombre: ", nombreCompleto);
-
 
 
 
@@ -194,6 +219,14 @@ public class Activity_EditarPerfil extends AppCompatActivity {
                 int nuevoIdVisualizacion = isChecked ? 0 : 1;
                 Log.d("Visualizacion: ", String.valueOf(nuevoIdVisualizacion));
                 editarVisualizacion(nuevoIdVisualizacion);
+            }
+        });
+
+        /*Habilitar/Deshabilitar huella biométrica*/
+        checkHabilitarHuella.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
             }
         });
     }
@@ -370,10 +403,6 @@ public class Activity_EditarPerfil extends AppCompatActivity {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        // Redireccionar a la clase "Activity_Principal"
-                        // Intent intent = new Intent(Activity_EditarPerfil.this, activity_principal_login.class);
-                        //  startActivity(intent);
-                        //  finish();  // Cerrar la actividad actual para que no se pueda volver atrás
                     }
                 },
                 new Response.ErrorListener() {
@@ -403,6 +432,188 @@ public class Activity_EditarPerfil extends AppCompatActivity {
                 });
 
         Volley.newRequestQueue(this).add(request);
+    }
+
+    //Verificar si el celular tiene sensor de huella digital
+    private boolean detectarSensor() {
+       if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            // Android 6 (Marshmallow) hasta Android 9, usar FingerprintManager
+            FingerprintManager fingerprintManager = (FingerprintManager) getApplicationContext().getSystemService(Context.FINGERPRINT_SERVICE);
+            return fingerprintManager != null && fingerprintManager.isHardwareDetected();
+        }
+        return false;
+    }
+
+    //Verificar si el dispositivo tiene una huella configurada
+    public void verificarExistenciaHuella(){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            FingerprintManager fingerprintManager = (FingerprintManager) getApplicationContext().getSystemService(Context.FINGERPRINT_SERVICE);
+            if (fingerprintManager != null && fingerprintManager.isHardwareDetected()) {
+                if (!fingerprintManager.hasEnrolledFingerprints()) {
+                    Log.d("No hay huellas","No hay huellas");
+                    //Mostrar una advertencia al usuario
+                    activity_personalizada_huella dialogFragment = activity_personalizada_huella.newInstance("");
+                    dialogFragment.show(getSupportFragmentManager(), "advertencia");
+                    checkHabilitarHuella.setChecked(false);
+                } else {
+                    Log.d("Hay huellas","Hay huellas");
+                    //Verificar esa huella que existe en el dispositivo, es decir que sea la misma huella de la persona que esta usando la app.
+                    //Para ello mando a llamar el metodo de showBiometricPrompt
+                    if(estadoComprobacion==false){
+                        showBiometricPrompt();
+                    }
+                }
+            }
+        }
+    }
+
+    //Metodo para ver el estado del checkbox y asi habilitar/deshabilitar el acceso con la huella
+    public void verificarCheck_Huella(){
+        checkHabilitarHuella.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(estadoComprobacion ==true) //si esta en true
+                {
+                    //Aqui puedo deshabilitar el servicio
+                    checkHabilitarHuella.setChecked(false);
+                    estadoComprobacion = false;
+                    //Aqui vamos a mandar a llamar el update del campo estado de la tabla de usuarios dependiendo del valor del checkbox.
+                    mandarValor();
+                }else{
+                    //Si doy click y no hay huellas me lanza la advertencia
+                    //Si doy click y si hay huellas entonces le pido que la verifique
+                    //Finalmente dejo seleccionado el checkbox
+                    verificarExistenciaHuella();
+                    //Al cargar nuevamente la pantalla de editar perfil, ese chechbox debe reflejar el estado en 0 u 1 del usuario
+                    //Al insertar el usuario ese campo de autenticacion debera estar en 0 por defecto indicando que inicialmente el usuario no tiene acceso a este tipo de autenticación
+                }
+            }
+        });
+    }
+
+    public void mandarValor(){
+        String url = "https://phpclusters-152621-0.cloudclusters.net/actualizarAcceso.php";
+        RequestQueue queue = Volley.newRequestQueue(this);
+
+        StringRequest resultadoPost = new StringRequest(
+                Request.Method.POST, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        //Toast.makeText(getApplicationContext(), "Actualizado", Toast.LENGTH_LONG).show();
+                        Log.d("Respuesta del servidor campo acceso: ",""+response.toString());
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(getApplicationContext(), "Error " + error.toString(), Toast.LENGTH_LONG).show();
+                    }
+                }
+        ) {
+
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> parametros = new HashMap<>();
+                Log.d("Estado del checkbox",""+checkHabilitarHuella.isChecked());
+                parametros.put("acceso", String.valueOf(checkHabilitarHuella.isChecked()));
+                parametros.put("idUsuario", String.valueOf(IdPersonal));
+                return parametros;
+            }
+        };
+        queue.add(resultadoPost);
+    }
+
+    public void showBiometricPrompt() {
+        FragmentActivity activity = this; // tu actividad
+        Executor executor = ContextCompat.getMainExecutor(activity);
+        BiometricPrompt biometricPrompt = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.P) {
+            biometricPrompt = new BiometricPrompt(activity, executor, new BiometricPrompt.AuthenticationCallback() {
+                @Override
+                public void onAuthenticationError(int errorCode, @NonNull CharSequence errString) {
+                    super.onAuthenticationError(errorCode, errString);
+                    // Manejar error, puede ser que el usuario canceló, etc.
+                    //checkHabilitarHuella.setChecked(false);
+                }
+
+                @Override
+                public void onAuthenticationSucceeded(@NonNull BiometricPrompt.AuthenticationResult result) {
+                    super.onAuthenticationSucceeded(result);
+                    // Autenticación exitosa, proceder con la acción después de la verificación
+                    Log.d("Verificacion exitosa","Verificacion exitosa");
+                    checkHabilitarHuella.setChecked(true);
+                    estadoComprobacion=true;
+                    //Aqui vamos a mandar a llamar el update del campo estado de la tabla de usuarios dependiendo del valor del checkbox.
+                    mandarValor();
+                }
+
+                @Override
+                public void onAuthenticationFailed() {
+                    super.onAuthenticationFailed();
+                    // Manejar el caso de que la autenticación falle (la huella no coincide)
+                    Log.d("Verificacion no exitosa","Verificacion no exitosa");
+                   // checkHabilitarHuella.setChecked(false);
+                }
+            });
+        }
+
+        BiometricPrompt.PromptInfo promptInfo = new BiometricPrompt.PromptInfo.Builder()
+                .setTitle("Verificación de huella dactilar")
+                .setSubtitle("Coloca tu dedo en el sensor para verificar tu identidad")
+                .setNegativeButtonText("Cancelar")
+                .build();
+
+        biometricPrompt.authenticate(promptInfo);
+    }
+
+
+    /*Cargar el estado del chebox por medio del campo usuario*/
+    public void cargarEstadoCheckbox(){
+        String url = "https://phpclusters-152621-0.cloudclusters.net/estadoCheckbox.php";
+        RequestQueue queue = Volley.newRequestQueue(this);
+
+        StringRequest resultadoPost = new StringRequest(
+                Request.Method.POST, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            // Convertir la respuesta en un objeto JSON
+                            JSONObject jsonObject = new JSONObject(response);
+                            //Asignar el valor que viene del PHP del estado del checkbox a la variable estado
+                            estadoCheck = jsonObject.getString("acceso");
+                            if(estadoCheck.equals("t")){
+                                //Poner el checkbox marcado
+                                checkHabilitarHuella.setChecked(true);
+                                estadoComprobacion=true;
+
+                            }else{
+                                //Poner el checkbox desmarcado
+                                checkHabilitarHuella.setChecked(false);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(getApplicationContext(), "Error " + error.toString(), Toast.LENGTH_LONG).show();
+                    }
+                }
+        ) {
+
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> parametros = new HashMap<>();
+                parametros.put("idUsuario", String.valueOf(IdPersonal));
+                return parametros;
+            }
+        };
+        queue.add(resultadoPost);
+
     }
 
 }
