@@ -40,7 +40,8 @@ public class AudioAdapter extends RecyclerView.Adapter<AudioAdapter.AudioViewHol
         audioItem item = itemList.get(position);
         holder.audioImage.setImageBitmap(item.getImageResId());
         holder.audioName.setText(item.getItemName());
-       //esta parte fue modificado por JM
+
+        //parte fue modificado por JM
         ImageView imgAudio = holder.itemView.findViewById(R.id.itemPortadaAudios);
 
 
