@@ -145,6 +145,9 @@
             android:name=".Activity_PerfilUsuario"
             android:exported="false" />
         <activity
+            android:name=".ActivityListaUsuarios"
+            android:exported="false" />
+        <activity
             android:name=".ActivityListaSeguidos"
             android:exported="false" />
         <activity

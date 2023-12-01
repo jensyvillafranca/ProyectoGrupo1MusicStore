@@ -30,9 +30,9 @@ public class ActivityGrupoPrincipal extends AppCompatActivity implements FetchDa
     RecyclerView lista;
     DrawerLayout drawerLayout;
     ImageButton openMenuButton, botonAtras;
-    TextView textviewAtras, txtGruposBuscar, txtNuevoGrupo, Grupos, Inicio;
-    ImageView imageviewGruposBuscar, imageviewNuevoGrupo, iconGrupos, iconInicio;
-    CardView buscar, nuevoGrupo;
+    TextView textviewAtras, txtGruposBuscar, txtNuevoGrupo, txtActualizar, Grupos, Inicio;
+    ImageView imageviewGruposBuscar, imageviewNuevoGrupo, imageviewActualizar, iconGrupos, iconInicio;
+    CardView buscar, nuevoGrupo, actualizar;
     ProgressDialog progressDialog;
     private com.example.proyectogrupo1musicstore.Utilidades.token token = new token(this);
     private int idUsuario;
@@ -57,10 +57,13 @@ public class ActivityGrupoPrincipal extends AppCompatActivity implements FetchDa
         textviewAtras = (TextView) findViewById(R.id.textview_GrupoPrincipalbotAtras);
         txtGruposBuscar = (TextView) findViewById(R.id.txtGruposPrincipalBuscarGrupo);
         txtNuevoGrupo = (TextView) findViewById(R.id.txtGruposPrincipalNuevoGrupo);
+        txtActualizar = (TextView) findViewById(R.id.txtGruposPrincipalActualizar);
         imageviewGruposBuscar = (ImageView) findViewById(R.id.imageviewGruposPrincipalBuscar);
         imageviewNuevoGrupo = (ImageView) findViewById(R.id.imageviewGruposPrincipalNuevoGrupo);
+        imageviewActualizar = (ImageView) findViewById(R.id.imageviewGruposPrincipalActualizar);
         buscar = (CardView) findViewById(R.id.cardViewGruposPrincipalBuscar);
         nuevoGrupo = (CardView) findViewById(R.id.cardViewGruposPrincipalNuevo);
+        actualizar = (CardView) findViewById(R.id.cardViewGruposPrincipalActualizar);
         Grupos = (TextView) findViewById(R.id.txtViewNavGrupos);
         Inicio = (TextView) findViewById(R.id.txtviewNavInicio);
         iconGrupos = (ImageView) findViewById(R.id.iconNavGrupos);
@@ -111,6 +114,15 @@ public class ActivityGrupoPrincipal extends AppCompatActivity implements FetchDa
                 if (view.getId() == R.id.cardViewGruposPrincipalNuevo){
                     actividad = ActivityNuevoGrupoIntegrantes.class;
                 }
+                if (view.getId() == R.id.txtGruposPrincipalActualizar){
+                    recreate();
+                }
+                if (view.getId() == R.id.imageviewGruposPrincipalActualizar){
+                    recreate();
+                }
+                if (view.getId() == R.id.cardViewGruposPrincipalActualizar){
+                    recreate();
+                }
                 if (view.getId() == R.id.txtViewNavGrupos) {
                     actividad = ActivityGrupoPrincipal.class;
                 }
@@ -133,10 +145,13 @@ public class ActivityGrupoPrincipal extends AppCompatActivity implements FetchDa
         botonAtras.setOnClickListener(buttonClick);
         textviewAtras.setOnClickListener(buttonClick);
         txtGruposBuscar.setOnClickListener(buttonClick);
+        txtActualizar.setOnClickListener(buttonClick);
         imageviewGruposBuscar.setOnClickListener(buttonClick);
+        imageviewActualizar.setOnClickListener(buttonClick);
         buscar.setOnClickListener(buttonClick);
         Grupos.setOnClickListener(buttonClick);
         Inicio.setOnClickListener(buttonClick);
+        actualizar.setOnClickListener(buttonClick);
         iconGrupos.setOnClickListener(buttonClick);
         iconInicio.setOnClickListener(buttonClick);
         txtGruposBuscar.setOnClickListener(buttonClick);

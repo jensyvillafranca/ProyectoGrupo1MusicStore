@@ -26,6 +26,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.example.proyectogrupo1musicstore.Activities.AcercaDe.ActivityAcercaDe;
 import com.example.proyectogrupo1musicstore.Activities.Grupos.ActivityGrupoPrincipal;
+import com.example.proyectogrupo1musicstore.ActivityListaUsuarios;
 import com.example.proyectogrupo1musicstore.ActivityPlayList;
 import com.example.proyectogrupo1musicstore.Activity_EditarPerfil;
 import com.example.proyectogrupo1musicstore.NetworkTasks.aceptarSolicitudAsyncTask;
@@ -51,8 +52,8 @@ public class ActivityPantallaPrincipal extends AppCompatActivity {
 
     private DrawerLayout drawerLayout;
     private ImageButton openMenuButton;
-    TextView Grupos, Inicio, CerrarSesion, Ajustes, multimediaTexto, AcercaDe;
-    ImageView iconGrupos, iconInicio, multimedia, iconCerrarSesion, iconAjustes, iconAcerca;
+    TextView Grupos, Inicio, CerrarSesion, Ajustes, multimediaTexto, AcercaDe, Usuarios, Buscar;
+    ImageView iconGrupos, iconInicio, multimedia, iconCerrarSesion, iconAjustes, iconAcerca, iconUsuarios, iconBuscar;
     private Button btnNotifications;
 
     //Crea nueva instancia de clase token, para obtener el valor de idusuario de la clase decodetoken
@@ -106,11 +107,15 @@ public class ActivityPantallaPrincipal extends AppCompatActivity {
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         openMenuButton = (ImageButton) findViewById(R.id.btn_PrincipalDesplegable);
         Grupos = (TextView) findViewById(R.id.txtViewNavGrupos);
+        Buscar = (TextView) findViewById(R.id.txtviewNavBuscar);
         Inicio = (TextView) findViewById(R.id.txtviewNavInicio);
+        Usuarios = (TextView) findViewById(R.id.txtviewNavUsuarios);
         AcercaDe = (TextView) findViewById(R.id.txtviewNavAcerca);
         iconAcerca = (ImageView) findViewById(R.id.iconNavAcerca);
         iconGrupos = (ImageView) findViewById(R.id.iconNavGrupos);
         iconInicio = (ImageView) findViewById(R.id.iconNavInicio);
+        iconBuscar = (ImageView) findViewById(R.id.iconNavBuscar);
+        iconUsuarios = (ImageView) findViewById(R.id.iconNavUsuario);
         multimedia = (ImageView) findViewById(R.id.iconNavMultimedia);
         multimediaTexto = (TextView) findViewById(R.id.txtviewNavMultimedia);
         btnNotifications = findViewById(R.id.btn_notifications);
@@ -176,6 +181,12 @@ public class ActivityPantallaPrincipal extends AppCompatActivity {
                 if (view.getId() == R.id.iconNavAjustes) {
                     //actividad = ActivityListaUsuarios.class;
                 }
+                if (view.getId() == R.id.txtviewNavBuscar) {
+                    actividad = ActivityListaUsuarios.class;
+                }
+                if (view.getId() == R.id.iconNavBuscar) {
+                    actividad = ActivityListaUsuarios.class;
+                }
                 if (actividad != null) {
                     moveActivity(actividad);
                 }
@@ -185,9 +196,13 @@ public class ActivityPantallaPrincipal extends AppCompatActivity {
         Grupos.setOnClickListener(buttonClick);
         AcercaDe.setOnClickListener(buttonClick);
         Inicio.setOnClickListener(buttonClick);
+        Usuarios.setOnClickListener(buttonClick);
+        Buscar.setOnClickListener(buttonClick);
         iconGrupos.setOnClickListener(buttonClick);
         iconInicio.setOnClickListener(buttonClick);
         iconAcerca.setOnClickListener(buttonClick);
+        iconUsuarios.setOnClickListener(buttonClick);
+        iconBuscar.setOnClickListener(buttonClick);
         multimedia.setOnClickListener(buttonClick);
         CerrarSesion.setOnClickListener(buttonClick);
         iconCerrarSesion.setOnClickListener(buttonClick);
