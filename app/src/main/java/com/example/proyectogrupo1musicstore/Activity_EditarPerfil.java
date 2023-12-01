@@ -64,6 +64,7 @@ public class Activity_EditarPerfil extends AppCompatActivity {
     ImageView btnAtras;
     TextView txtviewCambiarContrasenia, txtNombre, txtviewHabilitarHuella;
     ImageView imgContrasenia;
+    private token acceso = new token(this);
     CheckBox chePerfil, checkHabilitarHuella;
     int idVisualizacion;
     Boolean estadoComprobacion = false;
