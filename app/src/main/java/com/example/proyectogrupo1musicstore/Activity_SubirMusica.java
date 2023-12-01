@@ -70,6 +70,7 @@ public class Activity_SubirMusica extends AppCompatActivity {
 
     ProgressDialog progressDialog;
     public static final String tipo = "1";
+    //Modificacion
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -102,13 +102,13 @@ public class infoAudioAsyncTask extends AsyncTask<String, Void, List<infoReprodu
 
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
-
+               //modificado
                 // Extrae la informacion y crea objetos
                 Integer idaudio = jsonObject.getInt("idaudio");
-                String nombre = jsonObject.getString("nombre");
+                String nombre = jsonObject.getString("nombrecancion");
                 Integer idowner = jsonObject.getInt("idusuario");
-                String url = jsonObject.getString("download_url");
-                Bitmap imageResource = ImageDownloader.downloadImage(jsonObject.getString("enlacefoto"));
+                String url = jsonObject.getString("enlaceaudio");
+                Bitmap imageResource = ImageDownloader.downloadImage(jsonObject.getString("enlaceportada"));
 
                 dataList.add(new infoReproductor(idaudio, nombre, idowner,  url, imageResource));
             }

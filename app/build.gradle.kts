@@ -38,6 +38,7 @@ dependencies {
     implementation("com.google.firebase:firebase-database")
 
     implementation("androidx.appcompat:appcompat:1.6.1")
+    implementation ("androidx.biometric:biometric:1.0.1")
     implementation("com.google.android.material:material:1.10.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("com.google.firebase:firebase-storage:20.3.0")

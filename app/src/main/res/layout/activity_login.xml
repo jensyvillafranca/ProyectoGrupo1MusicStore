@@ -191,7 +191,7 @@
                     android:layout_height="wrap_content"
                     android:paddingLeft="10dp"
                     android:paddingTop="13dp"
-                    android:text="Huella"
+                    android:text="Inicio de Sesión con Huella"
                     android:fontFamily="@font/fuente_jost_global"
                     android:textStyle="bold"
                     android:textColor="#FFFFFF"
@@ -199,25 +199,8 @@
 
 
                 <!--Reconocimiento Facial-->
-                <ImageButton
-                    android:id="@+id/btnRegistrarFacial"
-                    android:layout_width="37dp"
-                    android:layout_height="42dp"
-                    android:layout_marginStart="35dp"
-                    android:background="@drawable/reconocimiento"></ImageButton>
 
                 <!--Texto del botón de Reconocimiento Facial-->
-                <TextView
-                    android:id="@+id/txtviewLoginFacial"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="10dp"
-                    android:paddingTop="13dp"
-                    android:text="Rec.Facial"
-                    android:fontFamily="@font/fuente_jost_global"
-                    android:textStyle="bold"
-                    android:textColor="#FFFFFF"
-                    android:textSize="15dp"></TextView>
             </LinearLayout>
 
             <Space

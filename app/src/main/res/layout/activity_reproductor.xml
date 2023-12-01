@@ -28,7 +28,7 @@
             android:layout_height="60dp">
 
             <SeekBar
-                android:id="@+id/seekbar"
+                android:id="@+id/seekbars"
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
@@ -44,7 +44,7 @@
                 android:layout_alignParentLeft="false"
                 android:layout_centerInParent="true"
                 android:layout_marginLeft="20dp"
-                android:layout_toLeftOf="@+id/seekbar"
+                android:layout_toLeftOf="@+id/seekbars"
                 android:fontFamily="@font/fuente_jost_global"
                 android:text="0:10"
                 android:textColor="#FFFFFF"
@@ -60,7 +60,7 @@
                 android:layout_alignParentRight="false"
                 android:layout_centerInParent="true"
                 android:layout_marginLeft="20dp"
-                android:layout_toRightOf="@+id/seekbar"
+                android:layout_toRightOf="@+id/seekbars"
                 android:fontFamily="@font/fuente_jost_global"
                 android:text="4:10"
                 android:textColor="#FFFFFF"
@@ -73,7 +73,7 @@
         </RelativeLayout>
     </LinearLayout>
     <TextView
-        android:id="@+id/txtMusicareproductor"
+        android:id="@+id/txtMusicareproductors"
         android:layout_margin="20dp"
         android:ellipsize="marquee"
         android:marqueeRepeatLimit="marquee_forever"
@@ -97,16 +97,16 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <Button
-                android:id="@+id/playbtn"
+                android:id="@+id/playbtns"
                 android:layout_centerHorizontal="true"
-                android:background="@drawable/icons2_play_24"
+                android:background="@drawable/icons_detener_24"
                 android:layout_width="70dp"
                 android:layout_height="70dp">
 
             </Button>
             <Button
             android:id="@+id/stobbtn"
-            android:layout_toRightOf="@+id/playbtn"
+            android:layout_toRightOf="@+id/playbtns"
             android:layout_marginTop="15dp"
             android:layout_marginLeft="30dp"
             android:background="@drawable/iconsultimo"
@@ -116,7 +116,7 @@
         </Button>
             <Button
                 android:id="@+id/prevbtn"
-                android:layout_toLeftOf="@+id/playbtn"
+                android:layout_toLeftOf="@+id/playbtns"
                 android:layout_marginTop="15dp"
                 android:layout_marginRight="30dp"
                 android:background="@drawable/iconsprimeros"
