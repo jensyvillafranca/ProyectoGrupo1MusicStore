@@ -31,10 +31,16 @@
         android:theme="@style/Theme.ProyectoGrupo1MusicStore"
         tools:targetApi="31">
         <activity
+            android:name=".ActivityAgregarPlayListMusica"
+            android:exported="false" />
+        <activity
             android:name=".Activities.AcercaDe.ActivityAcercaDe"
             android:exported="false" />
         <activity
             android:name=".ActivityReproductoVideo"
+            android:exported="false" />
+        <activity
+            android:name=".ActivityVerPlayList"
             android:exported="false" />
         <activity
             android:name=".ActivityReproductor"

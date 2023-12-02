@@ -11,15 +11,16 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/layoutGruposBuscar"
+            android:id="@+id/layoutBuscarAudios"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/fondodetodaslaspantallas"
-            tools:context=".Activities.Grupos.ActivityGrupoPrincipal">
+            tools:context=".Activity_BuscarMusica">
 
             <RelativeLayout
-                android:id="@+id/layout_GruposBuscarBtnAtras"
+                android:id="@+id/layout_BuscarAudioBtnAtras"
                 android:layout_width="0dp"
                 android:layout_height="65dp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -28,62 +29,75 @@
 
                 <!-- ImageButton -->
                 <ImageButton
-                    android:id="@+id/btn_BuscarAtrasMusicas"
+                        android:id="@+id/btn_AudiosBuscarAtras"
                     android:layout_width="54dp"
                     android:layout_height="46dp"
                     android:background="@android:color/transparent"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@id/textview_BuscarbotAtrasMusicas"
+                    app:layout_constraintEnd_toStartOf="@id/textview_AudioBuscarbotAtras"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@drawable/iconoatras" />
 
                 <!-- TextView -->
                 <TextView
-                    android:id="@+id/textview_BuscarbotAtrasMusicas"
+                    android:id="@+id/textview_AudioBuscarbotAtras"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
                     android:layout_marginStart="62dp"
                     android:layout_marginTop="12dp"
+                    android:fontFamily="@font/fuente_jost_global"
                     android:text="@string/atras"
                     android:textColor="#FFFFFF"
-                    android:fontFamily="@font/fuente_jost_global"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/btn_BuscarAtrasMusicas"
+                    app:layout_constraintStart_toEndOf="@id/btn_AudiosBuscarAtras"
                     app:layout_constraintTop_toTopOf="parent" />
             </RelativeLayout>
 
             <RelativeLayout
-                android:id="@+id/relativeLayoutBuscarMusica2"
+                android:id="@+id/relativeLayoutAudiosBuscarAudio2"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/layout_GruposBuscarBtnAtras">
+                app:layout_constraintTop_toBottomOf="@id/layout_BuscarAudioBtnAtras">
 
                 <TextView
-                    android:id="@+id/txtviewsBuscarMusica"
+                    android:id="@+id/txtviewAudiosBuscarAppName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
                     android:layout_marginStart="19dp"
-                    android:text="@string/titulo"
+                    android:fontFamily="@font/fuente_jost_global"
+                    android:text="@string/appName"
                     android:textColor="@color/white"
                     android:textSize="18sp"
-                    android:fontFamily="@font/fuente_jost_global"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/btn_AudiosBuscarMenu"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
+                <ImageButton
+                    android:id="@+id/btn_AudiosBuscarMenu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="15dp"
+                    android:background="@android:color/transparent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/txtviewAudiosBuscarAppName"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/menudespegable" />
             </RelativeLayout>
 
             <LinearLayout
-                android:id="@+id/linearLayout38"
+                android:id="@+id/linearLayout3"
                 android:layout_width="0dp"
                 android:layout_height="42dp"
                 android:layout_marginStart="10dp"
@@ -93,11 +107,11 @@
                 android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/relativeLayoutBuscarMusica2">
+                app:layout_constraintTop_toBottomOf="@+id/relativeLayoutAudiosBuscarAudio2">
 
                 <!-- CardView 2 -->
                 <androidx.cardview.widget.CardView
-                    android:id="@+id/cardViewBuscarmusicas"
+                    android:id="@+id/cardViewBuscarAudios"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
@@ -116,11 +130,11 @@
                         android:paddingRight="5dp">
 
                         <ImageView
-                            android:id="@+id/imageViewBuscarMusica"
+                            android:id="@+id/imageViewAudiosBuscarMusica"
                             android:layout_width="25dp"
                             android:layout_height="31dp"
                             android:contentDescription="Image"
-                            android:src="@drawable/busquedamusica"
+                            android:src="@drawable/iconobotonbuscargrupo"
                             android:visibility="visible"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -130,20 +144,20 @@
                             app:layout_constraintVertical_bias="0.545" />
 
                         <ImageView
-                            android:id="@+id/imageViewGruposBuscar2"
+                            android:id="@+id/imageViewAudiosBusquedaBuscar2"
                             android:layout_width="28dp"
                             android:layout_height="31dp"
                             android:layout_marginEnd="29dp"
                             android:contentDescription="Image"
-                            android:src="@drawable/busquedamusica"
+                            android:src="@drawable/iconobotonbuscargrupo"
                             android:visibility="gone"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toEndOf="@+id/editTextGruposBuscarMusicass"
+                            app:layout_constraintStart_toEndOf="@+id/editTextAudiosBuscar"
                             app:layout_constraintTop_toTopOf="parent" />
 
                         <EditText
-                            android:id="@+id/editTextGruposBuscarMusicass"
+                            android:id="@+id/editTextAudiosBuscar"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="20dp"
@@ -154,25 +168,25 @@
                             android:inputType="text"
                             android:visibility="gone"
                             app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toStartOf="@+id/imageViewGruposBuscar2"
+                            app:layout_constraintEnd_toStartOf="@+id/imageViewAudiosBusquedaBuscar2"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintVertical_bias="0.0" />
 
                         <TextView
-                            android:id="@+id/txtBuscarBuscarMusicas"
+                            android:id="@+id/txtAudiosBuscarBuscarMusica"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
-                            android:text="@string/buscarMusica"
-                            android:textSize="15sp"
                             android:fontFamily="@font/fuente_jost_global"
+                            android:text="Buscar Musica"
+                            android:textSize="15sp"
                             android:textStyle="bold"
                             android:visibility="visible"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintHorizontal_bias="0.016"
-                            app:layout_constraintStart_toEndOf="@+id/imageViewBuscarMusica"
+                            app:layout_constraintStart_toEndOf="@+id/imageViewAudiosBuscarMusica"
                             app:layout_constraintTop_toTopOf="parent" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </androidx.cardview.widget.CardView>
@@ -180,46 +194,42 @@
             </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerview_GruposBuscarmusicas"
+                android:id="@+id/recyclerview_AudiosBuscarMusica"
                 android:layout_width="0dp"
                 android:layout_height="522dp"
                 android:layout_marginStart="15dp"
-                android:layout_marginTop="80dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginEnd="15dp"
                 android:layout_marginBottom="20dp"
-                android:fontFamily="@font/fuente_jost_global"
-                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout38"/>
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
 
-            <SearchView
-                android:id="@+id/searchview_NuevoGrupoIntegrantesBuscar"
-                style="@style/CustomSearchViewStyle"
-                android:layout_width="0dp"
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="180dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginBottom="16dp"
-                android:pointerIcon="arrow"
-                android:queryBackground="@color/white"
-                android:queryHint="@string/buscar_nombreUsuario"
-                android:searchIcon="@drawable/busquedamusica"
-                app:layout_constraintBottom_toTopOf="@+id/recyclerview_GruposBuscarmusicas"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="10dp"
+                android:fontFamily="@font/fuente_jost_global"
+                android:text="Busqueda Musica"
+                android:textColor="@color/lightGray90"
+                app:layout_constraintBottom_toTopOf="@+id/recyclerview_AudiosBuscarMusica"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:theme="@style/CustomSearchViewStyle" />
-
-
-
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
     </ScrollView>
+    <!-- Side Menu -->
+    <FrameLayout
+        android:id="@+id/side_menu"
+        android:layout_width="240dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="start">
 
-
-</androidx.drawerlayout.widget.DrawerLayout >
+        <include layout="@layout/navigation_menu" />
+    </FrameLayout>
+</androidx.drawerlayout.widget.DrawerLayout>
