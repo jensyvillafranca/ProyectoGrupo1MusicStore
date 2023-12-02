@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layout_mainItem"
     android:layout_width="match_parent"
-    android:layout_height="95dp"
+    android:layout_height="105dp"
     app:cardBackgroundColor="@color/black"
     android:layout_marginBottom="10dp"
     android:background="@drawable/cuadrotransparentedemusica"
     android:padding="16dp">
     <ImageView
-        android:id="@+id/imageviewListItemImage"
+        android:id="@+id/imageviewListItemImagess"
         android:layout_width="62dp"
         android:layout_height="57dp"
         android:contentDescription="Image"
@@ -20,7 +20,7 @@
         app:layout_constraintBottom_toBottomOf="parent"/>
 
     <TextView
-        android:id="@+id/txtListItemNombreGrupo"
+        android:id="@+id/txtListItemNombreMusicaAudio"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/nombresmusica"
@@ -28,19 +28,31 @@
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintTop_toTopOf="@+id/layout_mainItem"
-        app:layout_constraintStart_toEndOf="@+id/imageviewListItemImage"
+        app:layout_constraintStart_toEndOf="@+id/imageviewListItemImagess"
         app:layout_constraintEnd_toStartOf="@+id/iconLayout" />
 
     <TextView
-        android:id="@+id/txtListItemCreado"
+        android:id="@+id/txtListItemCreadoMusica"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/autor"
         android:textColor="@color/white"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@+id/txtListItemNombreGrupo"
-        app:layout_constraintStart_toEndOf="@+id/imageviewListItemImage"
+        app:layout_constraintTop_toBottomOf="@+id/txtListItemNombreMusicaAudio"
+        app:layout_constraintStart_toEndOf="@+id/imageviewListItemImagess"
+        app:layout_constraintEnd_toStartOf="@+id/iconLayout" />
+
+    <TextView
+        android:id="@+id/txtListtGenero"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Genero"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@+id/txtListItemCreadoMusica"
+        app:layout_constraintStart_toEndOf="@+id/imageviewListItemImagess"
         app:layout_constraintEnd_toStartOf="@+id/iconLayout" />
 
     <LinearLayout
