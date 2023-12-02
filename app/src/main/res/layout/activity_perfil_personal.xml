@@ -55,9 +55,10 @@ android:layout_height="wrap_content">
             android:id="@+id/btnMenu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
             android:layout_gravity="center"
-            android:src="@drawable/menudespegable"
-            android:importantForAccessibility="no" />
+            android:importantForAccessibility="no"
+            android:src="@drawable/iconeditarperfil" />
 
     </LinearLayout>
 
@@ -361,6 +362,8 @@ android:layout_height="wrap_content">
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content">
 
+
+
                                         <LinearLayout
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
@@ -373,22 +376,18 @@ android:layout_height="wrap_content">
                                                 android:orientation="vertical"
                                                 tools:ignore="UseCompoundDrawables">
 
-                                                <ImageView
-                                                    android:layout_width="80dp"
-                                                    android:layout_height="80dp"
-                                                    android:importantForAccessibility="no"
-                                                    android:src="@drawable/playlist"
-                                                    tools:ignore="ImageContrastCheck" />
-
-                                                <TextView
-                                                    android:id="@+id/txtPlaylistName"
-                                                    android:layout_width="80dp"
-                                                    android:layout_height="wrap_content"
-                                                    android:text="@string/playlist1"
-                                                    android:textSize="13sp"
-                                                    android:textColor="#D3D3D3"
-                                                    android:textAlignment="center"
-                                                    android:gravity="center_horizontal" />
+                                                <androidx.recyclerview.widget.RecyclerView
+                                                    android:id="@+id/recyclerviewPlayList"
+                                                    android:layout_width="293dp"
+                                                    android:layout_height="100dp"
+                                                    android:layout_marginStart="10dp"
+                                                    android:layout_marginTop="10dp"
+                                                    android:layout_marginEnd="10dp"
+                                                    android:background="@drawable/cuadronuevogrupogrande"
+                                                    app:layout_constraintEnd_toEndOf="parent"
+                                                    app:layout_constraintHorizontal_bias="0.0"
+                                                    app:layout_constraintStart_toStartOf="parent"
+                                                    app:layout_constraintTop_toBottomOf="@+id/textviewMusicaFavoritaTitle" />
 
                                             </LinearLayout>
 

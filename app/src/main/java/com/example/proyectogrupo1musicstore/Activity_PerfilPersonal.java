@@ -3,6 +3,8 @@ package com.example.proyectogrupo1musicstore;
 import static com.example.proyectogrupo1musicstore.R.id.menu_editar_perfil;
 
 import com.example.proyectogrupo1musicstore.Activities.PantallaPrincipal.ActivityPantallaPrincipal;
+import com.example.proyectogrupo1musicstore.Adapters.PlayListAdapter;
+import com.example.proyectogrupo1musicstore.Models.PlayListItem;
 import com.example.proyectogrupo1musicstore.Utilidades.token;
 import android.content.ClipData;
 import android.content.Intent;
@@ -17,6 +19,8 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -35,6 +39,8 @@ import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Activity_PerfilPersonal extends AppCompatActivity {
 
@@ -43,6 +49,8 @@ public class Activity_PerfilPersonal extends AppCompatActivity {
     private token acceso = new token(this);
     final int myMenuId = menu_editar_perfil;
     TextView txtNombreCompleto, txtUsername, txtCorreo, txtSeguidores, txtSiguiendo;
+
+    RecyclerView recyclerviewPlayLists;
     ImageView imgPFP;
     LinearLayout btnAtras;
     LinearLayout verSeguidores, verSeguidos;
@@ -65,6 +73,9 @@ public class Activity_PerfilPersonal extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_perfil_personal);
 
+
+
+
         ID = Integer.parseInt(JwtDecoder.decodeJwt(acceso.recuperarTokenFromKeystore()));
         txtCorreo = findViewById(R.id.txtCorreoPerfilPersonal);
         txtUsername = findViewById(R.id.txtUsernamePerfilPersonal);
@@ -72,6 +83,7 @@ public class Activity_PerfilPersonal extends AppCompatActivity {
         imgPFP = findViewById(R.id.imgPerfilPersonal);
         txtSeguidores = findViewById(R.id.txtSeguidores);
         txtSiguiendo = findViewById(R.id.txtSiguiendo);
+        recyclerviewPlayLists = (RecyclerView) findViewById(R.id.recyclerviewPlayList);
         verSeguidores = findViewById(R.id.layoutVerSeguidores);
         verSeguidos = findViewById(R.id.layoutVerSeguidos);
         btnAtras = findViewById(R.id.btnAtras);
