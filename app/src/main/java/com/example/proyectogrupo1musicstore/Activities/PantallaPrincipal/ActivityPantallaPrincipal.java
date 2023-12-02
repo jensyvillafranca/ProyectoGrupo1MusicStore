@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -14,9 +13,7 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.PopupMenu;
-import android.widget.TextView;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -24,19 +21,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import com.example.proyectogrupo1musicstore.Activities.AcercaDe.ActivityAcercaDe;
-import com.example.proyectogrupo1musicstore.Activities.Grupos.ActivityGrupoPrincipal;
-import com.example.proyectogrupo1musicstore.ActivityPlayList;
-import com.example.proyectogrupo1musicstore.Activity_EditarPerfil;
 import com.example.proyectogrupo1musicstore.NetworkTasks.aceptarSolicitudAsyncTask;
+import com.example.proyectogrupo1musicstore.NetworkTasks.denegarSolicitudAsyncTask;
 import com.example.proyectogrupo1musicstore.R;
 import com.example.proyectogrupo1musicstore.Room.NotificationEntity;
-import com.example.proyectogrupo1musicstore.Utilidades.token;
-import com.example.proyectogrupo1musicstore.Utilidades.updateFirebaseToken;
+import com.example.proyectogrupo1musicstore.Utilidades.Navegacion.NavigationClickListener;
+import com.example.proyectogrupo1musicstore.Utilidades.Token.token;
+import com.example.proyectogrupo1musicstore.Utilidades.Firebase.updateFirebaseToken;
 import com.example.proyectogrupo1musicstore.activity_login;
-import com.example.proyectogrupo1musicstore.activity_principal_login;
 import com.google.firebase.messaging.FirebaseMessaging;
-import com.example.proyectogrupo1musicstore.Utilidades.JwtDecoder;
+import com.example.proyectogrupo1musicstore.Utilidades.Token.JwtDecoder;
 
 import com.example.proyectogrupo1musicstore.Room.AppDatabase;
 
@@ -49,12 +43,10 @@ import java.util.List;
 
 public class ActivityPantallaPrincipal extends AppCompatActivity {
 
+    //Otros elementos
+    private Button btnNotifications;
     private DrawerLayout drawerLayout;
     private ImageButton openMenuButton;
-    TextView Grupos, Inicio, CerrarSesion, Ajustes, multimediaTexto, AcercaDe;
-    ImageView iconGrupos, iconInicio, multimedia, iconCerrarSesion, iconAjustes, iconAcerca;
-    private Button btnNotifications;
-
     //Crea nueva instancia de clase token, para obtener el valor de idusuario de la clase decodetoken
     private token acceso = new token(this);
     private int idUsuario;
@@ -102,99 +94,20 @@ public class ActivityPantallaPrincipal extends AppCompatActivity {
             createNotificationChannel();
         }
 
-
+        //Inicializacion de elementos
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         openMenuButton = (ImageButton) findViewById(R.id.btn_PrincipalDesplegable);
-        Grupos = (TextView) findViewById(R.id.txtViewNavGrupos);
-        Inicio = (TextView) findViewById(R.id.txtviewNavInicio);
-        AcercaDe = (TextView) findViewById(R.id.txtviewNavAcerca);
-        iconAcerca = (ImageView) findViewById(R.id.iconNavAcerca);
-        iconGrupos = (ImageView) findViewById(R.id.iconNavGrupos);
-        iconInicio = (ImageView) findViewById(R.id.iconNavInicio);
-        multimedia = (ImageView) findViewById(R.id.iconNavMultimedia);
-        multimediaTexto = (TextView) findViewById(R.id.txtviewNavMultimedia);
         btnNotifications = findViewById(R.id.btn_notifications);
         btnNotifications.setOnClickListener(v -> showNotificationsPopup());
 
 
-        /*Variables para cerrar sesión*/
-        iconCerrarSesion = (ImageView) findViewById(R.id.iconCerrarSesion);
-        CerrarSesion = (TextView) findViewById(R.id.txtviewCerrarSesion);
-
-
-        iconAjustes = (ImageView) findViewById(R.id.iconNavAjustes);
-        Ajustes = (TextView) findViewById(R.id.txtviewNavAjustes);
-
         // AsyncTask para obtener las notifications de la base de datos en un hilo de fondo
         new LoadNotificationsAsyncTask(this).execute();
 
-        View.OnClickListener buttonClick = new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Class<?> actividad = null;
-                if (view.getId() == R.id.txtViewNavGrupos) {
-                    actividad = ActivityGrupoPrincipal.class;
-                }
-                if (view.getId() == R.id.txtviewNavInicio) {
-                    actividad = ActivityPantallaPrincipal.class;
-                }
-                if (view.getId() == R.id.iconNavGrupos) {
-                    actividad = ActivityGrupoPrincipal.class;
-                }
-                if (view.getId() == R.id.iconNavInicio) {
-                    actividad = ActivityPantallaPrincipal.class;
-                }
-                if (view.getId() == R.id.iconNavMultimedia) {
-                    actividad = ActivityPlayList.class;
-                }
-                if (view.getId() == R.id.txtviewNavMultimedia) {
-                    actividad = ActivityPlayList.class;
-                }
-                if (view.getId() == R.id.iconCerrarSesion) {
-                    cerrarSesion();
-                    actividad = activity_principal_login.class;
-                }
-                if (view.getId() == R.id.txtviewCerrarSesion) {
-                    cerrarSesion();
-                    actividad = activity_principal_login.class;
-                }
-                if (view.getId() == R.id.txtviewNavAjustes) {
-                    actividad = Activity_EditarPerfil.class;
-                }
-                if (view.getId() == R.id.iconNavAjustes) {
-                    actividad = Activity_EditarPerfil.class;
-                }
-                if (view.getId() == R.id.txtviewNavAcerca) {
-                    actividad = ActivityAcercaDe.class;
-                }
-                if (view.getId() == R.id.iconNavAcerca) {
-                    actividad = ActivityAcercaDe.class;
-                }
-                if (view.getId() == R.id.txtviewNavUsuarios) {
-                    //actividad = ActivityListaUsuarios.class;
-                }
-                if (view.getId() == R.id.iconNavAjustes) {
-                    //actividad = ActivityListaUsuarios.class;
-                }
-                if (actividad != null) {
-                    moveActivity(actividad);
-                }
-            }
-        };
+        //Listener para menu de navegacion
+        View.OnClickListener buttonClickNav = new NavigationClickListener(this,this);
 
-        Grupos.setOnClickListener(buttonClick);
-        AcercaDe.setOnClickListener(buttonClick);
-        Inicio.setOnClickListener(buttonClick);
-        iconGrupos.setOnClickListener(buttonClick);
-        iconInicio.setOnClickListener(buttonClick);
-        iconAcerca.setOnClickListener(buttonClick);
-        multimedia.setOnClickListener(buttonClick);
-        CerrarSesion.setOnClickListener(buttonClick);
-        iconCerrarSesion.setOnClickListener(buttonClick);
-        Ajustes.setOnClickListener(buttonClick);
-        iconAjustes.setOnClickListener(buttonClick);
-        multimediaTexto.setOnClickListener(buttonClick);
-
+        //Listener para abrir menu de navegacion
         openMenuButton.setOnClickListener(v -> {
             drawerLayout.openDrawer(findViewById(R.id.side_menu));
         });
@@ -313,13 +226,7 @@ public class ActivityPantallaPrincipal extends AppCompatActivity {
                     .setPositiveButton("Aceptar", (dialog, which) -> {
 
                         //crea el json
-                        JSONObject jsonData = new JSONObject();
-                        try {
-                            jsonData.put("idgrupo", selectedNotification.groupid);
-                            jsonData.put("idusuario", selectedNotification.userid);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
+                        JSONObject jsonData = crearJson(selectedNotification.groupid, selectedNotification.userid);
 
                         new aceptarSolicitudAsyncTask(ActivityPantallaPrincipal.this).execute(jsonData.toString());
                         dialog.dismiss();
@@ -327,7 +234,10 @@ public class ActivityPantallaPrincipal extends AppCompatActivity {
                     })
                     .setNegativeButton("Denegar", (dialog, which) -> {
                         // Desaparece el dialogo en accion negativa
+                        JSONObject jsonData = crearJson(selectedNotification.groupid, selectedNotification.userid);
+                        new denegarSolicitudAsyncTask(ActivityPantallaPrincipal.this).execute(jsonData.toString());
                         dialog.dismiss();
+                        deleteNotificationFromDatabase(selectedNotification.id);
                     })
                     .show();
         } else {
@@ -339,6 +249,17 @@ public class ActivityPantallaPrincipal extends AppCompatActivity {
                     })
                     .show();
         }
+    }
+
+    private JSONObject crearJson(Integer groupid, Integer userid){
+        JSONObject jsonData = new JSONObject();
+        try {
+            jsonData.put("idgrupo", groupid);
+            jsonData.put("idusuario", userid);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return jsonData;
     }
 
     //Metodo para eliminar una notificacion mediante async task en el fondo

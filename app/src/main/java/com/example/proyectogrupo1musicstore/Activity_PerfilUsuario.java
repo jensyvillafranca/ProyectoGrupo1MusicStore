@@ -115,8 +115,7 @@ public class Activity_PerfilUsuario extends AppCompatActivity {
         btnAtras.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Activity_PerfilUsuario.this, Activity_PerfilPersonal.class);
-                startActivity(intent);
+                finish();
             }
         });
 

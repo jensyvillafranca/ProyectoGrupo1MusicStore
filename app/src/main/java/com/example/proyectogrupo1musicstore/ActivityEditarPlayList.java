@@ -22,23 +22,15 @@ import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.proyectogrupo1musicstore.Activities.Grupos.ActivityEditarGrupo;
-import com.example.proyectogrupo1musicstore.Activities.Grupos.ActivityGrupoPrincipal;
-import com.example.proyectogrupo1musicstore.Activities.PantallaPrincipal.ActivityPantallaPrincipal;
 import com.example.proyectogrupo1musicstore.Models.infoEditarPlayList;
-import com.example.proyectogrupo1musicstore.Models.informacionGrupoEditar;
-import com.example.proyectogrupo1musicstore.NetworkTaksMulti.CreatePlayListTask;
 import com.example.proyectogrupo1musicstore.NetworkTaksMulti.EditarPlayListAsyncTask;
 import com.example.proyectogrupo1musicstore.NetworkTaksMulti.infoPlayListEditarAsyncTask;
-import com.example.proyectogrupo1musicstore.NetworkTasks.InformacionGrupoEditarAsyncTask;
-import com.example.proyectogrupo1musicstore.NetworkTasks.UpdateGrupoAsyncTask;
-import com.example.proyectogrupo1musicstore.Utilidades.ConfirmationDialog;
-import com.example.proyectogrupo1musicstore.Utilidades.JwtDecoder;
-import com.example.proyectogrupo1musicstore.Utilidades.token;
+import com.example.proyectogrupo1musicstore.Utilidades.UI.ConfirmationDialog;
+import com.example.proyectogrupo1musicstore.Utilidades.Token.JwtDecoder;
+import com.example.proyectogrupo1musicstore.Utilidades.Token.token;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -56,7 +48,7 @@ public class ActivityEditarPlayList extends AppCompatActivity implements infoPla
 
     Button btnActualizar;
     private int idplaylist;
-    private com.example.proyectogrupo1musicstore.Utilidades.token token = new token(this);
+    private com.example.proyectogrupo1musicstore.Utilidades.Token.token token = new token(this);
     private int idUsuario;
     private String urlAnterior;
     byte[] imgPerfilByteArrays;

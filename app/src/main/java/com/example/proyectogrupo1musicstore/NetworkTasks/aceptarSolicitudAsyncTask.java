@@ -6,9 +6,6 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.example.proyectogrupo1musicstore.Activities.Grupos.ActivityGrupoPrincipal;
-import com.example.proyectogrupo1musicstore.Utilidades.DelayedActivityStarter;
-
 import java.io.BufferedOutputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;

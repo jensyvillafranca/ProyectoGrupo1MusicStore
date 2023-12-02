@@ -7,12 +7,9 @@ import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.proyectogrupo1musicstore.Adapters.MusicaAdapter;
 import com.example.proyectogrupo1musicstore.Models.musicItem;
 import com.example.proyectogrupo1musicstore.R;
-import com.example.proyectogrupo1musicstore.Utilidades.ImageDownloader;
 
 import org.json.JSONArray;
 import org.json.JSONException;

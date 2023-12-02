@@ -4,7 +4,6 @@ import android.Manifest;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import androidx.biometric.BiometricPrompt;
@@ -13,6 +12,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
@@ -36,14 +36,13 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
-import com.example.proyectogrupo1musicstore.Utilidades.JwtDecoder;
-import com.example.proyectogrupo1musicstore.Utilidades.token;
+import com.example.proyectogrupo1musicstore.Utilidades.Token.JwtDecoder;
+import com.example.proyectogrupo1musicstore.Utilidades.Token.token;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -124,8 +123,7 @@ public class Activity_EditarPerfil extends AppCompatActivity {
         btnAtras.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Activity_EditarPerfil.this, Activity_PerfilPersonal.class);
-                startActivity(intent);
+                finish();
             }
         });
 
@@ -272,7 +270,6 @@ public class Activity_EditarPerfil extends AppCompatActivity {
             }
         }
     }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -283,10 +280,12 @@ public class Activity_EditarPerfil extends AppCompatActivity {
                     Bundle extras = data.getExtras();
                     if (extras != null) {
                         Bitmap imageBitmap = (Bitmap) extras.get("data");
-                        imgFoto.setImageBitmap(imageBitmap);
+
+                        // Convertir la imagen a Base64
+                        String base64Image = encodeToBase64(imageBitmap);
 
                         // Subir la imagen a Firebase Storage
-                        uploadImageToFirebase(imageBitmap);
+                        uploadImageToFirebase(base64Image);
                     }
                 }
             } else if (requestCode == REQUEST_PICK_IMAGE) {
@@ -294,10 +293,12 @@ public class Activity_EditarPerfil extends AppCompatActivity {
                     // Opción de galería seleccionada
                     try {
                         Bitmap imageBitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), data.getData());
-                        imgFoto.setImageBitmap(imageBitmap);
+
+                        // Convertir la imagen a Base64
+                        String base64Image = encodeToBase64(imageBitmap);
 
                         // Subir la imagen a Firebase Storage
-                        uploadImageToFirebase(imageBitmap);
+                        subirImagen(base64Image);
                     } catch (Exception e) {
                         e.printStackTrace();
                         Toast.makeText(this, "Error al cargar la imagen", Toast.LENGTH_SHORT).show();
@@ -307,44 +308,14 @@ public class Activity_EditarPerfil extends AppCompatActivity {
         }
     }
 
-    private void uploadImageToFirebase(Bitmap bitmap) {
-        // Crear una referencia única para la imagen
-        String imageName = "image_" + System.currentTimeMillis() + ".jpg";
-        StorageReference imageRef = storageRef.child(imageName);
-
-        // Convertir el Bitmap a bytes
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-        byte[] data = baos.toByteArray();
-
-        // Subir la imagen a Firebase Storage
-        UploadTask uploadTask = imageRef.putBytes(data);
-        uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                // La imagen se subió exitosamente
-                Toast.makeText(Activity_EditarPerfil.this, "Foto subida con éxito", Toast.LENGTH_SHORT).show();
-
-                // Obtener la URL de la imagen después de subirla a Firebase
-                imageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                    @Override
-                    public void onSuccess(Uri downloadUri) {
-                        // Guardar la URL de la imagen en las preferencias compartidas
-                        subirImagen(downloadUri.toString());
-
-                        // Asignar la URL a la variable de clase
-                        uri = downloadUri;
-                    }
-                });
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                // Manejar errores en la subida de la imagen
-                Toast.makeText(Activity_EditarPerfil.this, "Error al subir la foto", Toast.LENGTH_SHORT).show();
-            }
-        });
+    // Método para convertir una imagen Bitmap a Base64
+    private String encodeToBase64(Bitmap imageBitmap) {
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
+        byte[] byteArray = byteArrayOutputStream.toByteArray();
+        return Base64.encodeToString(byteArray, Base64.DEFAULT);
     }
+
 
     // Eliminar Cuenta --------------------------------------------------------------------
     public void mensajes(Context context) {

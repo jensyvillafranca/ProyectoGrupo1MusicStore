@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.proyectogrupo1musicstore.Adapters.CustomAdapterBuscarGrupos;
 import com.example.proyectogrupo1musicstore.Models.buscarGrupo;
-import com.example.proyectogrupo1musicstore.Utilidades.ImageDownloader;
+import com.example.proyectogrupo1musicstore.Utilidades.Imagenes.ImageDownloader;
 
 import org.json.JSONArray;
 import org.json.JSONException;

@@ -31,8 +31,8 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.proyectogrupo1musicstore.Utilidades.JwtDecoder;
-import com.example.proyectogrupo1musicstore.Utilidades.token;
+import com.example.proyectogrupo1musicstore.Utilidades.Token.JwtDecoder;
+import com.example.proyectogrupo1musicstore.Utilidades.Token.token;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
@@ -49,7 +49,7 @@ public class Activity_SubirVideo extends AppCompatActivity {
     TextView textviewAtrass, txtBuscarArchivos, Archivoss, Inicios;
     ImageView imageViewBuscarArchivos, iconoArchivos,iconInicios;
     CardView buscars,busquedaVideos, seleccionarVideos, btnPrincipalAudio;
-    private com.example.proyectogrupo1musicstore.Utilidades.token token = new token(this);
+    private com.example.proyectogrupo1musicstore.Utilidades.Token.token token = new token(this);
     public static String idPlayList = "1";
     public static String idFavorito = "1";
     public static int idUsuario;

@@ -2,9 +2,7 @@ package com.example.proyectogrupo1musicstore;
 
 import static com.example.proyectogrupo1musicstore.R.id.menu_editar_perfil;
 
-import com.example.proyectogrupo1musicstore.Activities.PantallaPrincipal.ActivityPantallaPrincipal;
-import com.example.proyectogrupo1musicstore.Utilidades.token;
-import android.content.ClipData;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -17,6 +15,9 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -24,27 +25,38 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
-import com.example.proyectogrupo1musicstore.R;
 import com.example.proyectogrupo1musicstore.Adapters.AppData;
-import com.example.proyectogrupo1musicstore.Utilidades.JwtDecoder;
+import com.example.proyectogrupo1musicstore.Adapters.PlayListAdapter;
+import com.example.proyectogrupo1musicstore.Models.PlayListItem;
+import com.example.proyectogrupo1musicstore.NetworkTaksMulti.ObtenerPlayListAsyncTask;
+import com.example.proyectogrupo1musicstore.NetworkTaksMulti.informacionGeneralPlayListAstAsyncTask;
+import com.example.proyectogrupo1musicstore.Utilidades.Token.JwtDecoder;
+import com.example.proyectogrupo1musicstore.Utilidades.Token.token;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.net.URLDecoder;
-import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.List;
 
-public class Activity_PerfilPersonal extends AppCompatActivity {
+public class Activity_PerfilPersonal extends AppCompatActivity implements informacionGeneralPlayListAstAsyncTask.DataFetchListener{
 
 
-    int ID;
+   int ID;
     private token acceso = new token(this);
     final int myMenuId = menu_editar_perfil;
     TextView txtNombreCompleto, txtUsername, txtCorreo, txtSeguidores, txtSiguiendo;
+
+    RecyclerView recyclerviewPlayLists;
     ImageView imgPFP;
     LinearLayout btnAtras;
+    DrawerLayout drawerLayout;
+
+    ImageView openMenuButton;
+
+    ProgressDialog progressDialog;
     LinearLayout verSeguidores, verSeguidos;
     int intervaloActualizacion = 5 * 1000;
 
@@ -65,16 +77,53 @@ public class Activity_PerfilPersonal extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_perfil_personal);
 
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Cargando...");
+        progressDialog.setCancelable(false);
+
+
         ID = Integer.parseInt(JwtDecoder.decodeJwt(acceso.recuperarTokenFromKeystore()));
         txtCorreo = findViewById(R.id.txtCorreoPerfilPersonal);
         txtUsername = findViewById(R.id.txtUsernamePerfilPersonal);
         txtNombreCompleto = findViewById(R.id.txtNombreCompletoPerfilPersonal);
         imgPFP = findViewById(R.id.imgPerfilPersonal);
         txtSeguidores = findViewById(R.id.txtSeguidores);
+        openMenuButton = (ImageView) findViewById(R.id.btnMenu);
         txtSiguiendo = findViewById(R.id.txtSiguiendo);
+        recyclerviewPlayLists = (RecyclerView) findViewById(R.id.recyclerviewPlayList);
         verSeguidores = findViewById(R.id.layoutVerSeguidores);
         verSeguidos = findViewById(R.id.layoutVerSeguidos);
         btnAtras = findViewById(R.id.btnAtras);
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layoutPlayList);
+
+
+        // Creación de una lista de elementos de playlistitem
+        List<PlayListItem> playlistitemList = new ArrayList<>();
+
+        // Crea y vincula el adaptador - playadapter
+        PlayListAdapter playAdapter = new PlayListAdapter(this, playlistitemList);
+        recyclerviewPlayLists.setAdapter(playAdapter);
+
+        //Configuracion del administrador de diseño - platlist
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        recyclerviewPlayLists.setLayoutManager(layoutManager);
+
+        //Fetch data from the server
+        String url = "https://phpclusters-152621-0.cloudclusters.net/obtenerPlayList.php";
+
+        new informacionGeneralPlayListAstAsyncTask(this).execute(url, String.valueOf(ID));
+        new ObtenerPlayListAsyncTask(Activity_PerfilPersonal.this, playAdapter, progressDialog).execute(String.valueOf(ID));
+
+        // Listener para abrir el menú lateral
+       openMenuButton.setOnClickListener(v -> {
+          drawerLayout.openDrawer(findViewById(R.id.side_menusss));
+       });
+//        new ObtenerPlayListAsyncTask(ActivityPlayList.this, playAdapter, progressDialog)
+        //              .execute(String.valueOf(idplaylist));
+
+
+
 
         verSeguidores.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,8 +144,7 @@ public class Activity_PerfilPersonal extends AppCompatActivity {
         btnAtras.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Activity_PerfilPersonal.this, ActivityPantallaPrincipal.class);
-                startActivity(intent);
+                finish();
             }
         });
 
@@ -229,4 +277,15 @@ public class Activity_PerfilPersonal extends AppCompatActivity {
         // Detiene la actualización periódica
         handler.removeCallbacks(runnable);
     }
+
+    @Override
+    public void onDataFetched(List<PlayListItem> dataList) {
+        if (dataList != null && !dataList.isEmpty()) {
+            PlayListAdapter adapter = new PlayListAdapter(this, dataList);
+            recyclerviewPlayLists.setAdapter(adapter);
+
+        } else {
+            Log.e("Error", "No data fetched from the server");
+}
+}
 }

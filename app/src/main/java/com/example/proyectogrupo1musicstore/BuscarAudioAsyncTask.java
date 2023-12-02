@@ -4,11 +4,10 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.util.Pair;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.proyectogrupo1musicstore.Utilidades.ImageDownloader;
+import com.example.proyectogrupo1musicstore.Utilidades.Imagenes.ImageDownloader;
 
 import org.json.JSONArray;
 import org.json.JSONException;

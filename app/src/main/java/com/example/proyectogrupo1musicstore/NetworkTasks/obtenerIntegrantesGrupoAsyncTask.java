@@ -7,12 +7,9 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.proyectogrupo1musicstore.Adapters.IntegrantesAdapter;
 import com.example.proyectogrupo1musicstore.Models.integrantesItem;
-import com.example.proyectogrupo1musicstore.Utilidades.ImageDownloader;
+import com.example.proyectogrupo1musicstore.Utilidades.Imagenes.ImageDownloader;
 
 import org.json.JSONArray;
 import org.json.JSONException;

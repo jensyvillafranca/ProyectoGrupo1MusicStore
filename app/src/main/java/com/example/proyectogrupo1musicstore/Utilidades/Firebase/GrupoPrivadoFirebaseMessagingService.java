@@ -1,4 +1,4 @@
-package com.example.proyectogrupo1musicstore.Utilidades;
+package com.example.proyectogrupo1musicstore.Utilidades.Firebase;
 
 import android.app.PendingIntent;
 import android.content.Context;
@@ -11,17 +11,13 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
 
-import com.example.proyectogrupo1musicstore.Activities.PantallaPrincipal.ActivityPantallaPrincipal;
 import com.example.proyectogrupo1musicstore.MainActivity;
-import com.example.proyectogrupo1musicstore.Models.NotificationModel;
 import com.example.proyectogrupo1musicstore.R;
 import com.example.proyectogrupo1musicstore.Room.MyApplication;
 import com.example.proyectogrupo1musicstore.Room.NotificationEntity;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 public class GrupoPrivadoFirebaseMessagingService extends FirebaseMessagingService {
@@ -34,30 +30,36 @@ public class GrupoPrivadoFirebaseMessagingService extends FirebaseMessagingServi
     public void onMessageReceived(RemoteMessage remoteMessage) {
         // Aqui llegan los mensajes
         Log.d(TAG, "From: " + remoteMessage.getFrom());
+        // Aqui llegan los mensajes
+        Log.d(TAG, "From: " + remoteMessage.getFrom());
 
-        // Check if the app is in the foreground or not running
-        if (MyApplication.isAppInForeground() || !MyApplication.isAppRunning()) {
-            // Aqui llegan los mensajes
-            Log.d(TAG, "From: " + remoteMessage.getFrom());
+        if (remoteMessage.getData().size() > 0) {
+            Log.d(TAG, "Message data payload: " + remoteMessage.getData());
+            tipo="request";
 
-            if (remoteMessage.getData().size() > 0) {
-                Log.d(TAG, "Message data payload: " + remoteMessage.getData());
-                tipo="request";
+            // Controla el payload que contiene la notificacion
+            handleDataMessage(remoteMessage.getData(), remoteMessage.getNotification());
+        }else{
+            if (remoteMessage.getNotification() != null) {
+                Log.d(TAG, "Message Notification Body: " + remoteMessage.getNotification().getBody());
+                tipo = "simple";
 
-                // Controla el payload que contiene la notificacion
-                handleDataMessage(remoteMessage.getData(), remoteMessage.getNotification());
-            }else{
-                if (remoteMessage.getNotification() != null) {
-                    Log.d(TAG, "Message Notification Body: " + remoteMessage.getNotification().getBody());
-                    tipo = "simple";
-
-                    // Notificacion sin payload
-                    handleNotification(remoteMessage.getNotification());
-                }
+                // Notificacion sin payload
+                handleNotification(remoteMessage.getNotification());
             }
-        } else {
+        }
+
+        //App is not running
+        if (!MyApplication.isAppRunning()==false) {
             handleNotificationClickAction(remoteMessage);
         }
+
+        /* Check if the app is in the foreground or not running
+        if (MyApplication.isAppInForeground() == false || !MyApplication.isAppRunning()) {
+
+        } else {
+            handleNotificationClickAction(remoteMessage);
+        }*/
     }
 
     //Guarda el token en el servidor

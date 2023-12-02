@@ -1,6 +1,5 @@
 package com.example.proyectogrupo1musicstore;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,10 +12,8 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -30,13 +27,9 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
-import com.example.proyectogrupo1musicstore.Activities.Grupos.ActivityGruposBuscar;
-import com.example.proyectogrupo1musicstore.Activities.PantallaPrincipal.ActivityPantallaPrincipal;
-import com.example.proyectogrupo1musicstore.Adapters.AppData;
 import com.example.proyectogrupo1musicstore.Models.User;
-import com.example.proyectogrupo1musicstore.NetworkTasks.BuscarGruposAsyncTask;
-import com.example.proyectogrupo1musicstore.Utilidades.JwtDecoder;
-import com.example.proyectogrupo1musicstore.Utilidades.token;
+import com.example.proyectogrupo1musicstore.Utilidades.Token.JwtDecoder;
+import com.example.proyectogrupo1musicstore.Utilidades.Token.token;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -79,8 +72,7 @@ public class ActivityListaUsuarios extends AppCompatActivity {
         btn_AtrasUsuarios.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ActivityListaUsuarios.this, ActivityPantallaPrincipal.class);
-                startActivity(intent);
+                finish();
             }
         });
 
@@ -252,6 +244,9 @@ public class ActivityListaUsuarios extends AppCompatActivity {
 
                                 int idVisualizacion = usuarioJson.getInt("idvisualizacion");
                                 String seguirseguido = usuarioJson.getString("sigue");
+                                if(IdPersonal == idusuario){
+                                    seguirseguido = "usuario";
+                                }
                                 User user = new User(idusuario, nombres, apellidos, correo, usuario, enlacefoto, seguirseguido, idVisualizacion);
                                 listaDeUsuarios.add(user);
 
@@ -351,12 +346,23 @@ public class ActivityListaUsuarios extends AppCompatActivity {
                         }
                     });
 
-                    usuarioViewHolder.verUsuario.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            abrirActivityPerfilUsuario(usuario.getIdusuario());
-                        }
-                    });
+
+
+                    if(usuario.getIdusuario() == IdPersonal){
+                        usuarioViewHolder.verUsuario.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                abrirActivityPerfilPersonal();
+                            }
+                        });
+                    }else {
+                        usuarioViewHolder.verUsuario.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                abrirActivityPerfilUsuario(usuario.getIdusuario());
+                            }
+                        });
+                    }
 
                 }
             }
@@ -433,9 +439,10 @@ public class ActivityListaUsuarios extends AppCompatActivity {
         }
     }
 
-
-
-
+    private void abrirActivityPerfilPersonal() {
+        Intent intent = new Intent(this, Activity_PerfilPersonal.class);
+        startActivity(intent);
+    }
     private void abrirActivityPerfilUsuario(int id) {
         Intent intent = new Intent(this, Activity_PerfilUsuario.class);
         intent.putExtra("IdUsuario", id);

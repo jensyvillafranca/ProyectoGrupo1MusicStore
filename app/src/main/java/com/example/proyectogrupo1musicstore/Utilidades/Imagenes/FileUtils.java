@@ -1,6 +1,5 @@
-package com.example.proyectogrupo1musicstore.Utilidades;
+package com.example.proyectogrupo1musicstore.Utilidades.Imagenes;
 
-import android.content.ContentResolver;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
