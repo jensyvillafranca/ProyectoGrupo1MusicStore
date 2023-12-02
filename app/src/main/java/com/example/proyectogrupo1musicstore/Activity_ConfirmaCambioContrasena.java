@@ -1,15 +1,10 @@
 package com.example.proyectogrupo1musicstore;
-
+import static com.example.proyectogrupo1musicstore.Activity_CambiarContrasena.correo_usuario;
 import static com.example.proyectogrupo1musicstore.Activity_CambiarContrasena.nuevoPass_Encriptada;
 import static com.example.proyectogrupo1musicstore.Activity_CambiarContrasena.verificationCode_NuevaContra;
-import static com.example.proyectogrupo1musicstore.activity_registrarse.form_correo;
-import static com.example.proyectogrupo1musicstore.activity_registrarse.verificationCode;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -17,7 +12,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,7 +21,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.proyectogrupo1musicstore.Activities.PantallaPrincipal.ActivityPantallaPrincipal;
+import com.example.proyectogrupo1musicstore.Utilidades.JwtDecoder;
+import com.example.proyectogrupo1musicstore.Utilidades.token;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -42,6 +37,8 @@ public class Activity_ConfirmaCambioContrasena extends AppCompatActivity {
 
     TextView inputVerificacion, txtviewEnviarCodigoNuevamente, txtviewCronometro_NuevaC, txtviewActivaLetras_Nueva;
     private int segundos = 60; //segundos
+    private token acceso = new token(this);
+    int idUsuario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +51,7 @@ public class Activity_ConfirmaCambioContrasena extends AppCompatActivity {
         txtviewCronometro_NuevaC = (TextView) findViewById(R.id.txtviewCronometro_NuevaC);
         txtviewActivaLetras_Nueva = (TextView) findViewById(R.id.txtviewActivaLetras_Nueva);
         txtviewEnviarCodigoNuevamente = (TextView) findViewById(R.id.txtviewEnviarCodigoNuevamente);
+        idUsuario = Integer.parseInt(JwtDecoder.decodeJwt(acceso.recuperarTokenFromKeystore()));
 
         btnAtras.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -107,7 +105,7 @@ public class Activity_ConfirmaCambioContrasena extends AppCompatActivity {
     public void reenviarCodigoVerificacion() {
         //Log.d("Correo desde la otra ventana",form_correo);
         tiempoCodigo();
-        String url = "https://phpclusters-152621-0.cloudclusters.net/verificacionCorreo.php";
+        String url = "https://phpclusters-152621-0.cloudclusters.net/verificarCorreo_CambioPass.php";
         RequestQueue queue = Volley.newRequestQueue(this);
 
         StringRequest resultadoPost = new StringRequest(
@@ -127,7 +125,7 @@ public class Activity_ConfirmaCambioContrasena extends AppCompatActivity {
                             //Asignando a las variables status, message y verificationCode los valores que vienen del PHP
                             //String status = jsonObject.getString("status");
                             //String message = jsonObject.getString("message");
-                            verificationCode = jsonObject.getString("verification_code");
+                            verificationCode_NuevaContra = jsonObject.getString("verification_code");
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -145,7 +143,7 @@ public class Activity_ConfirmaCambioContrasena extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> parametros = new HashMap<>();
-                parametros.put("email", form_correo);
+                parametros.put("email", correo_usuario);
                 return parametros;
             }
         };
@@ -235,9 +233,7 @@ public class Activity_ConfirmaCambioContrasena extends AppCompatActivity {
                 @Override
                 protected Map<String, String> getParams() {
                     Map<String, String> parametros = new HashMap<>();
-                    //------------------------------------------------------------------------------------------------------------
-                    //Este solo es de prueba, cambiarlo por el id del token
-                    parametros.put("idUsuario", "68");
+                    parametros.put("idUsuario", String.valueOf(idUsuario));
                     parametros.put("contrasenia", nuevoPass_Encriptada);
                     return parametros;
                 }
