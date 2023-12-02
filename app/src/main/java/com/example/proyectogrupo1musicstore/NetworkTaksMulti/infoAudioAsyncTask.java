@@ -1,16 +1,12 @@
 package com.example.proyectogrupo1musicstore.NetworkTaksMulti;
 
 import android.graphics.Bitmap;
-import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.util.Log;
 
 
-import com.example.proyectogrupo1musicstore.Models.infoEditarPlayList;
 import com.example.proyectogrupo1musicstore.Models.infoReproductor;
-import com.example.proyectogrupo1musicstore.Models.vistadeplaylist;
-import com.example.proyectogrupo1musicstore.Utilidades.ImageDownloader;
-import com.example.proyectogrupo1musicstore.audioItem;
+import com.example.proyectogrupo1musicstore.Utilidades.Imagenes.ImageDownloader;
 
 import org.json.JSONArray;
 import org.json.JSONException;

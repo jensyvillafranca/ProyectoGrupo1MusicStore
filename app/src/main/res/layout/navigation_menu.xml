@@ -43,13 +43,14 @@
             android:orientation="vertical">
 
             <LinearLayout
+                android:id="@+id/linearLayoutInicio"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="16dp"
                 android:clickable="true"
                 android:focusable="true"
-                android:onClick="onMenuItemClick">
+                android:onClick="onMenuItemClick"
+                android:orientation="horizontal"
+                android:padding="16dp">
 
                 <ImageView
                     android:id="@+id/iconNavInicio"
@@ -69,14 +70,16 @@
                     android:textSize="16sp"
                     android:textStyle="bold" />
             </LinearLayout>
+
             <LinearLayout
+                android:id="@+id/linearLayoutGrupos"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="16dp"
                 android:clickable="true"
                 android:focusable="true"
-                android:onClick="onMenuItemClick">
+                android:onClick="onMenuItemClick"
+                android:orientation="horizontal"
+                android:padding="16dp">
 
                 <ImageView
                     android:id="@+id/iconNavGrupos"
@@ -96,14 +99,16 @@
                     android:textSize="16sp"
                     android:textStyle="bold" />
             </LinearLayout>
+
             <LinearLayout
+                android:id="@+id/linearLayoutPerfil"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="16dp"
                 android:clickable="true"
                 android:focusable="true"
-                android:onClick="onMenuItemClick">
+                android:onClick="onMenuItemClick"
+                android:orientation="horizontal"
+                android:padding="16dp">
 
                 <ImageView
                     android:id="@+id/iconNavUsuario"
@@ -123,14 +128,16 @@
                     android:textSize="16sp"
                     android:textStyle="bold" />
             </LinearLayout>
+
             <LinearLayout
+                android:id="@+id/linearLayoutBuscar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="16dp"
                 android:clickable="true"
                 android:focusable="true"
-                android:onClick="onMenuItemClick">
+                android:onClick="onMenuItemClick"
+                android:orientation="horizontal"
+                android:padding="16dp">
 
                 <ImageView
                     android:id="@+id/iconNavBuscar"
@@ -150,14 +157,16 @@
                     android:textSize="16sp"
                     android:textStyle="bold" />
             </LinearLayout>
+
             <LinearLayout
+                android:id="@+id/linearLayoutMultimedia"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="16dp"
                 android:clickable="true"
                 android:focusable="true"
-                android:onClick="onMenuItemClick">
+                android:onClick="onMenuItemClick"
+                android:orientation="horizontal"
+                android:padding="16dp">
 
                 <ImageView
                     android:id="@+id/iconNavMultimedia"
@@ -177,14 +186,16 @@
                     android:textSize="16sp"
                     android:textStyle="bold" />
             </LinearLayout>
+
             <LinearLayout
+                android:id="@+id/linearLayoutAjustes"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="16dp"
                 android:clickable="true"
                 android:focusable="true"
-                android:onClick="onMenuItemClick">
+                android:onClick="onMenuItemClick"
+                android:orientation="horizontal"
+                android:padding="16dp">
 
                 <ImageView
                     android:id="@+id/iconNavAjustes"
@@ -204,14 +215,16 @@
                     android:textSize="16sp"
                     android:textStyle="bold" />
             </LinearLayout>
+
             <LinearLayout
+                android:id="@+id/linearLayoutAcerca"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="16dp"
                 android:clickable="true"
                 android:focusable="true"
-                android:onClick="onMenuItemClick">
+                android:onClick="onMenuItemClick"
+                android:orientation="horizontal"
+                android:padding="16dp">
 
                 <ImageView
                     android:id="@+id/iconNavAcerca"
@@ -231,14 +244,16 @@
                     android:textSize="16sp"
                     android:textStyle="bold" />
             </LinearLayout>
+
             <LinearLayout
+                android:id="@+id/linearLayoutCerrar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="16dp"
                 android:clickable="true"
                 android:focusable="true"
-                android:onClick="onMenuItemClick">
+                android:onClick="onMenuItemClick"
+                android:orientation="horizontal"
+                android:padding="16dp">
 
                 <ImageView
                     android:id="@+id/iconCerrarSesion"

@@ -27,8 +27,8 @@ import com.example.proyectogrupo1musicstore.NetworkTasks.obtenerAudiosGrupoAsync
 import com.example.proyectogrupo1musicstore.NetworkTasks.obtenerIntegrantesGrupoAsyncTask;
 import com.example.proyectogrupo1musicstore.NetworkTasks.obtenerVideosGrupoAsyncTask;
 import com.example.proyectogrupo1musicstore.R;
-import com.example.proyectogrupo1musicstore.Utilidades.JwtDecoder;
-import com.example.proyectogrupo1musicstore.Utilidades.token;
+import com.example.proyectogrupo1musicstore.Utilidades.Token.JwtDecoder;
+import com.example.proyectogrupo1musicstore.Utilidades.Token.token;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +42,7 @@ public class ActivityGrupoInfo extends AppCompatActivity implements InfomacionGe
     RecyclerView recyclerViewIntegrantes, recyclerViewMusica, recyclerViewVideos;
     private int idgrupo;
     ProgressDialog progressDialog;
-    private com.example.proyectogrupo1musicstore.Utilidades.token token = new token(this);
+    private com.example.proyectogrupo1musicstore.Utilidades.Token.token token = new token(this);
     private int idUsuario;
 
     @Override

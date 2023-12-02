@@ -3,7 +3,6 @@ package com.example.proyectogrupo1musicstore.Adapters;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,12 +19,11 @@ import com.example.proyectogrupo1musicstore.NetworkTasks.DeleteGrupoAsyncTask;
 import com.example.proyectogrupo1musicstore.NetworkTasks.UpdateFavoritoAsyncTask;
 import com.example.proyectogrupo1musicstore.NetworkTasks.salirGrupoAsyncTask;
 import com.example.proyectogrupo1musicstore.R;
-import com.example.proyectogrupo1musicstore.Utilidades.ConfirmationDialog;
+import com.example.proyectogrupo1musicstore.Utilidades.UI.ConfirmationDialog;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.ByteArrayOutputStream;
 import java.util.List;
 
 public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomViewHolder> {

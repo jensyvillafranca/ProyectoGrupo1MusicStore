@@ -19,18 +19,12 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.proyectogrupo1musicstore.Adapters.CustomAdapter;
-import com.example.proyectogrupo1musicstore.Adapters.IntegrantesAdapter;
 import com.example.proyectogrupo1musicstore.Adapters.PlayListAdapter;
 import com.example.proyectogrupo1musicstore.Models.PlayListItem;
-import com.example.proyectogrupo1musicstore.Models.informacionGeneralPlayList;
-import com.example.proyectogrupo1musicstore.Models.informacionGrupoGeneral;
-import com.example.proyectogrupo1musicstore.Models.integrantesItem;
-import com.example.proyectogrupo1musicstore.Models.musicItem;
 import com.example.proyectogrupo1musicstore.NetworkTaksMulti.ObtenerPlayListAsyncTask;
 import com.example.proyectogrupo1musicstore.NetworkTaksMulti.informacionGeneralPlayListAstAsyncTask;
-import com.example.proyectogrupo1musicstore.Utilidades.JwtDecoder;
-import com.example.proyectogrupo1musicstore.Utilidades.token;
+import com.example.proyectogrupo1musicstore.Utilidades.Token.JwtDecoder;
+import com.example.proyectogrupo1musicstore.Utilidades.Token.token;
 
 
 import java.util.ArrayList;
@@ -43,7 +37,7 @@ public class ActivityPlayList extends AppCompatActivity implements informacionGe
     ImageView fotoPlay;
     DrawerLayout drawerLayout;
     ImageButton openMenuButton;
-    private com.example.proyectogrupo1musicstore.Utilidades.token token = new token(this);
+    private com.example.proyectogrupo1musicstore.Utilidades.Token.token token = new token(this);
 
     private int idplaylist;
    // private int idUsuario;

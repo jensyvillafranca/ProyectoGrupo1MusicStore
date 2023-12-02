@@ -9,7 +9,7 @@ import android.util.Log;
 
 import com.example.proyectogrupo1musicstore.Adapters.CustomAdapterNuevoGrupoIntegrantes;
 import com.example.proyectogrupo1musicstore.Models.vistaDeNuevoGrupo;
-import com.example.proyectogrupo1musicstore.Utilidades.ImageDownloader;
+import com.example.proyectogrupo1musicstore.Utilidades.Imagenes.ImageDownloader;
 
 import org.json.JSONArray;
 import org.json.JSONException;

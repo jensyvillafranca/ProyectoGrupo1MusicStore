@@ -6,10 +6,8 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.example.proyectogrupo1musicstore.Activities.Grupos.ActivityGrupoPrincipal;
 import com.example.proyectogrupo1musicstore.ActivityModificarPlayList;
-import com.example.proyectogrupo1musicstore.ActivityPlay;
-import com.example.proyectogrupo1musicstore.Utilidades.DelayedActivityStarter;
+import com.example.proyectogrupo1musicstore.Utilidades.UI.DelayedActivityStarter;
 
 import java.io.BufferedOutputStream;
 import java.io.OutputStream;

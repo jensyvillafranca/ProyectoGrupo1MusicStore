@@ -33,19 +33,15 @@ import android.widget.Toast;
 
 import com.example.proyectogrupo1musicstore.Activities.PantallaPrincipal.ActivityPantallaPrincipal;
 import com.example.proyectogrupo1musicstore.Adapters.CustomAdapterNuevoGrupoIntegrantes;
-import com.example.proyectogrupo1musicstore.Adapters.IntegrantesAdapter;
-import com.example.proyectogrupo1musicstore.MainActivity;
 import com.example.proyectogrupo1musicstore.Models.informacionGrupoEditar;
-import com.example.proyectogrupo1musicstore.Models.integrantesItem;
-import com.example.proyectogrupo1musicstore.Models.vistaDeGrupo;
 import com.example.proyectogrupo1musicstore.Models.vistaDeNuevoGrupo;
 import com.example.proyectogrupo1musicstore.NetworkTasks.FetchMemberDetailsEditarAsyncTask;
 import com.example.proyectogrupo1musicstore.NetworkTasks.InformacionGrupoEditarAsyncTask;
 import com.example.proyectogrupo1musicstore.NetworkTasks.UpdateGrupoAsyncTask;
 import com.example.proyectogrupo1musicstore.R;
-import com.example.proyectogrupo1musicstore.Utilidades.ConfirmationDialog;
-import com.example.proyectogrupo1musicstore.Utilidades.JwtDecoder;
-import com.example.proyectogrupo1musicstore.Utilidades.token;
+import com.example.proyectogrupo1musicstore.Utilidades.UI.ConfirmationDialog;
+import com.example.proyectogrupo1musicstore.Utilidades.Token.JwtDecoder;
+import com.example.proyectogrupo1musicstore.Utilidades.Token.token;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -56,7 +52,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ActivityEditarGrupo extends AppCompatActivity implements InformacionGrupoEditarAsyncTask.DataFetchListener{
+public class ActivityEditarGrupo extends AppCompatActivity implements InformacionGrupoEditarAsyncTask.DataFetchListener {
 
     RecyclerView recyclerViewIntegrantes;
     ImageButton imagebuttonAtras;
@@ -65,7 +61,7 @@ public class ActivityEditarGrupo extends AppCompatActivity implements Informacio
     EditText txtDescripcion;
     CheckBox checkTipoGrupo;
     Button btnGuardar;
-    ProgressDialog  progressDialog;
+    ProgressDialog progressDialog;
     private int idgrupo;
     private token token = new token(this);
     private int idUsuario;
@@ -123,10 +119,10 @@ public class ActivityEditarGrupo extends AppCompatActivity implements Informacio
             @Override
             public void onClick(View view) {
                 Class<?> actividad = null;
-                if (view.getId()==R.id.btn_EditarGrupoAtras) {
+                if (view.getId() == R.id.btn_EditarGrupoAtras) {
                     actividad = ActivityGrupoPrincipal.class;
                 }
-                if (view.getId()==R.id.textview_EditarGrupoBotAtras){
+                if (view.getId() == R.id.textview_EditarGrupoBotAtras) {
                     actividad = ActivityPantallaPrincipal.class;
                 }
                 if (actividad != null) {
@@ -150,26 +146,31 @@ public class ActivityEditarGrupo extends AppCompatActivity implements Informacio
         btnGuardar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Show confirmation dialog
-                ConfirmationDialog.showConfirmationDialog(
-                        ActivityEditarGrupo.this, // Replace with your activity or fragment context
-                        "Confirmación",
-                        "¿Está seguro de que desea realizar estos cambios?",
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                // Si el usuario hace click en si
-                                updateGrupo();
+                if (txtDescripcion.getText().toString().isEmpty()) {
+                    Toast.makeText(ActivityEditarGrupo.this, "Porfavor Ingrese una Descripción para el Grupo", Toast.LENGTH_SHORT).show();
+                    txtDescripcion.setError("Ingrese una Descripción");
+                } else {
+                    // Show confirmation dialog
+                    ConfirmationDialog.showConfirmationDialog(
+                            ActivityEditarGrupo.this, // Replace with your activity or fragment context
+                            "Confirmación",
+                            "¿Está seguro de que desea realizar estos cambios?",
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    // Si el usuario hace click en si
+                                    updateGrupo();
+                                }
+                            },
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    // Si el usuario hace click en no
+                                    dialog.dismiss();
+                                }
                             }
-                        },
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                // Si el usuario hace click en no
-                                dialog.dismiss();
-                            }
-                        }
-                );
+                    );
+                }
             }
         });
     }
@@ -183,9 +184,9 @@ public class ActivityEditarGrupo extends AppCompatActivity implements Informacio
             imagebuttonEditarFoto.setImageBitmap(groupInfo.getImage());
             txtDescripcion.setText(groupInfo.getDescripcion());
 
-            if(groupInfo.getVisualizacion()==1){
+            if (groupInfo.getVisualizacion() == 1) {
                 checkTipoGrupo.setChecked(true);
-            }else{
+            } else {
                 checkTipoGrupo.setChecked(false);
             }
         } else {
@@ -218,7 +219,7 @@ public class ActivityEditarGrupo extends AppCompatActivity implements Informacio
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
-        if ((requestCode == REQUEST_CODE)||(requestCode == REQUEST_CODE_EXTERNAL)) {
+        if ((requestCode == REQUEST_CODE) || (requestCode == REQUEST_CODE_EXTERNAL)) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 // Create an intent to pick an image from the gallery
                 pickImage();
@@ -296,11 +297,11 @@ public class ActivityEditarGrupo extends AppCompatActivity implements Informacio
     }
 
     //funcion que controla el update
-    private void updateGrupo(){
+    private void updateGrupo() {
         //Obtiene estado del checkbox
-        if(checkTipoGrupo.isChecked()){
+        if (checkTipoGrupo.isChecked()) {
             visualizacion = 1;
-        }else{
+        } else {
             visualizacion = 0;
         }
 

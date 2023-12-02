@@ -3,12 +3,8 @@ package com.example.proyectogrupo1musicstore;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -17,19 +13,11 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.proyectogrupo1musicstore.Models.infoEditarPlayList;
 import com.example.proyectogrupo1musicstore.Models.infoReproductor;
-import com.example.proyectogrupo1musicstore.NetworkTaksMulti.EditarPlayListAsyncTask;
 import com.example.proyectogrupo1musicstore.NetworkTaksMulti.infoAudioAsyncTask;
-import com.example.proyectogrupo1musicstore.NetworkTaksMulti.infoPlayListEditarAsyncTask;
-import com.example.proyectogrupo1musicstore.Utilidades.JwtDecoder;
-import com.example.proyectogrupo1musicstore.Utilidades.token;
+import com.example.proyectogrupo1musicstore.Utilidades.Token.JwtDecoder;
+import com.example.proyectogrupo1musicstore.Utilidades.Token.token;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.ByteArrayOutputStream;
-import java.net.URL;
 import java.util.List;
 
 public class ActivityReproductor extends AppCompatActivity implements infoAudioAsyncTask.DataFetchListener{
@@ -48,7 +36,7 @@ public class ActivityReproductor extends AppCompatActivity implements infoAudioA
     private infoReproductor reproductoinfo;
 
     static MediaPlayer mediaPlayer;
-    private com.example.proyectogrupo1musicstore.Utilidades.token token = new token(this);
+    private com.example.proyectogrupo1musicstore.Utilidades.Token.token token = new token(this);
 
     //Listo para extraer informacion de la base de datos
     @Override

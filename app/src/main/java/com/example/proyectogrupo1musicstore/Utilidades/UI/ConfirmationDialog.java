@@ -1,4 +1,4 @@
-package com.example.proyectogrupo1musicstore.Utilidades;
+package com.example.proyectogrupo1musicstore.Utilidades.UI;
 
 import android.content.Context;
 import android.content.DialogInterface;

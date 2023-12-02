@@ -20,9 +20,9 @@ import java.util.List;
 
 import com.example.proyectogrupo1musicstore.NetworkTasks.InsertarIntegranteAsyncTask;
 import com.example.proyectogrupo1musicstore.R;
-import com.example.proyectogrupo1musicstore.Utilidades.ConfirmationDialog;
-import com.example.proyectogrupo1musicstore.Utilidades.JwtDecoder;
-import com.example.proyectogrupo1musicstore.Utilidades.token;
+import com.example.proyectogrupo1musicstore.Utilidades.UI.ConfirmationDialog;
+import com.example.proyectogrupo1musicstore.Utilidades.Token.JwtDecoder;
+import com.example.proyectogrupo1musicstore.Utilidades.Token.token;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
@@ -39,7 +39,7 @@ public class ActivityUnirseGrupo extends AppCompatActivity {
     private buscarGrupo object;
     private String tipo;
     ImageView iconGrupos, iconInicio, imageGrupo;
-    private com.example.proyectogrupo1musicstore.Utilidades.token token = new token(this);
+    private com.example.proyectogrupo1musicstore.Utilidades.Token.token token = new token(this);
     private int idUsuario;
 
     @Override

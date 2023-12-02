@@ -1,26 +1,15 @@
-package com.example.proyectogrupo1musicstore.Utilidades;
+package com.example.proyectogrupo1musicstore.Utilidades.Imagenes;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.os.AsyncTask;
-import android.widget.ImageView;
-
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.ref.WeakReference;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class ImageDownloaderAsync extends AsyncTask<String, Void, Bitmap> {
-    private WeakReference<ImageView> imageViewReference;
+public class ImageDownloader {
 
-    public ImageDownloaderAsync(ImageView imageView) {
-        imageViewReference = new WeakReference<>(imageView);
-    }
-
-    @Override
-    protected Bitmap doInBackground(String... urls) {
-        String imageUrl = urls[0];
+    public static Bitmap downloadImage(String imageUrl) {
         try {
             // Crea un objeto URL el URL de la imagen
             URL url = new URL(imageUrl);
@@ -45,14 +34,6 @@ public class ImageDownloaderAsync extends AsyncTask<String, Void, Bitmap> {
             // Handle exceptions
             e.printStackTrace();
             return null;
-        }
-    }
-
-    @Override
-    protected void onPostExecute(Bitmap result) {
-        ImageView imageView = imageViewReference.get();
-        if (imageView != null && result != null) {
-            imageView.setImageBitmap(result);
         }
     }
 }

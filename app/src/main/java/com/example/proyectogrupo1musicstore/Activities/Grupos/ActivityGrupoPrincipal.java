@@ -19,22 +19,23 @@ import com.example.proyectogrupo1musicstore.Adapters.CustomAdapter;
 import com.example.proyectogrupo1musicstore.Models.vistaDeGrupo;
 import com.example.proyectogrupo1musicstore.NetworkTasks.FetchDataAsyncGruposPrincipal;
 import com.example.proyectogrupo1musicstore.R;
-import com.example.proyectogrupo1musicstore.Utilidades.JwtDecoder;
-import com.example.proyectogrupo1musicstore.Utilidades.token;
+import com.example.proyectogrupo1musicstore.Utilidades.Token.JwtDecoder;
+import com.example.proyectogrupo1musicstore.Utilidades.Navegacion.NavigationClickListener;
+import com.example.proyectogrupo1musicstore.Utilidades.Token.token;
 
 import java.util.List;
 
 public class ActivityGrupoPrincipal extends AppCompatActivity implements FetchDataAsyncGruposPrincipal.DataFetchListener {
 
     // Declaración de variables
-    RecyclerView lista;
-    DrawerLayout drawerLayout;
-    ImageButton openMenuButton, botonAtras;
-    TextView textviewAtras, txtGruposBuscar, txtNuevoGrupo, txtActualizar, Grupos, Inicio;
-    ImageView imageviewGruposBuscar, imageviewNuevoGrupo, imageviewActualizar, iconGrupos, iconInicio;
-    CardView buscar, nuevoGrupo, actualizar;
-    ProgressDialog progressDialog;
-    private com.example.proyectogrupo1musicstore.Utilidades.token token = new token(this);
+    private RecyclerView lista;
+    private DrawerLayout drawerLayout;
+    private ImageButton openMenuButton, botonAtras;
+    private TextView textviewAtras, txtGruposBuscar, txtNuevoGrupo, txtActualizar;
+    private ImageView imageviewGruposBuscar, imageviewNuevoGrupo, imageviewActualizar;
+    private CardView buscar, nuevoGrupo, actualizar;
+    private ProgressDialog progressDialog;
+    private com.example.proyectogrupo1musicstore.Utilidades.Token.token token = new token(this);
     private int idUsuario;
 
 
@@ -64,10 +65,6 @@ public class ActivityGrupoPrincipal extends AppCompatActivity implements FetchDa
         buscar = (CardView) findViewById(R.id.cardViewGruposPrincipalBuscar);
         nuevoGrupo = (CardView) findViewById(R.id.cardViewGruposPrincipalNuevo);
         actualizar = (CardView) findViewById(R.id.cardViewGruposPrincipalActualizar);
-        Grupos = (TextView) findViewById(R.id.txtViewNavGrupos);
-        Inicio = (TextView) findViewById(R.id.txtviewNavInicio);
-        iconGrupos = (ImageView) findViewById(R.id.iconNavGrupos);
-        iconInicio = (ImageView) findViewById(R.id.iconNavInicio);
 
         // Fetch data from the server
         String url = "https://phpclusters-152621-0.cloudclusters.net/principalGrupos.php";
@@ -85,7 +82,7 @@ public class ActivityGrupoPrincipal extends AppCompatActivity implements FetchDa
             drawerLayout.openDrawer(findViewById(R.id.side_menu));
         });
 
-        // Listener para manejar los botones de "Atrás"
+        // Listener para manejar diferentes acciones de elementos
         View.OnClickListener buttonClick = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -149,14 +146,13 @@ public class ActivityGrupoPrincipal extends AppCompatActivity implements FetchDa
         imageviewGruposBuscar.setOnClickListener(buttonClick);
         imageviewActualizar.setOnClickListener(buttonClick);
         buscar.setOnClickListener(buttonClick);
-        Grupos.setOnClickListener(buttonClick);
-        Inicio.setOnClickListener(buttonClick);
         actualizar.setOnClickListener(buttonClick);
-        iconGrupos.setOnClickListener(buttonClick);
-        iconInicio.setOnClickListener(buttonClick);
         txtGruposBuscar.setOnClickListener(buttonClick);
         imageviewGruposBuscar.setOnClickListener(buttonClick);
         nuevoGrupo.setOnClickListener(buttonClick);
+
+        // Listener para menu de navegacion
+        View.OnClickListener buttonClickNav = new NavigationClickListener(this,this);
     }
 
     @Override

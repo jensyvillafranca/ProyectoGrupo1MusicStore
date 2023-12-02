@@ -18,8 +18,8 @@ import com.example.proyectogrupo1musicstore.Models.vistaDeNuevoGrupo;
 import com.example.proyectogrupo1musicstore.NetworkTasks.BuscarIntegranteAsyncTask;
 import com.example.proyectogrupo1musicstore.NetworkTasks.NuevoGrupoIntegrantesAsyncTask;
 import com.example.proyectogrupo1musicstore.R;
-import com.example.proyectogrupo1musicstore.Utilidades.JwtDecoder;
-import com.example.proyectogrupo1musicstore.Utilidades.token;
+import com.example.proyectogrupo1musicstore.Utilidades.Token.JwtDecoder;
+import com.example.proyectogrupo1musicstore.Utilidades.Token.token;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +32,7 @@ public class ActivityNuevoGrupoIntegrantes extends AppCompatActivity implements 
     ProgressDialog progressDialog;
     List<Integer> selectedUserIds;
     CustomAdapterNuevoGrupoIntegrantes adapter;
-    private com.example.proyectogrupo1musicstore.Utilidades.token token = new token(this);
+    private com.example.proyectogrupo1musicstore.Utilidades.Token.token token = new token(this);
     private int idUsuario;
 
     @Override

@@ -1,7 +1,5 @@
 package com.example.proyectogrupo1musicstore.Adapters;
 
-import android.graphics.Bitmap;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,9 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.proyectogrupo1musicstore.Models.mensajeModel;
 import com.example.proyectogrupo1musicstore.R;
-import com.example.proyectogrupo1musicstore.Utilidades.DateUtils;
-import com.example.proyectogrupo1musicstore.Utilidades.ImageDownloader;
-import com.example.proyectogrupo1musicstore.Utilidades.ImageDownloaderAsync;
+import com.example.proyectogrupo1musicstore.Utilidades.Date.DateUtils;
+import com.example.proyectogrupo1musicstore.Utilidades.Imagenes.ImageDownloaderAsync;
 
 import java.util.List;
 
