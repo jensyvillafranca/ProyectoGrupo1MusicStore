@@ -230,7 +230,6 @@ public class activity_personalizada_metadata_video extends DialogFragment {
             }
             contadorAux++;
         }
-
         //Invocar el método que manda todos los datos al PHP.
         subirAudioFirebase();
 

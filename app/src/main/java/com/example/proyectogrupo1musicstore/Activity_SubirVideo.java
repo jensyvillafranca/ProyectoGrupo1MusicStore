@@ -314,6 +314,7 @@ public class Activity_SubirVideo extends AppCompatActivity {
                 //En caso de que no existan valores en null, seguimos con el proceso inicial: insertar.
                 //Mandar a llamar el metodo que manda toda la data a la clase Activity_SubirVideoAsyncTask
                 try {
+                    Log.d("ENTRA A ESTO","ENTRA A ESTO");
                     subirVideoFirebase();
                 } catch (IOException e) {
                     throw new RuntimeException(e);
