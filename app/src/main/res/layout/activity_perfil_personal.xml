@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity_PerfilPersonal"
+    android:id="@+id/drawer_layoutPlayList"
+    tools:context=".ActivityPlayList"
     android:background="@drawable/background"
     android:paddingTop="15dp">
 
@@ -30,15 +31,17 @@ android:layout_height="wrap_content">
             android:id="@+id/btnAtras">
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginEnd="3dp"
                 android:layout_gravity="center"
                 android:src="@drawable/iconoatras"
                 android:importantForAccessibility="no"/>
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="54dp"
+                android:layout_height="46dp"
+                android:layout_marginTop="10dp"
                 android:text="@string/atras"
                 android:textColor="@color/white"
                 android:layout_gravity="center"
@@ -53,8 +56,9 @@ android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/btnMenu"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="5dp"
             android:layout_marginEnd="10dp"
             android:layout_gravity="center"
             android:importantForAccessibility="no"
@@ -296,7 +300,7 @@ android:layout_height="wrap_content">
 
                                 <Space
                                     android:layout_width="match_parent"
-                                    android:layout_height="8dp"/>
+                                    android:layout_height="5dp"/>
 
                                 <Button
                                     android:id="@+id/btnGrupo1"
@@ -310,7 +314,7 @@ android:layout_height="wrap_content">
 
                                 <Space
                                     android:layout_width="match_parent"
-                                    android:layout_height="8dp"/>
+                                    android:layout_height="5dp"/>
 
                                 <Button
                                     android:id="@+id/btnGrupo2"
@@ -324,7 +328,7 @@ android:layout_height="wrap_content">
 
                                 <Space
                                     android:layout_width="match_parent"
-                                    android:layout_height="8dp"/>
+                                    android:layout_height="5dp"/>
 
                                 <Button
                                     android:id="@+id/btnGrupo3"
@@ -338,7 +342,7 @@ android:layout_height="wrap_content">
 
                                 <Space
                                     android:layout_width="match_parent"
-                                    android:layout_height="8dp" />
+                                    android:layout_height="0dp" />
 
                                 <LinearLayout
                                     android:layout_width="match_parent"
@@ -354,9 +358,7 @@ android:layout_height="wrap_content">
                                         android:textStyle="bold"
                                         android:layout_gravity="center"/>
 
-                                    <Space
-                                        android:layout_width="match_parent"
-                                        android:layout_height="8dp" />
+
 
                                     <HorizontalScrollView
                                         android:layout_width="match_parent"
@@ -379,11 +381,11 @@ android:layout_height="wrap_content">
                                                 <androidx.recyclerview.widget.RecyclerView
                                                     android:id="@+id/recyclerviewPlayList"
                                                     android:layout_width="293dp"
-                                                    android:layout_height="100dp"
+                                                    android:layout_height="130dp"
                                                     android:layout_marginStart="10dp"
-                                                    android:layout_marginTop="10dp"
-                                                    android:layout_marginEnd="10dp"
-                                                    android:background="@drawable/cuadronuevogrupogrande"
+                                                    android:layout_marginTop="0dp"
+                                                    android:layout_marginEnd="0dp"
+                                                    android:background="@drawable/fondotransparente"
                                                     app:layout_constraintEnd_toEndOf="parent"
                                                     app:layout_constraintHorizontal_bias="0.0"
                                                     app:layout_constraintStart_toStartOf="parent"
@@ -420,4 +422,4 @@ android:layout_height="wrap_content">
 
 </FrameLayout>
 
-    </ScrollView>
+</androidx.drawerlayout.widget.DrawerLayout>
