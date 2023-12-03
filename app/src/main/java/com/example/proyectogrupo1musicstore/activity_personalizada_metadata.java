@@ -44,7 +44,7 @@ public class activity_personalizada_metadata extends DialogFragment {
     /*Expresion*/
     String[] expresiones_regulares = new String[]{
             "[A-Za-z0-9À-ÖØ-öø-ÿ!,. ]+",      //edittext 1
-            "[A-Za-z0-9 ]+",                      //edittext 2
+            "[A-Za-z0-9 -().ñ Ñ-]+",                      //edittext 2
             "[A-Za-zÀ-ÖØ-öø-ÿ!$., ]+",    //edittext 3
             "[A-Za-zÀ-ÖØ-öø-ÿ/:,!$., ]+"  //edittext 4
     };
@@ -258,10 +258,10 @@ public class activity_personalizada_metadata extends DialogFragment {
     public void dataPorDefecto() {
         // Asignar valores existentes a metadataExistente
         if(nombreCancion != null) {
-            metadataExistente.set(0, nombreCancion);
+            metadataExistente.set(0, artista);
         }
         if(artista != null) {
-            metadataExistente.set(1, artista);
+            metadataExistente.set(1, nombreCancion);
         }
         if(album != null) {
             metadataExistente.set(2, album);
@@ -277,6 +277,7 @@ public class activity_personalizada_metadata extends DialogFragment {
                 editText.setText(metadataExistente.get(i));
                 editText.setTextColor(Color.GRAY); // Cambiar color del texto a gris
                 editText.setEnabled(false);
+                Log.d("El error",""+ metadataExistente.get(1));
             }
         }
     }

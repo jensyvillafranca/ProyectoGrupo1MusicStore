@@ -1,6 +1,7 @@
 package com.example.proyectogrupo1musicstore;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,6 +34,17 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoViewHol
         videoItem item = itemListVideo.get(position);
         holder.videoImage.setImageBitmap(item.getImageResId());
         holder.videoName.setText(item.getItemName());
+
+        //parte fue modificado por JM
+        ImageView imgVideo = holder.itemView.findViewById(R.id.itemPortadaAudio);
+
+        imgVideo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent pantallaInfo = new Intent(v.getContext(), ActivityReproductoVideo.class);
+                v.getContext().startActivity(pantallaInfo);
+            }
+        });
     }
 
     @Override

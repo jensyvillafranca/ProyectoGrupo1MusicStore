@@ -178,7 +178,7 @@
 
                 <!--Huella Digital-->
                 <ImageButton
-                    android:id="@+id/btnRegistrarHuella"
+                    android:id="@+id/btnLoginHuella"
                     android:layout_width="39dp"
                     android:layout_height="42dp"
                     android:layout_marginStart="30dp"
@@ -186,16 +186,16 @@
 
                 <!--Texto del botón de huella digital-->
                 <TextView
-                    android:id="@+id/txtviewRegistrarFacial"
+                    android:id="@+id/txtviewLoginHuella"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/fuente_jost_global"
                     android:paddingLeft="10dp"
                     android:paddingTop="13dp"
                     android:text="Inicio de Sesión con Huella"
-                    android:fontFamily="@font/fuente_jost_global"
-                    android:textStyle="bold"
                     android:textColor="#FFFFFF"
-                    android:textSize="15dp"></TextView>
+                    android:textSize="15dp"
+                    android:textStyle="bold"></TextView>
 
 
                 <!--Reconocimiento Facial-->

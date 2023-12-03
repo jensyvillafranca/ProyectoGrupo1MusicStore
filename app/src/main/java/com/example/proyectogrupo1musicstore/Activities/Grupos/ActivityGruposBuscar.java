@@ -66,7 +66,7 @@ public class ActivityGruposBuscar extends AppCompatActivity {
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layoutGruposBuscar);
         openMenuButton = (ImageButton) findViewById(R.id.btn_GruposBuscarMenu);
         botonAtras = (ImageButton) findViewById(R.id.btn_GruposBuscarAtras);
-        textviewAtras = (TextView) findViewById(R.id.textview_GrupoBuscarbotAtras);
+            textviewAtras = (TextView) findViewById(R.id.textview_GrupoBuscarbotAtras);
         textviewGruposBuscar = (TextView) findViewById(R.id.txtGruposBuscarBuscarGrupo);
         txtGruposBuscar = (EditText) findViewById(R.id.editTextGruposBuscar);
         imgBuscar = (ImageView) findViewById(R.id.imageViewGruposBuscar);

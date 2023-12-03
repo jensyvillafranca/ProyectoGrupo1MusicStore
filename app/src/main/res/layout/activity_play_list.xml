@@ -61,17 +61,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"/>
 
-                    <ImageButton
-                        android:id="@+id/btn_Principal"
-                        android:layout_width="40dp"
-                        android:layout_height="30dp"
 
-                        android:layout_alignParentTop="true"
-                        android:layout_alignParentEnd="true"
-                        android:layout_marginTop="15dp"
-                        android:layout_marginEnd="15dp"
-                        android:background="@android:color/transparent"
-                        android:src="@drawable/menudespegable" />
 
                 </LinearLayout>
 
@@ -257,14 +247,7 @@
 
     </FrameLayout>
 
-    <FrameLayout
-        android:id="@+id/side_menusss"
-        android:layout_width="240dp"
-        android:layout_height="match_parent"
-        android:layout_gravity="start">
 
-        <include layout="@layout/navigation_menu" />
-    </FrameLayout>
 
 
 

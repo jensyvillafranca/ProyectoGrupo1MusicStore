@@ -117,6 +117,8 @@ public class infoAudioAsyncTask extends AsyncTask<String, Void, List<infoReprodu
     }
 
     public interface DataFetchListener {
+        void onPlayClick(String audioUrl);
+
         void onDataFetched(List<infoReproductor> dataList);
     }
 }

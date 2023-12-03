@@ -27,7 +27,7 @@
     <TextView
         android:id="@+id/textviewNombreCancion"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="60dp"
         android:layout_marginTop="1dp"
         android:fontFamily="@font/fuente_jost_global"
         android:gravity="center"

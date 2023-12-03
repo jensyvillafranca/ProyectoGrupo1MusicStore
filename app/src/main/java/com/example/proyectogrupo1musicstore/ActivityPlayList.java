@@ -19,6 +19,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.proyectogrupo1musicstore.Activities.PantallaPrincipal.ActivityPantallaPrincipal;
 import com.example.proyectogrupo1musicstore.Adapters.PlayListAdapter;
 import com.example.proyectogrupo1musicstore.Models.PlayListItem;
 import com.example.proyectogrupo1musicstore.NetworkTaksMulti.ObtenerPlayListAsyncTask;
@@ -36,7 +37,7 @@ public class ActivityPlayList extends AppCompatActivity implements informacionGe
     RecyclerView recyclerviewPlayLists, recyclerviewMusicasFavoritass;
     ImageView fotoPlay;
     DrawerLayout drawerLayout;
-    ImageButton openMenuButton;
+    ImageButton openMenuButton, btnAtrasMenuPrincipal;
     private com.example.proyectogrupo1musicstore.Utilidades.Token.token token = new token(this);
 
     private int idplaylist;
@@ -64,8 +65,9 @@ public class ActivityPlayList extends AppCompatActivity implements informacionGe
         textviewNumeroPlay = (TextView) findViewById(R.id.textviewPlayList);
         txtSiguiente = (TextView) findViewById(R.id.txtPrincipal);
         txtSiguienteVerTodo  = (TextView) findViewById(R.id.textviewVerTodoMusicas);
-        openMenuButton = (ImageButton) findViewById(R.id.btn_Principal);
+
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layoutPlayList);
+        btnAtrasMenuPrincipal = (ImageButton) findViewById(R.id.btnAtrass);
        // mostrarNombreUsuario = (TextView) findViewById(R.id.txtNombreUsuario);
 
         // Creación de una lista de elementos de playlistitem
@@ -86,10 +88,7 @@ public class ActivityPlayList extends AppCompatActivity implements informacionGe
         new informacionGeneralPlayListAstAsyncTask(this).execute(url, String.valueOf(idUsuario));
         new ObtenerPlayListAsyncTask(ActivityPlayList.this, playAdapter, progressDialog).execute(String.valueOf(idUsuario));
 
-        // Listener para abrir el menú lateral
-        openMenuButton.setOnClickListener(v -> {
-            drawerLayout.openDrawer(findViewById(R.id.side_menusss));
-        });
+
 //        new ObtenerPlayListAsyncTask(ActivityPlayList.this, playAdapter, progressDialog)
   //              .execute(String.valueOf(idplaylist));
 
@@ -112,6 +111,9 @@ public class ActivityPlayList extends AppCompatActivity implements informacionGe
                 }
                 if (view.getId() == R.id.textviewVerTodoMusicas) {
                     actividad = ActivityVerPlayList.class;
+                }
+                if (view.getId() == R.id.btnAtrass) {
+                    actividad = ActivityPantallaPrincipal.class;
                 }
                 if (actividad != null) {
                     moveActivity(actividad);
@@ -152,6 +154,7 @@ public class ActivityPlayList extends AppCompatActivity implements informacionGe
 
         txtSiguiente.setOnClickListener(buttonClick);
         txtSiguienteVerTodo.setOnClickListener(buttonClick);
+        btnAtrasMenuPrincipal.setOnClickListener(buttonClick);
     }
 
 

@@ -2,21 +2,26 @@ package com.example.proyectogrupo1musicstore;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.proyectogrupo1musicstore.Models.infoReproductor;
 import com.example.proyectogrupo1musicstore.NetworkTaksMulti.infoAudioAsyncTask;
 import com.example.proyectogrupo1musicstore.Utilidades.Token.JwtDecoder;
 import com.example.proyectogrupo1musicstore.Utilidades.Token.token;
+import com.google.android.exoplayer2.MediaItem;
+import com.google.android.exoplayer2.SimpleExoPlayer;
+import com.google.android.exoplayer2.ui.PlayerView;
 
 import java.util.List;
 
@@ -26,9 +31,11 @@ public class ActivityReproductor extends AppCompatActivity implements infoAudioA
     TextView nombreCanciones;
     ImageView imagebuttonEditarFotoAudio;
     String url;
-    SeekBar musica;
+
     Button btnPlay, btnStop,btnReproducirSiguiente,btnReproAtras;
     SeekBar seekMusick;
+    private SimpleExoPlayer exoPlayer;
+    private Handler mainHandler = new Handler(Looper.getMainLooper());
 
 //modificado por JM
     ProgressDialog progressDialog;
@@ -36,6 +43,7 @@ public class ActivityReproductor extends AppCompatActivity implements infoAudioA
     private infoReproductor reproductoinfo;
 
     static MediaPlayer mediaPlayer;
+    private PlayerView playerView;
     private com.example.proyectogrupo1musicstore.Utilidades.Token.token token = new token(this);
 
     //Listo para extraer informacion de la base de datos
@@ -56,28 +64,15 @@ public class ActivityReproductor extends AppCompatActivity implements infoAudioA
         btnPlay = (Button) findViewById(R.id.playbtns);
         btnReproducirSiguiente = (Button) findViewById(R.id.stobbtn);
         btnReproAtras = (Button) findViewById(R.id.prevbtn);
-        musica = (SeekBar) findViewById(R.id.seekbars);
+        seekMusick = (SeekBar) findViewById(R.id.seekbars);
 
         if(mediaPlayer != null){
             mediaPlayer.stop();
             mediaPlayer.release();
         }
-        Multi();
 
 
 
-        btnPlay.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(mediaPlayer.isPlaying()){
-                    btnPlay.setBackgroundResource(R.drawable.icons2_play_24);
-                    mediaPlayer.pause();
-                }else {
-                    btnPlay.setBackgroundResource(R.drawable.icons2_play_24);
-                     mediaPlayer.start();
-                }
-            }
-        });
 
         // = getIntent().getIntExtra("idUsuario", 0);
 
@@ -87,6 +82,56 @@ public class ActivityReproductor extends AppCompatActivity implements infoAudioA
         new infoAudioAsyncTask(this).execute(url, String.valueOf(idUsuario));
 
 
+
+
+
+
+
+
+
+
+    }
+
+    @Override
+    public void onPlayClick(String audioUrl) {
+        // Use the mainHandler to ensure UI operations are on the main thread
+        mainHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                Log.e("AudioUrl", audioUrl);
+                initializePlayer();
+                MediaItem mediaItem = MediaItem.fromUri(audioUrl);
+                exoPlayer.setMediaItem(mediaItem);
+                exoPlayer.prepare();
+                exoPlayer.setPlayWhenReady(true);
+            }
+        });
+    }
+
+    @SuppressLint("WrongViewCast")
+    private void initializePlayer(){
+        if (exoPlayer == null) {
+            // Create a SimpleExoPlayer instance
+            exoPlayer = new SimpleExoPlayer.Builder(this).build();
+
+            // Bind the player to the view
+            playerView = findViewById(R.id.playbtns);
+            playerView.setVisibility(View.VISIBLE);
+            playerView.setPlayer(exoPlayer);
+        }
+    }
+
+    private void releasePlayer() {
+        if (exoPlayer != null) {
+            exoPlayer.release();
+            exoPlayer = null;
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        releasePlayer();
     }
 
     @Override
@@ -106,16 +151,8 @@ public class ActivityReproductor extends AppCompatActivity implements infoAudioA
 
     }
 
-    private void Multi(){
-        try{
-            mediaPlayer.setDataSource("https://storage.googleapis.com/proyectogrupo1musicstore.appspot.com/subirAudios/65680b3e1b24b.mp3");
-            mediaPlayer.prepare();
 
 
-        }catch (Exception exception){
-            Toast.makeText(this, exception.getMessage(),Toast.LENGTH_SHORT).show();
-        }
-    }
 
 
 

@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.proyectogrupo1musicstore.Adapters.CustomAdapterMusicaVideos;
+import com.example.proyectogrupo1musicstore.Models.buscarAudioMusica;
 import com.example.proyectogrupo1musicstore.Models.vistaMusicaVideo;
 
 import java.util.ArrayList;
@@ -50,7 +51,7 @@ public class Activity_BuscarVideos extends AppCompatActivity {
         buscarss = (CardView) findViewById(R.id.cardViewNavegacionMusicavideoos);
 
         //Creacion de una lista de elementos de vistaArchivos
-        List<vistaMusicaVideo> dataList = new ArrayList<>();
+        List<buscarAudioMusica> dataList = new ArrayList<>();
 
         //Configuracion del administrador de disenio y adaptador para el RecyclerView
         LinearLayoutManager layoutManager = new LinearLayoutManager(this); // Use an appropriate layout manager
