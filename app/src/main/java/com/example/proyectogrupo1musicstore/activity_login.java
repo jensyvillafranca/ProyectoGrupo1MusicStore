@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,8 +43,9 @@ public class activity_login extends AppCompatActivity {
     /*Declaración de variables*/
     EditText txtLoginUsuario, txtLoginPassword;
 
-    TextView txtviewOlvidaPassword;
+    TextView txtviewOlvidaPassword, txtviewLoginHuella;
     Button btnLoginEntrar, btnLoginRegistrarse;
+    ImageButton btnRegistrarHuella;
     String contraseniaParaClave = "programacionMovil1";
     Boolean estadoLogin;
 
@@ -63,7 +65,9 @@ public class activity_login extends AppCompatActivity {
         txtLoginUsuario = (EditText) findViewById(R.id.txtRegistrarUsuario);
         txtLoginPassword = (EditText) findViewById(R.id.txtLoginPassword);
         txtviewOlvidaPassword = (TextView) findViewById(R.id.txtviewOlvidaPassword);
+        txtviewLoginHuella = (TextView) findViewById(R.id.txtviewLoginHuella);
         recordarmeInicioSesion = (CheckBox) findViewById(R.id.checkLoginRecordar);
+        btnRegistrarHuella = (ImageButton) findViewById(R.id.btnLoginHuella);
 
 
 
@@ -102,6 +106,21 @@ public class activity_login extends AppCompatActivity {
             public void onClick(View v) {
                 Intent recuperarContra = new Intent(getApplicationContext(), activity_recuperar_contrasena1.class);
                 startActivity(recuperarContra);
+            }
+        });
+
+        /*Evento para iniciar sesión con la huella (Primero con la imageButton) luego con el textview*/
+        btnRegistrarHuella.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        txtviewLoginHuella.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
             }
         });
         expresiones_regulares();
