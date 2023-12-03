@@ -56,7 +56,6 @@ public class CustomAdapterBuscarGrupos extends RecyclerView.Adapter<CustomAdapte
                     Intent pantallaUnirse = new Intent(v.getContext(), ActivityUnirseGrupo.class);
                     String jsonString = new Gson().toJson(data);
                     pantallaUnirse.putExtra("jsonString", jsonString);
-                    Log.e("DataList: ", jsonString);
                     v.getContext().startActivity(pantallaUnirse);
                 }
             });

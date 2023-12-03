@@ -285,7 +285,7 @@ public class Activity_EditarPerfil extends AppCompatActivity {
                         String base64Image = encodeToBase64(imageBitmap);
 
                         // Subir la imagen a Firebase Storage
-                        uploadImageToFirebase(base64Image);
+                        //uploadImageToFirebase(base64Image);
                     }
                 }
             } else if (requestCode == REQUEST_PICK_IMAGE) {

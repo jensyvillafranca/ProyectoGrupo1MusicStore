@@ -5,7 +5,6 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
@@ -13,7 +12,7 @@ import android.widget.TextView;
 
 import com.example.proyectogrupo1musicstore.Adapters.MusicaAdapter;
 import com.example.proyectogrupo1musicstore.Models.musicItem;
-import com.example.proyectogrupo1musicstore.NetworkTasks.obtenerAudiosGrupoAsyncTask;
+import com.example.proyectogrupo1musicstore.NetworkTasks.GruposNetworkTasks.obtenerAudiosGrupoAsyncTask;
 import com.example.proyectogrupo1musicstore.R;
 
 import java.util.ArrayList;

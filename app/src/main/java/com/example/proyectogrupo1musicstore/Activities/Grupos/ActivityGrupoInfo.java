@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -14,7 +15,6 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.proyectogrupo1musicstore.Activities.PantallaPrincipal.ActivityPantallaPrincipal;
 import com.example.proyectogrupo1musicstore.Adapters.IntegrantesAdapter;
 import com.example.proyectogrupo1musicstore.Adapters.MusicaAdapter;
 import com.example.proyectogrupo1musicstore.Adapters.VideoAdapter;
@@ -22,11 +22,13 @@ import com.example.proyectogrupo1musicstore.Models.informacionGrupoGeneral;
 import com.example.proyectogrupo1musicstore.Models.integrantesItem;
 import com.example.proyectogrupo1musicstore.Models.musicItem;
 import com.example.proyectogrupo1musicstore.Models.videoItem;
-import com.example.proyectogrupo1musicstore.NetworkTasks.InfomacionGeneralGrupoAsyncTask;
-import com.example.proyectogrupo1musicstore.NetworkTasks.obtenerAudiosGrupoAsyncTask;
-import com.example.proyectogrupo1musicstore.NetworkTasks.obtenerIntegrantesGrupoAsyncTask;
-import com.example.proyectogrupo1musicstore.NetworkTasks.obtenerVideosGrupoAsyncTask;
+import com.example.proyectogrupo1musicstore.NetworkTasks.GruposNetworkTasks.InfomacionGeneralGrupoAsyncTask;
+import com.example.proyectogrupo1musicstore.NetworkTasks.GruposNetworkTasks.obtenerAudiosGrupoAsyncTask;
+import com.example.proyectogrupo1musicstore.NetworkTasks.GruposNetworkTasks.obtenerIntegrantesGrupoAsyncTask;
+import com.example.proyectogrupo1musicstore.NetworkTasks.GruposNetworkTasks.obtenerVideosGrupoAsyncTask;
 import com.example.proyectogrupo1musicstore.R;
+import com.example.proyectogrupo1musicstore.Utilidades.Navegacion.NavigationClickListener;
+import com.example.proyectogrupo1musicstore.Utilidades.Navegacion.NavigationGruposInfoClickListener;
 import com.example.proyectogrupo1musicstore.Utilidades.Token.JwtDecoder;
 import com.example.proyectogrupo1musicstore.Utilidades.Token.token;
 
@@ -36,13 +38,15 @@ import java.util.List;
 public class ActivityGrupoInfo extends AppCompatActivity implements InfomacionGeneralGrupoAsyncTask.DataFetchListener {
 
     DrawerLayout drawerLayout;
-    ImageButton openMenuButton, botonAtras;
-    TextView textviewAtras, Grupos, Inicio, nombreGrupo, textviewNumeroIntegrantes, textviewNumeroAudio, textviewNumeroVideo, verTodosIntegrantes, verTodosMusica, verTodosVideo;
-    ImageView iconGrupos, iconInicio, fotoGrupo;
+    ImageButton openMenuButton;
+    TextView nombreGrupo, textviewNumeroIntegrantes, textviewNumeroAudio, textviewNumeroVideo;
+    ImageView fotoGrupo;
+    Button botonEntrarChat;
     RecyclerView recyclerViewIntegrantes, recyclerViewMusica, recyclerViewVideos;
     private int idgrupo;
     ProgressDialog progressDialog;
     private com.example.proyectogrupo1musicstore.Utilidades.Token.token token = new token(this);
+    private NavigationGruposInfoClickListener navigationClickListener;
     private int idUsuario;
 
     @Override
@@ -57,26 +61,21 @@ public class ActivityGrupoInfo extends AppCompatActivity implements InfomacionGe
         idgrupo = getIntent().getIntExtra("idgrupo", 0);
         idUsuario = Integer.parseInt(JwtDecoder.decodeJwt(token.recuperarTokenFromKeystore()));
 
+        // Inicializa listener para elementos
+        navigationClickListener = new NavigationGruposInfoClickListener(this, this, idgrupo);
+
         // Declaración de variables
         recyclerViewIntegrantes = (RecyclerView) findViewById(R.id.recyclerviewIntegrantes);
         recyclerViewMusica = (RecyclerView) findViewById(R.id.recyclerviewMusica);
         recyclerViewVideos = (RecyclerView) findViewById(R.id.recyclerviewVideo);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layoutGrupoInfo);
         openMenuButton = (ImageButton) findViewById(R.id.btn_GrupoInfoMenu);
-        botonAtras = (ImageButton) findViewById(R.id.btn_GrupoInfoAtras);
-        textviewAtras = (TextView) findViewById(R.id.textview_GrupoInfoBotAtras);
-        Grupos = (TextView) findViewById(R.id.txtViewNavGrupos);
-        Inicio = (TextView) findViewById(R.id.txtviewNavInicio);
-        iconGrupos = (ImageView) findViewById(R.id.iconNavGrupos);
-        iconInicio = (ImageView) findViewById(R.id.iconNavInicio);
         fotoGrupo = (ImageView) findViewById(R.id.imageviewGrupoInfoFoto);
         nombreGrupo = (TextView) findViewById(R.id.textview_GrupoInfoTitulo);
         textviewNumeroIntegrantes = (TextView) findViewById(R.id.textviewIntegrantesTitle);
         textviewNumeroAudio = (TextView) findViewById(R.id.textviewMusicaTitle);
         textviewNumeroVideo = (TextView) findViewById(R.id.textviewVideoTitle);
-        verTodosIntegrantes = (TextView) findViewById(R.id.textviewVerTodoIntegrantes);
-        verTodosMusica = (TextView) findViewById(R.id.textviewVerTodoMusica);
-        verTodosVideo = (TextView) findViewById(R.id.textviewVerTodoVideo);
+        botonEntrarChat = findViewById(R.id.buttonIngresarChat);
 
         // Creación de una lista de elementos de integrantesItem
         List<integrantesItem> integrantesList = new ArrayList<>();
@@ -127,79 +126,9 @@ public class ActivityGrupoInfo extends AppCompatActivity implements InfomacionGe
             drawerLayout.openDrawer(findViewById(R.id.side_menu));
         });
 
-        botonAtras.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        //Listener para menu de navegacion
+        View.OnClickListener buttonClickNav = new NavigationClickListener(this,this);
 
-        textviewAtras.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-
-        // Listener para manejar los botones de "Atrás"
-        View.OnClickListener buttonClick = new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Class<?> actividad = null;
-                if (view.getId() == R.id.txtViewNavGrupos) {
-                    actividad = ActivityGrupoPrincipal.class;
-                }
-                if (view.getId() == R.id.txtviewNavInicio) {
-                    actividad = ActivityPantallaPrincipal.class;
-                }
-                if (view.getId() == R.id.iconNavGrupos) {
-                    actividad = ActivityGrupoPrincipal.class;
-                }
-                if (view.getId() == R.id.iconNavInicio) {
-                    actividad = ActivityPantallaPrincipal.class;
-                }
-                if (view.getId() == R.id.textviewVerTodoIntegrantes) {
-                    actividad = ActivityVerTodosIntegrantes.class;
-                }
-                if (view.getId() == R.id.textviewVerTodoMusica) {
-                    actividad = ActivityVerTodosMusica.class;
-                }
-                if (view.getId() == R.id.textviewVerTodoVideo) {
-                    actividad = ActivityVerTodosVideo.class;
-                }
-                if (actividad != null) {
-                    moveActivity(actividad);
-                }
-            }
-        };
-
-        //Listener De Boton
-        View.OnClickListener buttonClick2 = new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Class<?> actividad = null;
-                if (view.getId() == R.id.textviewVerTodoIntegrantes) {
-                    actividad = ActivityVerTodosIntegrantes.class;
-                }
-                if (view.getId() == R.id.textviewVerTodoMusica) {
-                    actividad = ActivityVerTodosMusica.class;
-                }
-                if (view.getId() == R.id.textviewVerTodoVideo) {
-                    actividad = ActivityVerTodosVideo.class;
-                }
-                if (actividad != null) {
-                    moveActivity(actividad, idgrupo);
-                }
-            }
-        };
-
-        Grupos.setOnClickListener(buttonClick);
-        Inicio.setOnClickListener(buttonClick);
-        iconGrupos.setOnClickListener(buttonClick);
-        iconInicio.setOnClickListener(buttonClick);
-        verTodosIntegrantes.setOnClickListener(buttonClick2);
-        verTodosMusica.setOnClickListener(buttonClick2);
-        verTodosVideo.setOnClickListener(buttonClick2);
     }
 
     @Override
@@ -212,19 +141,19 @@ public class ActivityGrupoInfo extends AppCompatActivity implements InfomacionGe
             textviewNumeroIntegrantes.setText("Integrantes: " + groupInfo.getNumeroMiembros());
             textviewNumeroAudio.setText("Audio: " + groupInfo.getNumeroMusica());
             textviewNumeroVideo.setText("Videos: " + groupInfo.getNumeroVideos());
+
+            botonEntrarChat.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(v.getContext(), ActivityChat.class);
+                    intent.putExtra("idgrupo", groupInfo.getIdgrupo());
+                    intent.putExtra("nombregrupo", groupInfo.getNombre());
+                    intent.putExtra("image", groupInfo.getUrl());
+                    v.getContext().startActivity(intent);
+                }
+            });
         } else {
             Log.e("Error", "No data fetched from the server");
         }
-    }
-
-    private void moveActivity(Class<?> actividad) {
-        Intent intent = new Intent(getApplicationContext(), actividad);
-        startActivity(intent);
-    }
-
-    private void moveActivity(Class<?> actividad, int idgrupo) {
-        Intent intent = new Intent(getApplicationContext(), actividad);
-        intent.putExtra("idgrupo", idgrupo);
-        startActivity(intent);
     }
 }

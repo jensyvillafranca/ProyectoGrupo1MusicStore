@@ -9,14 +9,16 @@ public class informacionGrupoGeneral {
     private int numeroMiembros;
     private int numeroMusica;
     private int numeroVideos;
+    private String url;
 
-    public informacionGrupoGeneral(int idgrupo, String nombre, Bitmap foto, int numeroMiembros, int numeroMusica, int numeroVideos) {
+    public informacionGrupoGeneral(int idgrupo, String nombre, Bitmap foto, int numeroMiembros, int numeroMusica, int numeroVideos, String url) {
         this.idgrupo = idgrupo;
         this.nombre = nombre;
         this.foto = foto;
         this.numeroMiembros = numeroMiembros;
         this.numeroMusica = numeroMusica;
         this.numeroVideos = numeroVideos;
+        this.url = url;
     }
 
     public informacionGrupoGeneral() {
@@ -45,4 +47,6 @@ public class informacionGrupoGeneral {
     public int getNumeroVideos() {return numeroVideos;}
 
     public void setNumeroVideos(int numeroVideos) {this.numeroVideos = numeroVideos;}
+
+    public String getUrl() {return url;}
 }

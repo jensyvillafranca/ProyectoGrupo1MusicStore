@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
     <uses-permission android:name="android.permission.READ_MEDIA_AUDIO" />
     <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
@@ -13,13 +14,11 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.USE_BIOMETRIC" />
     <uses-permission android:name="android.permission.USE_FINGERPRINT" />
 
     <application
-        android:name=".Room.MyApplication"
+        android:name=".MyApplication.MyApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -28,6 +27,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ProyectoGrupo1MusicStore"
         tools:targetApi="31">
+        <activity
+            android:name=".Activities.ActivityBuscarPrincipal"
+            android:exported="false" />
+        <activity
+            android:name=".Activities.Grupos.ActivityVideoSelection"
+            android:exported="false" />
+        <activity
+            android:name=".Activities.Grupos.ActivityAudioSelection"
+            android:exported="false" />
         <activity
             android:name=".Activities.AcercaDe.ActivityAcercaDe"
             android:exported="false" />
@@ -98,7 +106,7 @@
             android:name=".activity_login"
             android:exported="false" />
         <activity
-            android:name=".Activity_PerfilPersonal"
+            android:name=".Activities.Perfil.Activity_PerfilPersonal"
             android:exported="false" />
         <activity
             android:name=".Activities.Grupos.ActivityGruposBuscar"
@@ -151,7 +159,7 @@
             android:name=".ActivityListaSeguidos"
             android:exported="false" />
         <activity
-            android:name=".ActivityListaSeguidores"
+            android:name=".Activities.Perfil.ActivityListaSeguidores"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
@@ -172,6 +180,16 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.example.proyectogrupo1musicstore.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
     </application>
 
 </manifest>

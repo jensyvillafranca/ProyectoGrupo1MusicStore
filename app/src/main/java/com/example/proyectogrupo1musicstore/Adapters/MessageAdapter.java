@@ -110,6 +110,14 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
                             onPlayClickListener.onPlayClick(message.getAudioUrl());
                         }
                     });
+                }else if(message.getMediatype().equals("Voice")){
+                    btnPlayUsuario.setVisibility(View.VISIBLE);
+                    // Handle play button click
+                    btnPlayUsuario.setOnClickListener(v -> {
+                        if (onPlayClickListener != null) {
+                            onPlayClickListener.onPlayClick(message.getAudioUrl());
+                        }
+                    });
                 }
             }else {
                 messageText.setText(message.getText());

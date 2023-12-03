@@ -88,10 +88,7 @@ public class ObtenerPlayListAsyncTask extends AsyncTask<String, Void, List<PlayL
 
     @Override
     protected void onPostExecute(List<PlayListItem> dataList) {
-
-        if (tipoProgress == 1) {
-            progressDialog.dismiss();
-        }
+        progressDialog.dismiss();
         if (dataList != null) {
             adapter.setDataList(dataList);
         }

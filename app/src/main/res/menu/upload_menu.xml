@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/menu_upload_phone_storage_music"
+        android:title="Subir Archivo de Música" />
+    <item
+        android:id="@+id/menu_upload_phone_storage_video"
+        android:title="Subir Archivo de Video" />
+    <item
+        android:id="@+id/menu_upload_app_storage_music"
+        android:title="Elegir Archivo Personal de Música" />
+    <item
+        android:id="@+id/menu_upload_app_storage_video"
+        android:title="Elegir Archivo Personal de Video" />
+</menu>

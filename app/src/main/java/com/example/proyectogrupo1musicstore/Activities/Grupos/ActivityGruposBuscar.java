@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -22,8 +23,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.proyectogrupo1musicstore.Activities.PantallaPrincipal.ActivityPantallaPrincipal;
 import com.example.proyectogrupo1musicstore.Adapters.CustomAdapterBuscarGrupos;
 import com.example.proyectogrupo1musicstore.Models.buscarGrupo;
-import com.example.proyectogrupo1musicstore.NetworkTasks.BuscarGruposAsyncTask;
+import com.example.proyectogrupo1musicstore.NetworkTasks.GruposNetworkTasks.BuscarGruposAsyncTask;
 import com.example.proyectogrupo1musicstore.R;
+import com.example.proyectogrupo1musicstore.Utilidades.Navegacion.NavigationClickListener;
+import com.example.proyectogrupo1musicstore.Utilidades.Navegacion.NavigationGruposPrincipalClickListener;
 import com.example.proyectogrupo1musicstore.Utilidades.Token.JwtDecoder;
 import com.example.proyectogrupo1musicstore.Utilidades.Token.token;
 
@@ -36,10 +39,11 @@ public class ActivityGruposBuscar extends AppCompatActivity {
     RecyclerView lista;
     DrawerLayout drawerLayout;
     ImageButton openMenuButton, botonAtras;
-    TextView textviewAtras, textviewGruposBuscar, Grupos, Inicio;
+    TextView textviewAtras, textviewGruposBuscar;
     EditText txtGruposBuscar;
-    ImageView imgBuscar, imgBuscar2, iconGrupos, iconInicio;
+    ImageView imgBuscar, imgBuscar2;
     ProgressDialog progressDialog;
+    private NavigationClickListener navigationClickListener;
     private com.example.proyectogrupo1musicstore.Utilidades.Token.token token = new token(this);
     private int idUsuario;
 
@@ -51,6 +55,9 @@ public class ActivityGruposBuscar extends AppCompatActivity {
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Cargando...");
         progressDialog.setCancelable(false);
+
+        // Inicializa listener para elementos
+        navigationClickListener = new NavigationClickListener(this, this);
 
         idUsuario = Integer.parseInt(JwtDecoder.decodeJwt(token.recuperarTokenFromKeystore()));
 
@@ -64,10 +71,8 @@ public class ActivityGruposBuscar extends AppCompatActivity {
         txtGruposBuscar = (EditText) findViewById(R.id.editTextGruposBuscar);
         imgBuscar = (ImageView) findViewById(R.id.imageViewGruposBuscar);
         imgBuscar2 = (ImageView) findViewById(R.id.imageViewGruposBuscar2);
-        Grupos = (TextView) findViewById(R.id.txtViewNavGrupos);
-        Inicio = (TextView) findViewById(R.id.txtviewNavInicio);
-        iconGrupos = (ImageView) findViewById(R.id.iconNavGrupos);
-        iconInicio = (ImageView) findViewById(R.id.iconNavInicio);
+
+
 
         // Creación de una lista de elementos de vistaDeGrupo
         List<buscarGrupo> dataList = new ArrayList<>();
@@ -77,6 +82,19 @@ public class ActivityGruposBuscar extends AppCompatActivity {
         lista.setLayoutManager(layoutManager);
         CustomAdapterBuscarGrupos adapter = new CustomAdapterBuscarGrupos(this, dataList);
         lista.setAdapter(adapter);
+
+        try{
+            String busqueda;
+            busqueda = getIntent().getStringExtra("busqueda");
+            if(!busqueda.isEmpty()){
+                txtGruposBuscar.setText(busqueda);
+                String query = txtGruposBuscar.getText().toString();
+                new BuscarGruposAsyncTask(ActivityGruposBuscar.this, lista, adapter)
+                        .execute(String.valueOf(idUsuario), query);
+            }
+        }catch (Exception e){
+            Log.e("Error Parameter", "No se encontro un parametro");
+        }
 
         //Listener para manerjar la visibilidad del boton de busqueda
         textviewGruposBuscar.setOnClickListener(new View.OnClickListener() {
@@ -150,46 +168,18 @@ public class ActivityGruposBuscar extends AppCompatActivity {
         });
 
         // Listener para manejar los botones de "Atrás"
-        View.OnClickListener buttonClick = new View.OnClickListener() {
+        botonAtras.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Class<?> actividad = null;
-                if (view.getId() == R.id.btn_GruposBuscarAtras) {
-                    actividad = ActivityGrupoPrincipal.class;
-                }
-                if (view.getId() == R.id.textview_GrupoBuscarbotAtras) {
-                    actividad = ActivityGrupoPrincipal.class;
-                }
-                if (view.getId() == R.id.txtViewNavGrupos) {
-                    actividad = ActivityGrupoPrincipal.class;
-                }
-                if (view.getId() == R.id.txtviewNavInicio) {
-                    actividad = ActivityPantallaPrincipal.class;
-                }
-                if (view.getId() == R.id.iconNavGrupos) {
-                    actividad = ActivityGrupoPrincipal.class;
-                }
-                if (view.getId() == R.id.iconNavInicio) {
-                    actividad = ActivityPantallaPrincipal.class;
-                }
-                if (actividad != null) {
-                    moveActivity(actividad);
-                }
+            public void onClick(View v) {
+                finish();
             }
-        };
+        });
 
-
-        // Asigna los listeners a los botones de "Atrás"
-        botonAtras.setOnClickListener(buttonClick);
-        textviewAtras.setOnClickListener(buttonClick);
-        Grupos.setOnClickListener(buttonClick);
-        Inicio.setOnClickListener(buttonClick);
-        iconGrupos.setOnClickListener(buttonClick);
-        iconInicio.setOnClickListener(buttonClick);
-    }
-
-    private void moveActivity(Class<?> actividad) {
-        Intent intent = new Intent(getApplicationContext(), actividad);
-        startActivity(intent);
+        textviewAtras.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 }

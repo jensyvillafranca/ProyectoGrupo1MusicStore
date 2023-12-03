@@ -35,9 +35,9 @@ import com.example.proyectogrupo1musicstore.Activities.PantallaPrincipal.Activit
 import com.example.proyectogrupo1musicstore.Adapters.CustomAdapterNuevoGrupoIntegrantes;
 import com.example.proyectogrupo1musicstore.Models.informacionGrupoEditar;
 import com.example.proyectogrupo1musicstore.Models.vistaDeNuevoGrupo;
-import com.example.proyectogrupo1musicstore.NetworkTasks.FetchMemberDetailsEditarAsyncTask;
-import com.example.proyectogrupo1musicstore.NetworkTasks.InformacionGrupoEditarAsyncTask;
-import com.example.proyectogrupo1musicstore.NetworkTasks.UpdateGrupoAsyncTask;
+import com.example.proyectogrupo1musicstore.NetworkTasks.GruposNetworkTasks.FetchMemberDetailsEditarAsyncTask;
+import com.example.proyectogrupo1musicstore.NetworkTasks.GruposNetworkTasks.InformacionGrupoEditarAsyncTask;
+import com.example.proyectogrupo1musicstore.NetworkTasks.GruposNetworkTasks.UpdateGrupoAsyncTask;
 import com.example.proyectogrupo1musicstore.R;
 import com.example.proyectogrupo1musicstore.Utilidades.UI.ConfirmationDialog;
 import com.example.proyectogrupo1musicstore.Utilidades.Token.JwtDecoder;
@@ -115,24 +115,20 @@ public class ActivityEditarGrupo extends AppCompatActivity implements Informacio
         String ulrIntegranes = "https://phpclusters-152621-0.cloudclusters.net/obtenerIntegrantesGrupo.php";
         new FetchMemberDetailsEditarAsyncTask(ActivityEditarGrupo.this, adapter, progressDialog, 2).execute(ulrIntegranes, String.valueOf(idgrupo));
 
-        View.OnClickListener buttonClick = new View.OnClickListener() {
+        // Listeners para botones de atras
+        imagebuttonAtras.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Class<?> actividad = null;
-                if (view.getId() == R.id.btn_EditarGrupoAtras) {
-                    actividad = ActivityGrupoPrincipal.class;
-                }
-                if (view.getId() == R.id.textview_EditarGrupoBotAtras) {
-                    actividad = ActivityPantallaPrincipal.class;
-                }
-                if (actividad != null) {
-                    moveActivity(actividad);
-                }
+            public void onClick(View v) {
+                finish();
             }
-        };
+        });
 
-        imagebuttonAtras.setOnClickListener(buttonClick);
-        textviewAtras.setOnClickListener(buttonClick);
+        textviewAtras.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         //Listener para cambiar imagen
         imagebuttonEditarFoto.setOnClickListener(new View.OnClickListener() {
@@ -227,12 +223,6 @@ public class ActivityEditarGrupo extends AppCompatActivity implements Informacio
                 showPermissionExplanation();
             }
         }
-    }
-
-    // Método para cambiar a otra actividad
-    private void moveActivity(Class<?> actividad) {
-        Intent intent = new Intent(getApplicationContext(), actividad);
-        startActivity(intent);
     }
 
     //metodo para revisar los permisos

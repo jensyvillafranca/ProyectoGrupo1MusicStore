@@ -1,6 +1,7 @@
 package com.example.proyectogrupo1musicstore.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.proyectogrupo1musicstore.Activities.Grupos.ActivityGruposBuscar;
+import com.example.proyectogrupo1musicstore.Activities.Perfil.Activity_PerfilPersonal;
 import com.example.proyectogrupo1musicstore.Models.integrantesItem;
 import com.example.proyectogrupo1musicstore.R;
 
@@ -36,6 +39,14 @@ public class IntegrantesAdapter extends RecyclerView.Adapter<IntegrantesAdapter.
         integrantesItem item = itemList.get(position);
         holder.integranteImage.setImageBitmap(item.getImageResId());
         holder.integranteName.setText(item.getItemName());
+        holder.integranteImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), Activity_PerfilPersonal.class);
+                intent.putExtra("idusuarioVista", item.getId());
+                v.getContext().startActivity(intent);
+            }
+        });
     }
 
     @Override

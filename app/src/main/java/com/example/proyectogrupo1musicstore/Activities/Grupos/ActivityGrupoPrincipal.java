@@ -17,8 +17,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.proyectogrupo1musicstore.Activities.PantallaPrincipal.ActivityPantallaPrincipal;
 import com.example.proyectogrupo1musicstore.Adapters.CustomAdapter;
 import com.example.proyectogrupo1musicstore.Models.vistaDeGrupo;
-import com.example.proyectogrupo1musicstore.NetworkTasks.FetchDataAsyncGruposPrincipal;
+import com.example.proyectogrupo1musicstore.NetworkTasks.GruposNetworkTasks.FetchDataAsyncGruposPrincipal;
 import com.example.proyectogrupo1musicstore.R;
+import com.example.proyectogrupo1musicstore.Utilidades.Navegacion.NavigationGruposPrincipalClickListener;
 import com.example.proyectogrupo1musicstore.Utilidades.Token.JwtDecoder;
 import com.example.proyectogrupo1musicstore.Utilidades.Navegacion.NavigationClickListener;
 import com.example.proyectogrupo1musicstore.Utilidades.Token.token;
@@ -30,11 +31,9 @@ public class ActivityGrupoPrincipal extends AppCompatActivity implements FetchDa
     // Declaración de variables
     private RecyclerView lista;
     private DrawerLayout drawerLayout;
-    private ImageButton openMenuButton, botonAtras;
-    private TextView textviewAtras, txtGruposBuscar, txtNuevoGrupo, txtActualizar;
-    private ImageView imageviewGruposBuscar, imageviewNuevoGrupo, imageviewActualizar;
-    private CardView buscar, nuevoGrupo, actualizar;
+    private ImageButton openMenuButton;
     private ProgressDialog progressDialog;
+    private NavigationGruposPrincipalClickListener navigationClickListener;
     private com.example.proyectogrupo1musicstore.Utilidades.Token.token token = new token(this);
     private int idUsuario;
 
@@ -43,6 +42,9 @@ public class ActivityGrupoPrincipal extends AppCompatActivity implements FetchDa
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_grupo_principal);
+
+        // Inicializa listener para elementos
+        navigationClickListener = new NavigationGruposPrincipalClickListener(this, this);
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Cargando...");
@@ -54,17 +56,6 @@ public class ActivityGrupoPrincipal extends AppCompatActivity implements FetchDa
         lista = (RecyclerView) findViewById(R.id.recyclerview_GruposPrincipal);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         openMenuButton = (ImageButton) findViewById(R.id.btn_GruposPrincipalMenu);
-        botonAtras = (ImageButton) findViewById(R.id.btn_GruposPrincipalAtras);
-        textviewAtras = (TextView) findViewById(R.id.textview_GrupoPrincipalbotAtras);
-        txtGruposBuscar = (TextView) findViewById(R.id.txtGruposPrincipalBuscarGrupo);
-        txtNuevoGrupo = (TextView) findViewById(R.id.txtGruposPrincipalNuevoGrupo);
-        txtActualizar = (TextView) findViewById(R.id.txtGruposPrincipalActualizar);
-        imageviewGruposBuscar = (ImageView) findViewById(R.id.imageviewGruposPrincipalBuscar);
-        imageviewNuevoGrupo = (ImageView) findViewById(R.id.imageviewGruposPrincipalNuevoGrupo);
-        imageviewActualizar = (ImageView) findViewById(R.id.imageviewGruposPrincipalActualizar);
-        buscar = (CardView) findViewById(R.id.cardViewGruposPrincipalBuscar);
-        nuevoGrupo = (CardView) findViewById(R.id.cardViewGruposPrincipalNuevo);
-        actualizar = (CardView) findViewById(R.id.cardViewGruposPrincipalActualizar);
 
         // Fetch data from the server
         String url = "https://phpclusters-152621-0.cloudclusters.net/principalGrupos.php";
@@ -82,75 +73,6 @@ public class ActivityGrupoPrincipal extends AppCompatActivity implements FetchDa
             drawerLayout.openDrawer(findViewById(R.id.side_menu));
         });
 
-        // Listener para manejar diferentes acciones de elementos
-        View.OnClickListener buttonClick = new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Class<?> actividad = null;
-                if (view.getId()==R.id.btn_GruposPrincipalAtras) {
-                    actividad = ActivityPantallaPrincipal.class;
-                }
-                if (view.getId()==R.id.textview_GrupoPrincipalbotAtras){
-                    actividad = ActivityPantallaPrincipal.class;
-                }
-                if (view.getId() == R.id.txtGruposPrincipalBuscarGrupo){
-                    actividad = ActivityGruposBuscar.class;
-                }
-                if (view.getId() == R.id.imageviewGruposPrincipalBuscar){
-                    actividad = ActivityGruposBuscar.class;
-                }
-                if (view.getId() == R.id.cardViewGruposPrincipalBuscar){
-                    actividad = ActivityGruposBuscar.class;
-                }
-                if (view.getId() == R.id.txtGruposPrincipalNuevoGrupo){
-                    actividad = ActivityNuevoGrupoIntegrantes.class;
-                }
-                if (view.getId() == R.id.imageviewGruposPrincipalNuevoGrupo){
-                    actividad = ActivityNuevoGrupoIntegrantes.class;
-                }
-                if (view.getId() == R.id.cardViewGruposPrincipalNuevo){
-                    actividad = ActivityNuevoGrupoIntegrantes.class;
-                }
-                if (view.getId() == R.id.txtGruposPrincipalActualizar){
-                    recreate();
-                }
-                if (view.getId() == R.id.imageviewGruposPrincipalActualizar){
-                    recreate();
-                }
-                if (view.getId() == R.id.cardViewGruposPrincipalActualizar){
-                    recreate();
-                }
-                if (view.getId() == R.id.txtViewNavGrupos) {
-                    actividad = ActivityGrupoPrincipal.class;
-                }
-                if (view.getId() == R.id.txtviewNavInicio) {
-                    actividad = ActivityPantallaPrincipal.class;
-                }
-                if (view.getId() == R.id.iconNavGrupos){
-                    actividad = ActivityGrupoPrincipal.class;
-                }
-                if (view.getId() == R.id.iconNavInicio){
-                    actividad = ActivityPantallaPrincipal.class;
-                }
-                if (actividad != null) {
-                    moveActivity(actividad);
-                }
-            }
-        };
-
-        // Asigna los listeners a los botones de "Atrás"
-        botonAtras.setOnClickListener(buttonClick);
-        textviewAtras.setOnClickListener(buttonClick);
-        txtGruposBuscar.setOnClickListener(buttonClick);
-        txtActualizar.setOnClickListener(buttonClick);
-        imageviewGruposBuscar.setOnClickListener(buttonClick);
-        imageviewActualizar.setOnClickListener(buttonClick);
-        buscar.setOnClickListener(buttonClick);
-        actualizar.setOnClickListener(buttonClick);
-        txtGruposBuscar.setOnClickListener(buttonClick);
-        imageviewGruposBuscar.setOnClickListener(buttonClick);
-        nuevoGrupo.setOnClickListener(buttonClick);
-
         // Listener para menu de navegacion
         View.OnClickListener buttonClickNav = new NavigationClickListener(this,this);
     }
@@ -161,11 +83,5 @@ public class ActivityGrupoPrincipal extends AppCompatActivity implements FetchDa
         progressDialog.dismiss(); // Esconde el spinner de carga
         CustomAdapter adapter = new CustomAdapter(this, dataList, idUsuario, lista);
         lista.setAdapter(adapter);
-    }
-
-    // Método para cambiar a otra actividad
-    private void moveActivity(Class<?> actividad) {
-        Intent intent = new Intent(getApplicationContext(), actividad);
-        startActivity(intent);
     }
 }

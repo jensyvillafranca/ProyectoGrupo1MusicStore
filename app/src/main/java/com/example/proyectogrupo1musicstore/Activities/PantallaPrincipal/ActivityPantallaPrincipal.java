@@ -1,5 +1,6 @@
 package com.example.proyectogrupo1musicstore.Activities.PantallaPrincipal;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -17,12 +18,14 @@ import android.widget.PopupMenu;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import com.example.proyectogrupo1musicstore.NetworkTasks.aceptarSolicitudAsyncTask;
-import com.example.proyectogrupo1musicstore.NetworkTasks.denegarSolicitudAsyncTask;
+import com.example.proyectogrupo1musicstore.NetworkTasks.GruposNetworkTasks.aceptarSolicitudAsyncTask;
+import com.example.proyectogrupo1musicstore.NetworkTasks.GruposNetworkTasks.denegarSolicitudAsyncTask;
 import com.example.proyectogrupo1musicstore.R;
 import com.example.proyectogrupo1musicstore.Room.NotificationEntity;
 import com.example.proyectogrupo1musicstore.Utilidades.Navegacion.NavigationClickListener;
@@ -50,20 +53,11 @@ public class ActivityPantallaPrincipal extends AppCompatActivity {
     //Crea nueva instancia de clase token, para obtener el valor de idusuario de la clase decodetoken
     private token acceso = new token(this);
     private int idUsuario;
-
+    private static final int REQUEST_PERMISSIONS_CODE = 123;
     private AppDatabase appDatabase;
 
     private List<NotificationEntity> notificationList;
 
-    // Declara el launcher de permiso
-    private final ActivityResultLauncher<String> requestPermissionLauncher =
-            registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
-                if (isGranted) {
-                    // FCM SDK (and your app) can post notifications.
-                } else {
-                    // TODO: Inform user that that your app will not show notifications.
-                }
-            });
 
 
     @Override
@@ -71,7 +65,7 @@ public class ActivityPantallaPrincipal extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pantalla_principal);
 
-        askNotificationPermission();
+        requestPermissions();
 
         notificationList = new ArrayList<>();
 
@@ -144,21 +138,6 @@ public class ActivityPantallaPrincipal extends AppCompatActivity {
         }
     }
 
-    //Metodo para cambiar de actividad
-    private void moveActivity(Class<?> actividad) {
-        Intent intent = new Intent(getApplicationContext(), actividad);
-        startActivity(intent);
-    }
-
-    //Metodo para cerrar sesion
-    private void cerrarSesion() {
-        acceso.borrarToken();
-        // Regresar al usuario a la pantalla de inicio de sesión
-        Intent intent = new Intent(this, activity_login.class);
-        startActivity(intent);
-        finish();
-    }
-
     //Creat un canal de notificaciones
     private void createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -176,20 +155,41 @@ public class ActivityPantallaPrincipal extends AppCompatActivity {
     }
 
     //Metodo para pedir permiso de notificaciones
-    private void askNotificationPermission() {
-        // Solo es necesario para API level >= 33 (TIRAMISU)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.POST_NOTIFICATIONS) ==
-                    PackageManager.PERMISSION_GRANTED) {
-                // FCM SDK (and your app) can post notifications.
-            } else if (shouldShowRequestPermissionRationale(android.Manifest.permission.POST_NOTIFICATIONS)) {
-                // TODO: display an educational UI explaining to the user the features that will be enabled
-                //       by them granting the POST_NOTIFICATION permission. This UI should provide the user
-                //       "OK" and "No thanks" buttons. If the user selects "OK," directly request the permission.
-                //       If the user selects "No thanks," allow the user to continue without notifications.
+    private void requestPermissions() {
+        String[] permissions = {Manifest.permission.RECORD_AUDIO, Manifest.permission.POST_NOTIFICATIONS};
+
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO)
+                != PackageManager.PERMISSION_GRANTED ||
+                ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS)
+                        != PackageManager.PERMISSION_GRANTED) {
+
+            ActivityCompat.requestPermissions(this, permissions, REQUEST_PERMISSIONS_CODE);
+        } else {
+            // Both permissions are already granted
+            // You can proceed with your logic here
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (requestCode == REQUEST_PERMISSIONS_CODE) {
+            // Check if all requested permissions are granted
+            boolean allPermissionsGranted = true;
+            for (int result : grantResults) {
+                if (result != PackageManager.PERMISSION_GRANTED) {
+                    allPermissionsGranted = false;
+                    break;
+                }
+            }
+
+            if (allPermissionsGranted) {
+                // Both permissions are granted
+                // Proceed with your logic here
             } else {
-                // Preguntar por el permiso directamente
-                requestPermissionLauncher.launch(android.Manifest.permission.POST_NOTIFICATIONS);
+                // Handle the case where not all permissions are granted
+                // You may show a message or take appropriate action
             }
         }
     }

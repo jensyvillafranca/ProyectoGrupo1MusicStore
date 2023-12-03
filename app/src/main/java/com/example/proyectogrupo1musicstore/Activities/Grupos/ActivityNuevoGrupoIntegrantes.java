@@ -15,8 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.proyectogrupo1musicstore.Adapters.CustomAdapterNuevoGrupoIntegrantes;
 import com.example.proyectogrupo1musicstore.Models.vistaDeNuevoGrupo;
-import com.example.proyectogrupo1musicstore.NetworkTasks.BuscarIntegranteAsyncTask;
-import com.example.proyectogrupo1musicstore.NetworkTasks.NuevoGrupoIntegrantesAsyncTask;
+import com.example.proyectogrupo1musicstore.NetworkTasks.GruposNetworkTasks.BuscarIntegranteAsyncTask;
+import com.example.proyectogrupo1musicstore.NetworkTasks.GruposNetworkTasks.NuevoGrupoIntegrantesAsyncTask;
 import com.example.proyectogrupo1musicstore.R;
 import com.example.proyectogrupo1musicstore.Utilidades.Token.JwtDecoder;
 import com.example.proyectogrupo1musicstore.Utilidades.Token.token;
@@ -99,10 +99,10 @@ public class ActivityNuevoGrupoIntegrantes extends AppCompatActivity implements 
             public void onClick(View view) {
                 Class<?> actividad = null;
                 if (view.getId() == R.id.btn_NuevoGrupoIntegrantesAtras) {
-                    actividad = ActivityGrupoPrincipal.class;
+                    finish();
                 }
                 if (view.getId() == R.id.textview_NuevoGrupoIntegrantesBotAtras) {
-                    actividad = ActivityGrupoPrincipal.class;
+                    finish();
                 }
                 if (view.getId() == R.id.textview_NuevoGrupoIntegrantesBotSiguiente) {
                     actividad = ActivityNuevoGrupoDetalles.class;

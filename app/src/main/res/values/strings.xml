@@ -142,6 +142,9 @@
     <string name="tipoGrupo">Tipo de Grupo</string>
     <string name="guardarCambios">Guardar Cambios</string>
     <string name="notificacionesI">NOTIFICACIONES</string>
+    <string name="elijaAudio">Elija la canción que desea subir</string>
+    <string name="elijaVideo">Elija el video que desea subir</string>
+    <string name="Usuario">Usuario</string>
 
     <!--Jonathan-->
     <string name="btnCrearPlayList">Crear PlayList</string>

@@ -13,7 +13,7 @@ import androidx.core.app.NotificationManagerCompat;
 
 import com.example.proyectogrupo1musicstore.MainActivity;
 import com.example.proyectogrupo1musicstore.R;
-import com.example.proyectogrupo1musicstore.Room.MyApplication;
+import com.example.proyectogrupo1musicstore.MyApplication.MyApplication;
 import com.example.proyectogrupo1musicstore.Room.NotificationEntity;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;

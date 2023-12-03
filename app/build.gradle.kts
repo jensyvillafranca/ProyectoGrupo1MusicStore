@@ -69,6 +69,6 @@ dependencies {
     implementation ("com.squareup.picasso:picasso:2.8")
 
     //ExoPlayer
-    implementation ("com.google.android.exoplayer:exoplayer-core:2.14.0")
-    implementation ("com.google.android.exoplayer:exoplayer-ui:2.14.0")
+    implementation ("com.google.android.exoplayer:exoplayer-core:2.19.1")
+    implementation ("com.google.android.exoplayer:exoplayer-ui:2.19.1")
 }

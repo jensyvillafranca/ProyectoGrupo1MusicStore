@@ -15,9 +15,9 @@ import com.example.proyectogrupo1musicstore.Activities.Grupos.ActivityChat;
 import com.example.proyectogrupo1musicstore.Activities.Grupos.ActivityEditarGrupo;
 import com.example.proyectogrupo1musicstore.Activities.Grupos.ActivityGrupoInfo;
 import com.example.proyectogrupo1musicstore.Models.vistaDeGrupo;
-import com.example.proyectogrupo1musicstore.NetworkTasks.DeleteGrupoAsyncTask;
-import com.example.proyectogrupo1musicstore.NetworkTasks.UpdateFavoritoAsyncTask;
-import com.example.proyectogrupo1musicstore.NetworkTasks.salirGrupoAsyncTask;
+import com.example.proyectogrupo1musicstore.NetworkTasks.GruposNetworkTasks.DeleteGrupoAsyncTask;
+import com.example.proyectogrupo1musicstore.NetworkTasks.GruposNetworkTasks.UpdateFavoritoAsyncTask;
+import com.example.proyectogrupo1musicstore.NetworkTasks.GruposNetworkTasks.salirGrupoAsyncTask;
 import com.example.proyectogrupo1musicstore.R;
 import com.example.proyectogrupo1musicstore.Utilidades.UI.ConfirmationDialog;
 

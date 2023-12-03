@@ -18,7 +18,7 @@ import com.example.proyectogrupo1musicstore.Models.buscarGrupo;
 import java.lang.reflect.Type;
 import java.util.List;
 
-import com.example.proyectogrupo1musicstore.NetworkTasks.InsertarIntegranteAsyncTask;
+import com.example.proyectogrupo1musicstore.NetworkTasks.GruposNetworkTasks.InsertarIntegranteAsyncTask;
 import com.example.proyectogrupo1musicstore.R;
 import com.example.proyectogrupo1musicstore.Utilidades.UI.ConfirmationDialog;
 import com.example.proyectogrupo1musicstore.Utilidades.Token.JwtDecoder;
@@ -155,10 +155,10 @@ public class ActivityUnirseGrupo extends AppCompatActivity {
             public void onClick(View view) {
                 Class<?> actividad = null;
                 if (view.getId() == R.id.btn_GruposUnirseAtras) {
-                    actividad = ActivityGruposBuscar.class;
+                    finish();
                 }
                 if (view.getId() == R.id.textview_GrupoUnirsebotAtras) {
-                    actividad = ActivityGruposBuscar.class;
+                    finish();
                 }
                 if (view.getId() == R.id.txtViewNavGrupos) {
                     actividad = ActivityGrupoPrincipal.class;

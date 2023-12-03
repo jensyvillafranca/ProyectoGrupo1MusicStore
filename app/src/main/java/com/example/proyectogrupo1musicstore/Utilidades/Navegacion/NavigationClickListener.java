@@ -9,12 +9,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.proyectogrupo1musicstore.Activities.AcercaDe.ActivityAcercaDe;
+import com.example.proyectogrupo1musicstore.Activities.ActivityBuscarPrincipal;
 import com.example.proyectogrupo1musicstore.Activities.Grupos.ActivityGrupoPrincipal;
 import com.example.proyectogrupo1musicstore.Activities.PantallaPrincipal.ActivityPantallaPrincipal;
 import com.example.proyectogrupo1musicstore.ActivityListaUsuarios;
 import com.example.proyectogrupo1musicstore.ActivityPlayList;
 import com.example.proyectogrupo1musicstore.Activity_EditarPerfil;
-import com.example.proyectogrupo1musicstore.Activity_PerfilPersonal;
+import com.example.proyectogrupo1musicstore.Activities.Perfil.Activity_PerfilPersonal;
 import com.example.proyectogrupo1musicstore.R;
 import com.example.proyectogrupo1musicstore.Utilidades.Token.token;
 import com.example.proyectogrupo1musicstore.activity_login;
@@ -85,7 +86,7 @@ public class NavigationClickListener implements View.OnClickListener {
         } else if (view == linearPerfil) {
             actividad = Activity_PerfilPersonal.class;
         } else if (view == linearBuscar) {
-            actividad = ActivityListaUsuarios.class;
+            actividad = ActivityBuscarPrincipal.class;
         } else if (view == linearMultimedia) {
             actividad = ActivityPlayList.class;
         } else if (view == linearAjustes) {

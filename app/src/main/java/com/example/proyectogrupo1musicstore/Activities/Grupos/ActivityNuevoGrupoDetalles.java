@@ -33,8 +33,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.proyectogrupo1musicstore.Adapters.CustomAdapterNuevoGrupoDetalles;
 import com.example.proyectogrupo1musicstore.Models.vistaDeNuevoGrupo;
-import com.example.proyectogrupo1musicstore.NetworkTasks.CreateGroupAsyncTask;
-import com.example.proyectogrupo1musicstore.NetworkTasks.FetchMemberDetailsAsyncTask;
+import com.example.proyectogrupo1musicstore.NetworkTasks.GruposNetworkTasks.CreateGroupAsyncTask;
+import com.example.proyectogrupo1musicstore.NetworkTasks.GruposNetworkTasks.FetchMemberDetailsAsyncTask;
 import com.example.proyectogrupo1musicstore.R;
 import com.example.proyectogrupo1musicstore.Utilidades.UI.ConfirmationDialog;
 import com.example.proyectogrupo1musicstore.Utilidades.Token.JwtDecoder;
@@ -111,21 +111,18 @@ public class ActivityNuevoGrupoDetalles extends AppCompatActivity implements Fet
 
 
         // Listener para manejar los botones de "Atrás"
-        View.OnClickListener buttonClick = new View.OnClickListener() {
+        botonAtras.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Class<?> actividad = null;
-                if (view.getId() == R.id.btn_NuevoGrupoDetallesAtras) {
-                    actividad = ActivityGrupoPrincipal.class;
-                }
-                if (view.getId() == R.id.textview_NuevoGrupoDetallesBotAtras) {
-                    actividad = ActivityGrupoPrincipal.class;
-                }
-                if (actividad != null) {
-                    moveActivity(actividad);
-                }
+            public void onClick(View v) {
+                finish();
             }
-        };
+        });
+        textviewAtras.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         //Listener para manejar el cierre del teclado con el boton de enter
         textNombreGrupo.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -212,15 +209,6 @@ public class ActivityNuevoGrupoDetalles extends AppCompatActivity implements Fet
                 estadoPrivado = 0;
             }
         });
-
-        // Asigna los listeners a los botones de "Atrás"
-        botonAtras.setOnClickListener(buttonClick);
-        textviewAtras.setOnClickListener(buttonClick);
-    }
-
-    private void moveActivity(Class<?> actividad) {
-        Intent intent = new Intent(getApplicationContext(), actividad);
-        startActivity(intent);
     }
 
     //override al metodo para procesar la seleccion de la imagen
@@ -284,7 +272,7 @@ public class ActivityNuevoGrupoDetalles extends AppCompatActivity implements Fet
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Permiso Requerido");
         builder.setMessage("Para acceder a tu galería y seleccionar una imagen, necesitamos el permiso de almacenamiento. Por favor, otorga el permiso en la configuración de la aplicación..");
-        builder.setPositiveButton("Go to Settings", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton("Ir a Ajustes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 // Abre los ajustes de la app para que el usuario pueda otorgar permiso
@@ -293,7 +281,7 @@ public class ActivityNuevoGrupoDetalles extends AppCompatActivity implements Fet
                 startActivity(intent);
             }
         });
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 // Controlla decision negativa
