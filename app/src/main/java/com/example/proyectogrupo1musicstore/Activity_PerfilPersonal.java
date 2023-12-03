@@ -117,7 +117,7 @@ public class Activity_PerfilPersonal extends AppCompatActivity implements inform
 
         // Listener para abrir el menú lateral
        openMenuButton.setOnClickListener(v -> {
-          drawerLayout.openDrawer(findViewById(R.id.side_menusss));
+          //drawerLayout.openDrawer(findViewById(R.id.side_menusss));
        });
 //        new ObtenerPlayListAsyncTask(ActivityPlayList.this, playAdapter, progressDialog)
         //              .execute(String.valueOf(idplaylist));
