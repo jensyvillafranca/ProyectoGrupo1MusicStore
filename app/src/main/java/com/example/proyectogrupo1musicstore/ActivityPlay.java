@@ -30,7 +30,6 @@ import android.widget.TextView;
 import com.example.proyectogrupo1musicstore.NetworkTaksMulti.CreatePlayListTask;
 import com.example.proyectogrupo1musicstore.Utilidades.Token.JwtDecoder;
 import com.example.proyectogrupo1musicstore.Utilidades.Token.token;
-
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -70,6 +69,7 @@ public class ActivityPlay extends AppCompatActivity {
         txtBiografia = (EditText) findViewById(R.id.txtBiografia);
         btnCance = (Button) findViewById(R.id.btnCancelar);
         agrearModificarPlayList = (TextView) findViewById(R.id.modificarPlayList);
+
         View.OnClickListener buttonClick = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -87,6 +87,7 @@ public class ActivityPlay extends AppCompatActivity {
                 }
             }
         };
+        botonAtrass.setOnClickListener(buttonClick);
 
         btnCance.setOnClickListener(new View.OnClickListener() {
             @Override

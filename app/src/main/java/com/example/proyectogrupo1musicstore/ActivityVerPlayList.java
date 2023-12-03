@@ -25,7 +25,6 @@ import com.example.proyectogrupo1musicstore.NetworkTaksMulti.informacionGeneralP
 import com.example.proyectogrupo1musicstore.NetworkTasks.obtenerIntegrantesGrupoAsyncTask;
 import com.example.proyectogrupo1musicstore.Utilidades.Token.JwtDecoder;
 import com.example.proyectogrupo1musicstore.Utilidades.Token.token;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,6 +36,7 @@ public class ActivityVerPlayList extends AppCompatActivity implements FetchDataA
     private int idplaylist;
 
     private com.example.proyectogrupo1musicstore.Utilidades.Token.token token = new token(this);
+
     private int idUsuario;
 
     private final String tipo = "1";
@@ -48,15 +48,16 @@ public class ActivityVerPlayList extends AppCompatActivity implements FetchDataA
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Cargando...");
         progressDialog.setCancelable(false);
-        //progressDialog.show();
 
+        //progressDialog.show();
+        idUsuario = Integer.parseInt(JwtDecoder.decodeJwt(token.recuperarTokenFromKeystore()));
 
         recyclerviewvertodoPlayList  = (RecyclerView) findViewById(R.id.recyclerview_vertodoPlayList);
         botonAtrass = (ImageButton) findViewById(R.id.btn_vertodosPlayListAtras);
        // drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layoutsVerPlaylistAgregar);
         recyclerviewvertodoPlayList = (RecyclerView) findViewById(R.id.recyclerview_vertodoPlayList);
 
-        idUsuario = Integer.parseInt(JwtDecoder.decodeJwt(token.recuperarTokenFromKeystore()));
+
 
 
         String url = "https://phpclusters-152621-0.cloudclusters.net/modiPlayList.php";
