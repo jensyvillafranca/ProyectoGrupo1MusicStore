@@ -9,6 +9,15 @@
     android:weightSum="10"
     tools:context=".ActivityReproductor">
 
+    <ImageButton
+        android:id="@+id/imagebuttonCerrarVideo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:background="@android:color/transparent"
+        app:srcCompat="@drawable/closeicon" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -30,7 +39,7 @@
 
             <SeekBar
                 android:id="@+id/seekbavideor"
-                android:layout_width="250dp"
+                android:layout_width="240dp"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:layout_marginStart="20dp"
@@ -40,11 +49,11 @@
 
             <TextView
                 android:id="@+id/txtPlay"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="false"
                 android:layout_centerInParent="true"
-                android:layout_marginLeft="20dp"
+                android:layout_marginLeft="10dp"
                 android:layout_toLeftOf="@+id/seekbavideor"
                 android:fontFamily="@font/fuente_jost_global"
                 android:text="0:10"
@@ -56,11 +65,12 @@
 
             <TextView
                 android:id="@+id/txtStop"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="false"
                 android:layout_centerInParent="true"
-                android:layout_marginLeft="20dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginEnd="5dp"
                 android:layout_toRightOf="@+id/seekbavideor"
                 android:fontFamily="@font/fuente_jost_global"
                 android:text="4:10"
@@ -72,6 +82,7 @@
 
 
         </RelativeLayout>
+
     </LinearLayout>
     <TextView
         android:id="@+id/txtMusicareproductor"
@@ -105,24 +116,26 @@
                 android:layout_height="70dp">
 
             </Button>
+
             <Button
                 android:id="@+id/stobbtn"
-                android:layout_toRightOf="@+id/playbtn"
-                android:layout_marginTop="15dp"
-                android:layout_marginLeft="30dp"
-                android:background="@drawable/iconsultimo"
                 android:layout_width="50dp"
-                android:layout_height="50dp">
+                android:layout_height="50dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="15dp"
+                android:layout_toRightOf="@+id/playbtn"
+                android:background="@drawable/icons_detener_24">
 
             </Button>
+
             <Button
                 android:id="@+id/prevbtn"
-                android:layout_toLeftOf="@+id/playbtn"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:layout_marginTop="15dp"
                 android:layout_marginRight="30dp"
-                android:background="@drawable/iconsprimeros"
-                android:layout_width="50dp"
-                android:layout_height="50dp">
+                android:layout_toLeftOf="@+id/playbtn"
+                android:background="@android:drawable/ic_media_pause">
 
             </Button>
 

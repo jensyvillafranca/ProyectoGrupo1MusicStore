@@ -1,5 +1,6 @@
 package com.example.proyectogrupo1musicstore.Adapters;
 
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.proyectogrupo1musicstore.ActivityReproductoVideo;
 import com.example.proyectogrupo1musicstore.Models.mensajeModel;
 import com.example.proyectogrupo1musicstore.R;
 import com.example.proyectogrupo1musicstore.Utilidades.Date.DateUtils;
@@ -117,6 +119,17 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
                     btnPlayUsuario.setOnClickListener(v -> {
                         if (onPlayClickListener != null) {
                             onPlayClickListener.onPlayClick(message.getAudioUrl());
+                        }
+                    });
+                }else if(message.getMediatype().equals("Video")){
+                    btnPlayUsuario.setVisibility(View.VISIBLE);
+                    btnPlayUsuario.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(v.getContext(), ActivityReproductoVideo.class);
+                            intent.putExtra("videoUrl", message.getAudioUrl());
+                            intent.putExtra("name", message.getText());
+                            v.getContext().startActivity(intent);
                         }
                     });
                 }

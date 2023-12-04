@@ -130,7 +130,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraintLayout3"
                 android:layout_width="0dp"
-                android:layout_height="522dp"
+                android:layout_height="545dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="10dp"
@@ -145,7 +145,7 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerviewVideo"
                     android:layout_width="0dp"
-                    android:layout_height="127dp"
+                    android:layout_height="135dp"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="10dp"
@@ -185,7 +185,7 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerviewMusica"
                     android:layout_width="0dp"
-                    android:layout_height="127dp"
+                    android:layout_height="135dp"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="10dp"
@@ -240,7 +240,7 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerviewIntegrantes"
                     android:layout_width="0dp"
-                    android:layout_height="135dp"
+                    android:layout_height="140dp"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="10dp"

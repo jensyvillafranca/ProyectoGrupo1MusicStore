@@ -1,6 +1,8 @@
 package com.example.proyectogrupo1musicstore.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +12,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.proyectogrupo1musicstore.Activities.Perfil.Activity_PerfilPersonal;
+import com.example.proyectogrupo1musicstore.ActivityReproductoVideo;
 import com.example.proyectogrupo1musicstore.Models.integrantesItem;
 import com.example.proyectogrupo1musicstore.Models.videoItem;
 import com.example.proyectogrupo1musicstore.R;
@@ -37,6 +41,15 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoViewHol
         videoItem item = itemList.get(position);
         holder.videoImage.setImageBitmap(item.getImageResId());
         holder.videoName.setText(item.getItemName());
+        holder.videoImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), ActivityReproductoVideo.class);
+                intent.putExtra("videoUrl", item.getUrl());
+                intent.putExtra("name", item.getItemName());
+                v.getContext().startActivity(intent);
+            }
+        });
     }
 
     @Override

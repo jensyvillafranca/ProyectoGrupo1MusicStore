@@ -8,6 +8,7 @@ import android.util.Log;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.proyectogrupo1musicstore.Models.videoItem;
 import com.example.proyectogrupo1musicstore.Utilidades.Imagenes.ImageDownloader;
 
 import org.json.JSONArray;
@@ -106,8 +107,9 @@ public class BuscarVideoAsyncTask extends AsyncTask<String, Void, List<videoItem
                 Integer idUsuario = jsonObject.getInt("idusuario");
                 String nombreCancion = jsonObject.getString("nombrevideo");
                 Bitmap enlacePortada = ImageDownloader.downloadImage(jsonObject.getString("enlaceportada"));
+                String url = jsonObject.getString("enlacevideo");
 
-                dataList.add(new videoItem(enlacePortada, nombreCancion, idUsuario));
+                dataList.add(new videoItem(enlacePortada, nombreCancion, idUsuario, url));
             }
 
         } catch (JSONException e) {

@@ -11,6 +11,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.proyectogrupo1musicstore.Models.videoItem;
+
 import java.util.List;
 
 public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoViewHolder> {
@@ -38,11 +40,13 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoViewHol
         //parte fue modificado por JM
         ImageView imgVideo = holder.itemView.findViewById(R.id.itemPortadaAudio);
 
-        imgVideo.setOnClickListener(new View.OnClickListener() {
+        holder.videoImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent pantallaInfo = new Intent(v.getContext(), ActivityReproductoVideo.class);
-                v.getContext().startActivity(pantallaInfo);
+                Intent intent = new Intent(v.getContext(), ActivityReproductoVideo.class);
+                intent.putExtra("videoUrl", item.getUrl());
+                intent.putExtra("name", item.getItemName());
+                v.getContext().startActivity(intent);
             }
         });
     }
