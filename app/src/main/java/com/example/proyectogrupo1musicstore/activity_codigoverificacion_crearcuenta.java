@@ -46,7 +46,7 @@ public class activity_codigoverificacion_crearcuenta extends AppCompatActivity {
     EditText txtRecuperarRegistrarse;
 
     TextView txtviewVerificarEnviarNuevamente,txtviewActivaLetras;
-    String token = null; /*Para mensajes push*/
+    String token = "null"; /*Para mensajes push*/
     String enlaceFoto = "https://storage.googleapis.com/proyectogrupo1musicstore.appspot.com/imagenesPerfil/avatar.png";
     int idVisualizacion = 1;
 
