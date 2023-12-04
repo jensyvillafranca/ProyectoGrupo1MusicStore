@@ -118,6 +118,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
                     // Handle play button click
                     btnPlayUsuario.setOnClickListener(v -> {
                         if (onPlayClickListener != null) {
+                            btnPlayUsuario.setVisibility(View.VISIBLE);
                             onPlayClickListener.onPlayClick(message.getAudioUrl());
                         }
                     });
@@ -150,6 +151,29 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
                         }
                     });
                 }
+                else if(message.getMediatype().equals("Voice")){
+                    btnPlay.setVisibility(View.VISIBLE);
+                    // Handle play button click
+                    btnPlay.setOnClickListener(v -> {
+                        if (onPlayClickListener != null) {
+                            btnPlay.setVisibility(View.VISIBLE);
+                            onPlayClickListener.onPlayClick(message.getAudioUrl());
+                        }
+                    });
+                }else if(message.getMediatype().equals("Video")){
+                    btnPlay.setVisibility(View.VISIBLE);
+                    btnPlay.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(v.getContext(), ActivityReproductoVideo.class);
+                            intent.putExtra("videoUrl", message.getAudioUrl());
+                            intent.putExtra("name", message.getText());
+                            v.getContext().startActivity(intent);
+                        }
+                    });
+                }
+
+
             }
 
         }
