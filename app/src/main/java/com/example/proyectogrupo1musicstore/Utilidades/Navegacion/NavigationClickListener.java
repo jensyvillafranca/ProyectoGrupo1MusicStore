@@ -16,6 +16,7 @@ import com.example.proyectogrupo1musicstore.ActivityPlayList;
 import com.example.proyectogrupo1musicstore.Activity_EditarPerfil;
 import com.example.proyectogrupo1musicstore.Activities.Perfil.Activity_PerfilPersonal;
 import com.example.proyectogrupo1musicstore.R;
+import com.example.proyectogrupo1musicstore.Utilidades.AppPreferences.AppPreferences;
 import com.example.proyectogrupo1musicstore.Utilidades.Token.token;
 import com.example.proyectogrupo1musicstore.activity_login;
 import com.example.proyectogrupo1musicstore.activity_principal_login;
@@ -110,6 +111,7 @@ public class NavigationClickListener implements View.OnClickListener {
     //Metodo para cerrar sesion
     private void cerrarSesion() {
         acceso.borrarToken();
+        AppPreferences.resetFirstTimePreferences(context);
         // Regresar al usuario a la pantalla de inicio de sesión
         Intent intent = new Intent(context, activity_login.class);
         activity.startActivity(intent);
