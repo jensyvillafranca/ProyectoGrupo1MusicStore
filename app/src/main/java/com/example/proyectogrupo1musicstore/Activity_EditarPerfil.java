@@ -44,6 +44,7 @@ import com.bumptech.glide.Glide;
 import com.example.proyectogrupo1musicstore.Activities.Grupos.ActivityEditarGrupo;
 import com.example.proyectogrupo1musicstore.NetworkTasks.GruposNetworkTasks.UpdateGrupoAsyncTask;
 import com.example.proyectogrupo1musicstore.NetworkTasks.PerfilNetworkTasks.UpdateImagenPerfilAsyncTask;
+import com.example.proyectogrupo1musicstore.Utilidades.AppPreferences.AppPreferences;
 import com.example.proyectogrupo1musicstore.Utilidades.Token.JwtDecoder;
 import com.example.proyectogrupo1musicstore.Utilidades.Token.token;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -75,13 +76,14 @@ public class Activity_EditarPerfil extends AppCompatActivity {
     TextView txtviewCambiarContrasenia, txtNombre, txtviewHabilitarHuella;
     ImageView imgContrasenia;
     private token acceso = new token(this);
-    CheckBox chePerfil, checkHabilitarHuella;
+    CheckBox chePerfil, checkHabilitarHuella, checkBoxNotifications;
     int idVisualizacion;
     Boolean estadoComprobacion = false;
     String estadoCheck;
     private String oldImageUrl;
     private Bitmap imgPerfilBitmap;
     private byte[] imgPerfilByteArray;
+    private Integer notificationValue;
 
     private static final int PICK_IMAGE_REQUEST = 1;
     private static final int REQUEST_CODE = 123;
@@ -108,6 +110,7 @@ public class Activity_EditarPerfil extends AppCompatActivity {
         chePerfil = findViewById(R.id.chePerfil);
         checkHabilitarHuella = findViewById(R.id.cheHuella);
         txtviewHabilitarHuella = findViewById(R.id.textviewHabilitarHuella);
+        checkBoxNotifications = findViewById(R.id.cheNotificacion);
         /*Cargar de forma automáticamente el estado del checkbox desde la base de datos*/
         cargarEstadoCheckbox();
 
@@ -125,6 +128,23 @@ public class Activity_EditarPerfil extends AppCompatActivity {
             txtviewHabilitarHuella.setVisibility(View.INVISIBLE);
             checkHabilitarHuella.setVisibility(View.INVISIBLE);
         }
+
+        notificationValue = AppPreferences.getUserScore(this);
+        checkBoxNotifications.setChecked(notificationValue == 1);
+
+        // Listener para apagar o prender las notificaciones
+        checkBoxNotifications.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    notificationValue = 1;
+                } else {
+                    notificationValue = 0;
+                }
+                // Guarda en SharedPreferences
+                AppPreferences.setUserScore(Activity_EditarPerfil.this, notificationValue);
+            }
+        });
 
         imgCambiarPerfil.setOnClickListener(new View.OnClickListener() {
             @Override

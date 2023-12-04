@@ -15,6 +15,7 @@ import com.example.proyectogrupo1musicstore.MainActivity;
 import com.example.proyectogrupo1musicstore.R;
 import com.example.proyectogrupo1musicstore.MyApplication.MyApplication;
 import com.example.proyectogrupo1musicstore.Room.NotificationEntity;
+import com.example.proyectogrupo1musicstore.Utilidades.AppPreferences.AppPreferences;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
@@ -25,6 +26,7 @@ public class GrupoPrivadoFirebaseMessagingService extends FirebaseMessagingServi
     private static final String TAG = "GrupoPrivadoFirebaseMessagingService";
     private int idUsuario;
     private String tipo;
+    private int notificationValue;
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
@@ -97,8 +99,11 @@ public class GrupoPrivadoFirebaseMessagingService extends FirebaseMessagingServi
         // Guarda la notificacion al local Room database
         saveNotificationToDatabase(title, body, idUsuario, idGrupo, usuario);
 
-        //Muestra la notificaion en el tray
-        displayNotification(title, body);
+        notificationValue = AppPreferences.getUserScore(this);
+        if(notificationValue==1){
+            //Muestra la notificaion en el tray
+            displayNotification(title, body);
+        }
     }
 
     //Metodo que controla el comportamiento de una notificacion sin payload
@@ -109,8 +114,11 @@ public class GrupoPrivadoFirebaseMessagingService extends FirebaseMessagingServi
         // Guarda la notificacion al local Room database
         saveNotificationToDatabase(title, body, null, null, null);
 
-        // Muestra la notificacion en el tray
-        displayNotification(title, body);
+        notificationValue = AppPreferences.getUserScore(this);
+        if(notificationValue==1){
+            // Muestra la notificacion en el tray
+            displayNotification(title, body);
+        }
     }
 
     //Metodo para guardar la notificacion en la base de datos Room

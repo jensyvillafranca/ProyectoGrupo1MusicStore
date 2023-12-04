@@ -103,7 +103,9 @@ public class ActivityChat extends AppCompatActivity implements MessageAdapter.On
     private static final int DELAY_START_RECORDING = 1000;
 
     private static final int PICK_AUDIO_REQUEST = 1;
+    private static final int PICK_VIDEO_REQUEST = 2;
     private static final int REQUEST_CODE = 123;
+    private static final int REQUEST_CODE_VIDEO = 126;
     private static final int REQUEST_CODE_EXTERNAL = 124;
     private static final int REQUEST_AUDIO_SELECTION = 123;
     private static final int REQUEST_VIDEO_SELECTION = 125;
@@ -275,6 +277,12 @@ public class ActivityChat extends AppCompatActivity implements MessageAdapter.On
             // Now, proceed to the next step (uploading the audio file)
             uploadAudioFile(audioUri, 1);
         }
+        if (requestCode == PICK_VIDEO_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
+            // Handle the selected audio file URI
+            Uri videoUri = data.getData();
+            // Now, proceed to the next step (uploading the audio file)
+            uploadVideoFile(videoUri);
+        }
         if (requestCode == REQUEST_AUDIO_SELECTION && resultCode == RESULT_OK && data != null) {
             String selectedAudioUrl = data.getStringExtra("selectedAudioUrl");
             String audioName = data.getStringExtra("audioName");
@@ -308,6 +316,32 @@ public class ActivityChat extends AppCompatActivity implements MessageAdapter.On
                 String uniqueFileName = UniqueFileNameGenerator.generateUniqueFileName("mp4");
                 enviarMensajeVoice(uniqueFileName, base64Audio);
             }
+
+            // Close the InputStream
+            if (inputStream != null) {
+                inputStream.close();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            // Handle the exception
+        }
+    }
+
+    // Metodo para subir un archivo de video
+    private void uploadVideoFile(Uri videoUri) {
+        try {
+            // Abre un InputStream from the audioUri
+            InputStream inputStream = getContentResolver().openInputStream(videoUri);
+
+            // Lee el InputStream
+            byte[] audioBytes = readBytes(inputStream);
+
+            // Convierte el byte array a Base64-encoded
+            String base64Video = Base64.encodeToString(audioBytes, Base64.DEFAULT);
+
+            // base64 listo para ser enviado
+            String videoFileName = new FileUtils(this).getFileName(videoUri);
+            enviarMensajeVideo(videoFileName, base64Video);
 
             // Close the InputStream
             if (inputStream != null) {
@@ -435,6 +469,28 @@ public class ActivityChat extends AppCompatActivity implements MessageAdapter.On
         Toast.makeText(this, "Audio Enviado", Toast.LENGTH_SHORT).show();
     }
 
+    private void enviarMensajeVideo(String videoFileName, String media){
+
+        //crea el json
+        JSONObject jsonData = new JSONObject();
+        try {
+            jsonData.put("idgrupo", idgrupo);
+            jsonData.put("idusuario", idUsuario);
+            jsonData.put("mensaje", videoFileName);
+            jsonData.put("mediatype", "Video");
+            jsonData.put("media", media);
+            jsonData.put("nombrearchivo", videoFileName);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        Log.e("JsonData", String.valueOf(jsonData));
+
+        //llama el asynctask
+        new enviarMensajeAsyncTask(ActivityChat.this).execute(jsonData.toString(), String.valueOf(1));
+        Toast.makeText(this, "Video Enviado", Toast.LENGTH_SHORT).show();
+    }
+
     //Metodo para enviar mensaje de video - solo url
     private void enviarMensajeVideoUrl(String videoFileName, String url){
 
@@ -488,6 +544,12 @@ public class ActivityChat extends AppCompatActivity implements MessageAdapter.On
         startActivityForResult(intent, PICK_AUDIO_REQUEST);
     }
 
+    private void pickVideo() {
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+        intent.setType("video/mp4");
+        startActivityForResult(intent, PICK_VIDEO_REQUEST);
+    }
+
     public void showUploadOptions(View view) {
         PopupMenu popupMenu = new PopupMenu(this, view);
         MenuInflater inflater = popupMenu.getMenuInflater();
@@ -505,6 +567,7 @@ public class ActivityChat extends AppCompatActivity implements MessageAdapter.On
                 checkPermissions();
                 return true;
             }else if (itemId == R.id.menu_upload_phone_storage_video) {
+                checkPermissionsVideo();
                 return true;
             }
             else {
@@ -536,6 +599,26 @@ public class ActivityChat extends AppCompatActivity implements MessageAdapter.On
         }
     }
 
+    private void checkPermissionsVideo() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S_V2) {
+            // Android 10 and above, request READ_MEDIA_IMAGES
+            if (ContextCompat.checkSelfPermission(ActivityChat.this, Manifest.permission.READ_MEDIA_VIDEO) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(ActivityChat.this, new String[]{Manifest.permission.READ_MEDIA_VIDEO}, REQUEST_CODE);
+            } else {
+                // Permission is granted, proceed to pick an image
+                pickVideo();
+            }
+        } else {
+            // Android 9 and below, request WRITE_EXTERNAL_STORAGE
+            if (ContextCompat.checkSelfPermission(ActivityChat.this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(ActivityChat.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_CODE_EXTERNAL);
+            } else {
+                // Permission is granted, proceed to pick an image
+                pickVideo();
+            }
+        }
+    }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -548,13 +631,21 @@ public class ActivityChat extends AppCompatActivity implements MessageAdapter.On
                 showPermissionExplanation();
             }
         }
+        if ((requestCode == REQUEST_CODE_VIDEO)||(requestCode == REQUEST_CODE_EXTERNAL)) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // Create an intent to pick an image from the gallery
+                pickVideo();
+            } else {
+                showPermissionExplanation();
+            }
+        }
     }
 
     // Metodo para pedir permiso manualmente
     private void showPermissionExplanation() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Permiso Requerido");
-        builder.setMessage("Para acceder a tu galería y seleccionar un audio, necesitamos el permiso de lectura. Por favor, otorga el permiso en la configuración de la aplicación..");
+        builder.setMessage("Para acceder a tu galería y seleccionar un archivo, necesitamos el permiso de lectura. Por favor, otorga el permiso en la configuración de la aplicación..");
         builder.setPositiveButton("Ir a Ajustes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {

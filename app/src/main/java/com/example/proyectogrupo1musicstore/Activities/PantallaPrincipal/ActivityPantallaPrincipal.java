@@ -28,6 +28,7 @@ import com.example.proyectogrupo1musicstore.NetworkTasks.GruposNetworkTasks.acep
 import com.example.proyectogrupo1musicstore.NetworkTasks.GruposNetworkTasks.denegarSolicitudAsyncTask;
 import com.example.proyectogrupo1musicstore.R;
 import com.example.proyectogrupo1musicstore.Room.NotificationEntity;
+import com.example.proyectogrupo1musicstore.Utilidades.AppPreferences.AppPreferences;
 import com.example.proyectogrupo1musicstore.Utilidades.Navegacion.NavigationClickListener;
 import com.example.proyectogrupo1musicstore.Utilidades.Token.token;
 import com.example.proyectogrupo1musicstore.Utilidades.Firebase.updateFirebaseToken;
@@ -66,6 +67,11 @@ public class ActivityPantallaPrincipal extends AppCompatActivity {
         setContentView(R.layout.activity_pantalla_principal);
 
         requestPermissions();
+
+        if (AppPreferences.isFirstTimeOpen(this)) {
+            AppPreferences.setUserScore(this,1);
+            AppPreferences.setFirstTimeOpen(this, false);
+        }
 
         notificationList = new ArrayList<>();
 
