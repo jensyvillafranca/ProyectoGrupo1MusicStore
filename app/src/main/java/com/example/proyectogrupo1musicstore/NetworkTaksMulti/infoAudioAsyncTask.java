@@ -104,6 +104,7 @@ public class infoAudioAsyncTask extends AsyncTask<String, Void, List<infoReprodu
                 String nombre = jsonObject.getString("nombrecancion");
                 Integer idowner = jsonObject.getInt("idusuario");
                 String url = jsonObject.getString("enlaceaudio");
+                Log.d("Enlaceaudio",url);
                 Bitmap imageResource = ImageDownloader.downloadImage(jsonObject.getString("enlaceportada"));
 
                 dataList.add(new infoReproductor(idaudio, nombre, idowner,  url, imageResource));

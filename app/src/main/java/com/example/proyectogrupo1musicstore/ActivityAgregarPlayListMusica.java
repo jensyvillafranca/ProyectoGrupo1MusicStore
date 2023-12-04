@@ -2,9 +2,11 @@ package com.example.proyectogrupo1musicstore;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.proyectogrupo1musicstore.Activities.Grupos.ActivityGrupoPrincipal;
@@ -12,9 +14,29 @@ import com.example.proyectogrupo1musicstore.Activities.Grupos.ActivityVerTodosIn
 import com.example.proyectogrupo1musicstore.Activities.Grupos.ActivityVerTodosMusica;
 import com.example.proyectogrupo1musicstore.Activities.Grupos.ActivityVerTodosVideo;
 import com.example.proyectogrupo1musicstore.Activities.PantallaPrincipal.ActivityPantallaPrincipal;
+import com.example.proyectogrupo1musicstore.Adapters.PlayListAdapter;
+import com.example.proyectogrupo1musicstore.Models.PlayListItem;
+import com.example.proyectogrupo1musicstore.Models.informacionGeneralPlayList;
+import com.example.proyectogrupo1musicstore.Models.informacionGrupoGeneral;
+import com.example.proyectogrupo1musicstore.NetworkTaksMulti.ObtenerPlayListAsyncTask;
+import com.example.proyectogrupo1musicstore.NetworkTaksMulti.informacionGeneralPlayListAstAsyncTask;
+import com.example.proyectogrupo1musicstore.NetworkTasks.GruposNetworkTasks.InfomacionGeneralGrupoAsyncTask;
+import com.example.proyectogrupo1musicstore.Utilidades.Navegacion.NavigationGruposInfoClickListener;
+import com.example.proyectogrupo1musicstore.Utilidades.Token.JwtDecoder;
+import com.example.proyectogrupo1musicstore.Utilidades.Token.token;
 
-public class ActivityAgregarPlayListMusica extends AppCompatActivity {
+import java.util.ArrayList;
+import java.util.List;
+
+public class ActivityAgregarPlayListMusica extends AppCompatActivity implements informacionGeneralPlayListAstAsyncTask.DataFetchListener{
     TextView agregarCanciones;
+    ImageButton btnAtras;
+
+    private int idplaylist;
+    ProgressDialog progressDialog;
+    private com.example.proyectogrupo1musicstore.Utilidades.Token.token token = new token(this);
+    private NavigationGruposInfoClickListener navigationClickListener;
+    private int idUsuario;
 
 
     @Override
@@ -22,6 +44,27 @@ public class ActivityAgregarPlayListMusica extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_agregar_play_list_musica);
         agregarCanciones = (TextView) findViewById(R.id.textviewSiguienteAgregar);
+        btnAtras = (ImageButton) findViewById(R.id.btn_PlayListInfoAtras);
+
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Cargando...");
+        progressDialog.setCancelable(false);
+
+        idplaylist = getIntent().getIntExtra("idplaylist", 0);
+        idUsuario = Integer.parseInt(JwtDecoder.decodeJwt(token.recuperarTokenFromKeystore()));
+        // Creación de una lista de elementos de playlistitem
+        List<PlayListItem> playlistitemList = new ArrayList<>();
+
+        // Crea y vincula el adaptador - playadapter
+        PlayListAdapter playAdapter = new PlayListAdapter(this, playlistitemList);
+        //recyclerviewPlayLists.setAdapter(playAdapter);
+
+        //Fetch data from the server
+        String url = "https://phpclusters-152621-0.cloudclusters.net/obtenerPlayList.php";
+
+        //new informacionGeneralPlayListAstAsyncTask(this).execute(url, String.valueOf(idUsuario));
+       // new ObtenerPlayListAsyncTask(ActivityPlayList.this, playAdapter, progressDialog).execute(String.valueOf(idUsuario));
+
 
         View.OnClickListener buttonClick = new View.OnClickListener() {
             @Override
@@ -41,10 +84,27 @@ public class ActivityAgregarPlayListMusica extends AppCompatActivity {
         };
 
         agregarCanciones.setOnClickListener(buttonClick);
+
+        btnAtras.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     private void moveActivity(Class<?> actividad) {
         Intent intent = new Intent(getApplicationContext(), actividad);
         startActivity(intent);
+    }
+
+
+
+
+    @Override
+    public void onDataFetched(List<PlayListItem> dataList) {
+       // informacionGeneralPlayList groupInfo = dataList.get(0);
+        //nombreGrupo.setText(groupInfo.getNombre());
+        //fotoGrupo.getImageResId(groupInfo.getFoto());
     }
 }

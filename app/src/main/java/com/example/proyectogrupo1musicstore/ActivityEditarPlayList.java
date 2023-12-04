@@ -22,6 +22,7 @@ import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -45,6 +46,7 @@ public class ActivityEditarPlayList extends AppCompatActivity implements infoPla
 
     TextView textNombre, textBiogreafia;
     ProgressDialog progressDialog;
+    ImageButton btnAtras;
 
     Button btnActualizar;
     private int idplaylist;
@@ -72,6 +74,7 @@ public class ActivityEditarPlayList extends AppCompatActivity implements infoPla
         textBiogreafia = (TextView) findViewById(R.id.txtBiografiaEditar);
         imagebuttonEditarFotoPlay = (ImageView) findViewById(R.id.ImageViewFotoEditar);
         btnActualizar = (Button) findViewById(R.id.btnSubirArchiEditar);
+        btnAtras = (ImageButton) findViewById(R.id.btnEditarAtrass);
 
 
 
@@ -84,6 +87,13 @@ public class ActivityEditarPlayList extends AppCompatActivity implements infoPla
             @Override
             public void onClick(View v) {
                 checkPermissions();
+            }
+        });
+
+        btnAtras.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
 
