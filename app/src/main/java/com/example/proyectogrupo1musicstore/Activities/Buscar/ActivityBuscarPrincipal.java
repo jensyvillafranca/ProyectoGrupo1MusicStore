@@ -1,4 +1,4 @@
-package com.example.proyectogrupo1musicstore.Activities;
+package com.example.proyectogrupo1musicstore.Activities.Buscar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -18,16 +18,11 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.proyectogrupo1musicstore.Activities.Grupos.ActivityGruposBuscar;
-import com.example.proyectogrupo1musicstore.Adapters.CustomAdapterBuscarGrupos;
 import com.example.proyectogrupo1musicstore.Adapters.CustomAdapterBuscarUsuarios;
-import com.example.proyectogrupo1musicstore.Models.buscarGrupo;
 import com.example.proyectogrupo1musicstore.Models.buscarUsuario;
 import com.example.proyectogrupo1musicstore.NetworkTasks.BuscarUsuarios.BuscarUsuariosAsyncTask;
-import com.example.proyectogrupo1musicstore.NetworkTasks.GruposNetworkTasks.BuscarGruposAsyncTask;
 import com.example.proyectogrupo1musicstore.R;
 import com.example.proyectogrupo1musicstore.Utilidades.Navegacion.NavigationClickListener;
-import com.example.proyectogrupo1musicstore.Utilidades.Navegacion.NavigationGruposPrincipalClickListener;
 import com.example.proyectogrupo1musicstore.Utilidades.Token.JwtDecoder;
 import com.example.proyectogrupo1musicstore.Utilidades.Token.token;
 

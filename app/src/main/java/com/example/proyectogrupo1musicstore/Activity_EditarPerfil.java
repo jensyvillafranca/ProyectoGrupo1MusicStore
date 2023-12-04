@@ -7,11 +7,15 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import androidx.biometric.BiometricPrompt;
+
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.hardware.fingerprint.FingerprintManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.provider.Settings;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
@@ -36,6 +40,9 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
+import com.example.proyectogrupo1musicstore.Activities.Grupos.ActivityEditarGrupo;
+import com.example.proyectogrupo1musicstore.NetworkTasks.GruposNetworkTasks.UpdateGrupoAsyncTask;
+import com.example.proyectogrupo1musicstore.NetworkTasks.PerfilNetworkTasks.UpdateImagenPerfilAsyncTask;
 import com.example.proyectogrupo1musicstore.Utilidades.Token.JwtDecoder;
 import com.example.proyectogrupo1musicstore.Utilidades.Token.token;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -43,11 +50,14 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.makeramen.roundedimageview.RoundedImageView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.net.URLDecoder;
 import java.util.HashMap;
@@ -68,6 +78,15 @@ public class Activity_EditarPerfil extends AppCompatActivity {
     int idVisualizacion;
     Boolean estadoComprobacion = false;
     String estadoCheck;
+    private String oldImageUrl;
+    private Bitmap imgPerfilBitmap;
+    private byte[] imgPerfilByteArray;
+
+    private static final int PICK_IMAGE_REQUEST = 1;
+    private static final int REQUEST_CODE = 123;
+    private static final int REQUEST_CODE_EXTERNAL = 124;
+    private static final int peticion_acceso_camera = 101;
+    static final int peticion_toma_fotografia = 102;
 
     private Uri uri; // Variable para almacenar la URL de la imagen
 
@@ -109,13 +128,7 @@ public class Activity_EditarPerfil extends AppCompatActivity {
         imgCambiarPerfil.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Verificar los permisos de la cámara
-                if (ContextCompat.checkSelfPermission(Activity_EditarPerfil.this, Manifest.permission.CAMERA)
-                        != PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(Activity_EditarPerfil.this, new String[]{Manifest.permission.CAMERA}, REQUEST_IMAGE_CAPTURE);
-                } else {
-                    showOptionsDialog();
-                }
+                showOptionsDialog();
             }
         });
 
@@ -163,6 +176,7 @@ public class Activity_EditarPerfil extends AppCompatActivity {
 
                                 // Verificar si la URL comienza con la cadena específica
                                 String prefijo = "https://firebasestorage.googleapis.com/v0/b/proyectogrupo1musicstore.appspot.com/o/imagenesEditarPerfil/";
+                                oldImageUrl = prefijo;
                                 if (imageUrl.startsWith(prefijo)) {
                                     // Obtener la ruta completa y el query
                                     String pathAndQuery = url.getPath() + "?" + url.getQuery();
@@ -237,13 +251,10 @@ public class Activity_EditarPerfil extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         if (which == 0) {
-                            // Opción de cámara seleccionada
-                            dispatchTakePictureIntent();
+                            permisos();
                         } else {
                             // Opción de galería seleccionada
-                            Intent pickPhoto = new Intent(Intent.ACTION_PICK,
-                                    android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                            startActivityForResult(pickPhoto, REQUEST_PICK_IMAGE);
+                            checkPermissions();
                         }
                     }
                 });
@@ -261,60 +272,65 @@ public class Activity_EditarPerfil extends AppCompatActivity {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
-        if (requestCode == REQUEST_IMAGE_CAPTURE) {
+        if (requestCode == peticion_acceso_camera) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                // Permiso de cámara concedido, mostrar el diálogo de opciones
-                showOptionsDialog();
+                tomarFoto();
             } else {
-                Toast.makeText(this, "Permiso de cámara denegado", Toast.LENGTH_SHORT).show();
+                String content = "camara";
+                showPermissionExplanation(content);
             }
         }
+        if ((requestCode == REQUEST_CODE) || (requestCode == REQUEST_CODE_EXTERNAL)) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // Create an intent to pick an image from the gallery
+                pickImage();
+            } else {
+                String content = "galería y seleccionar una imagen";
+                showPermissionExplanation(content);
+            }
+        }
+
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (resultCode == RESULT_OK) {
-            if (requestCode == REQUEST_IMAGE_CAPTURE) {
-                if (data != null) {
-                    Bundle extras = data.getExtras();
-                    if (extras != null) {
-                        Bitmap imageBitmap = (Bitmap) extras.get("data");
+        if (requestCode == peticion_toma_fotografia && resultCode == RESULT_OK) {
+            try {
+                // Actualiza el imageview para colocar la imagen seleccionada
+                RoundedImageView imageView = findViewById(R.id.imgFoto);
 
-                        // Convertir la imagen a Base64
-                        String base64Image = encodeToBase64(imageBitmap);
+                Bundle extras = data.getExtras();
+                imgPerfilBitmap = (Bitmap) extras.get("data");
+                imageView.setImageBitmap(imgPerfilBitmap);
 
-                        // Subir la imagen a Firebase Storage
-                        //uploadImageToFirebase(base64Image);
-                    }
-                }
-            } else if (requestCode == REQUEST_PICK_IMAGE) {
-                if (data != null) {
-                    // Opción de galería seleccionada
-                    try {
-                        Bitmap imageBitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), data.getData());
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                imgPerfilBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                imgPerfilByteArray = stream.toByteArray();
+                updateImage();
 
-                        // Convertir la imagen a Base64
-                        String base64Image = encodeToBase64(imageBitmap);
+            }catch (Exception ex){
+                ex.toString();
+            }
+        }
+            if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null) {
+                Uri selectedImageUri = data.getData();
 
-                        // Subir la imagen a Firebase Storage
-                        subirImagen(base64Image);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                        Toast.makeText(this, "Error al cargar la imagen", Toast.LENGTH_SHORT).show();
-                    }
+                // Actualiza el imageview para colocar la imagen seleccionada
+                RoundedImageView imageView = findViewById(R.id.imgFoto);
+                imageView.setImageURI(selectedImageUri);
+
+                try {
+                    InputStream inputStream = getContentResolver().openInputStream(selectedImageUri);
+                    imgPerfilByteArray = getBytes(inputStream);
+                    updateImage();
+                    // La imagen ahora se encuentra en forma de byte array dentro de la variable imgPerfilByteArray para poder guardarse en la base de datos
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
             }
         }
-    }
 
-    // Método para convertir una imagen Bitmap a Base64
-    private String encodeToBase64(Bitmap imageBitmap) {
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
-        byte[] byteArray = byteArrayOutputStream.toByteArray();
-        return Base64.encodeToString(byteArray, Base64.DEFAULT);
-    }
 
 
     // Eliminar Cuenta --------------------------------------------------------------------
@@ -343,27 +359,6 @@ public class Activity_EditarPerfil extends AppCompatActivity {
                 builder.show();
             }
         });
-    }
-
-    private void subirImagen(String url){
-
-        String urlSubirImagenes;
-        urlSubirImagenes = "https://phpclusters-152621-0.cloudclusters.net/editarFotoPerfil.php/?id="+IdPersonal+"&enlaceFoto="+url;
-        JSONObject postData = new JSONObject();
-
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, urlSubirImagenes, null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                    }
-                });
-
-        Volley.newRequestQueue(this).add(request);
     }
 
     private void eliminarCuenta(){
@@ -586,6 +581,101 @@ public class Activity_EditarPerfil extends AppCompatActivity {
         };
         queue.add(resultadoPost);
 
+    }
+
+    //Permisos Camara
+    private void permisos() {
+        if (ContextCompat.checkSelfPermission(getApplicationContext(), android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.CAMERA}, peticion_acceso_camera);
+        } else {
+            tomarFoto();
+        }
+    }
+
+    private void tomarFoto() {
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivityForResult(intent, peticion_toma_fotografia);
+        }
+    }
+
+    //metodo para revisar los permisos
+    private void checkPermissions() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            // Android 10 and above, request READ_MEDIA_IMAGES
+            if (ContextCompat.checkSelfPermission(Activity_EditarPerfil.this, Manifest.permission.READ_MEDIA_IMAGES) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(Activity_EditarPerfil.this, new String[]{Manifest.permission.READ_MEDIA_IMAGES}, REQUEST_CODE);
+            } else {
+                // Permission is granted, proceed to pick an image
+                pickImage();
+            }
+        } else {
+            // Android 9 and below, request WRITE_EXTERNAL_STORAGE
+            if (ContextCompat.checkSelfPermission(Activity_EditarPerfil.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(Activity_EditarPerfil.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_CODE_EXTERNAL);
+            } else {
+                // Permission is granted, proceed to pick an image
+                pickImage();
+            }
+        }
+    }
+
+    //Funcion para otorgar permisos manualmente
+    private void showPermissionExplanation(String content) {
+        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(this);
+        builder.setTitle("Permiso Requerido");
+        builder.setMessage("Para acceder a tu " + content + ", necesitamos el permiso de almacenamiento. Por favor, otorga el permiso en la configuración de la aplicación..");
+        builder.setPositiveButton("Ir a Ajustes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // Abre los ajustes de la app para que el usuario pueda otorgar permiso
+                Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.fromParts("package", getPackageName(), null));
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // Controlla decision negativa
+            }
+        });
+        builder.show();
+    }
+
+    private void pickImage() {
+        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(intent, PICK_IMAGE_REQUEST);
+    }
+
+    private byte[] getBytes(InputStream inputStream) throws IOException {
+        ByteArrayOutputStream byteBuffer = new ByteArrayOutputStream();
+        int bufferSize = 1024;
+        byte[] buffer = new byte[bufferSize];
+        int len;
+        while ((len = inputStream.read(buffer)) != -1) {
+            byteBuffer.write(buffer, 0, len);
+        }
+        return byteBuffer.toByteArray();
+    }
+
+    private void updateImage() {
+
+        //combierte la imagen a base64
+        String base64Image = Base64.encodeToString(imgPerfilByteArray, Base64.DEFAULT);
+
+        //crea el json
+        JSONObject jsonData = new JSONObject();
+        try {
+            jsonData.put("idusuario", IdPersonal);
+            jsonData.put("imagen", base64Image);
+            jsonData.put("urlanterior", "");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        //llama el asynctask
+        new UpdateImagenPerfilAsyncTask(Activity_EditarPerfil.this).execute(jsonData.toString());
     }
 
 }

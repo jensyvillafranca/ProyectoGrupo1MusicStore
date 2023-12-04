@@ -10,6 +10,8 @@ import com.example.proyectogrupo1musicstore.Models.informacionPerfil;
 import com.example.proyectogrupo1musicstore.NetworkTaksMulti.ObtenerPlayListAsyncTask;
 import com.example.proyectogrupo1musicstore.NetworkTasks.GruposNetworkTasks.BuscarGruposAsyncTask;
 import com.example.proyectogrupo1musicstore.NetworkTasks.PerfilNetworkTasks.InformacionPerfilAsyncTask;
+import com.example.proyectogrupo1musicstore.NetworkTasks.PerfilNetworkTasks.InsertarSeguidorAsyncTask;
+import com.example.proyectogrupo1musicstore.NetworkTasks.PerfilNetworkTasks.deleteSeguidorAsyncTask;
 import com.example.proyectogrupo1musicstore.NetworkTasks.PerfilNetworkTasks.obtenerGruposFavoritosAsyncTask;
 import com.example.proyectogrupo1musicstore.R;
 import com.example.proyectogrupo1musicstore.Utilidades.Navegacion.NavigationClickListener;
@@ -165,9 +167,22 @@ public class Activity_PerfilPersonal extends AppCompatActivity implements Inform
             {
                 btnSeguir.setVisibility(View.VISIBLE);
                 btnSeguir.setText("Dejar de Segir");
+                btnSeguir.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        new deleteSeguidorAsyncTask(Activity_PerfilPersonal.this).execute(String.valueOf(idUsuarioVista), String.valueOf(idUsuario));
+                    }
+                });
+
             } else{
                 btnSeguir.setVisibility(View.VISIBLE);
                 btnSeguir.setText("Seguir");
+                btnSeguir.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        new InsertarSeguidorAsyncTask(Activity_PerfilPersonal.this).execute(String.valueOf(idUsuarioVista), String.valueOf(idUsuario));
+                    }
+                });
             }
         } else {
             Log.e("Error", "No data fetched from the server");

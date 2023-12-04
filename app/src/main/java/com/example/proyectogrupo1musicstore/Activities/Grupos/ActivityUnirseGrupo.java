@@ -20,6 +20,7 @@ import java.util.List;
 
 import com.example.proyectogrupo1musicstore.NetworkTasks.GruposNetworkTasks.InsertarIntegranteAsyncTask;
 import com.example.proyectogrupo1musicstore.R;
+import com.example.proyectogrupo1musicstore.Utilidades.Navegacion.NavigationClickListener;
 import com.example.proyectogrupo1musicstore.Utilidades.UI.ConfirmationDialog;
 import com.example.proyectogrupo1musicstore.Utilidades.Token.JwtDecoder;
 import com.example.proyectogrupo1musicstore.Utilidades.Token.token;
@@ -33,12 +34,12 @@ public class ActivityUnirseGrupo extends AppCompatActivity {
 
     DrawerLayout drawerLayout;
     ImageButton openMenuButton, botonAtras;
-    TextView textviewAtras, Grupos, Inicio, textviewNombreGrupo, textviewIntegrantes, textviewCreadoPor, textviewDescripcion, textviewTipoGrupo;
+    TextView textviewAtras, textviewNombreGrupo, textviewIntegrantes, textviewCreadoPor, textviewDescripcion, textviewTipoGrupo;
     Button btnUnirse;
     private List<buscarGrupo> receivedDataList;
     private buscarGrupo object;
     private String tipo;
-    ImageView iconGrupos, iconInicio, imageGrupo;
+    ImageView imageGrupo;
     private com.example.proyectogrupo1musicstore.Utilidades.Token.token token = new token(this);
     private int idUsuario;
 
@@ -49,6 +50,9 @@ public class ActivityUnirseGrupo extends AppCompatActivity {
 
         Intent intent = getIntent();
         String jsonString = intent.getStringExtra("jsonString");
+
+        // Listener para menu de navegacion
+        View.OnClickListener buttonClickNav = new NavigationClickListener(this,this);
 
         try {
             JsonElement element = JsonParser.parseString(jsonString);
@@ -72,10 +76,6 @@ public class ActivityUnirseGrupo extends AppCompatActivity {
         openMenuButton = (ImageButton) findViewById(R.id.btn_GruposUnirseMenu);
         botonAtras = (ImageButton) findViewById(R.id.btn_GruposUnirseAtras);
         textviewAtras = (TextView) findViewById(R.id.textview_GrupoUnirsebotAtras);
-        Grupos = (TextView) findViewById(R.id.txtViewNavGrupos);
-        Inicio = (TextView) findViewById(R.id.txtviewNavInicio);
-        iconGrupos = (ImageView) findViewById(R.id.iconNavGrupos);
-        iconInicio = (ImageView) findViewById(R.id.iconNavInicio);
         textviewNombreGrupo = (TextView) findViewById(R.id.textviewUnirseNombreGrupo);
         textviewIntegrantes = (TextView) findViewById(R.id.textviewUnirseIntegrantes);
         textviewCreadoPor = (TextView) findViewById(R.id.textviewUnirseCreadoPor);
@@ -150,45 +150,18 @@ public class ActivityUnirseGrupo extends AppCompatActivity {
         });
 
         // Listener para manejar los botones de "Atrás"
-        View.OnClickListener buttonClick = new View.OnClickListener() {
+        botonAtras.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Class<?> actividad = null;
-                if (view.getId() == R.id.btn_GruposUnirseAtras) {
-                    finish();
-                }
-                if (view.getId() == R.id.textview_GrupoUnirsebotAtras) {
-                    finish();
-                }
-                if (view.getId() == R.id.txtViewNavGrupos) {
-                    actividad = ActivityGrupoPrincipal.class;
-                }
-                if (view.getId() == R.id.txtviewNavInicio) {
-                    actividad = ActivityPantallaPrincipal.class;
-                }
-                if (view.getId() == R.id.iconNavGrupos){
-                    actividad = ActivityGrupoPrincipal.class;
-                }
-                if (view.getId() == R.id.iconNavInicio){
-                    actividad = ActivityPantallaPrincipal.class;
-                }
-                if (actividad != null) {
-                    moveActivity(actividad);
-                }
+            public void onClick(View v) {
+                finish();
             }
-        };
+        });
 
-        // Asigna los listeners a los botones de "Atrás"
-        botonAtras.setOnClickListener(buttonClick);
-        textviewAtras.setOnClickListener(buttonClick);
-        Grupos.setOnClickListener(buttonClick);
-        Inicio.setOnClickListener(buttonClick);
-        iconGrupos.setOnClickListener(buttonClick);
-        iconInicio.setOnClickListener(buttonClick);
-    }
-
-    private void moveActivity(Class<?> actividad) {
-        Intent intent = new Intent(getApplicationContext(), actividad);
-        startActivity(intent);
+        textviewAtras.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 }

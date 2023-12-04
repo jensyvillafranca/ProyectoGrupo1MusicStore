@@ -9,10 +9,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.proyectogrupo1musicstore.Activities.AcercaDe.ActivityAcercaDe;
-import com.example.proyectogrupo1musicstore.Activities.ActivityBuscarPrincipal;
+import com.example.proyectogrupo1musicstore.Activities.Buscar.ActivityBuscarPrincipal;
 import com.example.proyectogrupo1musicstore.Activities.Grupos.ActivityGrupoPrincipal;
 import com.example.proyectogrupo1musicstore.Activities.PantallaPrincipal.ActivityPantallaPrincipal;
-import com.example.proyectogrupo1musicstore.ActivityListaUsuarios;
 import com.example.proyectogrupo1musicstore.ActivityPlayList;
 import com.example.proyectogrupo1musicstore.Activity_EditarPerfil;
 import com.example.proyectogrupo1musicstore.Activities.Perfil.Activity_PerfilPersonal;

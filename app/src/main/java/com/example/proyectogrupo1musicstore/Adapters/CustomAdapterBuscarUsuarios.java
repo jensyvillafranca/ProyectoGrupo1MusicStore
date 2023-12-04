@@ -1,6 +1,7 @@
 package com.example.proyectogrupo1musicstore.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,7 +11,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.proyectogrupo1musicstore.Activities.Perfil.Activity_PerfilPersonal;
 import com.example.proyectogrupo1musicstore.Models.buscarUsuario;
+import com.example.proyectogrupo1musicstore.NetworkTasks.PerfilNetworkTasks.InformacionPerfilAsyncTask;
+import com.example.proyectogrupo1musicstore.NetworkTasks.PerfilNetworkTasks.InsertarSeguidorAsyncTask;
+import com.example.proyectogrupo1musicstore.NetworkTasks.PerfilNetworkTasks.deleteSeguidorAsyncTask;
 import com.example.proyectogrupo1musicstore.R;
 
 import java.util.List;
@@ -41,18 +47,51 @@ public class CustomAdapterBuscarUsuarios extends RecyclerView.Adapter<CustomAdap
         holder.usuario.setText(data.getUsuario());
         holder.image.setImageBitmap(data.getImage());
 
+        holder.image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), Activity_PerfilPersonal.class);
+                intent.putExtra("idusuarioVista", data.getIdUsuario());
+                v.getContext().startActivity(intent);
+            }
+        });
+
+        holder.nombreUsuario.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), Activity_PerfilPersonal.class);
+                intent.putExtra("idusuarioVista", data.getIdUsuario());
+                v.getContext().startActivity(intent);
+            }
+        });
+
+        holder.usuario.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), Activity_PerfilPersonal.class);
+                intent.putExtra("idusuarioVista", data.getIdUsuario());
+                v.getContext().startActivity(intent);
+            }
+        });
+
         if(data.getIdUsuario()==idUsuario){
             holder.btnSeguir.setVisibility(View.GONE);
         } else if(data.getFollows()==1){
             holder.btnSeguir.setText("Dejar de Seguir");
             holder.btnSeguir.setTextSize(TypedValue.COMPLEX_UNIT_PX, 27);
+            holder.btnSeguir.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    new deleteSeguidorAsyncTask(context).execute(String.valueOf(data.getIdUsuario()), String.valueOf(idUsuario));
+                }
+            });
         }else{
             holder.btnSeguir.setText("Seguir");
             // Listener para ir a la pantalla de un grupo especifico y unirse
             holder.btnSeguir.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //Async para seguir/dejar de seguir
+                    new InsertarSeguidorAsyncTask(context).execute(String.valueOf(data.getIdUsuario()), String.valueOf(idUsuario));
                 }
             });
         }
