@@ -33,7 +33,7 @@ import java.util.List;
 
 public class ActivityPlayList extends AppCompatActivity implements informacionGeneralPlayListAstAsyncTask.DataFetchListener {
     Button CrearPlays;
-    TextView txtSiguiente, nombreplay,textviewNumeroPlay,txtSiguienteVerTodo, mostrarNombreUsuario;
+    TextView txtSiguiente, nombreplay,textviewNumeroPlay,txtSiguienteVerTodo, mostrarNombreUsuario,txtVerCancionesFavoritas;
     RecyclerView recyclerviewPlayLists, recyclerviewMusicasFavoritass;
     ImageView fotoPlay;
     DrawerLayout drawerLayout;
@@ -65,6 +65,7 @@ public class ActivityPlayList extends AppCompatActivity implements informacionGe
         textviewNumeroPlay = (TextView) findViewById(R.id.textviewPlayList);
         txtSiguiente = (TextView) findViewById(R.id.txtPrincipal);
         txtSiguienteVerTodo  = (TextView) findViewById(R.id.textviewVerTodoMusicas);
+        txtVerCancionesFavoritas  = (TextView) findViewById(R.id.textviewVerTodoCanciones);
 
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layoutPlayList);
         btnAtrasMenuPrincipal = (ImageButton) findViewById(R.id.btnAtrass);
@@ -115,6 +116,9 @@ public class ActivityPlayList extends AppCompatActivity implements informacionGe
                 if (view.getId() == R.id.btnAtrass) {
                     actividad = ActivityPantallaPrincipal.class;
                 }
+                if (view.getId() == R.id.textviewVerTodoCanciones) {
+                    actividad = ActivityVerCancionesFavoritas.class;
+                }
                 if (actividad != null) {
                     moveActivity(actividad);
                 }
@@ -155,6 +159,7 @@ public class ActivityPlayList extends AppCompatActivity implements informacionGe
         txtSiguiente.setOnClickListener(buttonClick);
         txtSiguienteVerTodo.setOnClickListener(buttonClick);
         btnAtrasMenuPrincipal.setOnClickListener(buttonClick);
+        txtVerCancionesFavoritas.setOnClickListener(buttonClick);
     }
 
 
