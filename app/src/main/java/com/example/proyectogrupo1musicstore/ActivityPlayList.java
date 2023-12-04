@@ -19,11 +19,16 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.proyectogrupo1musicstore.Activities.Grupos.ActivityGrupoInfo;
 import com.example.proyectogrupo1musicstore.Activities.PantallaPrincipal.ActivityPantallaPrincipal;
+import com.example.proyectogrupo1musicstore.Adapters.MusicaAdapter;
 import com.example.proyectogrupo1musicstore.Adapters.PlayListAdapter;
 import com.example.proyectogrupo1musicstore.Models.PlayListItem;
+import com.example.proyectogrupo1musicstore.Models.musicItem;
 import com.example.proyectogrupo1musicstore.NetworkTaksMulti.ObtenerPlayListAsyncTask;
 import com.example.proyectogrupo1musicstore.NetworkTaksMulti.informacionGeneralPlayListAstAsyncTask;
+import com.example.proyectogrupo1musicstore.NetworkTasks.GruposNetworkTasks.obtenerAudiosGrupoAsyncTask;
+import com.example.proyectogrupo1musicstore.NetworkTasks.Multimedia.obtenerAudiosMultimediaAsyncTask;
 import com.example.proyectogrupo1musicstore.Utilidades.Token.JwtDecoder;
 import com.example.proyectogrupo1musicstore.Utilidades.Token.token;
 
@@ -73,20 +78,33 @@ public class ActivityPlayList extends AppCompatActivity implements informacionGe
         // Creación de una lista de elementos de playlistitem
         List<PlayListItem> playlistitemList = new ArrayList<>();
 
+        // Creación de una lista de elementos de musicItem
+        List<audioItem> musicList = new ArrayList<>();
+
         // Crea y vincula el adaptador - playadapter
         PlayListAdapter playAdapter = new PlayListAdapter(this, playlistitemList);
         recyclerviewPlayLists.setAdapter(playAdapter);
+        //musica
+        AudioAdapter musicaAdapter = new AudioAdapter(this, musicList);
+        recyclerviewMusicasFavoritass.setAdapter(musicaAdapter);
 
         //Configuracion del administrador de diseño - platlist
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         recyclerviewPlayLists.setLayoutManager(layoutManager);
 
+        //musica
+        LinearLayoutManager layoutManagerMusica = new LinearLayoutManager(this);
+        layoutManagerMusica.setOrientation(LinearLayoutManager.HORIZONTAL);
+        recyclerviewMusicasFavoritass.setLayoutManager(layoutManagerMusica);
+
         //Fetch data from the server
         String url = "https://phpclusters-152621-0.cloudclusters.net/obtenerPlayList.php";
 
         new informacionGeneralPlayListAstAsyncTask(this).execute(url, String.valueOf(idUsuario));
         new ObtenerPlayListAsyncTask(ActivityPlayList.this, playAdapter, progressDialog).execute(String.valueOf(idUsuario));
+        new obtenerAudiosMultimediaAsyncTask(ActivityPlayList.this, musicaAdapter, progressDialog)
+                .execute(String.valueOf(idUsuario));
 
 
 //        new ObtenerPlayListAsyncTask(ActivityPlayList.this, playAdapter, progressDialog)

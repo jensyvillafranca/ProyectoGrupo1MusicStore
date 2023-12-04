@@ -1,17 +1,21 @@
-package com.example.proyectogrupo1musicstore;
+package com.example.proyectogrupo1musicstore.NetworkTasks.Multimedia;
+
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import androidx.recyclerview.widget.RecyclerView;
-
+import com.example.proyectogrupo1musicstore.AudioAdapter;
+import com.example.proyectogrupo1musicstore.R;
 import com.example.proyectogrupo1musicstore.Utilidades.Imagenes.ImageDownloader;
+import com.example.proyectogrupo1musicstore.audioItem;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -22,28 +26,27 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BuscarAudioAsyncTask extends AsyncTask<String, Void, List<audioItem>>{
-    private static final String TAG = "BuscarAudioAsyncTask";
+public class obtenerAudiosMultimediaAsyncTask extends AsyncTask<String, Void, List<audioItem>> {
+
+    private static final String TAG = "obtenerAudiosGrupoAsyncTask";
     private Context context;
-    private RecyclerView recyclerView;
     private AudioAdapter adapter;
     ProgressDialog progressDialog;
     private int tipoProgress;
 
-    public BuscarAudioAsyncTask(Context context, AudioAdapter adapter, ProgressDialog progressDialog) {
+    public obtenerAudiosMultimediaAsyncTask(Context context, AudioAdapter adapter, ProgressDialog progressDialog) {
         this.context = context;
         this.adapter = adapter;
         this.progressDialog = progressDialog;
     }
+
     @Override
     protected List<audioItem> doInBackground(String... params) {
-        String idUsuario = params[0]; // idgrupo parametro
-        String tipo = params[1];
-        tipoProgress = Integer.valueOf(tipo);
+        String idUsuario = params[0];
 
         try {
             // construye el URL
-            URL url = new URL("https://phpclusters-152621-0.cloudclusters.net/obtenerMusicaUsuario.php");
+            URL url = new URL("https://phpclusters-152621-0.cloudclusters.net/obtenerAudiosPersonales.php");
 
             // Crea la conexion y la abre
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
@@ -53,7 +56,7 @@ public class BuscarAudioAsyncTask extends AsyncTask<String, Void, List<audioItem
 
             // Crea el objeto JSON con el parametro
             JSONObject jsonParams = new JSONObject();
-            jsonParams.put("idUsuario", Integer.valueOf(idUsuario));
+            jsonParams.put("idusuario", Integer.valueOf(idUsuario));
 
             // Escribe el JSON al output stream
             OutputStream out = new BufferedOutputStream(urlConnection.getOutputStream());
@@ -83,15 +86,13 @@ public class BuscarAudioAsyncTask extends AsyncTask<String, Void, List<audioItem
 
     @Override
     protected void onPostExecute(List<audioItem> dataList) {
-        if (tipoProgress == 1) {
             progressDialog.dismiss();
-        }
-        if (dataList != null) {
             adapter.setDataList(dataList);
-        }
     }
+
     private List<audioItem> parseJsonResponse(String json) {
         List<audioItem> dataList = new ArrayList<>();
+        int drawableResourceId = R.drawable.iconomusicas;
 
         try {
             JSONArray jsonArray = new JSONArray(json);
@@ -106,15 +107,13 @@ public class BuscarAudioAsyncTask extends AsyncTask<String, Void, List<audioItem
                 String url = jsonObject.getString("enlaceaudio");
                 Integer estadofavorito = jsonObject.getInt("idfavorito");
 
-                dataList.add(new audioItem(enlacePortada, nombreCancion, idaudio, url, estadofavorito, 1));
+                dataList.add(new audioItem(enlacePortada, nombreCancion, idaudio, url, estadofavorito, 2));
             }
 
         } catch (JSONException e) {
-            Log.e(TAG, "Error JSON response: " + e.getMessage());
+            Log.e(TAG, "Error parsing JSON response: " + e.getMessage());
         }
 
         return dataList;
     }
-
 }
-

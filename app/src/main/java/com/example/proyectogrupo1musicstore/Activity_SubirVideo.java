@@ -32,6 +32,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.proyectogrupo1musicstore.Models.videoItem;
+import com.example.proyectogrupo1musicstore.Utilidades.Imagenes.FileUtils;
 import com.example.proyectogrupo1musicstore.Utilidades.Token.JwtDecoder;
 import com.example.proyectogrupo1musicstore.Utilidades.Token.token;
 
@@ -283,6 +284,7 @@ public class Activity_SubirVideo extends AppCompatActivity {
 
             //Si el nombre del video viene vacío
             if(nombreVideo == null){
+                nombreVideo = new FileUtils(this).getFileName(videoUri);
                 contadorElementosV++;
             }
             //Si el autor del video viene vacío

@@ -1,9 +1,12 @@
 package com.example.proyectogrupo1musicstore;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
@@ -12,6 +15,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.proyectogrupo1musicstore.Models.infoReproductor;
 import com.example.proyectogrupo1musicstore.Models.integrantesItem;
 import com.example.proyectogrupo1musicstore.Models.vistadeplaylist;
+import com.example.proyectogrupo1musicstore.NetworkTasks.GruposNetworkTasks.UpdateFavoritoAsyncTask;
+import com.example.proyectogrupo1musicstore.NetworkTasks.Multimedia.UpdateCancionFavoritaAsyncTask;
+import com.example.proyectogrupo1musicstore.Utilidades.AppPreferences.AppPreferences;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.List;
 
@@ -19,6 +28,7 @@ public class AudioAdapter extends RecyclerView.Adapter<AudioAdapter.AudioViewHol
 
     private List<audioItem> itemList;
     private Context context;
+    private int estadofavorito;
 
 
     public AudioAdapter(Context context, List<audioItem> itemList) {
@@ -41,6 +51,26 @@ public class AudioAdapter extends RecyclerView.Adapter<AudioAdapter.AudioViewHol
         holder.audioImage.setImageBitmap(item.getImageResId());
         holder.audioName.setText(item.getItemName());
 
+        if(item.getTipoVista()==2){
+            holder.checkBoxFavorito.setVisibility(View.GONE);
+        }
+
+        holder.checkBoxFavorito.setChecked(item.getEstadofavorito() == 1);
+
+        holder.checkBoxFavorito.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    estadofavorito = 1;
+                    updateFavoritoState(item.getId(), estadofavorito);
+                    Log.e("audioid: ", String.valueOf(item.getId()));
+                } else {
+                    estadofavorito = 0;
+                    updateFavoritoState(item.getId(), estadofavorito);
+                }
+            }
+        });
+
 
         holder.audioImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,15 +92,31 @@ public class AudioAdapter extends RecyclerView.Adapter<AudioAdapter.AudioViewHol
     public class AudioViewHolder extends RecyclerView.ViewHolder {
         ImageView audioImage;
         TextView audioName;
+        CheckBox checkBoxFavorito;
         public AudioViewHolder(@NonNull View itemView) {
             super(itemView);
             audioImage = itemView.findViewById(R.id.itemPortadaAudios);
             audioName = itemView.findViewById(R.id.textviewNombreCancion);
+            checkBoxFavorito = itemView.findViewById(R.id.checkboxCancion);
         }
     }
 
     public void setDataList(List<audioItem> newDataList) {
         itemList = newDataList;
         notifyDataSetChanged();
+    }
+
+    private void updateFavoritoState(int idAudio, int newFavoritoState) {
+
+        // Construye el JSON
+        JSONObject jsonData = new JSONObject();
+        try {
+            jsonData.put("estadofavorito", newFavoritoState);
+            jsonData.put("idaudio", idAudio);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        new UpdateCancionFavoritaAsyncTask().execute(jsonData.toString());
     }
 }

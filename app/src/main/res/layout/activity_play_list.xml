@@ -189,7 +189,7 @@
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recyclerviewMusicasFavoritas"
                         android:layout_width="0dp"
-                        android:layout_height="127dp"
+                        android:layout_height="160dp"
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="10dp"
                         android:layout_marginEnd="10dp"
