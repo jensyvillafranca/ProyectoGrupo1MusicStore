@@ -41,15 +41,15 @@ public class AudioAdapter extends RecyclerView.Adapter<AudioAdapter.AudioViewHol
         holder.audioImage.setImageBitmap(item.getImageResId());
         holder.audioName.setText(item.getItemName());
 
-        //parte fue modificado por JM
-        ImageView imgAudio = holder.itemView.findViewById(R.id.itemPortadaAudios);
 
-
-        imgAudio.setOnClickListener(new View.OnClickListener() {
+        holder.audioImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent pantallaInfo = new Intent(v.getContext(), ActivityReproductor.class);
-                v.getContext().startActivity(pantallaInfo);
+                Intent intent = new Intent(v.getContext(), ActivityReproductor.class);
+               // intent.putExtra("imagen", item.getImageResId());
+                intent.putExtra("musicaUrl", item.getUrl());
+                intent.putExtra("name", item.getItemName());
+                v.getContext().startActivity(intent);
             }
         });
     }

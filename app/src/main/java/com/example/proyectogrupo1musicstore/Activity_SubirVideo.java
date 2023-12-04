@@ -86,11 +86,11 @@ public class Activity_SubirVideo extends AppCompatActivity {
         drawerLayouts = (DrawerLayout) findViewById(R.id.drawer_layouts);
         botonAtrass = (ImageButton) findViewById(R.id.btn_PrincipalAtrasBottons);
         textviewAtrass = (TextView) findViewById(R.id.textview_PrincipalbotAtrastexto);
-        txtBuscarArchivos = (TextView) findViewById(R.id.txtbusquedaPrincipalActualizarvideos);
-        imageViewBuscarArchivos = (ImageView) findViewById(R.id.imageviewBusquedavideos);
+        //txtBuscarArchivos = (TextView) findViewById(R.id.txtbusquedaPrincipalActualizarvideos);
+     //   imageViewBuscarArchivos = (ImageView) findViewById(R.id.imageviewBusquedavideos);
         btnPrincipalAudio = (CardView) findViewById(R.id.cardViewNavegacionMusicavideoos);
         seleccionarVideos = (CardView) findViewById(R.id.cardViewSubirMusicaVideos);
-        busquedaVideos = (CardView) findViewById(R.id.cardViewBuscarArchivovideos);
+       // busquedaVideos = (CardView) findViewById(R.id.cardViewBuscarArchivovideos);
         recyclerViewVideos = (RecyclerView) findViewById(R.id.recyclerview_SubirMusicavideos);
 
         seleccionarVideos.setOnClickListener(new View.OnClickListener() {
@@ -107,9 +107,7 @@ public class Activity_SubirVideo extends AppCompatActivity {
                 if (view.getId() == R.id.cardViewNavegacionMusicavideoos) {
                     actividad = Activity_SubirMusica.class;
                 }
-                if (view.getId() == R.id.cardViewBuscarArchivovideos) {
-                    actividad = Activity_BuscarVideos.class;
-                }
+
                 if (view.getId() == R.id.btn_PrincipalAtrasBottons) {
                     actividad = Activity_SubirMusica.class;
                 }
@@ -120,7 +118,7 @@ public class Activity_SubirVideo extends AppCompatActivity {
             }
         };
         btnPrincipalAudio.setOnClickListener(buttonClick);
-        busquedaVideos.setOnClickListener(buttonClick);
+      //  busquedaVideos.setOnClickListener(buttonClick);
         botonAtrass.setOnClickListener(buttonClick);
         videoItems();
     }

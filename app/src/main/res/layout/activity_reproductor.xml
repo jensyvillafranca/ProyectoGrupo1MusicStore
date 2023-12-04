@@ -9,6 +9,15 @@
     android:weightSum="10"
     tools:context=".ActivityReproductor">
 
+    <ImageButton
+        android:id="@+id/imagebuttonCerrarMusicas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:background="@android:color/transparent"
+        app:srcCompat="@drawable/closeicon" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -21,7 +30,7 @@
             android:layout_width="250dp"
             android:layout_height="250dp"
             android:layout_marginBottom="8dp"
-            android:src="@drawable/iconoreproduccion"></ImageView>
+            android:src="@drawable/fondomusica"></ImageView>
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -29,7 +38,7 @@
 
             <SeekBar
                 android:id="@+id/seekbars"
-                android:layout_width="250dp"
+                android:layout_width="240dp"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:layout_marginStart="20dp"
@@ -38,12 +47,12 @@
                 android:layout_marginBottom="20dp"></SeekBar>
 
             <TextView
-                android:id="@+id/txtPlay"
+                android:id="@+id/txtPlays"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="false"
                 android:layout_centerInParent="true"
-                android:layout_marginLeft="20dp"
+                android:layout_marginLeft="10dp"
                 android:layout_toLeftOf="@+id/seekbars"
                 android:fontFamily="@font/fuente_jost_global"
                 android:text="0:10"
@@ -54,12 +63,13 @@
             </TextView>
 
             <TextView
-                android:id="@+id/txtStop"
-                android:layout_width="wrap_content"
+                android:id="@+id/txtStops"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="false"
                 android:layout_centerInParent="true"
-                android:layout_marginLeft="20dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginEnd="5dp"
                 android:layout_toRightOf="@+id/seekbars"
                 android:fontFamily="@font/fuente_jost_global"
                 android:text="4:10"
@@ -99,27 +109,27 @@
             <Button
                 android:id="@+id/playbtns"
                 android:layout_centerHorizontal="true"
-                android:background="@drawable/icono_reposos"
+                android:background="@drawable/icons2_play_24"
                 android:layout_width="70dp"
                 android:layout_height="70dp">
 
             </Button>
             <Button
-            android:id="@+id/stobbtn"
-            android:layout_toRightOf="@+id/playbtns"
-            android:layout_marginTop="15dp"
-            android:layout_marginLeft="30dp"
-            android:background="@drawable/iconsultimo"
-            android:layout_width="50dp"
-            android:layout_height="50dp">
+                android:id="@+id/stobbtnsss"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="15dp"
+                android:layout_toRightOf="@+id/playbtns"
+                android:background="@drawable/icons_detener_24">
 
         </Button>
             <Button
-                android:id="@+id/prevbtn"
+                android:id="@+id/prevbtnss"
                 android:layout_toLeftOf="@+id/playbtns"
                 android:layout_marginTop="15dp"
                 android:layout_marginRight="30dp"
-                android:background="@drawable/iconsprimeros"
+                android:background="@android:drawable/ic_media_pause"
                 android:layout_width="50dp"
                 android:layout_height="50dp">
 

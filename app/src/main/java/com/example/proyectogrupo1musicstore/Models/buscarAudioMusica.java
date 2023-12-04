@@ -5,14 +5,12 @@ import android.graphics.Bitmap;
 public class buscarAudioMusica {
     private int idaudio;
     private String nombre;
-    private String autor;
     private Bitmap image;
     private String genero;
 
-    public buscarAudioMusica(int idaudio, String nombre, String autor, Bitmap image, String genero) {
+    public buscarAudioMusica(int idaudio, String autor, Bitmap image, String genero) {
         this.idaudio = idaudio;
         this.nombre = nombre;
-        this.autor = autor;
         this.image = image;
         this.genero = genero;
     }
@@ -33,13 +31,7 @@ public class buscarAudioMusica {
         this.nombre = nombre;
     }
 
-    public String getAutor() {
-        return autor;
-    }
 
-    public void setAutor(String autor) {
-        this.autor = autor;
-    }
 
     public Bitmap getImage() {
         return image;

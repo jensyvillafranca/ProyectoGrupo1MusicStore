@@ -6,11 +6,13 @@ public class audioItem {
     private Bitmap itemPortada;
     private String itemNombre;
     private int id;
+    private String url;
 
-    public audioItem(Bitmap imageResId, String itemName, int id) {
+    public audioItem(Bitmap imageResId, String itemName, int id,String url) {
         this.itemPortada = imageResId;
         this.itemNombre = itemName;
         this.id = id;
+        this.url = url;
     }
 
     public Bitmap getImageResId() {
@@ -26,4 +28,5 @@ public class audioItem {
     public int getId() {
         return id;
     }
+    public String getUrl() {return url;}
 }

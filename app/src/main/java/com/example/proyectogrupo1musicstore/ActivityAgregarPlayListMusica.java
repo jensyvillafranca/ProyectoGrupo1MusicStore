@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.proyectogrupo1musicstore.Activities.Grupos.ActivityGrupoPrincipal;
@@ -19,6 +20,8 @@ import com.example.proyectogrupo1musicstore.Models.PlayListItem;
 import com.example.proyectogrupo1musicstore.Models.informacionGeneralPlayList;
 import com.example.proyectogrupo1musicstore.Models.informacionGrupoGeneral;
 import com.example.proyectogrupo1musicstore.NetworkTaksMulti.ObtenerPlayListAsyncTask;
+import com.example.proyectogrupo1musicstore.NetworkTaksMulti.infoPlayListMusica;
+import com.example.proyectogrupo1musicstore.NetworkTaksMulti.inforMusicaPlaylistAsyncTask;
 import com.example.proyectogrupo1musicstore.NetworkTaksMulti.informacionGeneralPlayListAstAsyncTask;
 import com.example.proyectogrupo1musicstore.NetworkTasks.GruposNetworkTasks.InfomacionGeneralGrupoAsyncTask;
 import com.example.proyectogrupo1musicstore.Utilidades.Navegacion.NavigationGruposInfoClickListener;
@@ -31,6 +34,8 @@ import java.util.List;
 public class ActivityAgregarPlayListMusica extends AppCompatActivity implements informacionGeneralPlayListAstAsyncTask.DataFetchListener{
     TextView agregarCanciones;
     ImageButton btnAtras;
+    TextView nombrePlaylist;
+    ImageView fotopPlaylist;
 
     private int idplaylist;
     ProgressDialog progressDialog;
@@ -45,6 +50,8 @@ public class ActivityAgregarPlayListMusica extends AppCompatActivity implements 
         setContentView(R.layout.activity_agregar_play_list_musica);
         agregarCanciones = (TextView) findViewById(R.id.textviewSiguienteAgregar);
         btnAtras = (ImageButton) findViewById(R.id.btn_PlayListInfoAtras);
+        fotopPlaylist = (ImageView) findViewById(R.id.imageviewPlaylistInfoFoto);
+        nombrePlaylist = (TextView) findViewById(R.id.textview_PlayInfoTitulo);
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Cargando...");
@@ -62,8 +69,8 @@ public class ActivityAgregarPlayListMusica extends AppCompatActivity implements 
         //Fetch data from the server
         String url = "https://phpclusters-152621-0.cloudclusters.net/obtenerPlayList.php";
 
-        //new informacionGeneralPlayListAstAsyncTask(this).execute(url, String.valueOf(idUsuario));
-       // new ObtenerPlayListAsyncTask(ActivityPlayList.this, playAdapter, progressDialog).execute(String.valueOf(idUsuario));
+        new informacionGeneralPlayListAstAsyncTask(this).execute(url, String.valueOf(idUsuario));
+      new ObtenerPlayListAsyncTask(ActivityAgregarPlayListMusica.this, playAdapter, progressDialog).execute(String.valueOf(idUsuario));
 
 
         View.OnClickListener buttonClick = new View.OnClickListener() {
@@ -103,8 +110,9 @@ public class ActivityAgregarPlayListMusica extends AppCompatActivity implements 
 
     @Override
     public void onDataFetched(List<PlayListItem> dataList) {
-       // informacionGeneralPlayList groupInfo = dataList.get(0);
-        //nombreGrupo.setText(groupInfo.getNombre());
-        //fotoGrupo.getImageResId(groupInfo.getFoto());
+        PlayListItem groupInfo = dataList.get(0);
+        nombrePlaylist.setText(groupInfo.getItemName());
+        fotopPlaylist.setImageBitmap(groupInfo.getImageResId());
+
     }
 }

@@ -5,15 +5,19 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.MediaController;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.VideoView;
 
 import com.example.proyectogrupo1musicstore.Models.infoReproductor;
 import com.example.proyectogrupo1musicstore.NetworkTaksMulti.infoAudioAsyncTask;
@@ -23,150 +27,197 @@ import com.google.android.exoplayer2.MediaItem;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.ui.PlayerView;
 
+import java.io.IOException;
 import java.util.List;
 
-public class ActivityReproductor extends AppCompatActivity implements infoAudioAsyncTask.DataFetchListener{
-    private int idaudio;
-    private int idUsuario;
+public class ActivityReproductor extends AppCompatActivity{
+    private MediaPlayer musicaview;
     TextView nombreCanciones;
     ImageView imagebuttonEditarFotoAudio;
     String url;
-
-    Button btnPlay, btnStop,btnReproducirSiguiente,btnReproAtras;
+    private Button btnPlays, btnPrevButtons, btnForwardButtons;
+    Button btnStop,btnReproducirSiguiente,btnReproAtras;
     SeekBar seekMusick;
     private SimpleExoPlayer exoPlayer;
-    private Handler mainHandler = new Handler(Looper.getMainLooper());
+
+    private Handler handler = new Handler();
 
 //modificado por JM
     ProgressDialog progressDialog;
     byte[] imgPerfilAudioByteArrays;
     private infoReproductor reproductoinfo;
-
+     private TextView textViewMusicaName, textViewPlay, textViewStop;
+    private SeekBar seekBarMusica;
     static MediaPlayer mediaPlayer;
     private PlayerView playerView;
+    private ImageButton btnCerrar;
+    private String musicaUrl, musicaName,imagen;
     private com.example.proyectogrupo1musicstore.Utilidades.Token.token token = new token(this);
+
+
 
     //Listo para extraer informacion de la base de datos
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reproductor);
-        //idaudio = getIntent().getIntExtra("idaudio", 0);
-
-        progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Cargando...");
-        progressDialog.setCancelable(false);
 
        // idaudio = getIntent().getIntExtra("idaudio", 0);
-        idUsuario = Integer.parseInt(JwtDecoder.decodeJwt(token.recuperarTokenFromKeystore()));
+
         imagebuttonEditarFotoAudio = (ImageView) findViewById(R.id.imagenreproductors);
         nombreCanciones = (TextView) findViewById(R.id.txtMusicareproductors);
-        btnPlay = (Button) findViewById(R.id.playbtns);
+     //   imagen = getIntent().getStringExtra("imagen");
+        musicaUrl = getIntent().getStringExtra("musicaUrl");
+        musicaName = getIntent().getStringExtra("name");
+
         btnReproducirSiguiente = (Button) findViewById(R.id.stobbtn);
         btnReproAtras = (Button) findViewById(R.id.prevbtn);
         seekMusick = (SeekBar) findViewById(R.id.seekbars);
+        btnPlays = findViewById(R.id.playbtns);
+        btnPrevButtons = findViewById(R.id.prevbtnss);
+        btnForwardButtons = findViewById(R.id.stobbtnsss);
+        btnCerrar = findViewById(R.id.imagebuttonCerrarMusicas);
+        textViewMusicaName = findViewById(R.id.txtMusicareproductors);
+        textViewPlay = findViewById(R.id.txtPlays);
+        textViewStop = findViewById(R.id.txtStops);
 
-        if(mediaPlayer != null){
-            mediaPlayer.stop();
-            mediaPlayer.release();
+        textViewMusicaName.setText(musicaName);
+
+
+        // Configura el MediaController
+        MediaItem mediaItem = MediaItem.fromUri(musicaUrl);
+
+        mediaPlayer = new MediaPlayer();
+        Uri musicaUri = Uri.parse(musicaUrl);
+        try {
+            mediaPlayer.setDataSource(getApplicationContext(), musicaUri);
+            mediaPlayer.prepare();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+        mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+            @Override
+            public void onPrepared(MediaPlayer mp) {
+                // Configura el SeekBar
+                setupSeekBar();
+
+                // Inicia la reproducción cuando se presiona el botón
+                btnPlays.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mediaPlayer.start();
+                    }
+                });
+
+                // Detiene la reproducción y finaliza la actividad al presionar el botón de avance
+                btnForwardButtons.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mediaPlayer.stop();
+                        finish();
+                    }
+                });
+
+                // Pausa la reproducción al presionar el botón de retroceso
+                btnPrevButtons.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mediaPlayer.pause();
+                    }
+                });
+
+                // Actualizar SeekBar y tiempo restante
+                updateSeekBar();
+            }
+        });
+
+
+
+
+
+
+
+
         //metodo del Seebark
+        btnCerrar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+
+    }
+    private void setupSeekBar() {
+        // Configura el valor máximo del SeekBar
+        seekMusick.setMax(mediaPlayer.getDuration());
+        textViewStop.setText(String.valueOf(formatTime(mediaPlayer.getDuration())));
+
+        // Listener del SeekBar
         seekMusick.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                // Handle progress change, update player position if needed
                 if (fromUser) {
-                    // Calculate the position based on progress and update your player
-                    // For example, if you have a player named 'exoplayer', you can do:
-                    long duration = exoPlayer.getDuration();
-                    long newPosition = (duration * progress) / 100;
-                    exoPlayer.seekTo(newPosition);
+                    // Actualiza la posición de reproducción
+                    mediaPlayer.seekTo(progress);
                 }
             }
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
-                // Handle tracking start
+                // Pausa la reproducción cuando el usuario comienza a arrastrar el SeekBar
+                mediaPlayer.pause();
             }
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                // Handle tracking stop, update player position
-                // This might not be necessary, as you can update the position in onProgressChanged
+                // Reanuda la reproducción cuando el usuario deja de arrastrar el SeekBar
+                mediaPlayer.start();
             }
         });
-
-
-
-
-        // = getIntent().getIntExtra("idUsuario", 0);
-
-        // Obtiene la informacion del servidor
-        String url = "https://phpclusters-152621-0.cloudclusters.net/obtenerAudioReproductor.php";
-        //progressDialog.show();
-        new infoAudioAsyncTask(this).execute(url, String.valueOf(idUsuario));
-
-
     }
 
-    @Override
-    public void onPlayClick(String audioUrl) {
-        // Use the mainHandler to ensure UI operations are on the main thread
-        mainHandler.post(new Runnable() {
+    // Método para actualizar seekbar y tiempo restante
+
+    private void updateSeekBar() {
+        Runnable updateSeekBarRunnable = new Runnable() {
             @Override
             public void run() {
-                Log.e("AudioUrl", audioUrl);
-                initializePlayer();
-                MediaItem mediaItem = MediaItem.fromUri(audioUrl);
-                exoPlayer.setMediaItem(mediaItem);
-                exoPlayer.prepare();
-                exoPlayer.setPlayWhenReady(true);
+                if (mediaPlayer.isPlaying()) {
+                    int currentPosition = mediaPlayer.getCurrentPosition();
+                    int totalDuration = mediaPlayer.getDuration();
+
+                    // Actualiza el progreso del SeekBar
+                    seekMusick.setProgress(currentPosition);
+
+                    // Actualiza el TextView con el tiempo restante
+                    int timeLeft = totalDuration - currentPosition;
+                    textViewPlay.setText(formatTime(timeLeft));
+                }
+
+                handler.postDelayed(this, 100);
             }
-        });
+        };
+
+        // Ejecuta la actualización inicial
+        handler.post(updateSeekBarRunnable);
     }
 
-    @SuppressLint("WrongViewCast")
-    private void initializePlayer(){
-        if (exoPlayer == null) {
-            // Create a SimpleExoPlayer instance
-            exoPlayer = new SimpleExoPlayer.Builder(this).build();
-
-            // Bind the player to the view
-            playerView = findViewById(R.id.playbtns);
-            playerView.setVisibility(View.VISIBLE);
-            playerView.setPlayer(exoPlayer);
-        }
+    // Método para formatear el tiempo en formato mm:ss
+    private String formatTime(int milliseconds) {
+        int seconds = milliseconds / 1000;
+        int minutes = seconds / 60;
+        seconds = seconds % 60;
+        return String.format("%02d:%02d", minutes, seconds);
     }
 
-    private void releasePlayer() {
-        if (exoPlayer != null) {
-            exoPlayer.release();
-            exoPlayer = null;
-        }
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        releasePlayer();
-    }
-
-    @Override
-    public void onDataFetched(List<infoReproductor> dataList) {
-        if (dataList != null && !dataList.isEmpty()) {
-            reproductoinfo = dataList.get(0);
 
 
-            imagebuttonEditarFotoAudio.setImageBitmap(reproductoinfo.getImage());
-            nombreCanciones.setText(reproductoinfo.getnombre());
-            seekMusick.getAccessibilityClassName();
 
 
-        } else {
-            Log.e("Error", "No data fetched from the server");
-        }
 
-    }
+
+
 
 
 

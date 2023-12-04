@@ -103,8 +103,8 @@ public class BuscarAudioAsyncTask extends AsyncTask<String, Void, List<audioItem
                 Integer idUsuario = jsonObject.getInt("idusuario");
                 String nombreCancion = jsonObject.getString("nombrecancion");
                 Bitmap enlacePortada = ImageDownloader.downloadImage(jsonObject.getString("enlaceportada"));
-
-                dataList.add(new audioItem(enlacePortada, nombreCancion, idUsuario));
+                String url = jsonObject.getString("enlaceaudio");
+                dataList.add(new audioItem(enlacePortada, nombreCancion, idUsuario,url));
             }
 
         } catch (JSONException e) {

@@ -129,12 +129,11 @@ public class BuscarAudiosAsyncTask extends AsyncTask<String, Void, Pair<Integer,
 
                 // Extrae la informacion y crea objetos
                 Integer idaudio = jsonObject.getInt("idaudio");
-                String nombre = jsonObject.getString("nombreCancion");
-                String autorcancion = jsonObject.getString("autor");
-                Bitmap imageResource = ImageDownloader.downloadImage(jsonObject.getString("enlacefoto"));
+                String nombre = jsonObject.getString("nombrecancion");
+                Bitmap imageResource = ImageDownloader.downloadImage(jsonObject.getString("enlaceportada"));
                 String genero = jsonObject.getString("genero");
 
-                dataList.add(new buscarAudioMusica(idaudio, nombre, autorcancion,imageResource, genero));
+                dataList.add(new buscarAudioMusica(idaudio, nombre,imageResource, genero));
             }
 
         } catch (JSONException e) {
