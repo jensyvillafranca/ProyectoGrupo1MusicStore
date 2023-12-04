@@ -30,6 +30,8 @@ import androidx.core.content.ContextCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.proyectogrupo1musicstore.Utilidades.Imagenes.FileUtils;
 import com.example.proyectogrupo1musicstore.Utilidades.Token.JwtDecoder;
 import com.example.proyectogrupo1musicstore.Utilidades.Token.token;
 import java.io.ByteArrayOutputStream;
@@ -294,6 +296,7 @@ public class Activity_SubirMusica extends AppCompatActivity {
             //Si el nombre de la canción viene vacío
             if(nombreCancion == null){
                 contadorElementos++;
+                nombreCancion = new FileUtils(this).getFileName(audioUri);
             }
             //Si el artista de la canción viene vacío
             if(artista == null){
