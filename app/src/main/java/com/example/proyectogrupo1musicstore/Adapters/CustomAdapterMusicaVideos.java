@@ -39,7 +39,6 @@ public class CustomAdapterMusicaVideos extends RecyclerView.Adapter<CustomAdapte
 
         // Vincula los datos a las vistas en tu diseño de elemento de lista personalizado
         holder.nombreCancion.setText(data.getNombre());
-        holder.creadoPor.setText(data.getAutor());
         holder.images.setImageBitmap(data.getImage());
         holder.genero.setText(data.getGenero());
     }
@@ -51,18 +50,15 @@ public class CustomAdapterMusicaVideos extends RecyclerView.Adapter<CustomAdapte
 
 
     public class CustomViewHolder extends RecyclerView.ViewHolder {
-        TextView nombreCancion; // TextView para mostrar el nombre del grupo
-        TextView creadoPor; // TextView para mostrar el creador del grupo
-        TextView genero; // TextView para mostrar el creador del grupo
-
-        ImageView images; // ImageView para mostrar una imagen asociada al grupo
+        TextView nombreCancion; // TextView para mostrar el nombre del playlist
+        TextView genero; // TextView para mostrar el creador del playlist
+        ImageView images; // ImageView para mostrar una imagen asociada al playlist
 
         public CustomViewHolder(View itemView) {
             super(itemView);
-            nombreCancion = itemView.findViewById(R.id.txtListItemNombreGrupo); // Asocia la vista de nombre del grupo
-            creadoPor = itemView.findViewById(R.id.txtListItemCreadoMusica); // Asocia la vista del creador del grupo
-            images = itemView.findViewById(R.id.imageviewListItemImagess); // Asocia la vista de la imagen asociada al grupo
-            genero = itemView.findViewById(R.id.txtListtGenero); // Asocia la vista del creador del grupo
+            nombreCancion = itemView.findViewById(R.id.txtListItemNombreMusicaAudio); // Asocia la vista de nombre plalist
+            images = itemView.findViewById(R.id.imageviewListItemImagess); // Asocia la vista de la imagen asociada a la plalist
+            genero = itemView.findViewById(R.id.txtListtGenero); // Genero de la plalist
         }
     }
 

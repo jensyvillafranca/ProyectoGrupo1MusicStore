@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -23,6 +24,9 @@ import com.example.proyectogrupo1musicstore.Adapters.CustomAdapterMusicaVideos;
 import com.example.proyectogrupo1musicstore.Models.buscarAudioMusica;
 import com.example.proyectogrupo1musicstore.Models.vistaMusicaVideo;
 import com.example.proyectogrupo1musicstore.NetworkTaksMulti.BuscarAudiosAsyncTask;
+import com.example.proyectogrupo1musicstore.NetworkTasks.GruposNetworkTasks.BuscarGruposAsyncTask;
+import com.example.proyectogrupo1musicstore.Utilidades.Navegacion.NavigationClickListener;
+import com.example.proyectogrupo1musicstore.Utilidades.Token.JwtDecoder;
 import com.example.proyectogrupo1musicstore.Utilidades.Token.token;
 
 import java.util.ArrayList;
@@ -38,6 +42,8 @@ public class Activity_BuscarMusica extends AppCompatActivity {
     EditText txtGruposBuscarss;
     ImageView imgBuscarss, imgBuscar2ss ;
     CardView buscarss;
+
+    private NavigationClickListener navigationClickListener;
 
     private com.example.proyectogrupo1musicstore.Utilidades.Token.token token = new token(this);
     private int idUsuario;
@@ -58,6 +64,11 @@ public class Activity_BuscarMusica extends AppCompatActivity {
         imgBuscar2ss = (ImageView) findViewById(R.id.imageViewAudiosBusquedaBuscar2);
         buscarss = (CardView) findViewById(R.id.cardViewNavegacionVideo);
 
+        // Inicializa listener para elementos
+        navigationClickListener = new NavigationClickListener(this, this);
+
+        idUsuario = Integer.parseInt(JwtDecoder.decodeJwt(token.recuperarTokenFromKeystore()));
+
         //Creacion de una lista de elementos de vistaArchivos
         List<buscarAudioMusica> dataList = new ArrayList<>();
 
@@ -67,20 +78,26 @@ public class Activity_BuscarMusica extends AppCompatActivity {
         CustomAdapterMusicaVideos adapter = new CustomAdapterMusicaVideos(this, dataList);
         listas.setAdapter(adapter);
 
-
-        View.OnClickListener buttonClick = new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Class<?> actividad = null;
-                if (view.getId() == R.id.btn_AudiosBuscarAtras) {
-                    actividad = Activity_SubirMusica.class;
-                }
-
-                if (actividad != null) {
-                    moveActivity(actividad);
-                }
+        try{
+            String busqueda;
+            busqueda = getIntent().getStringExtra("busqueda");
+            if(!busqueda.isEmpty()){
+                txtGruposBuscarss.setText(busqueda);
+                String query = txtGruposBuscarss.getText().toString();
+                new BuscarAudiosAsyncTask(Activity_BuscarMusica.this, listas, adapter)
+                        .execute(String.valueOf(idUsuario), query);
             }
-        };
+        }catch (Exception e){
+            Log.e("Error Parameter", "No se encontro un parametro");
+        }
+
+        botonAtrasss.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
 
 
         textviewGruposBuscarss.setOnClickListener(new View.OnClickListener() {

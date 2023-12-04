@@ -3,22 +3,22 @@ package com.example.proyectogrupo1musicstore.NetworkTaksMulti;
 import android.graphics.Bitmap;
 
 public class infoPlayListMusica {
-    private int idgrupo;
+    private int idplaylist;
     private String nombre;
     private Bitmap foto;
 
     public infoPlayListMusica(int idgrupo, String nombre, Bitmap foto) {
-        this.idgrupo = idgrupo;
+        this.idplaylist = idgrupo;
         this.nombre = nombre;
         this.foto = foto;
     }
 
     public int getIdgrupo() {
-        return idgrupo;
+        return idplaylist;
     }
 
     public void setIdgrupo(int idgrupo) {
-        this.idgrupo = idgrupo;
+        this.idplaylist = idgrupo;
     }
 
     public String getNombre() {

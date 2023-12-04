@@ -18,6 +18,7 @@ import android.provider.Settings;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -46,6 +47,7 @@ public class Activity_SubirMusica extends AppCompatActivity {
     DrawerLayout drawerLayouts;
     ImageButton botonAtrass;
     TextView textviewAtrass, txtBuscarArchivos;
+    private Button btnPlays, btnPrevButtons, btnForwardButtons;
     ImageView imageViewBuscarArchivos;
     CardView buscars, videos, seleccionarAudio;
     private static final int PICK_AUDIOS_REQUEST = 1;// Código de solicitud para seleccionar un archivo de audio
