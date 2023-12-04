@@ -106,6 +106,7 @@ public class ActivityPlayList extends AppCompatActivity implements informacionGe
         new ObtenerPlayListAsyncTask(ActivityPlayList.this, playAdapter, progressDialog).execute(String.valueOf(idUsuario));
         new obtenerAudiosMultimediaAsyncTask(ActivityPlayList.this, musicaAdapter, progressDialog)
                 .execute(String.valueOf(idUsuario));
+        progressDialog.show();
 
 
 //        new ObtenerPlayListAsyncTask(ActivityPlayList.this, playAdapter, progressDialog)
