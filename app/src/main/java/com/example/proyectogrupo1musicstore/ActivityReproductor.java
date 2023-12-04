@@ -126,22 +126,18 @@ public class ActivityReproductor extends AppCompatActivity{
                     }
                 });
 
+
+
                 // Actualizar SeekBar y tiempo restante
                 updateSeekBar();
             }
         });
 
-
-
-
-
-
-
-
         //metodo del Seebark
         btnCerrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mediaPlayer.stop();
                 finish();
             }
         });

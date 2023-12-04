@@ -12,6 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.proyectogrupo1musicstore.Activities.Grupos.ActivityGruposBuscar;
+import com.example.proyectogrupo1musicstore.ActivityReproductoVideo;
+import com.example.proyectogrupo1musicstore.ActivityReproductor;
 import com.example.proyectogrupo1musicstore.Models.integrantesItem;
 import com.example.proyectogrupo1musicstore.Models.musicItem;
 import com.example.proyectogrupo1musicstore.R;
@@ -39,6 +41,15 @@ public class MusicaAdapter extends RecyclerView.Adapter<MusicaAdapter.MusicaView
         musicItem item = itemList.get(position);
         holder.musicaImage.setImageBitmap(item.getImageResId());
         holder.musicaName.setText(item.getItemName());
+        holder.musicaImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), ActivityReproductor.class);
+                intent.putExtra("musicaUrl", item.getUrl());
+                intent.putExtra("name", item.getItemName());
+                v.getContext().startActivity(intent);
+            }
+        });
     }
 
     @Override
