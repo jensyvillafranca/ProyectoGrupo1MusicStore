@@ -1,72 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/layout_mainIModificacionPlaytem"
-    android:layout_width="match_parent"
-    android:layout_height="95dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="10dp"
+    android:layout_marginTop="5dp"
+    android:layout_marginEnd="10dp"
+    android:layout_marginBottom="5dp"
+    android:orientation="vertical">
 
-    android:layout_marginBottom="10dp"
-    android:background="@color/black"
-    android:padding="16dp">
-
-    <ImageView
-        android:id="@+id/imageviewListItemImageplaylist"
-        android:layout_width="62dp"
-        android:layout_height="57dp"
-        android:contentDescription="Image"
-        android:src="@drawable/iconomusicas"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
-
-    <TextView
-        android:id="@+id/txtListItemNombreCancionFavorita"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/fuente_jost_global"
-        android:text="Nombre cancion Favorita"
-        android:textColor="@color/white"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/iconLayout"
-        app:layout_constraintStart_toEndOf="@+id/imageviewListItemImageplaylist"
-        app:layout_constraintTop_toTopOf="@+id/layout_mainIModificacionPlaytem" />
-
-
-
-
-    <TextView
-        android:id="@+id/txtListItemNombreCantente"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/fuente_jost_global"
-        android:text="Nombre del cantante"
-        android:textColor="@color/white"
-        app:layout_constraintEnd_toStartOf="@+id/iconLayout"
-        app:layout_constraintStart_toEndOf="@+id/imageviewListItemImageplaylist"
-        app:layout_constraintTop_toBottomOf="@+id/txtListItemNombreCancionFavorita" />
-
-
-
-
-
-    <LinearLayout
-        android:id="@+id/iconLayout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardviewImageCancionFavorita"
+        android:layout_width="99dp"
+        android:layout_height="99dp"
+        android:backgroundTint="@android:color/transparent"
+        app:cardCornerRadius="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
+        <ImageView
+            android:id="@+id/imageviewCarouselItemIntegrantes"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitXY"
+            app:srcCompat="@drawable/iconomusicas" />
 
-        <CheckBox
-            android:id="@+id/checkboxCancionfavorita"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:buttonTint="@android:color/white" />
+    </androidx.cardview.widget.CardView>
 
-
-    </LinearLayout>
+    <TextView
+        android:id="@+id/textviewCarouselItemCancionesFavorita"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:fontFamily="@font/fuente_jost_global"
+        android:gravity="center"
+        android:text="Nombre de Musica"
+        android:textColor="@color/lightGray90"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardviewImageCancionFavorita" />
 </androidx.constraintlayout.widget.ConstraintLayout>

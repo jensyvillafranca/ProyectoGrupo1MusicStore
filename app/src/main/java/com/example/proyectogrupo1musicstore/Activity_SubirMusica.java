@@ -90,9 +90,9 @@ public class Activity_SubirMusica extends AppCompatActivity {
         drawerLayouts = (DrawerLayout) findViewById(R.id.drawer_layout);
         botonAtrass = (ImageButton) findViewById(R.id.btn_PrincipalAtras);
         textviewAtrass = (TextView) findViewById(R.id.textview_GrupoPrincipalbotAtras);
-        txtBuscarArchivos = (TextView) findViewById(R.id.BuscarArchivo);
-        imageViewBuscarArchivos = (ImageView) findViewById(R.id.imageviewBusqueda);
-        buscars = (CardView) findViewById(R.id.cardViewBuscarArchivo);
+        //txtBuscarArchivos = (TextView) findViewById(R.id.BuscarArchivo);
+        //imageViewBuscarArchivos = (ImageView) findViewById(R.id.imageviewBusqueda);
+        //buscars = (CardView) findViewById(R.id.cardViewBuscarArchivo);
         seleccionarAudio = (CardView) findViewById(R.id.cardViewSubirMusica);
         videos = (CardView) findViewById(R.id.cardViewNavegacionVideo);
         recyclerViewAudios = (RecyclerView) findViewById(R.id.recyclerview_SubirMusica);
@@ -112,9 +112,7 @@ public class Activity_SubirMusica extends AppCompatActivity {
                 if (view.getId() == R.id.cardViewNavegacionVideo) {
                     actividad = Activity_SubirVideo.class;
                 }
-                if (view.getId() == R.id.cardViewBuscarArchivo) {
-                    actividad = Activity_BuscarMusica.class;
-                }
+
                 if (view.getId() == R.id.btn_PrincipalAtras) {
                     actividad = ActivityPlayList.class;
                 }
@@ -124,7 +122,7 @@ public class Activity_SubirMusica extends AppCompatActivity {
                 }
             }
         };
-        buscars.setOnClickListener(buttonClick);
+       // buscars.setOnClickListener(buttonClick);
         videos.setOnClickListener(buttonClick);
         botonAtrass.setOnClickListener(buttonClick);
         musicaItems();
