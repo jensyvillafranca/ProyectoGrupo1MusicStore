@@ -7,12 +7,13 @@
     android:layout_marginEnd="10dp"
     android:layout_marginBottom="5dp"
     android:orientation="vertical">
+
     <CheckBox
         android:id="@+id/checkboxCancion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:buttonTint="@android:color/white"/>
+        android:buttonTint="@android:color/white" />
 
     <ImageView
         android:id="@+id/itemPortadaAudios"

@@ -5,8 +5,9 @@
     android:id="@+id/layout_mainIModificacionPlaytem"
     android:layout_width="match_parent"
     android:layout_height="95dp"
+
     android:layout_marginBottom="10dp"
-    android:background="@color/white"
+    android:background="@color/black"
     android:padding="16dp">
 
     <ImageView
@@ -14,18 +15,18 @@
         android:layout_width="62dp"
         android:layout_height="57dp"
         android:contentDescription="Image"
-        android:src="@drawable/social"
+        android:src="@drawable/iconomusicas"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
     <TextView
-        android:id="@+id/txtListItemNombrePlayList"
+        android:id="@+id/txtListItemNombreCancionFavorita"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/fuente_jost_global"
-        android:text="Nombre PlayList"
-        android:textColor="@color/black"
+        android:text="Nombre cancion Favorita"
+        android:textColor="@color/white"
         android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/iconLayout"
         app:layout_constraintStart_toEndOf="@+id/imageviewListItemImageplaylist"
@@ -35,26 +36,17 @@
 
 
     <TextView
-        android:id="@+id/txtListItemCreadoplaylist"
+        android:id="@+id/txtListItemNombreCantente"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/fuente_jost_global"
-        android:text="@string/creador"
-        android:textColor="@color/black"
+        android:text="Nombre del cantante"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toStartOf="@+id/iconLayout"
         app:layout_constraintStart_toEndOf="@+id/imageviewListItemImageplaylist"
-        app:layout_constraintTop_toBottomOf="@+id/txtListItemNombrePlayList" />
+        app:layout_constraintTop_toBottomOf="@+id/txtListItemNombreCancionFavorita" />
 
-    <TextView
-        android:id="@+id/txtListItemBiografia"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/fuente_jost_global"
-        android:text="Biografia"
-        android:textColor="@color/black"
-        app:layout_constraintEnd_toStartOf="@+id/iconLayout"
-        app:layout_constraintStart_toEndOf="@+id/imageviewListItemImageplaylist"
-        app:layout_constraintTop_toBottomOf="@+id/txtListItemCreadoplaylist" />
+
 
 
 
@@ -68,13 +60,12 @@
         app:layout_constraintBottom_toBottomOf="parent">
 
 
-        <ImageView
-            android:id="@+id/imageviewPlayListIconoEditar"
-            android:layout_width="24dp"
-            android:layout_height="match_parent"
-            android:contentDescription="Icon 2"
-            android:src="@drawable/iconoeditargrupo"
-            android:visibility="visible" />
+        <CheckBox
+            android:id="@+id/checkboxCancionfavorita"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:buttonTint="@android:color/white" />
 
 
     </LinearLayout>

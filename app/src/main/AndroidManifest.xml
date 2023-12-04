@@ -10,6 +10,7 @@
         android:required="true" />
 
     <queries>
+
         <!-- Browser -->
         <intent>
             <action android:name="android.intent.action.VIEW" />
@@ -52,6 +53,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ProyectoGrupo1MusicStore"
         tools:targetApi="31">
+        <activity
+            android:name=".ActivityVerCancionesFavoritas"
+            android:exported="false" />
         <activity
             android:name=".ActivityAgregarPlayListMusica"
             android:exported="false" />
