@@ -31,4 +31,9 @@ public class AppPreferences {
         editor.putInt(KEY_USER_SCORE, score);
         editor.apply();
     }
+
+    public static void resetFirstTimePreferences(Context context) {
+        setUserScore(context, 1);
+        setFirstTimeOpen(context, true);
+    }
 }
