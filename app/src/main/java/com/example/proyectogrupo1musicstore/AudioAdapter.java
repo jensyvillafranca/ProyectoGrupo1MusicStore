@@ -86,6 +86,11 @@ public class AudioAdapter extends RecyclerView.Adapter<AudioAdapter.AudioViewHol
 
     @Override
     public int getItemCount() {
+        // Check if the list is null
+        if (itemList == null) {
+            return 0;
+        }
+
         return itemList.size();
     }
 
