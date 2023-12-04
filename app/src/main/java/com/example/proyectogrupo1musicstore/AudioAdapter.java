@@ -45,8 +45,6 @@ public class AudioAdapter extends RecyclerView.Adapter<AudioAdapter.AudioViewHol
         ImageView imgAudio = holder.itemView.findViewById(R.id.itemPortadaAudios);
 
 
-
-
         imgAudio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

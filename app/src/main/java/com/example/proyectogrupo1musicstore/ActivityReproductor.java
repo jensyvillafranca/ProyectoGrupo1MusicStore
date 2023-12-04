@@ -70,6 +70,31 @@ public class ActivityReproductor extends AppCompatActivity implements infoAudioA
             mediaPlayer.stop();
             mediaPlayer.release();
         }
+        //metodo del Seebark
+        seekMusick.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                // Handle progress change, update player position if needed
+                if (fromUser) {
+                    // Calculate the position based on progress and update your player
+                    // For example, if you have a player named 'exoplayer', you can do:
+                    long duration = exoPlayer.getDuration();
+                    long newPosition = (duration * progress) / 100;
+                    exoPlayer.seekTo(newPosition);
+                }
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+                // Handle tracking start
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                // Handle tracking stop, update player position
+                // This might not be necessary, as you can update the position in onProgressChanged
+            }
+        });
 
 
 
@@ -80,14 +105,6 @@ public class ActivityReproductor extends AppCompatActivity implements infoAudioA
         String url = "https://phpclusters-152621-0.cloudclusters.net/obtenerAudioReproductor.php";
         //progressDialog.show();
         new infoAudioAsyncTask(this).execute(url, String.valueOf(idUsuario));
-
-
-
-
-
-
-
-
 
 
     }
@@ -142,7 +159,7 @@ public class ActivityReproductor extends AppCompatActivity implements infoAudioA
 
             imagebuttonEditarFotoAudio.setImageBitmap(reproductoinfo.getImage());
             nombreCanciones.setText(reproductoinfo.getnombre());
-          //  seekbars.OnSeekBarChangeListener(reproductoinfo.getUrl());
+            seekMusick.getAccessibilityClassName();
 
 
         } else {

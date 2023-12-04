@@ -120,7 +120,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
                         }
                     });
                 }
-            }else {
+            }else{
                 messageText.setText(message.getText());
                 senderName.setText(message.getFull_identity());
                 messageTime.setText(DateUtils.formatTimestamp(message.getTimestamp()));

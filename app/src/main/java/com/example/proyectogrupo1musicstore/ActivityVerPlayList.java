@@ -68,21 +68,14 @@ public class ActivityVerPlayList extends AppCompatActivity implements FetchDataA
         LinearLayoutManager layoutManager = new LinearLayoutManager(this); // Use an appropriate layout manager
         recyclerviewvertodoPlayList.setLayoutManager(layoutManager);
 
-        View.OnClickListener buttonClick = new View.OnClickListener() {
+        botonAtrass.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Class<?> actividad = null;
-
-                if (view.getId() == R.id.btn_vertodosPlayListAtras) {
-                    actividad = ActivityPlayList.class;
-                }
-
-                if (actividad != null) {
-                    moveActivity(actividad);
-                }
+            public void onClick(View v) {
+                finish();
             }
-        };
-        botonAtrass.setOnClickListener(buttonClick);
+        });
+
+
     }
 
     public void onDataFetched(List<vistadeplaylist> dataList) {
@@ -92,9 +85,6 @@ public class ActivityVerPlayList extends AppCompatActivity implements FetchDataA
         recyclerviewvertodoPlayList.setAdapter(adapter);
     }
 
-    private void moveActivity(Class<?> actividad) {
-        Intent intent = new Intent(getApplicationContext(), actividad);
-        startActivity(intent);
-    }
+
 
 }
