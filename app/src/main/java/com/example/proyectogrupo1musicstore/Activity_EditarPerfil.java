@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import androidx.biometric.BiometricPrompt;
@@ -676,6 +677,12 @@ public class Activity_EditarPerfil extends AppCompatActivity {
 
         //llama el asynctask
         new UpdateImagenPerfilAsyncTask(Activity_EditarPerfil.this).execute(jsonData.toString());
+
+        //guarda la imagen en sharedpreferences
+        SharedPreferences sharedPreferences = getSharedPreferences("image_bitmap_perfil", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("key_for_image", base64Image);
+        editor.apply();
     }
 
 }

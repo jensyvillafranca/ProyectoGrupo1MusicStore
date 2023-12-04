@@ -48,7 +48,7 @@ public class Activity_PerfilPersonal extends AppCompatActivity implements Inform
     private DrawerLayout drawerLayout;
     private ImageButton btnMenu;
     private Button btnSeguir;
-    TextView txtNombreCompleto, txtUsername, txtCorreo, txtSeguidores, txtSiguiendo;
+    TextView txtNombreCompleto, txtUsername, txtCorreo, txtSeguidores, txtSiguiendo, textViewGruposFavorito, textViewPlaylistFavoritos;
     ImageView imgPFP;
     LinearLayout btnAtras;
     LinearLayout verSeguidores, verSeguidos;
@@ -77,6 +77,8 @@ public class Activity_PerfilPersonal extends AppCompatActivity implements Inform
         btnMenu = findViewById(R.id.btn_PrincipalDesplegablePerfil);
         drawerLayout = findViewById(R.id.drawer_layout);
         btnSeguir = findViewById(R.id.btnSeguidoSeguir5);
+        textViewGruposFavorito = findViewById(R.id.textviewPerfilGruposFavoritos);
+        textViewPlaylistFavoritos = findViewById(R.id.textviewPerfilPlaylists);
 
         try{
             idUsuarioVista = getIntent().getIntExtra("idusuarioVista", 0);
@@ -153,7 +155,12 @@ public class Activity_PerfilPersonal extends AppCompatActivity implements Inform
         if (dataList != null && !dataList.isEmpty()) {
             informacionPerfil perfilInfo = dataList.get(0);
 
-            Log.e("Numero Seguidores: ", String.valueOf(perfilInfo.getNumeroSeguidores()));
+            if(perfilInfo.getVisualizacion() == 0 && perfilInfo.getIdusuario()!=idUsuario &&perfilInfo.getSeguidor()!= 1){
+                recycerViewPlaylistFavoritos.setVisibility(View.GONE);
+                recyclerViewGruposFavoritos.setVisibility(View.GONE);
+                textViewPlaylistFavoritos.setVisibility(View.GONE);
+                textViewGruposFavorito.setVisibility(View.GONE);
+            }
 
             txtNombreCompleto.setText(perfilInfo.getNombre());
             txtUsername.setText("@" + perfilInfo.getUsuario());

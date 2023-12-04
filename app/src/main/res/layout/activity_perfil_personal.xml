@@ -294,6 +294,7 @@ android:layout_height="wrap_content">
                                     android:layout_height="8dp" />
 
                                 <TextView
+                                    android:id="@+id/textviewPerfilGruposFavoritos"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center"
@@ -313,6 +314,7 @@ android:layout_height="wrap_content">
                                     android:orientation="vertical">
 
                                     <TextView
+                                        android:id="@+id/textviewPerfilPlaylists"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="center"
