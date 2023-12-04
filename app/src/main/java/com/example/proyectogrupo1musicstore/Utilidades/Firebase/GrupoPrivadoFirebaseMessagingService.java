@@ -146,7 +146,7 @@ public class GrupoPrivadoFirebaseMessagingService extends FirebaseMessagingServi
         // String someData = remoteMessage.getData().get("some_key");
         // intent.putExtra("extra_key", someData);
 
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_MUTABLE);
 
         String title = remoteMessage.getNotification().getTitle();
         String body = remoteMessage.getNotification().getBody();
