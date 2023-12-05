@@ -391,6 +391,7 @@ public class Activity_EditarPerfil extends AppCompatActivity {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
+                        cerrarSesion();
                     }
                 },
                 new Response.ErrorListener() {
@@ -400,6 +401,15 @@ public class Activity_EditarPerfil extends AppCompatActivity {
                 });
 
         Volley.newRequestQueue(this).add(request);
+    }
+
+    private void cerrarSesion() {
+        acceso.borrarToken();
+        AppPreferences.resetFirstTimePreferences(Activity_EditarPerfil.this);
+        // Regresar al usuario a la pantalla de inicio de sesión
+        Intent intent = new Intent(Activity_EditarPerfil.this, activity_login.class);
+        startActivity(intent);
+        finish();
     }
 
     private void editarVisualizacion (int idVisualizacion){

@@ -155,7 +155,7 @@ public class Activity_PerfilPersonal extends AppCompatActivity implements Inform
         if (dataList != null && !dataList.isEmpty()) {
             informacionPerfil perfilInfo = dataList.get(0);
 
-            if(perfilInfo.getVisualizacion() == 0 && perfilInfo.getIdusuario()!=idUsuario &&perfilInfo.getSeguidor()!= 1){
+            if(perfilInfo.getVisualizacion() == 0 && perfilInfo.getIdusuario()!=idUsuario){
                 recycerViewPlaylistFavoritos.setVisibility(View.GONE);
                 recyclerViewGruposFavoritos.setVisibility(View.GONE);
                 textViewPlaylistFavoritos.setVisibility(View.GONE);

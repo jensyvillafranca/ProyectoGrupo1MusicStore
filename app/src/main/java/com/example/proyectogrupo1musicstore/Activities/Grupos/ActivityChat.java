@@ -107,7 +107,7 @@ public class ActivityChat extends AppCompatActivity implements MessageAdapter.On
     private static final int REQUEST_CODE = 123;
     private static final int REQUEST_CODE_VIDEO = 126;
     private static final int REQUEST_CODE_EXTERNAL = 124;
-    private static final int REQUEST_AUDIO_SELECTION = 123;
+    private static final int REQUEST_AUDIO_SELECTION = 127;
     private static final int REQUEST_VIDEO_SELECTION = 125;
 
     @Override

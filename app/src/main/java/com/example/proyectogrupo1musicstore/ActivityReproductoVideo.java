@@ -33,8 +33,6 @@ public class ActivityReproductoVideo extends AppCompatActivity {
         videoUrl = getIntent().getStringExtra("videoUrl");
         videoName = getIntent().getStringExtra("name");
 
-        Log.e("VideoURL", videoUrl);
-
         videoView = findViewById(R.id.imagenreproductor);
         btnPlay = findViewById(R.id.playbtn);
         textViewVideoName = findViewById(R.id.txtMusicareproductor);

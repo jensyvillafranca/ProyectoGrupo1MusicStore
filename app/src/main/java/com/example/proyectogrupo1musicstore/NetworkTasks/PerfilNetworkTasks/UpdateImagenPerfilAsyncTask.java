@@ -60,7 +60,7 @@ public class UpdateImagenPerfilAsyncTask extends AsyncTask<String, Void, Void> {
     protected void onPostExecute(Void aVoid) {
         super.onPostExecute(aVoid);
         Toast.makeText(context, "¡Cambios Guardados!", Toast.LENGTH_SHORT).show();
-        DelayedActivityStarter.startDelayedActivity(context, Activity_EditarPerfil.class, 1500);
+        DelayedActivityStarter.startDelayedActivity(context, ActivityPantallaPrincipal.class, 1500);
         progressDialog.dismiss();
     }
 }
