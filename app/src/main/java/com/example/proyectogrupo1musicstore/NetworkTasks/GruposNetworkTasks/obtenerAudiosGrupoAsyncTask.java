@@ -48,7 +48,7 @@ public class obtenerAudiosGrupoAsyncTask extends AsyncTask<String, Void, List<mu
 
         try {
             // construye el URL
-            URL url = new URL("https://phpclusters-152621-0.cloudclusters.net/obtenerMusicaGrupo.php");
+            URL url = new URL("https://phpclusters-156700-0.cloudclusters.net/obtenerMusicaGrupo.php");
 
             // Crea la conexion y la abre
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();

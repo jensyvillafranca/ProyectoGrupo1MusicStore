@@ -49,7 +49,7 @@ public class obtenerIntegrantesGrupoAsyncTask extends AsyncTask<String, Void, Li
 
         try {
             // construye el URL
-            URL url = new URL("https://phpclusters-152621-0.cloudclusters.net/obtenerIntegrantesGrupo.php");
+            URL url = new URL("https://phpclusters-156700-0.cloudclusters.net/obtenerIntegrantesGrupo.php");
 
             // Crea la conexion y la abre
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();

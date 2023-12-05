@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ActivityEditarPlayList"
+    tools:context=".Activities.Multimedia.ActivityEditarPlayList"
     android:background="@drawable/background"
     android:paddingTop="15dp">
 

@@ -54,7 +54,7 @@ public class BuscarAudiosAsyncTask extends AsyncTask<String, Void, Pair<Integer,
         String search = params[1];
 
         try {
-            URL url = new URL("https://phpclusters-152621-0.cloudclusters.net/busccarCanciones.php");
+            URL url = new URL("https://phpclusters-156700-0.cloudclusters.net/busccarCanciones.php");
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setRequestMethod("POST");
             urlConnection.setRequestProperty("Content-Type", "application/json");

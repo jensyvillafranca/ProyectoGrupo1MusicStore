@@ -1,7 +1,6 @@
 package com.example.proyectogrupo1musicstore.Adapters;
 
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.proyectogrupo1musicstore.ActivityReproductoVideo;
+import com.example.proyectogrupo1musicstore.Activities.Reproductores.ActivityReproductoVideo;
 import com.example.proyectogrupo1musicstore.Models.mensajeModel;
 import com.example.proyectogrupo1musicstore.R;
 import com.example.proyectogrupo1musicstore.Utilidades.Date.DateUtils;

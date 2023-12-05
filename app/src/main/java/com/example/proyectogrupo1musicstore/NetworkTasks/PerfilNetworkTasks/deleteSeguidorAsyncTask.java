@@ -36,7 +36,7 @@ public class deleteSeguidorAsyncTask extends AsyncTask<String, Void, Boolean> {
         String idusuarioactivo = params[1];
 
         try {
-            URL url = new URL("https://phpclusters-152621-0.cloudclusters.net/deleteSeguidor.php");
+            URL url = new URL("https://phpclusters-156700-0.cloudclusters.net/deleteSeguidor.php");
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setRequestMethod("POST");
             urlConnection.setRequestProperty("Content-Type", "application/json");

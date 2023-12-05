@@ -294,7 +294,7 @@ public class ActivityNuevoGrupoDetalles extends AppCompatActivity implements Fet
         for (Integer userId : userIds) {
             // Fetch data from the server
             String idUsuarios = userId.toString();
-            String url = "https://phpclusters-152621-0.cloudclusters.net/buscarIntegrantePorID.php";
+            String url = "https://phpclusters-156700-0.cloudclusters.net/buscarIntegrantePorID.php";
             new FetchMemberDetailsAsyncTask(this, dataList, 1).execute(url, idUsuarios);
         }
     }

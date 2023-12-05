@@ -57,7 +57,7 @@ public class BuscarUsuariosAsyncTask extends AsyncTask<String, Void, Pair<Intege
         String search = params[1];
 
         try {
-            URL url = new URL("https://phpclusters-152621-0.cloudclusters.net/buscarUsuario.php");
+            URL url = new URL("https://phpclusters-156700-0.cloudclusters.net/buscarUsuario.php");
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setRequestMethod("POST");
             urlConnection.setRequestProperty("Content-Type", "application/json");

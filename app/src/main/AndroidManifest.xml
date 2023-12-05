@@ -54,10 +54,10 @@
         android:theme="@style/Theme.ProyectoGrupo1MusicStore"
         tools:targetApi="31">
         <activity
-            android:name=".ActivityVerCancionesFavoritas"
+            android:name=".Activities.Multimedia.ActivityVerCancionesFavoritas"
             android:exported="false" />
         <activity
-            android:name=".ActivityAgregarPlayListMusica"
+            android:name=".Activities.Multimedia.ActivityAgregarPlayListMusica"
             android:exported="false" />
         <activity
             android:name=".Activities.Buscar.ActivityBuscarPrincipal"
@@ -72,19 +72,19 @@
             android:name=".Activities.AcercaDe.ActivityAcercaDe"
             android:exported="false" />
         <activity
-            android:name=".ActivityReproductoVideo"
+            android:name=".Activities.Reproductores.ActivityReproductoVideo"
             android:exported="false" />
         <activity
-            android:name=".ActivityVerPlayList"
+            android:name=".Activities.PantallaPrincipal.ActivityVerPlayList"
             android:exported="false" />
         <activity
-            android:name=".ActivityReproductor"
+            android:name=".Activities.Reproductores.ActivityReproductor"
             android:exported="false" />
         <activity
-            android:name=".ActivityEditarPlayList"
+            android:name=".Activities.Multimedia.ActivityEditarPlayList"
             android:exported="false" />
         <activity
-            android:name=".ActivityModificarPlayList"
+            android:name=".Activities.Multimedia.ActivityModificarPlayList"
             android:exported="false" />
         <activity
             android:name=".Activities.Grupos.ActivityChat"
@@ -102,43 +102,43 @@
             android:name=".Activities.Grupos.ActivityVerTodosIntegrantes"
             android:exported="false" />
         <activity
-            android:name=".Activity_ConfirmaCambioContrasena"
+            android:name=".Activities.Auth.Activity_ConfirmaCambioContrasena"
             android:exported="false" />
         <activity
-            android:name=".Activity_CambiarContrasena"
+            android:name=".Activities.Auth.Activity_CambiarContrasena"
             android:exported="false" />
         <activity
-            android:name=".Activity_EditarPerfil"
+            android:name=".Activities.Perfil.Activity_EditarPerfil"
             android:exported="false" />
         <activity
-            android:name=".ActivityArchivosPersonales"
+            android:name=".Activities.Multimedia.ActivityArchivosPersonales"
             android:exported="false" />
         <activity
-            android:name=".Activity_BuscarVideos"
+            android:name=".Activities.Multimedia.Activity_BuscarVideos"
             android:exported="false" />
         <activity
-            android:name=".Activity_BuscarMusica"
+            android:name=".Activities.Multimedia.Activity_BuscarMusica"
             android:exported="false" />
         <activity
-            android:name=".Activity_SubirVideo"
+            android:name=".Activities.Multimedia.Activity_SubirVideo"
             android:exported="false" />
         <activity
-            android:name=".Activity_SubirMusica"
+            android:name=".Activities.Multimedia.Activity_SubirMusica"
             android:exported="false" />
         <activity
-            android:name=".Activity_CrearPlayList"
+            android:name=".Activities.Multimedia.Activity_CrearPlayList"
             android:exported="false" />
         <activity
-            android:name=".ActivityPlayList"
+            android:name=".Activities.Multimedia.ActivityPlayList"
             android:exported="false" />
         <activity
-            android:name=".ActivityPlay"
+            android:name=".Activities.Multimedia.ActivityPlay"
             android:exported="false" />
         <activity
-            android:name=".activity_registrarse"
+            android:name=".Activities.Auth.activity_registrarse"
             android:exported="false" />
         <activity
-            android:name=".activity_login"
+            android:name=".Activities.Auth.activity_login"
             android:exported="false" />
         <activity
             android:name=".Activities.Perfil.Activity_PerfilPersonal"
@@ -172,26 +172,26 @@
             android:name=".activity_personalizado_advertencia"
             android:exported="false" />
         <activity
-            android:name=".activity_recuperar_contrasena1"
+            android:name=".Activities.Auth.activity_recuperar_contrasena1"
             android:exported="false" />
         <activity
-            android:name=".activity_recuperar_contrasena2"
+            android:name=".Activities.Auth.activity_recuperar_contrasena2"
             android:exported="false" />
         <activity
-            android:name=".activity_recuperar_contrasena3"
+            android:name=".Activities.Auth.activity_recuperar_contrasena3"
             android:exported="false" />
         <activity
-            android:name=".activity_codigoverificacion_crearcuenta"
+            android:name=".Activities.Auth.activity_codigoverificacion_crearcuenta"
             android:exported="false" />
-        <activity android:name=".activity_principal_login" />
+        <activity android:name=".Activities.Auth.activity_principal_login" />
         <activity
-            android:name=".Activity_PerfilUsuario"
-            android:exported="false" />
-        <activity
-            android:name=".ActivityListaUsuarios"
+            android:name=".Activities.Perfil.Activity_PerfilUsuario"
             android:exported="false" />
         <activity
-            android:name=".ActivityListaSeguidos"
+            android:name=".Activities.Perfil.ActivityListaUsuarios"
+            android:exported="false" />
+        <activity
+            android:name=".Activities.Perfil.ActivityListaSeguidos"
             android:exported="false" />
         <activity
             android:name=".Activities.Perfil.ActivityListaSeguidores"

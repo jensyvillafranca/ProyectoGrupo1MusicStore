@@ -55,7 +55,7 @@ public class BuscarIntegranteAsyncTask extends AsyncTask<String, Void, Pair<Inte
         String search = params[1];
 
         try {
-            URL url = new URL("https://phpclusters-152621-0.cloudclusters.net/buscarIntegrantePorNombre.php");
+            URL url = new URL("https://phpclusters-156700-0.cloudclusters.net/buscarIntegrantePorNombre.php");
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setRequestMethod("POST");
             urlConnection.setRequestProperty("Content-Type", "application/json");

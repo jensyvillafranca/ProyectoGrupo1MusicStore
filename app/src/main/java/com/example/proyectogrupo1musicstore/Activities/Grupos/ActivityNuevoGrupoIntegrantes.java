@@ -57,7 +57,7 @@ public class ActivityNuevoGrupoIntegrantes extends AppCompatActivity implements 
         SearchView searchView = (SearchView) findViewById(R.id.searchview_NuevoGrupoIntegrantesBuscar);
 
         // Fetch data from the server
-        String url = "https://phpclusters-152621-0.cloudclusters.net/buscarSeguidores.php";
+        String url = "https://phpclusters-156700-0.cloudclusters.net/buscarSeguidores.php";
         progressDialog.show();
         new NuevoGrupoIntegrantesAsyncTask(this, progressDialog).execute(url, String.valueOf(idUsuario));
 
@@ -86,7 +86,7 @@ public class ActivityNuevoGrupoIntegrantes extends AppCompatActivity implements 
             @Override
             public boolean onClose() {
                 // Reload all followers using NuevoGrupoIntegrantesAsyncTask
-                String url = "https://phpclusters-152621-0.cloudclusters.net/buscarSeguidores.php";
+                String url = "https://phpclusters-156700-0.cloudclusters.net/buscarSeguidores.php";
                 progressDialog.show();
                 new NuevoGrupoIntegrantesAsyncTask(ActivityNuevoGrupoIntegrantes.this, progressDialog).execute(url, String.valueOf(idUsuario));
                 return false;

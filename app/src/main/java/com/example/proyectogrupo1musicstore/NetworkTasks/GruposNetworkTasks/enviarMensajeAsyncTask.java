@@ -28,11 +28,11 @@ public class enviarMensajeAsyncTask extends AsyncTask<String, Void, Void> {
         try {
             URL url = null;
             if (tipo == 1){
-                url = new URL("https://phpclusters-152621-0.cloudclusters.net/guardarMensaje.php");
+                url = new URL("https://phpclusters-156700-0.cloudclusters.net/guardarMensaje.php");
             } else if (tipo == 2) {
-                url = new URL("https://phpclusters-152621-0.cloudclusters.net/guardarMensajeUrl.php");
+                url = new URL("https://phpclusters-156700-0.cloudclusters.net/guardarMensajeUrl.php");
             } else if (tipo == 3) {
-                url = new URL("https://phpclusters-152621-0.cloudclusters.net/guardarMensajeVoice.php");
+                url = new URL("https://phpclusters-156700-0.cloudclusters.net/guardarMensajeVoice.php");
             }
 
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();

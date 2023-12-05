@@ -7,7 +7,7 @@
     android:background="@drawable/background"
     android:orientation="vertical"
     android:weightSum="10"
-    tools:context=".ActivityReproductor">
+    tools:context=".Activities.Reproductores.ActivityReproductor">
 
     <ImageButton
         android:id="@+id/imagebuttonCerrarVideo"

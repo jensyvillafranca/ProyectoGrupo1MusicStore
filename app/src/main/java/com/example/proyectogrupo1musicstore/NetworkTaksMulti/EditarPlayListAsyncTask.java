@@ -6,7 +6,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.example.proyectogrupo1musicstore.ActivityModificarPlayList;
+import com.example.proyectogrupo1musicstore.Activities.Multimedia.ActivityModificarPlayList;
 import com.example.proyectogrupo1musicstore.Utilidades.UI.DelayedActivityStarter;
 
 import java.io.BufferedOutputStream;
@@ -33,7 +33,7 @@ public class EditarPlayListAsyncTask  extends AsyncTask<String, Void, Void> {
         String jsonData = params[0];
 
         try {
-            URL url = new URL("https://phpclusters-152621-0.cloudclusters.net/modificacionPlayList.php");
+            URL url = new URL("https://phpclusters-156700-0.cloudclusters.net/modificacionPlayList.php");
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setRequestMethod("POST");
             urlConnection.setRequestProperty("Content-Type", "application/json");

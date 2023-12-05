@@ -10,12 +10,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.proyectogrupo1musicstore.Activities.Grupos.ActivityChat;
-import com.example.proyectogrupo1musicstore.Activities.Grupos.ActivityEditarGrupo;
-import com.example.proyectogrupo1musicstore.Activities.Grupos.ActivityGrupoInfo;
-import com.example.proyectogrupo1musicstore.ActivityEditarPlayList;
-import com.example.proyectogrupo1musicstore.ActivityModificarPlayList;
-import com.example.proyectogrupo1musicstore.Models.vistaDeGrupo;
+import com.example.proyectogrupo1musicstore.Activities.Multimedia.ActivityEditarPlayList;
+import com.example.proyectogrupo1musicstore.Activities.Multimedia.ActivityModificarPlayList;
 import com.example.proyectogrupo1musicstore.Models.vistadeplaylist;
 import com.example.proyectogrupo1musicstore.R;
 

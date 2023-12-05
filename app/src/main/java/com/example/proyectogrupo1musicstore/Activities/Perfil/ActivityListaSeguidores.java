@@ -28,7 +28,6 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
-import com.example.proyectogrupo1musicstore.Activity_PerfilUsuario;
 import com.example.proyectogrupo1musicstore.Adapters.AppData;
 import com.example.proyectogrupo1musicstore.Models.User;
 import com.example.proyectogrupo1musicstore.R;
@@ -118,7 +117,7 @@ public class ActivityListaSeguidores extends AppCompatActivity {
                     String query = editTextUsuarioBuscar.getText().toString();
                     listaDeUsuarios.clear();
 
-                    String url = "https://phpclusters-152621-0.cloudclusters.net/buscarUsuarios.php?id=" + IdPersonal + "&buscar=" + query;
+                    String url = "https://phpclusters-156700-0.cloudclusters.net/buscarUsuarios.php?id=" + IdPersonal + "&buscar=" + query;
                     JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
                             new Response.Listener<JSONArray>() {
                                 @Override
@@ -218,7 +217,7 @@ public class ActivityListaSeguidores extends AppCompatActivity {
 //----------------------------------------------------------------------------------------------------------------------------
 
         if(IdUsuario == -1){
-            String url = "https://phpclusters-152621-0.cloudclusters.net/mostrarUsuariosSeguidor.php?id="+IdPersonal+"";
+            String url = "https://phpclusters-156700-0.cloudclusters.net/mostrarUsuariosSeguidor.php?id="+IdPersonal+"";
             JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
                     new Response.Listener<JSONArray>() {
                         @Override
@@ -291,7 +290,7 @@ public class ActivityListaSeguidores extends AppCompatActivity {
 
             Volley.newRequestQueue(this).add(jsonArrayRequest);
         }else {
-            String url = "https://phpclusters-152621-0.cloudclusters.net/mostrarUsuariosSeguidor.php?id="+IdUsuario+"";
+            String url = "https://phpclusters-156700-0.cloudclusters.net/mostrarUsuariosSeguidor.php?id="+IdUsuario+"";
             JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
                     new Response.Listener<JSONArray>() {
                         @Override
@@ -476,7 +475,7 @@ public class ActivityListaSeguidores extends AppCompatActivity {
     }
 
     private void eliminarSeguidor(int idUsuarioSeguido) {
-        String urlEliminarSeguido = "https://phpclusters-152621-0.cloudclusters.net/eliminarSeguidor.php?idUsuarioSeguido=" + idUsuarioSeguido +"&idUsuario="+IdPersonal+"";
+        String urlEliminarSeguido = "https://phpclusters-156700-0.cloudclusters.net/eliminarSeguidor.php?idUsuarioSeguido=" + idUsuarioSeguido +"&idUsuario="+IdPersonal+"";
         JSONObject postData = new JSONObject();
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, urlEliminarSeguido, null,
@@ -497,7 +496,7 @@ public class ActivityListaSeguidores extends AppCompatActivity {
 
 
     private void crearSeguidor(int idUsuarioSeguidor) {
-        String urlCrearSeguidor = "https://phpclusters-152621-0.cloudclusters.net/crearSeguidor.php?idUsuarioSeguido=" + idUsuarioSeguidor +"&idUsuario="+IdPersonal+"";
+        String urlCrearSeguidor = "https://phpclusters-156700-0.cloudclusters.net/crearSeguidor.php?idUsuarioSeguido=" + idUsuarioSeguidor +"&idUsuario="+IdPersonal+"";
         JSONObject postData = new JSONObject();
         try {
             postData.put("idUsuarioSeguido", idUsuarioSeguidor);

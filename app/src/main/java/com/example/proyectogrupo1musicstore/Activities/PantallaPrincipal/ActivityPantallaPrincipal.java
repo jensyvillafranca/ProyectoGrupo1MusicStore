@@ -4,7 +4,6 @@ import android.Manifest;
 import android.app.AlertDialog;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -16,8 +15,6 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.PopupMenu;
 
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -32,7 +29,6 @@ import com.example.proyectogrupo1musicstore.Utilidades.AppPreferences.AppPrefere
 import com.example.proyectogrupo1musicstore.Utilidades.Navegacion.NavigationClickListener;
 import com.example.proyectogrupo1musicstore.Utilidades.Token.token;
 import com.example.proyectogrupo1musicstore.Utilidades.Firebase.updateFirebaseToken;
-import com.example.proyectogrupo1musicstore.activity_login;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.example.proyectogrupo1musicstore.Utilidades.Token.JwtDecoder;
 

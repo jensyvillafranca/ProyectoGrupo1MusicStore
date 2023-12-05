@@ -58,7 +58,7 @@ public class ActivityGrupoPrincipal extends AppCompatActivity implements FetchDa
         openMenuButton = (ImageButton) findViewById(R.id.btn_GruposPrincipalMenu);
 
         // Fetch data from the server
-        String url = "https://phpclusters-152621-0.cloudclusters.net/principalGrupos.php";
+        String url = "https://phpclusters-156700-0.cloudclusters.net/principalGrupos.php";
         // Reemplazar por el idusuario - Motivos de prueba
         progressDialog.show();
         new FetchDataAsyncGruposPrincipal(this, progressDialog).execute(url, String.valueOf(idUsuario));

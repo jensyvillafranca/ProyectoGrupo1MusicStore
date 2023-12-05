@@ -107,12 +107,12 @@ public class ActivityEditarGrupo extends AppCompatActivity implements Informacio
         recyclerViewIntegrantes.setLayoutManager(layoutManager);
 
         // Obtiene la informacion del servidor
-        String url = "https://phpclusters-152621-0.cloudclusters.net/obtenerInformacionGrupoEditar.php";
+        String url = "https://phpclusters-156700-0.cloudclusters.net/obtenerInformacionGrupoEditar.php";
         progressDialog.show();
         new InformacionGrupoEditarAsyncTask(this).execute(url, String.valueOf(idgrupo));
 
         //Obtiene la lista de integrantes
-        String ulrIntegranes = "https://phpclusters-152621-0.cloudclusters.net/obtenerIntegrantesGrupo.php";
+        String ulrIntegranes = "https://phpclusters-156700-0.cloudclusters.net/obtenerIntegrantesGrupo.php";
         new FetchMemberDetailsEditarAsyncTask(ActivityEditarGrupo.this, adapter, progressDialog, 2).execute(ulrIntegranes, String.valueOf(idgrupo));
 
         // Listeners para botones de atras

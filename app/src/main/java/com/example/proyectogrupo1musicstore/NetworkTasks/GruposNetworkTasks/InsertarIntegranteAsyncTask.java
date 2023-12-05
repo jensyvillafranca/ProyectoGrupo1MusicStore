@@ -38,7 +38,7 @@ public class InsertarIntegranteAsyncTask extends AsyncTask<String, Void, Boolean
         String idOwner = params[3];
 
         try {
-            URL url = new URL("https://phpclusters-152621-0.cloudclusters.net/insertarIntegrante.php");
+            URL url = new URL("https://phpclusters-156700-0.cloudclusters.net/insertarIntegrante.php");
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setRequestMethod("POST");
             urlConnection.setRequestProperty("Content-Type", "application/json");

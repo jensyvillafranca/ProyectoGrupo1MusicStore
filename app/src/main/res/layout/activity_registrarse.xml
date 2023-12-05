@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/fondodetodaslaspantallas"
     android:textAlignment="textEnd"
-    tools:context=".activity_registrarse">
+    tools:context=".Activities.Auth.activity_registrarse">
 
 
     <!--Jensy-->

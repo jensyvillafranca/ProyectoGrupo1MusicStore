@@ -11,10 +11,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.proyectogrupo1musicstore.ActivityAgregarPlayListMusica;
-import com.example.proyectogrupo1musicstore.ActivityEditarPlayList;
-import com.example.proyectogrupo1musicstore.ActivityModificarPlayList;
-import com.example.proyectogrupo1musicstore.Activity_BuscarMusica;
+import com.example.proyectogrupo1musicstore.Activities.Multimedia.ActivityAgregarPlayListMusica;
+import com.example.proyectogrupo1musicstore.Activities.Multimedia.ActivityModificarPlayList;
 import com.example.proyectogrupo1musicstore.Models.vistadeplaylist;
 import com.example.proyectogrupo1musicstore.R;
 

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/fondodetodaslaspantallas"
-    tools:context=".Activity_BuscarMusica">
+    tools:context=".Activities.Multimedia.Activity_BuscarMusica">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/fondodetodaslaspantallas"
-            tools:context=".Activity_BuscarMusica">
+            tools:context=".Activities.Multimedia.Activity_BuscarMusica">
 
             <RelativeLayout
                 android:id="@+id/layout_BuscarAudioBtnAtras"

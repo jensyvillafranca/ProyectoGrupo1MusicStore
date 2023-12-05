@@ -46,7 +46,7 @@ public class obtenerGruposFavoritosAsyncTask extends AsyncTask<String, Void, Lis
 
         try {
             // construye el URL
-            URL url = new URL("https://phpclusters-152621-0.cloudclusters.net/obtenerGruposFavoritos.php");
+            URL url = new URL("https://phpclusters-156700-0.cloudclusters.net/obtenerGruposFavoritos.php");
 
             // Crea la conexion y la abre
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();

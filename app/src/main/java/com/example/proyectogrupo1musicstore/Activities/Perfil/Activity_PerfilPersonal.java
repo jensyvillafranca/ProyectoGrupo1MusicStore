@@ -1,14 +1,11 @@
 package com.example.proyectogrupo1musicstore.Activities.Perfil;
 
-import com.example.proyectogrupo1musicstore.Activities.Grupos.ActivityGruposBuscar;
-import com.example.proyectogrupo1musicstore.ActivityListaSeguidos;
 import com.example.proyectogrupo1musicstore.Adapters.GruposFavoritosAdapter;
 import com.example.proyectogrupo1musicstore.Adapters.PlayListAdapter;
 import com.example.proyectogrupo1musicstore.Models.PlayListItem;
 import com.example.proyectogrupo1musicstore.Models.informacionGruposFavoritos;
 import com.example.proyectogrupo1musicstore.Models.informacionPerfil;
 import com.example.proyectogrupo1musicstore.NetworkTaksMulti.ObtenerPlayListAsyncTask;
-import com.example.proyectogrupo1musicstore.NetworkTasks.GruposNetworkTasks.BuscarGruposAsyncTask;
 import com.example.proyectogrupo1musicstore.NetworkTasks.PerfilNetworkTasks.InformacionPerfilAsyncTask;
 import com.example.proyectogrupo1musicstore.NetworkTasks.PerfilNetworkTasks.InsertarSeguidorAsyncTask;
 import com.example.proyectogrupo1musicstore.NetworkTasks.PerfilNetworkTasks.deleteSeguidorAsyncTask;
@@ -142,7 +139,7 @@ public class Activity_PerfilPersonal extends AppCompatActivity implements Inform
 
 
         //Obtiene informcaion de asynctask
-        String url = "https://phpclusters-152621-0.cloudclusters.net/obtenerInformacionPerfil.php";
+        String url = "https://phpclusters-156700-0.cloudclusters.net/obtenerInformacionPerfil.php";
         progressDialog.show();
         new InformacionPerfilAsyncTask(this).execute(url, String.valueOf(idUsuarioVista), String.valueOf(idUsuario));
         new obtenerGruposFavoritosAsyncTask(Activity_PerfilPersonal.this, gruposAdapter)

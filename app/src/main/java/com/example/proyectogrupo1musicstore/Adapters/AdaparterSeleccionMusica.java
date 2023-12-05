@@ -1,15 +1,8 @@
 package com.example.proyectogrupo1musicstore.Adapters;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.proyectogrupo1musicstore.Models.musicItem;
-import com.example.proyectogrupo1musicstore.R;
-import com.example.proyectogrupo1musicstore.audioItem;
+import com.example.proyectogrupo1musicstore.Models.audioItem;
 
 import java.util.List;
 

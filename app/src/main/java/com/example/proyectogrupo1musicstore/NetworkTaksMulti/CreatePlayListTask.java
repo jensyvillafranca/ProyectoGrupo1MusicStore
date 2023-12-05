@@ -9,8 +9,7 @@ import android.util.Log;
 import android.widget.EditText;
 
 
-import com.example.proyectogrupo1musicstore.ActivityPlay;
-import com.example.proyectogrupo1musicstore.ActivityPlayList;
+import com.example.proyectogrupo1musicstore.Activities.Multimedia.ActivityPlay;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -66,7 +65,7 @@ public class CreatePlayListTask extends AsyncTask<String, Void, Void> {
     protected Void doInBackground(String... params) {
         try{
             onProgressCalled = false;
-            URL url = new URL("https://phpclusters-152621-0.cloudclusters.net/crearPlayLists.php");
+            URL url = new URL("https://phpclusters-156700-0.cloudclusters.net/crearPlayLists.php");
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setRequestMethod("POST");
             urlConnection.setRequestProperty("Content-Type", "application/json");
@@ -137,7 +136,7 @@ public class CreatePlayListTask extends AsyncTask<String, Void, Void> {
             JSONObject jsonData = new JSONObject();
             jsonData.put("nombre", playName);
 
-            URL url = new URL("https://phpclusters-152621-0.cloudclusters.net/exitePlayList.php");
+            URL url = new URL("https://phpclusters-156700-0.cloudclusters.net/exitePlayList.php");
 
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");

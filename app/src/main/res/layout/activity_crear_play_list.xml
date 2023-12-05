@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/background"
     android:paddingTop="15dp"
-    tools:context=".Activity_CrearPlayList">
+    tools:context=".Activities.Multimedia.Activity_CrearPlayList">
 
     <ImageButton
         android:id="@+id/btn_CrearPlayList"

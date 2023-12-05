@@ -32,7 +32,7 @@ public class UpdateGrupoAsyncTask extends AsyncTask<String, Void, Void> {
         String jsonData = params[0];
 
         try {
-            URL url = new URL("https://phpclusters-152621-0.cloudclusters.net/updateInfoGrupo.php");
+            URL url = new URL("https://phpclusters-156700-0.cloudclusters.net/updateInfoGrupo.php");
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setRequestMethod("POST");
             urlConnection.setRequestProperty("Content-Type", "application/json");

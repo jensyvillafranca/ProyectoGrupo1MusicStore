@@ -69,7 +69,7 @@ public class CreateGroupAsyncTask extends AsyncTask<String, Void, Void> {
         } else if (nombreGrupoDisponible == true) {
             try {
                 onProgressCalled = false;
-                URL url = new URL("https://phpclusters-152621-0.cloudclusters.net/nuevoGrupo.php");
+                URL url = new URL("https://phpclusters-156700-0.cloudclusters.net/nuevoGrupo.php");
                 HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
                 urlConnection.setRequestMethod("POST");
                 urlConnection.setRequestProperty("Content-Type", "application/json");
@@ -144,7 +144,7 @@ public class CreateGroupAsyncTask extends AsyncTask<String, Void, Void> {
             JSONObject jsonData = new JSONObject();
             jsonData.put("nombre", groupName);
 
-            URL url = new URL("https://phpclusters-152621-0.cloudclusters.net/existeGrupo.php");
+            URL url = new URL("https://phpclusters-156700-0.cloudclusters.net/existeGrupo.php");
 
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");

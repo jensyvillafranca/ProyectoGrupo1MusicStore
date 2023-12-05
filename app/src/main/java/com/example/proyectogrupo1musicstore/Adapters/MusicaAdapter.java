@@ -11,10 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.proyectogrupo1musicstore.Activities.Grupos.ActivityGruposBuscar;
-import com.example.proyectogrupo1musicstore.ActivityReproductoVideo;
-import com.example.proyectogrupo1musicstore.ActivityReproductor;
-import com.example.proyectogrupo1musicstore.Models.integrantesItem;
+import com.example.proyectogrupo1musicstore.Activities.Reproductores.ActivityReproductor;
 import com.example.proyectogrupo1musicstore.Models.musicItem;
 import com.example.proyectogrupo1musicstore.R;
 

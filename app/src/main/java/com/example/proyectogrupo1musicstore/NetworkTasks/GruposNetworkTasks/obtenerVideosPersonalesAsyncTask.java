@@ -46,7 +46,7 @@ public class obtenerVideosPersonalesAsyncTask extends AsyncTask<String, Void, Li
 
         try {
             // construye el URL
-            URL url = new URL("https://phpclusters-152621-0.cloudclusters.net/obtenerVideosPersonales.php");
+            URL url = new URL("https://phpclusters-156700-0.cloudclusters.net/obtenerVideosPersonales.php");
 
             // Crea la conexion y la abre
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();

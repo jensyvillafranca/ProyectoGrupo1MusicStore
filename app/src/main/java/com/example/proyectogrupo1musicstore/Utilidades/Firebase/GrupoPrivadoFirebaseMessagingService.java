@@ -72,7 +72,6 @@ public class GrupoPrivadoFirebaseMessagingService extends FirebaseMessagingServi
         if (storedToken == null) {
             return;
         }
-        idUsuario = Integer.parseInt(storedToken);
         saveTokenLocally(newToken);
         updateFirebaseToken.updateToken(newToken, idUsuario);
         Log.e("newToken: ", newToken);

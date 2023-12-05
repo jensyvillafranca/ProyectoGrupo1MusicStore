@@ -3,14 +3,13 @@ package com.example.proyectogrupo1musicstore.NetworkTasks.Multimedia;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.example.proyectogrupo1musicstore.AudioAdapter;
+import com.example.proyectogrupo1musicstore.Adapters.AudioAdapter;
 import com.example.proyectogrupo1musicstore.R;
 import com.example.proyectogrupo1musicstore.Utilidades.Imagenes.ImageDownloader;
-import com.example.proyectogrupo1musicstore.audioItem;
+import com.example.proyectogrupo1musicstore.Models.audioItem;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -46,7 +45,7 @@ public class obtenerAudiosMultimediaAsyncTask extends AsyncTask<String, Void, Li
 
         try {
             // construye el URL
-            URL url = new URL("https://phpclusters-152621-0.cloudclusters.net/obtenerAudiosPersonales.php");
+            URL url = new URL("https://phpclusters-156700-0.cloudclusters.net/obtenerAudiosPersonales.php");
 
             // Crea la conexion y la abre
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();

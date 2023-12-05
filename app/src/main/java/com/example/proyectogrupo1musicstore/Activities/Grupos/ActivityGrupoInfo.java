@@ -110,7 +110,7 @@ public class ActivityGrupoInfo extends AppCompatActivity implements InfomacionGe
         recyclerViewVideos.setLayoutManager(layoutManagerVideo);
 
         // Fetch data from the server
-        String url = "https://phpclusters-152621-0.cloudclusters.net/obtenerInfoGrupo.php";
+        String url = "https://phpclusters-156700-0.cloudclusters.net/obtenerInfoGrupo.php";
         progressDialog.show();
         new InfomacionGeneralGrupoAsyncTask(this).execute(url, String.valueOf(idgrupo));
         new obtenerIntegrantesGrupoAsyncTask(ActivityGrupoInfo.this, integrantesAdapter, progressDialog)
