@@ -288,7 +288,6 @@ public class Activity_SubirVideo extends AppCompatActivity {
 
             //Si el nombre del video viene vacío
             if(nombreVideo == null){
-                nombreVideo = new FileUtils(this).getFileName(videoUri);
                 contadorElementosV++;
             }
             //Si el autor del video viene vacío
@@ -311,7 +310,7 @@ public class Activity_SubirVideo extends AppCompatActivity {
 
             //Mandar a llamar la modal donde el usuario digitara la información que esta nula de la metadata.
             if(contadorElementosV > 0 && contadorElementosV < 7){
-                activity_personalizada_metadata_video dialogFragment = activity_personalizada_metadata_video.newInstance();
+                activity_personalizada_metadata_video dialogFragment = activity_personalizada_metadata_video.newInstance(this, videoUri);
                 dialogFragment.show(getSupportFragmentManager(), "ventana");
                 /*Una vez que la data este llena, en la otra clase de la modal se mandara a instanciar esta clase para
                  * acceder al método de subirAudioFirebase*/

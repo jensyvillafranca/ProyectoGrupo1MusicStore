@@ -300,7 +300,6 @@ public class Activity_SubirMusica extends AppCompatActivity {
             //Si el nombre de la canción viene vacío
             if(nombreCancion == null){
                 contadorElementos++;
-                nombreCancion = new FileUtils(this).getFileName(audioUri);
             }
             //Si el artista de la canción viene vacío
             if(artista == null){
@@ -318,7 +317,7 @@ public class Activity_SubirMusica extends AppCompatActivity {
 
             //Mandar a llamar la modal donde el usuario digitara la información que esta nula de la metadata.
             if(contadorElementos > 0 && contadorElementos < 5){
-                activity_personalizada_metadata dialogFragment = activity_personalizada_metadata.newInstance();
+                activity_personalizada_metadata dialogFragment = activity_personalizada_metadata.newInstance(this, audioUri);
                 dialogFragment.show(getSupportFragmentManager(), "ventana");
                 /*Una vez que la data este llena, en la otra clase de la modal se mandara a instanciar esta clase para
                 * acceder al método de subirAudioFirebase*/

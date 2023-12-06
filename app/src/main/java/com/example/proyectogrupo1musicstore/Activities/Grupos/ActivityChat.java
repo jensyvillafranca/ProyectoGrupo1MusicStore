@@ -540,7 +540,7 @@ public class ActivityChat extends AppCompatActivity implements MessageAdapter.On
     // Metodo para elegir el audio
     private void pickAudio() {
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-        intent.setType("audio/mp3");
+        intent.setType("audio/*");
         startActivityForResult(intent, PICK_AUDIO_REQUEST);
     }
 

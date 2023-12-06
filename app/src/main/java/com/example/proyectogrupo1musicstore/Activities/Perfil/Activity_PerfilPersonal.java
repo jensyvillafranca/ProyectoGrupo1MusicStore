@@ -119,14 +119,10 @@ public class Activity_PerfilPersonal extends AppCompatActivity implements Inform
 
         // Creación de listas de elementos
         List<informacionGruposFavoritos> gruposList = new ArrayList<>();
-        List<PlayListItem> playlistitemList = new ArrayList<>();
 
         // Crea y vincula el adaptador - integrantes
         GruposFavoritosAdapter gruposAdapter = new GruposFavoritosAdapter(this, gruposList);
         recyclerViewGruposFavoritos.setAdapter(gruposAdapter);
-        // Crea y vincula el adaptador - playadapter
-        PlayListAdapter playAdapter = new PlayListAdapter(this, playlistitemList);
-        recycerViewPlaylistFavoritos.setAdapter(playAdapter);
 
         //Configuracion del administrador de diseño
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
@@ -144,13 +140,26 @@ public class Activity_PerfilPersonal extends AppCompatActivity implements Inform
         new InformacionPerfilAsyncTask(this).execute(url, String.valueOf(idUsuarioVista), String.valueOf(idUsuario));
         new obtenerGruposFavoritosAsyncTask(Activity_PerfilPersonal.this, gruposAdapter)
                 .execute(String.valueOf(idUsuarioVista), String.valueOf(idUsuario), String.valueOf(1));
-        new ObtenerPlayListAsyncTask(Activity_PerfilPersonal.this, playAdapter, progressDialog).execute(String.valueOf(idUsuario));
     }
 
     @Override
     public void onDataFetched(List<informacionPerfil> dataList) {
         if (dataList != null && !dataList.isEmpty()) {
             informacionPerfil perfilInfo = dataList.get(0);
+
+            if(perfilInfo.getIdusuario() == idUsuario){
+                List<PlayListItem> playlistitemList = new ArrayList<>();
+                // Crea y vincula el adaptador - playadapter
+                PlayListAdapter playAdapter = new PlayListAdapter(this, playlistitemList);
+                recycerViewPlaylistFavoritos.setAdapter(playAdapter);
+                new ObtenerPlayListAsyncTask(Activity_PerfilPersonal.this, playAdapter, progressDialog).execute(String.valueOf(idUsuario));
+            }else{
+                List<PlayListItem> playlistitemList = new ArrayList<>();
+                // Crea y vincula el adaptador - playadapter
+                PlayListAdapter playAdapter = new PlayListAdapter(this, playlistitemList);
+                recycerViewPlaylistFavoritos.setAdapter(playAdapter);
+                new ObtenerPlayListAsyncTask(Activity_PerfilPersonal.this, playAdapter, progressDialog).execute(String.valueOf(perfilInfo.getIdusuario()));
+            }
 
             if(perfilInfo.getVisualizacion() == 0 && perfilInfo.getIdusuario()!=idUsuario){
                 recycerViewPlaylistFavoritos.setVisibility(View.GONE);

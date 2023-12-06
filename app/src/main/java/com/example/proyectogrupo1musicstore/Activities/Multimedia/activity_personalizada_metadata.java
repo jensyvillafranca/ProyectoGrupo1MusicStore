@@ -11,9 +11,11 @@ import static com.example.proyectogrupo1musicstore.Activities.Multimedia.Activit
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.InputFilter;
 import android.text.Spanned;
@@ -32,6 +34,7 @@ import androidx.fragment.app.DialogFragment;
 
 import com.example.proyectogrupo1musicstore.NetworkTasks.Multimedia.Activity_SubirMusicaAsyncTask;
 import com.example.proyectogrupo1musicstore.R;
+import com.example.proyectogrupo1musicstore.Utilidades.Imagenes.FileUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -42,6 +45,8 @@ public class activity_personalizada_metadata extends DialogFragment {
     private final ArrayList<String> metadataExistente = new ArrayList<>(Arrays.asList(null, null, null, null));
     private View dialogView;
     String nombreCancion_aux, artista_aux, genero_aux, album_aux;
+    public Uri audioUriMain;
+    private Context contextMain;
 
 
     /*Expresion*/
@@ -52,11 +57,16 @@ public class activity_personalizada_metadata extends DialogFragment {
             "[A-Za-zÀ-ÖØ-öø-ÿ/:,!$., ]+"  //edittext 4
     };
 
-    public static activity_personalizada_metadata newInstance() {
+    public static activity_personalizada_metadata newInstance(Context context, Uri audioUri) {
         activity_personalizada_metadata fragment = new activity_personalizada_metadata();
         Bundle args = new Bundle();
-        fragment.setArguments(args);
+        fragment.setArguments(args, audioUri, context);
         return fragment;
+    }
+
+    private void setArguments(Bundle args, Uri audioUri, Context context) {
+        audioUriMain = audioUri;
+        contextMain = context;
     }
 
     @NonNull
@@ -215,7 +225,7 @@ public class activity_personalizada_metadata extends DialogFragment {
             if(contadorAux == 1){
                 if(inputText.isEmpty()){
                     //Si el usuario no conoce el nombre de la canción y decide dejarlo como vacío
-                    nombreCancion_aux = null;
+                    nombreCancion_aux = new FileUtils(contextMain).getFileName(audioUriMain);
                 }else{
                     //Mandar el valor de nombre del autor en caso de que el usuario si lo llene
                     nombreCancion_aux = inputText;
